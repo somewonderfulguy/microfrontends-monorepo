@@ -15,6 +15,7 @@ module.exports = function override(config) {
       remotes: {},
       exposes: {
         // keep in alphabetical order
+        "./Block": "./src/components/Block",
         "./Button": "./src/components/formLike/Button",
       },
       shared: {

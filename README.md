@@ -30,3 +30,4 @@ TODO: describe types
 - XState for difficult state?
 - Recoil for fixing prop drilling? OR React context?
 - Configure icons
+- Edit readme in each project
