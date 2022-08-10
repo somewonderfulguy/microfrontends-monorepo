@@ -1,0 +1,5 @@
+.error {
+  display: inline-block;
+  background: rgba(255, 0, 0, 0.226);
+  padding: 5px 15px;
+}
