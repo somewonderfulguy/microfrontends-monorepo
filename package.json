@@ -7,13 +7,15 @@
   "scripts": {
     "start": "concurrently \"wsrun --parallel start\"",
     "build": "concurrently \"wsrun --parallel build\"",
-    "serve": "concurrently \"wsrun --parallel serve\""
+    "serve": "concurrently \"wsrun --parallel serve\"",
+    "wipe": "rimraf node_modules packages/**/node_modules"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
     "concurrently": "^7.2.2",
+    "rimraf": "^3.0.2",
     "wsrun": "^5.2.4"
   }
 }
