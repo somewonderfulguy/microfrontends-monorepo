@@ -8,10 +8,14 @@
 import React, { ComponentType, LazyExoticComponent, ReactNode, Suspense } from 'react';
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
 
-import styles from './federatedComponent.module.css';
+const errorStyle = {
+  display: 'inline-block',
+  background: 'rgba(255, 0, 0, 0.226)',
+  padding: '5px 15px'
+};
 
-const FallbackComponent = ({ error }: FallbackProps) => (
-  <div role="alert" className={styles.error}>
+const DefaultFallbackComponent = ({ error }: FallbackProps) => (
+  <div role="alert" style={errorStyle}>
     <p>Federated module failed!</p>
     <pre>{error.message}</pre>
   </div>
@@ -34,7 +38,7 @@ export function federatedComponent<T extends ComponentType>(
       fallbackRender={props => (
         Fallback
           ? <Fallback {...props} />
-          : <FallbackComponent {...props} />
+          : <DefaultFallbackComponent {...props} />
       )}
       onError={(...args) => errorHandler(...args)}
     >

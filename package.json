@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"wsrun --parallel start\"",
-    "build": "concurrently \"wsrun --parallel build\"",
+    "build": "yarn workspaces run build",
     "serve": "concurrently \"wsrun --parallel serve\"",
     "wipe": "rimraf node_modules packages/**/node_modules"
   },

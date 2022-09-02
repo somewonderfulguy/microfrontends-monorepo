@@ -15,7 +15,7 @@ module.exports = function override(config) {
       remotes: {
         // keep in alphabetical order
         'sub-application': `sub_application@http://localhost:${config.mode === "production" ? 5030 : 3030}/sub-application.js`,
-        shared: `shared@http://localhost:${config.mode === "production" ? 5333 : 3333}/shared.js`,
+        'shared-mf': `shared@http://localhost:${config.mode === "production" ? 5333 : 3333}/shared.js`,
       },
       exposes: {},
       shared: {
