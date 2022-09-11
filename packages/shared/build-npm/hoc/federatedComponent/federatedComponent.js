@@ -47,8 +47,8 @@ function errorHandler(error, info) {
 function federatedComponent(_ref2) {
   var Component = _ref2.Component,
       delayedElement = _ref2.delayedElement,
-      Fallback = _ref2.Fallback,
-      NPMFallback = _ref2.NPMFallback;
+      FinalFallback = _ref2.FinalFallback,
+      Fallback = _ref2.Fallback;
 
   var SuspenceWrapper = function SuspenceWrapper(_ref3) {
     var children = _ref3.children;
@@ -61,10 +61,10 @@ function federatedComponent(_ref2) {
     return /*#__PURE__*/_react.default.createElement(_reactErrorBoundary.ErrorBoundary, {
       fallbackRender: function fallbackRender(errorProps) {
         var renderFallback = function renderFallback(fallbackProps) {
-          return Fallback ? /*#__PURE__*/_react.default.createElement(Fallback, _extends({}, fallbackProps, props)) : /*#__PURE__*/_react.default.createElement(DefaultFallbackComponent, _extends({}, fallbackProps, props));
+          return FinalFallback ? /*#__PURE__*/_react.default.createElement(FinalFallback, _extends({}, fallbackProps, props)) : /*#__PURE__*/_react.default.createElement(DefaultFallbackComponent, _extends({}, fallbackProps, props));
         };
 
-        return NPMFallback ? /*#__PURE__*/_react.default.createElement(_reactErrorBoundary.ErrorBoundary, {
+        return Fallback ? /*#__PURE__*/_react.default.createElement(_reactErrorBoundary.ErrorBoundary, {
           fallbackRender: function fallbackRender(nestedErrorProps) {
             return renderFallback(nestedErrorProps);
           },
@@ -75,7 +75,7 @@ function federatedComponent(_ref2) {
 
             return errorHandler.apply(void 0, args.concat([true]));
           }
-        }, /*#__PURE__*/_react.default.createElement(SuspenceWrapper, null, /*#__PURE__*/_react.default.createElement(NPMFallback, props))) : renderFallback(errorProps);
+        }, /*#__PURE__*/_react.default.createElement(SuspenceWrapper, null, /*#__PURE__*/_react.default.createElement(Fallback, props))) : renderFallback(errorProps);
       },
       onError: function onError() {
         return errorHandler.apply(void 0, arguments);

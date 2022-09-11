@@ -4,11 +4,11 @@
 /**
  * HOC that wraps federated module that takes lazy loaded component (`Component` in props) wraps it into Suspence & ErrorBoundary.
  * As loader, `delayedElement` can be passed (will be used in <Suspense />).
- * `NPMFallback` will be used if `Component` failed. If `NPMFallback` is undefined, then it will got to `Fallback`.
- * `Fallback` is, as name implies, a fallback component that will be displayed if:
- * a) `Component` crushed and no `NPMFallback` provided;
- * b) Both `Component` and `NPMFallback` crushed;
- * If no `Fallback` provided, the default fallback will be used.
+ * `Fallback` will be used if `Component` failed. If `Fallback` is undefined, then it will got to `FinalFallback`.
+ * `FinalFallback` is, as name implies, is a fallback component that will be displayed if:
+ * a) `Component` crushed and no `Fallback` provided;
+ * b) Both `Component` and `Fallback` crushed;
+ * If no `FinalFallback` provided, the default fallback will be used.
  */
 
 import React, { ComponentType, LazyExoticComponent, ReactNode, Suspense } from 'react'
@@ -38,12 +38,12 @@ function errorHandler(error: Error, info: { componentStack: string }, isNpm = fa
 type federatedComponentProps = {
   Component: LazyExoticComponent<any>,
   delayedElement?: ReactNode,
-  NPMFallback?: LazyExoticComponent<any>,
-  Fallback?: ComponentType<FallbackProps>
+  Fallback?: LazyExoticComponent<any>,
+  FinalFallback?: ComponentType<FallbackProps>
 }
 
 export function federatedComponent<T extends ComponentType>({
-  Component, delayedElement, Fallback, NPMFallback
+  Component, delayedElement, FinalFallback, Fallback
 }: federatedComponentProps) {
   const SuspenceWrapper = ({ children }: { children: ReactNode }) => (
     <Suspense fallback={delayedElement ?? <div />}>
@@ -54,22 +54,22 @@ export function federatedComponent<T extends ComponentType>({
   return ((props: { [key: string]: any }) => (
     <ReactErrorBoundary
       fallbackRender={errorProps => {
-        const renderFallback = (fallbackProps: FallbackProps) => Fallback
-          ? <Fallback {...fallbackProps} {...props} />
+        const renderFallback = (fallbackProps: FallbackProps) => FinalFallback
+          ? <FinalFallback {...fallbackProps} {...props} />
           : <DefaultFallbackComponent {...fallbackProps} {...props} />
 
         return (
-          NPMFallback ? (
+          Fallback ? (
             <ReactErrorBoundary
               fallbackRender={nestedErrorProps => renderFallback(nestedErrorProps)}
               onError={(...args) => errorHandler(...args, true)}
             >
               <SuspenceWrapper>
-                <NPMFallback {...props} />
+                <Fallback {...props} />
               </SuspenceWrapper>
             </ReactErrorBoundary>
           ) : renderFallback(errorProps)
-        );
+        )
       }}
       onError={(...args) => errorHandler(...args)}
     >

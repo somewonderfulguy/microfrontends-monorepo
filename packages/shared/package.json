@@ -5,7 +5,7 @@
   "main": "./build-npm/index.js",
   "scripts": {
     "start": "cross-env PORT=3333 react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "react-app-rewired build && npm run build:npm",
     "build:npm": "babel --extensions .ts,.tsx ./src -d ./build-npm",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",

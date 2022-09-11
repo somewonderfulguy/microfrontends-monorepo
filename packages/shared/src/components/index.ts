@@ -1,1 +1,1 @@
-export * from './formLike';
+export * from './formLike'

@@ -7,5 +7,5 @@
  * asynchronously load any dependencies required by Module Federation.
  */
 
-import('./indexReal');
-export {};
+import('./indexReal')
+export {}

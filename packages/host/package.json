@@ -15,6 +15,7 @@
     "react-error-boundary": "^3.1.4",
     "react-scripts": "5.0.1",
     "shared": "0.1.0",
+    "sub-application": "0.1.0",
     "typescript": "^4.7.4"
   },
   "devDependencies": {

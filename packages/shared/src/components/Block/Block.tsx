@@ -1,5 +1,5 @@
-import React, { HTMLProps } from 'react';
+import React, { HTMLProps } from 'react'
 
-const Block = (props: HTMLProps<HTMLDivElement>) => <div {...props} />;
+const Block = (props: HTMLProps<HTMLDivElement>) => <div {...props} />
 
-export default Block;
+export default Block
