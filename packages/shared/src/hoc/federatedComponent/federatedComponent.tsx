@@ -9,22 +9,26 @@
  * a) `Component` crushed and no `Fallback` provided;
  * b) Both `Component` and `Fallback` crushed;
  * If no `FinalFallback` provided, the default fallback will be used.
+ * 
+ * Default fallback outputs error and reset button. The button resets components by resetting component completely.
+ * Resetting component is achieved by changing React's key
  */
 
-import React, { ComponentType, LazyExoticComponent, ReactNode, Suspense } from 'react'
+import React, { ComponentType, Fragment, LazyExoticComponent, ReactNode, Suspense, useCallback, useState } from 'react'
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary'
 
 const errorStyle = {
   display: 'inline-block',
   background: 'rgba(255, 0, 0, 0.226)',
-  padding: '5px 15px'
+  padding: '5px 15px 20px'
 }
+const errorButtonStyle = { cursor: 'pointer' }
 
-// TODO: try resetErrorBoundary
-const DefaultFallbackComponent = ({ error }: FallbackProps) => (
+const DefaultFallbackComponent = ({ error, resetErrorBoundary }: FallbackProps) => (
   <div role="alert" style={errorStyle}>
     <p>Federated module failed!</p>
     <pre>{error.message}</pre>
+    <button onClick={resetErrorBoundary} style={errorButtonStyle} title="Reset component">Try to reset</button>
   </div>
 )
 
@@ -42,6 +46,19 @@ type federatedComponentProps = {
   FinalFallback?: ComponentType<FallbackProps>
 }
 
+const ResetWrapper = ({ render }: { render: (resetComponent: any) => ReactNode }) => {
+  const getKey = () => new Date().getTime()
+  const [key, setKey] = useState(() => getKey())
+  const resetComponent = useCallback(() => void setKey(getKey()), [])
+
+  return (
+    // changing key resets node completely and internal state of all subcomponents
+    <Fragment key={key}>
+      {render(resetComponent)}
+    </Fragment>
+  )
+}
+
 export function federatedComponent<T extends ComponentType>({
   Component, delayedElement, FinalFallback, Fallback
 }: federatedComponentProps) {
@@ -51,31 +68,35 @@ export function federatedComponent<T extends ComponentType>({
     </Suspense>
   )
 
-  return ((props: { [key: string]: any }) => (
-    <ReactErrorBoundary
-      fallbackRender={errorProps => {
-        const renderFallback = (fallbackProps: FallbackProps) => FinalFallback
-          ? <FinalFallback {...fallbackProps} {...props} />
-          : <DefaultFallbackComponent {...fallbackProps} {...props} />
+  return (
+    ((props: { [key: string]: any }) => (
+      <ResetWrapper render={(resetComponent) => (
+        <ReactErrorBoundary
+          fallbackRender={errorProps => {
+            const renderFallback = (fallbackProps: FallbackProps) => FinalFallback
+              ? <FinalFallback {...fallbackProps} {...props} />
+              : <DefaultFallbackComponent {...fallbackProps} {...props} resetErrorBoundary={resetComponent} />
 
-        return (
-          Fallback ? (
-            <ReactErrorBoundary
-              fallbackRender={nestedErrorProps => renderFallback(nestedErrorProps)}
-              onError={(...args) => errorHandler(...args, true)}
-            >
-              <SuspenceWrapper>
-                <Fallback {...props} />
-              </SuspenceWrapper>
-            </ReactErrorBoundary>
-          ) : renderFallback(errorProps)
-        )
-      }}
-      onError={(...args) => errorHandler(...args)}
-    >
-      <SuspenceWrapper>
-        <Component {...props} />
-      </SuspenceWrapper>
-    </ReactErrorBoundary>
-  )) as unknown as T
+            return (
+              Fallback ? (
+                <ReactErrorBoundary
+                  fallbackRender={nestedErrorProps => renderFallback(nestedErrorProps)}
+                  onError={(...args) => errorHandler(...args, true)}
+                >
+                  <SuspenceWrapper>
+                    <Fallback {...props} />
+                  </SuspenceWrapper>
+                </ReactErrorBoundary>
+              ) : renderFallback(errorProps)
+            )
+          }}
+          onError={(...args) => errorHandler(...args)}
+        >
+          <SuspenceWrapper>
+            <Component {...props} />
+          </SuspenceWrapper>
+        </ReactErrorBoundary>
+      )} />
+    )) as unknown as T
+  )
 }
