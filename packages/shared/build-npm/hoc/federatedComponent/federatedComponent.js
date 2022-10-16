@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.federatedComponent = federatedComponent;
+exports.federatedComponent = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -51,7 +51,7 @@ var DefaultFallbackComponent = function DefaultFallbackComponent(_ref) {
   }, "Try to reset"));
 };
 
-function errorHandler(error, info) {
+var errorHandler = function errorHandler(error, info) {
   var isNpm = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
   var logStyle = function logStyle() {
@@ -62,7 +62,7 @@ function errorHandler(error, info) {
   console.log("%c".concat(isNpm ? 'NPM' : 'Federated', " module failed!"), logStyle(24));
   console.dir(error);
   console.dir(info.componentStack);
-}
+};
 
 var ResetWrapper = function ResetWrapper(_ref2) {
   var render = _ref2.render;
@@ -90,7 +90,7 @@ var ResetWrapper = function ResetWrapper(_ref2) {
   );
 };
 
-function federatedComponent(_ref3) {
+var federatedComponent = function federatedComponent(_ref3) {
   var Component = _ref3.Component,
       delayedElement = _ref3.delayedElement,
       FinalFallback = _ref3.FinalFallback,
@@ -99,7 +99,9 @@ function federatedComponent(_ref3) {
   var SuspenceWrapper = function SuspenceWrapper(_ref4) {
     var children = _ref4.children;
     return /*#__PURE__*/_react.default.createElement(_react.Suspense, {
-      fallback: delayedElement !== null && delayedElement !== void 0 ? delayedElement : /*#__PURE__*/_react.default.createElement("div", null)
+      fallback: delayedElement !== null && delayedElement !== void 0 ? delayedElement : /*#__PURE__*/_react.default.createElement("div", {
+        "aria-busy": "true"
+      })
     }, children);
   };
 
@@ -134,4 +136,6 @@ function federatedComponent(_ref3) {
       }
     });
   };
-}
+};
+
+exports.federatedComponent = federatedComponent;

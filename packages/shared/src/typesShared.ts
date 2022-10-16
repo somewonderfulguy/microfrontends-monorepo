@@ -1,8 +1,22 @@
-import { FunctionComponent, HTMLProps } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { IButtonProps } from './components';
-import { federatedComponent } from './hoc';
+import { FunctionComponent, HTMLProps, MutableRefObject } from 'react'
 
-export type BlockComponent = FunctionComponent<HTMLProps<HTMLDivElement>>;
-export type ButtonComponent = FunctionComponent<IButtonProps>;
-export type FederatedComponent = typeof federatedComponent;
+import { IButtonProps } from './components'
+import { usePrevious, useResizeObserver } from './hooks'
+import { federatedComponent, withLazyHooks } from './hoc'
+
+export type BlockComponent = FunctionComponent<HTMLProps<HTMLDivElement>>
+export type ButtonComponent = FunctionComponent<IButtonProps>
+
+export type FederatedComponent = typeof federatedComponent
+export type WithLazyHooks = typeof withLazyHooks
+
+export type usePreviousHook = typeof usePrevious
+export type useResizeObserverHook = typeof useResizeObserver
+
+export type DivRefType = MutableRefObject<HTMLDivElement>
+
+export type AnyFunctionType = (...args: any[]) => any
+export type AnyArrayType = any[]
+export type Any = any

@@ -1,8 +1,12 @@
 import React, { ComponentType, lazy } from 'react'
 import { FallbackProps } from 'react-error-boundary'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { BlockComponent, ButtonComponent, FederatedComponent } from 'shared/src/typesShared'
 import { federatedComponent as sharedFederatedComponent } from 'shared/build-npm/hoc'
+
+import { ExampleComponent } from 'components'
 
 const federatedComponent: FederatedComponent = sharedFederatedComponent
 
@@ -24,14 +28,20 @@ const SubApplication = federatedComponent<ComponentType>({
   Fallback: lazy(() => import('sub-application/build-npm/App'))
 })
 
+const queryClient = new QueryClient()
+
 function App() {
   return (
-    <div className="App">
-      <Block>I am a text in a shared block</Block>
-      <Button type="button">Click for no reason</Button>
-      <SubApplication />
-      Text from host app
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        <Block>I am a text in a shared block</Block>
+        <Button type="button">Click for no reason</Button>
+        <SubApplication />
+        Text from host app
+        <ExampleComponent />
+      </div>
+      <ReactQueryDevtools position="bottom-right" />
+    </QueryClientProvider>
   )
 }
 

@@ -32,18 +32,11 @@ const DefaultFallbackComponent = ({ error, resetErrorBoundary }: FallbackProps) 
   </div>
 )
 
-function errorHandler(error: Error, info: { componentStack: string }, isNpm = false) {
+const errorHandler = (error: Error, info: { componentStack: string }, isNpm = false) => {
   const logStyle = (size = 18) => `color: white; background: red; font-size: ${size}px`
   console.log(`%c${isNpm ? 'NPM' : 'Federated'} module failed!`, logStyle(24))
   console.dir(error)
   console.dir(info.componentStack)
-}
-
-type federatedComponentProps = {
-  Component: LazyExoticComponent<any>,
-  delayedElement?: ReactNode,
-  Fallback?: LazyExoticComponent<any>,
-  FinalFallback?: ComponentType<FallbackProps>
 }
 
 const ResetWrapper = ({ render }: { render: (resetComponent: any) => ReactNode }) => {
@@ -59,11 +52,18 @@ const ResetWrapper = ({ render }: { render: (resetComponent: any) => ReactNode }
   )
 }
 
-export function federatedComponent<T extends ComponentType>({
+type federatedComponentProps = {
+  Component: LazyExoticComponent<any>
+  delayedElement?: ReactNode
+  Fallback?: LazyExoticComponent<any>
+  FinalFallback?: ComponentType<FallbackProps>
+}
+
+export const federatedComponent = <T extends ComponentType>({
   Component, delayedElement, FinalFallback, Fallback
-}: federatedComponentProps) {
+}: federatedComponentProps) => {
   const SuspenceWrapper = ({ children }: { children: ReactNode }) => (
-    <Suspense fallback={delayedElement ?? <div />}>
+    <Suspense fallback={delayedElement ?? <div aria-busy="true" />}>
       {children}
     </Suspense>
   )

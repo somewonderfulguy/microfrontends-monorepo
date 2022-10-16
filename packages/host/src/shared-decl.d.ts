@@ -1,5 +1,7 @@
 declare module 'shared-mf/Block'
 declare module 'shared-mf/Button'
+declare module 'shared-mf/usePrevious'
+declare module 'shared-mf/useResizeObserver'
 
 declare module 'shared/build-npm/hoc'
 declare module 'shared/build-npm/components/Block'

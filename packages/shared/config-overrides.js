@@ -17,6 +17,8 @@ module.exports = function override(config) {
         // keep in alphabetical order
         "./Block": "./src/components/Block",
         "./Button": "./src/components/formLike/Button",
+        "./usePrevious": "./src/hooks/usePrevious",
+        "./useResizeObserver": "./src/hooks/useResizeObserver",
       },
       shared: {
         ...deps,
