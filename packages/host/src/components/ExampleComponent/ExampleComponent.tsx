@@ -5,13 +5,13 @@ import { withLazyHooks as sharedWithLazyHooks } from 'shared/build-npm/hoc'
 
 const withLazyHooks: WithLazyHooks = sharedWithLazyHooks
 
-type hooksType = {
+type HooksType = {
   usePrevious: usePreviousHook
   useResizeObserver: useResizeObserverHook
 }
 
 const ExampleComponentImpl = ((props: Any) => {
-  const { usePrevious, useResizeObserver } = props as hooksType;
+  const { usePrevious, useResizeObserver } = props as HooksType;
   const [bindResizeObserver, { width }] = useResizeObserver();
   const prevWidth = usePrevious(width);
   return (
@@ -23,10 +23,10 @@ const ExampleComponentImpl = ((props: Any) => {
   )
 });
 
-const ExampleComponent = withLazyHooks<Any>({
+const ExampleComponent = withLazyHooks({
   hooks: {
-    usePrevious: import('shared-mf/usePrevious'),
-    useResizeObserver: import('shared-mf/useResizeObserver')
+    usePrevious: import('shared/build-npm/hooks/usePrevious'),
+    useResizeObserver: import('shared/build-npm/hooks/useResizeObserver')
   },
   Component: ExampleComponentImpl,
   queryKey: ['useSomeHook', 'useAnotherHook']
