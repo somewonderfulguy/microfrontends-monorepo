@@ -10,7 +10,7 @@ test('should return previous value if value updates (null is inital value)', fun
     return (0, _.usePrevious)(initialValue);
   }, {
     initialProps: {
-      initialValue: 'Trench'
+      initialValue: 'Initial'
     }
   }),
       result = _renderHook.result,
@@ -18,11 +18,11 @@ test('should return previous value if value updates (null is inital value)', fun
 
   expect(result.current).toBeNull();
   rerender({
-    initialValue: 'coat'
+    initialValue: 'non-initial'
   });
-  expect(result.current).toBe('Trench');
+  expect(result.current).toBe('Initial');
   rerender({
-    initialValue: 'outerwear'
+    initialValue: 'Absolutely New!'
   });
-  expect(result.current).toBe('coat');
+  expect(result.current).toBe('non-initial');
 });

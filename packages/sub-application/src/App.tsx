@@ -9,7 +9,7 @@ const federatedComponent: FederatedComponent = sharedFederatedComponent
 const Block = federatedComponent<BlockComponent>({
   Component: lazy(() => import('shared/build-npm/components/Block')),
   delayedElement: 'Loading...',
-  FinalFallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <div {...props} />
+  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <div {...props} />
 })
 
 function App() {

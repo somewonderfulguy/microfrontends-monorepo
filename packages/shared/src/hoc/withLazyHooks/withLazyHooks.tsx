@@ -1,78 +1,100 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// TODO: add serious comment that explains a lot like in federatedComponent.tsx
 
 import React, { ComponentType, FunctionComponent, ReactNode } from 'react'
 import { useQuery, QueryKey } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
+import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary'
 
-import { AnyFunctionType } from '../../typesShared'
+import { Any, AnyFunctionType } from '../../typesShared'
 
-// TODO: add serious comment that explains a lot like in federatedComponent.tsx
+import { DefaultFallbackComponent, errorHandler, ResetWrapper } from '../federatedShared'
 
 type commonProps = {
-  hooks: { [key: string]: Promise<any> }
-  fallbackHooks?: { [key: string]: Promise<any> }
+  hooks: { [key: string]: Promise<Any> }
   queryKey?: QueryKey
   delayedElement?: ReactNode
 }
 
 type LoadingWrapperProps = commonProps & {
-  render: (resetComponent: any) => ReactNode
+  render: (loadedHooks: Any) => ReactNode
+  renderFallback: (error: Error, refetch: () => void) => void
 }
 
-const LoadingWrapper = ({ hooks, fallbackHooks, render, queryKey = uuidv4(), delayedElement }: LoadingWrapperProps) => {
+type withLazyHooksProps<Props = undefined> = commonProps & {
+  Component: ComponentType<Props>
+  Fallback?: ComponentType<Props & FallbackProps>
+}
+
+const errorMessage = 'Federated hook(s) failed!'
+
+const LoadingWrapper = ({ hooks, render, renderFallback, queryKey = uuidv4(), delayedElement }: LoadingWrapperProps) => {
   const queryOptions = {
     staleTime: Infinity,
     cacheTime: 0,
     refetchOnWindowFocus: false
   }
-  // TODO: error
-  // - default error
-  // - custom error
+
   const {
     data: loadedHooks, isLoading, isError, refetch, error
-  } = useQuery<AnyFunctionType[]>(
+  } = useQuery<AnyFunctionType[], Error>(
     queryKey,
     () => Promise.all(Object.values(hooks)),
     queryOptions
   )
 
-  const { data: loadedFallbackHooks } = useQuery<AnyFunctionType[]>(
-    typeof queryKey === 'string' ? `fallback_${queryKey}` : ['fallback'].concat(queryKey as string[]),
-    () => Promise.all(Object.values(fallbackHooks ?? {})),
-    {
-      ...queryOptions,
-      enabled: !isLoading && !isError && !!fallbackHooks, 
-    }
-  );
+  const loader = <>{delayedElement ?? <div aria-busy="true" />}</>
+  const renderWithHooks = (hooks?: AnyFunctionType[]) => <>{hooks ? render(hooks) : null}</>
 
-  if (isLoading) return <>{delayedElement ?? <div aria-busy="true" />}</>
+  if (isLoading) return loader
 
-  if (isError) return <>Oh, no...</>
+  if (isError) {
+    const errorObj = error?.message
+      ? error
+      : new Error(typeof error === 'string' ? error : 'Unknown error on federated hooks loading')
 
-  return <>{loadedHooks ? render(loadedHooks) : null}</>
+    errorHandler(errorObj)
+
+    return (
+      <>{renderFallback(errorObj, refetch)}</>
+    )
+  }
+
+  return renderWithHooks(loadedHooks)
 }
 
-type withLazyHooksProps<Props> = commonProps & {
-  Component: ComponentType<Props>
-  Fallback?: ComponentType<Props>
-  FinalFallback?: ComponentType<Props> // TODO extend with error
-}
-
-export function withLazyHooks<Props>({
-  hooks, Component, Fallback, FinalFallback, ...rest
-}: withLazyHooksProps<Props>) {
-  return (
-    ((props: any) => (
-      <LoadingWrapper
-        hooks={hooks}
-        render={(loadedHooks) => {
-          const hookNames = Object.keys(hooks)
-          const hooksToProps: { [key: string]: AnyFunctionType } = {}
-          hookNames.forEach((name, idx) => hooksToProps[name] = loadedHooks[idx].default)
-          return <Component {...props} {...hooksToProps} />
-        }}
-        {...rest}
-      />
-    )) as unknown as FunctionComponent<Props>
-  )
-}
+export const withLazyHooks = <Props = undefined>({
+  hooks, Component, Fallback, ...rest
+}: withLazyHooksProps<Props>) => (
+  ((props: Any) => (
+    <ResetWrapper render={(resetComponent) => (
+      <ReactErrorBoundary
+        fallbackRender={errorProps => (
+          Fallback
+            ? <Fallback {...errorProps} {...props} />
+            : (
+              <DefaultFallbackComponent {...errorProps} {...props} resetErrorBoundary={resetComponent}>
+                {errorMessage}
+              </DefaultFallbackComponent>
+            )
+        )}
+        onError={(...args) => errorHandler(...args)}
+      >
+        <LoadingWrapper
+          hooks={hooks}
+          render={(loadedHooks) => {
+            const hookNames = Object.keys(hooks)
+            const hooksToProps: { [key: string]: AnyFunctionType } = {}
+            hookNames.forEach((name, idx) => hooksToProps[name] = loadedHooks[idx].default)
+            return <Component {...props} {...hooksToProps} />
+          }}
+          renderFallback={(error, refetch) => (
+            <DefaultFallbackComponent error={error} resetErrorBoundary={() => refetch()}>
+              {errorMessage}
+            </DefaultFallbackComponent>
+          )}
+          {...rest}
+        />
+      </ReactErrorBoundary>
+    )} />
+  )) as unknown as FunctionComponent<Props>
+)
