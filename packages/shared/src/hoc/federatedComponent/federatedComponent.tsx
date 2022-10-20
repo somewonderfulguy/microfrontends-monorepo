@@ -1,6 +1,6 @@
 /**
  * HOC that wraps federated module that takes lazy loaded component (`Component` in props) wraps it into Suspence & ErrorBoundary.
- * As loader, `delayedElement` can be passed (will be used in <Suspense />).
+ * As loader, `delayedElement` can be passed as loader - if no passed then empty div will be displayed.
  * `Fallback` will be used if `Component` failed.
  * If no `Fallback` provided, the default fallback will be used.
  * 

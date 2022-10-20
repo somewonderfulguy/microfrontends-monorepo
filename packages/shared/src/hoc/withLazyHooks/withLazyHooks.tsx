@@ -1,4 +1,12 @@
-// TODO: add serious comment that explains a lot like in federatedComponent.tsx
+/**
+ * HOC that wraps federated module that takes array of lazy loaded hooks and wraps the array in useQuery & ErrorBoundary.
+ * As loader, `delayedElement` can be passed as loader - if no passed then empty div will be displayed.
+ * `Fallback` will be used if `Component` failed.
+ * If no `Fallback` provided, the default fallback will be used.
+ * 
+ * Default fallback outputs error and reset button. The button resets components by resetting component completely.
+ * Resetting component is achieved by changing React's key
+ */
 
 import React, { ComponentType, FunctionComponent, ReactNode } from 'react'
 import { useQuery, QueryKey } from 'react-query'
