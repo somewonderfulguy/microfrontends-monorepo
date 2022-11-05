@@ -4,9 +4,10 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { BlockComponent, ButtonComponent, FederatedComponent } from 'shared/src/typesShared'
-import { federatedComponent as sharedFederatedComponent } from 'shared/build-npm/hoc'
+import { federatedComponent as sharedFederatedComponent } from 'shared/build-npm/hoc/federatedComponent'
 
 import { ExampleComponent } from 'components'
+import 'services/resizeObserverPolyfill'
 
 const federatedComponent: FederatedComponent = sharedFederatedComponent
 
