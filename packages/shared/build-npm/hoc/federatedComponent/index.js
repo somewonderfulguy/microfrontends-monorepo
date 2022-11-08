@@ -1,18 +1,2 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _federatedComponent = require("./federatedComponent");
-
-Object.keys(_federatedComponent).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (key in exports && exports[key] === _federatedComponent[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _federatedComponent[key];
-    }
-  });
-});
+import{jsxs as e,jsx as r}from"react/jsx-runtime";import{useState as n,useCallback as o,Fragment as t,Suspense as c}from"react";import{ErrorBoundary as i}from"react-error-boundary";const l={display:"inline-block",background:"rgba(255, 0, 0, 0.226)",padding:"5px 15px 20px"},d={cursor:"pointer"},a=({children:n,error:o,resetErrorBoundary:t})=>e("div",Object.assign({role:"alert",style:l},{children:[r("p",{children:n}),r("pre",{children:o.message}),r("button",Object.assign({onClick:t,style:d,title:"Reset component"},{children:"Try to reset"}))]})),s=({render:e})=>{const c=()=>(new Date).getTime(),[i,l]=n((()=>c())),d=o((()=>{l(c())}),[]);return r(t,{children:e(d)},i)},b=({Component:e,delayedElement:n,Fallback:o})=>{const t=({children:e})=>r(c,Object.assign({fallback:null!=n?n:r("div",{"aria-busy":"true"})},{children:e}));return n=>r(s,{render:c=>r(i,Object.assign({fallbackRender:e=>o?r(o,Object.assign({},e,n)):r(a,Object.assign({},e,n,{resetErrorBoundary:c},{children:"Federated module failed!"})),onError:(...e)=>((e,r)=>{console.log("%cFederated module failed!",((e=18)=>`color: white; background: red; font-size: ${e}px`)(24)),console.dir(e),r&&console.dir(r.componentStack)})(...e)},{children:r(t,{children:r(e,Object.assign({},n))})}))})};export{b as federatedComponent};
+//# sourceMappingURL=index.js.map

@@ -14,10 +14,9 @@
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-query": "^3.39.2",
-    "react-scripts": "5.0.1",
+    "resize-observer-polyfill": "^1.5.1",
     "shared": "0.1.0",
-    "sub-application": "0.1.0",
-    "typescript": "^4.7.4"
+    "sub-application": "0.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -29,7 +28,9 @@
     "@types/react-dom": "^18.0.6",
     "cross-env": "^7.0.3",
     "react-app-rewired": "^2.2.1",
-    "servor": "^4.0.2"
+    "react-scripts": "^5.0.1",
+    "servor": "^4.0.2",
+    "typescript": "^4.8.4"
   },
   "browserslist": {
     "production": [
