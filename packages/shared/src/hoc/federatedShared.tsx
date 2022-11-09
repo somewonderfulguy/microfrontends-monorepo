@@ -5,22 +5,17 @@ import { FallbackProps } from 'react-error-boundary'
 
 import { Any } from '../typesShared'
 
-const errorStyle = {
-  display: 'inline-block',
-  background: 'rgba(255, 0, 0, 0.226)',
-  padding: '5px 15px 20px'
-}
-const errorButtonStyle = { cursor: 'pointer' }
+import styles from './federated.module.css'
 
 interface IDefaultFallbackComponent extends FallbackProps {
   children?: ReactNode
 }
 
 const DefaultFallbackComponent = ({ children, error, resetErrorBoundary }: IDefaultFallbackComponent) => (
-  <div role="alert" style={errorStyle}>
+  <div role="alert" className={styles.error}>
     <p>{children}</p>
     <pre>{error.message}</pre>
-    <button onClick={resetErrorBoundary} style={errorButtonStyle} title="Reset component">Try to reset</button>
+    <button onClick={resetErrorBoundary} className={styles.errorButton} title="Reset component">Try to reset</button>
   </div>
 )
 

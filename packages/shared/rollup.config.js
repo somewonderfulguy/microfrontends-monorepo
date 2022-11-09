@@ -4,7 +4,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import commonjs from '@rollup/plugin-commonjs'
-import postcss from 'rollup-plugin-postcss' // TODO support importing .css & .module.css
+import postcss from 'rollup-plugin-postcss'
 // TODO images
 // TODO ? svg ? (test first)
 
@@ -14,8 +14,10 @@ const sharedConf = {
     resolve(), // to locate third-party modules used inside our project (node_modules)
     commonjs(), // commonJS modules to ES6 modules
     typescript({ tsconfig: './tsconfig.json' }), // ts compiler
-    postcss({ // css
-      extensions: ['.css']
+    postcss({ // css, css-modules
+      modules: true,
+      sourcemap: true,
+      minimize: true
     }),
     terser() // minifier
   ],
