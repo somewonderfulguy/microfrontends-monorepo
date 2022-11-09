@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env PORT=3333 react-app-rewired start",
     "build": "react-app-rewired build && npm run build:npm",
-    "build:npm": "rollup -c --bundleConfigAsCjs",
+    "build:npm": "rimraf build-npm && rollup -c --bundleConfigAsCjs",
     "test": "react-app-rewired test",
     "test:once": "react-app-rewired test --watchAll=false",
     "eject": "react-app-rewired eject",
@@ -15,8 +15,8 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-query": "^3.39.2",
-    "react-error-boundary": "^3.1.4"
+    "react-error-boundary": "^3.1.4",
+    "react-query": "^3.39.2"
   },
   "dependencies": {
     "uuid": "^9.0.0"
@@ -37,6 +37,7 @@
     "cross-env": "^7.0.3",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1",
+    "rimraf": "^3.0.2",
     "rollup": "^3.2.3",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
