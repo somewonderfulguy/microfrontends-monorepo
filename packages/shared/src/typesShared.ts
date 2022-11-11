@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { FunctionComponent, HTMLProps, MutableRefObject } from 'react'
+import { FunctionComponent, MutableRefObject } from 'react'
 
-import { IButtonProps } from './components'
+import { IButtonProps, IBlockProps } from './components'
 import { usePrevious, useResizeObserver } from './hooks'
 import { federatedComponent, withLazyHooks } from './hoc'
 
-export type BlockComponent = FunctionComponent<HTMLProps<HTMLDivElement>>
+export type BlockComponent = FunctionComponent<IBlockProps>
 export type ButtonComponent = FunctionComponent<IButtonProps>
 
 export type FederatedComponent = typeof federatedComponent

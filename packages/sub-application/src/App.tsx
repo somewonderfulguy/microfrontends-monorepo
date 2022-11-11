@@ -2,7 +2,7 @@ import React, { lazy } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
 import { BlockComponent, FederatedComponent } from 'shared/src/typesShared'
-import { federatedComponent as sharedFederatedComponent } from 'shared/build-npm/hoc'
+import { federatedComponent as sharedFederatedComponent } from 'shared/build-npm/hoc/federatedComponent'
 
 const federatedComponent: FederatedComponent = sharedFederatedComponent
 
@@ -14,7 +14,7 @@ const Block = federatedComponent<BlockComponent>({
 
 function App() {
   return (
-    <Block className="App">
+    <Block className="App" withCybercat>
       Sub Application
     </Block>
   )

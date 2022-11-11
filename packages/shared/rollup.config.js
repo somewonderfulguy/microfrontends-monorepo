@@ -5,10 +5,25 @@ import typescript from 'rollup-plugin-typescript2'
 import { terser } from 'rollup-plugin-terser'
 import commonjs from '@rollup/plugin-commonjs'
 import postcss from 'rollup-plugin-postcss'
-// TODO images
-// TODO ? svg ? (test first)
+import url from '@rollup/plugin-url'
+import svgr from '@svgr/rollup'
+import image from '@rollup/plugin-image'
 
-const sharedConf = {
+// keep alphabetical (like in file browser)
+const paths = [
+  'components/Block',
+  'components/formLike/Button',
+  'hoc/federatedComponent',
+  'hoc/withLazyHooks'
+]
+
+export default paths.map(path => ({
+  input: `src/${path}/index.ts`,
+  output: [{
+    file: `build-npm/${path}/index.js`,
+    format: 'es',
+    sourcemap: true
+  }],
   plugins: [
     peerDepsExternal(), // this looks into peerDependencies and removes it from bundle, so the bundle will be smaller
     resolve(), // to locate third-party modules used inside our project (node_modules)
@@ -19,21 +34,12 @@ const sharedConf = {
       sourcemap: true,
       minimize: true
     }),
-    terser() // minifier
+    image(), // images i.e. .jpg, .png (will be converted to base64; keep image() before url() so src path will be correct in output)
+    url(), // url + svgr allows to compile import { ReactComponent as SvgIcon } from './assets/svgIcon.svg'
+    svgr({ icon: true }),
+    terser(), // minifier
   ],
 
   // duplicate from peerDependencies - without it using bundles won't work
   external: ['react', 'react-dom', 'react-query']
-}
-
-export default [{
-  input: 'src/hoc/federatedComponent/index.ts',
-  output: [
-    {
-      file: 'build-npm/hoc/federatedComponent/index.js',
-      format: 'es',
-      sourcemap: true
-    }
-  ],
-  ...sharedConf
-}]
+}))

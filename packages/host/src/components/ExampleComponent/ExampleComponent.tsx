@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Any, DivRefType, WithLazyHooks, usePreviousHook, useResizeObserverHook } from 'shared/src/typesShared'
-import { withLazyHooks as sharedWithLazyHooks } from 'shared/build-npm/hoc'
+import { withLazyHooks as sharedWithLazyHooks } from 'shared/build-npm/hoc/withLazyHooks'
 
 const withLazyHooks: WithLazyHooks = sharedWithLazyHooks
 
