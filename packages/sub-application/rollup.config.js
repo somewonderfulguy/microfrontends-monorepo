@@ -9,20 +9,11 @@ import url from '@rollup/plugin-url'
 import svgr from '@svgr/rollup'
 import image from '@rollup/plugin-image'
 
-// keep alphabetical (like in file browser)
-const paths = [
-  'components/Block',
-  'components/formLike/Button',
-  'hoc/federatedComponent',
-  'hoc/withLazyHooks',
-  'hooks/usePrevious',
-  'hooks/useResizeObserver'
-]
-
-export default paths.map(path => ({
-  input: `src/${path}/index.ts`,
+export default {
+  input: `src/App.tsx`,
   output: [{
-    file: `build-npm/${path}/index.js`,
+    // file: `/index.js`,
+    dir: 'build-npm',
     format: 'es',
     sourcemap: true
   }],
@@ -43,5 +34,5 @@ export default paths.map(path => ({
   ],
 
   // duplicate from peerDependencies - without it using bundles won't work
-  external: ['react', 'react-dom', 'react-query']
-}))
+  external: ['react', 'react-dom']
+}

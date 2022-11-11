@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks'
 
-import { usePrevious } from '..'
+import usePrevious from '..'
 
 test('should return previous value if value updates (null is inital value)', () => {
   const { result, rerender } = renderHook(

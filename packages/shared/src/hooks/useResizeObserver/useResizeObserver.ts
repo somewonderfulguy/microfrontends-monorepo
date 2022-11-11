@@ -1,6 +1,6 @@
 import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
 
-import { throttle } from '../utils'
+import { throttle } from '../../utils'
 
 const useResizeObserver = (delay = 0, initialBounds = { left: 0, top: 0, width: 0, height: 0 }) => {
   const elemRef = useRef<Element>(null)

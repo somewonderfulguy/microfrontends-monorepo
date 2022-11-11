@@ -1,0 +1,2 @@
+import{useRef as t,useState as e,useCallback as r,useEffect as n}from"react";const c=(c=0,o={left:0,top:0,width:0,height:0})=>{const s=t(null),[l,u]=e(o),i=((t,e=0)=>{let r,n=!1;const c=(...o)=>{n?r=o:(t(...o),n=!0,setTimeout((()=>{n=!1,r&&(c(r),r=null)}),e))};return c})((([t])=>u(Array.isArray(t)?t[0].contentRect:t.contentRect)),c),[a]=e((()=>new ResizeObserver(i))),d=r((()=>a.disconnect()),[a]);return n((()=>(s.current&&a.observe(s.current),d)),[a,d]),[s,null!=l?l:o]};export{c as default};
+//# sourceMappingURL=index.js.map
