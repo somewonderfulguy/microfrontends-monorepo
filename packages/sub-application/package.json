@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "cross-env PORT=3030 react-app-rewired start",
-    "build": "react-app-rewired build && npm run build:npm",
-    "build:npm": "rimraf build-npm && rollup -c --bundleConfigAsCjs",
+    "build": "react-app-rewired build",
+    "build:rollup": "rimraf build-npm && rollup -c --bundleConfigAsCjs",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "serve": "cross-env PORT=5030 npx servor build"

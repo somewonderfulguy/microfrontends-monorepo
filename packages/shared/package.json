@@ -5,8 +5,7 @@
   "main": "./build-npm/index.js",
   "scripts": {
     "start": "cross-env PORT=3333 react-app-rewired start",
-    "build": "react-app-rewired build && npm run build:npm",
-    "build:npm": "rimraf build-npm && rollup -c --bundleConfigAsCjs",
+    "build:rollup": "rimraf build-npm && rollup -c --bundleConfigAsCjs",
     "test": "react-app-rewired test",
     "test:once": "react-app-rewired test --watchAll=false",
     "eject": "react-app-rewired eject",
