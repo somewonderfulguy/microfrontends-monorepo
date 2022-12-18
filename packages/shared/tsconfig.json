@@ -22,7 +22,8 @@
     "downlevelIteration": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    "baseUrl": "src/"
+    // no, you can't use it, for some reason you get annoying popup errors when using built modules, although no errors in console and everything works fine. really weird
+    // "baseUrl": "src/"
   },
   "include": [
     "src"

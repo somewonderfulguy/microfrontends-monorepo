@@ -20,8 +20,7 @@ const DefaultFallbackComponent = ({ children, error, resetErrorBoundary }: IDefa
 )
 
 const errorHandler = (error: Error, info?: { componentStack: string }) => {
-  const logStyle = (size = 18) => `color: white; background: red; font-size: ${size}px`
-  console.log(`%cFederated module failed!`, logStyle(24))
+  console.log(`%cFederated module failed!`, 'color: white; background: red; font-size: 24px')
   console.dir(error)
   info && console.dir(info.componentStack)
 }

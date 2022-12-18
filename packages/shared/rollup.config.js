@@ -37,11 +37,11 @@ export default paths.map(path => ({
       minimize: true
     }),
     image(), // images i.e. .jpg, .png (will be converted to base64; keep image() before url() so src path will be correct in output)
-    url(), // url + svgr allows to compile import { ReactComponent as SvgIcon } from './assets/svgIcon.svg'
+    url(), // url + svgr allows to compile `import { ReactComponent as SvgIcon } from './assets/svgIcon.svg'`
     svgr({ icon: true }),
     terser(), // minifier
   ],
 
-  // duplicate from peerDependencies - without it using bundles won't work
-  external: ['react', 'react-dom', 'react-query']
+  // duplicate from peerDependencies (in package.json) - without it using bundles won't work
+  external: ['react', 'react-dom', 'react-error-boundary', 'react-query']
 }))
