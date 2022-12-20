@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"wsrun --parallel start\"",
-    "init": "cd ./packages/shared && npm run build:rollup && cd ../sub-application && npm run build:rollup",
-    "build": "npm run init && cd .packages/host && npm run build",
+    "initialize": "cd ./packages/shared && yarn build:rollup && cd ../sub-application && yarn build:rollup",
+    "build": "yarn initialize && cd ./packages/host && yarn build",
     "serve": "concurrently \"wsrun --parallel serve\"",
     "wipe": "rimraf node_modules packages/**/node_modules"
   },

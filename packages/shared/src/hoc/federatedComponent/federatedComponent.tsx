@@ -29,7 +29,7 @@ import { DefaultFallbackComponent, errorHandler, ResetWrapper } from '../federat
 type federatedComponentProps = {
   Component: LazyExoticComponent<Any>
   delayedElement?: ReactNode
-  Fallback?: ComponentType<FallbackProps> // TODO add custom reset
+  Fallback?: ComponentType<FallbackProps>
 }
 
 export const federatedComponent = <T extends ComponentType>({
