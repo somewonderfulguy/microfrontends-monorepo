@@ -26,7 +26,7 @@ import { Any } from '../../typesShared'
 
 import { DefaultFallbackComponent, errorHandler, ResetWrapper } from '../federatedShared'
 
-type federatedComponentProps = {
+type FederatedComponentProps = {
   Component: LazyExoticComponent<Any>
   delayedElement?: ReactNode
   Fallback?: ComponentType<FallbackProps>
@@ -34,7 +34,7 @@ type federatedComponentProps = {
 
 export const federatedComponent = <T extends ComponentType>({
   Component, delayedElement, Fallback
-}: federatedComponentProps) => {
+}: FederatedComponentProps) => {
   const SuspenseWrapper = ({ children }: { children: ReactNode }) => (
     <Suspense fallback={delayedElement ?? <div aria-busy="true" />}>
       {children}

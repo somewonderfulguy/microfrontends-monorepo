@@ -63,7 +63,9 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "__tests__/TestComponent"
+      "__tests__/TestComponent",
+      "__tests__/TestComponents",
+      "__tests__/testHooks"
     ]
   }
 }
