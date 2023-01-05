@@ -11,9 +11,9 @@ type HooksType = {
 }
 
 const ExampleComponentImpl = ((props: Any) => {
-  const { usePrevious, useResizeObserver } = props as HooksType;
-  const [bindResizeObserver, { width }] = useResizeObserver();
-  const prevWidth = usePrevious(width);
+  const { usePrevious, useResizeObserver } = props as HooksType
+  const [bindResizeObserver, { width }] = useResizeObserver()
+  const prevWidth = usePrevious(width)
   return (
     <>
       <div ref={bindResizeObserver as DivRefType} />
@@ -21,7 +21,7 @@ const ExampleComponentImpl = ((props: Any) => {
       <div>Previous width: {prevWidth}</div>
     </>
   )
-});
+})
 
 const ExampleComponent = withLazyHooks({
   hooks: {

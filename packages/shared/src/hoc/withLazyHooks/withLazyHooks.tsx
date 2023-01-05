@@ -8,7 +8,7 @@
  * Resetting component is achieved by changing React's key
  */
 
-import React, { ComponentType, FunctionComponent, ReactNode } from 'react'
+import React, { ComponentType, FunctionComponent, ReactNode, useRef } from 'react'
 import { useQuery, QueryKey } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary'
@@ -36,10 +36,11 @@ type WithLazyHooksProps<Props = undefined> = CommonProps & {
 const errorMessage = 'Federated hook(s) failed!'
 
 const LoadingWrapper = ({ hooks, render, renderFallback, queryKey = uuidv4(), delayedElement }: LoadingWrapperProps) => {
+  const queryKeyValue = useRef(queryKey);
   const {
     data: loadedHooks, isLoading, isError, refetch, error
   } = useQuery<AnyFunctionType[], Error>(
-    queryKey,
+    queryKeyValue.current,
     () => Promise.all(Object.values(hooks)),
     {
       staleTime: Infinity,
@@ -66,7 +67,7 @@ const LoadingWrapper = ({ hooks, render, renderFallback, queryKey = uuidv4(), de
   return renderWithHooks(loadedHooks)
 }
 
-export const withLazyHooks = <Props = undefined>({
+export const withLazyHooks = <Props = Record<string, never>>({
   hooks, Component, Fallback, ...rest
 }: WithLazyHooksProps<Props>) => {
   const renderFallback = (fallbackProps: FallbackProps & Any) => (
