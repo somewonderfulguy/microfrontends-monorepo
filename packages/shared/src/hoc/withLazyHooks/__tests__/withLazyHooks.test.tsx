@@ -21,7 +21,6 @@ test('minimal configuration', async () => {
   // component doesn't exist yet
   expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
   // loader disappeared
-  screen.debug()
   await waitForElementToBeRemoved(loader)
   // component appeared
   expect(screen.getByText(hookOneResult)).toBeInTheDocument()
