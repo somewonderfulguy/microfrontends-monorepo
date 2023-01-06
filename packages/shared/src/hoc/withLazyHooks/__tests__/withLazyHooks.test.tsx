@@ -1,9 +1,11 @@
 import React from 'react'
 
-import { render, screen, waitForElementToBeRemoved } from '../../../tests'
+import { render, screen, userEvent, waitForElementToBeRemoved } from '../../../tests'
 
 import { withLazyHooks } from '..'
-import { TestComponentSingleHook as TestComponentSingleHookImpl, TestComponentMultipleHooks as TestComponentMultipleHooksImpl } from './TestComponents'
+import {
+  TestComponentSingleHook as TestComponentSingleHookImpl, TestComponentMultipleHooks as TestComponentMultipleHooksImpl, errorMsg
+} from './TestComponents'
 import { hookOneResult } from './testHooks/useTestHookOne'
 import { hookTwoResult } from './testHooks/useTestHookTwo'
 
@@ -71,9 +73,39 @@ test('multiple hooks', async () => {
   expect(screen.getByText(hookTwoResult)).toBeInTheDocument()
 })
 
-test.todo('error in hook & reset')
+test('error in hook & reset', async () => {
+  const TestComponentSingleHook = withLazyHooks({
+    hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
+    Component: TestComponentSingleHookImpl
+  })
 
-test.todo('custom error fallback (for hook) & reset')
+  const { container, rerender } = render(<TestComponentSingleHook withError />)
+  const loader = container.querySelector('[aria-busy="true"]')
+  const getErrorElement = () => screen.getByText(errorMsg)
+
+  // loader exist
+  expect(loader).toBeInTheDocument()
+  // error message doesn't exist yet
+  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
+  // loader disappeared
+  await waitForElementToBeRemoved(loader)
+  // error message appeared
+  expect(getErrorElement()).toBeInTheDocument()
+  // reset by click
+  userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
+  rerender(<TestComponentSingleHook />)
+  // error message disappears
+  await waitForElementToBeRemoved(getErrorElement)
+  // loader returns
+  const newLoader = container.querySelector('[aria-busy="true"]')
+  expect(newLoader).toBeInTheDocument()
+  // loader disappeared
+  await waitForElementToBeRemoved(newLoader)
+  // component successfully re-rendered without errors
+  expect(screen.getByText(hookOneResult)).toBeInTheDocument()
+})
+
+test.todo('custom error fallback (for hook crushed) & reset')
 
 test.todo('error in loader (promise) & reset')
 
