@@ -1,4 +1,5 @@
 import React from 'react'
+import { FallbackProps } from 'react-error-boundary'
 
 import { render, screen, userEvent, waitForElementToBeRemoved } from '../../../tests'
 
@@ -8,6 +9,82 @@ import {
 } from './TestComponents'
 import { hookOneResult } from './testHooks/useTestHookOne'
 import { hookTwoResult } from './testHooks/useTestHookTwo'
+
+const mockConsole = () => {
+  const consoleError = jest.spyOn(console, 'error').mockImplementation()
+  const consoleLog = jest.spyOn(console, 'log').mockImplementation()
+  const consoleDir = jest.spyOn(console, 'dir').mockImplementation()
+
+  return { consoleError, consoleLog, consoleDir }
+}
+
+type SpyConsoles = { consoleError: jest.SpyInstance, consoleLog: jest.SpyInstance, consoleDir: jest.SpyInstance }
+
+const clearConsoleMocks = ({ consoleError, consoleLog, consoleDir }: SpyConsoles) => {
+  consoleError.mockRestore()
+  consoleLog.mockRestore()
+  consoleDir.mockRestore()
+}
+
+const checkConsoleLogging = ({ consoleError, consoleLog, consoleDir }: SpyConsoles) => {
+  expect(consoleError).toHaveBeenCalledTimes(2)
+  expect(consoleError.mock.calls[0][0]).toMatch(new RegExp(errorMsg, 'i'))
+  expect(consoleError.mock.calls[1][0]).toMatch(/The above error occurred in the <TestComponentSingleHook> component/i)
+  expect(consoleLog).toHaveBeenCalledTimes(1)
+  expect(consoleLog.mock.lastCall[0]).toMatch(/federated module failed/gi)
+  expect(consoleDir).toHaveBeenCalledTimes(2)
+  expect(consoleDir.mock.calls[0][0].toString()).toBe(`Error: ${errorMsg}`)
+  expect(consoleDir.mock.calls[1][0]).toMatch(/at TestComponent/)
+}
+
+const testErrorCase = async (isCustomError = false) => {
+  // mock console methods
+  const { consoleDir, consoleError, consoleLog } = mockConsole()
+
+  const TestComponentSingleHook = withLazyHooks({
+    hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
+    Component: TestComponentSingleHookImpl,
+    Fallback: isCustomError
+      ? ({ error, resetErrorBoundary }: FallbackProps) => (
+        <div>
+          <div role="alert">{error.message}</div>
+          <button onClick={resetErrorBoundary}>reset</button>
+        </div>
+      )
+      : undefined
+  })
+
+  const { container, rerender } = render(<TestComponentSingleHook withError />)
+  const loader = container.querySelector('[aria-busy="true"]')
+  const getErrorElement = () => screen.getByText(errorMsg)
+
+  // loader exist
+  expect(loader).toBeInTheDocument()
+  // error message doesn't exist yet
+  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
+  // loader disappeared
+  await waitForElementToBeRemoved(loader)
+  // error message appeared
+  expect(getErrorElement()).toBeInTheDocument()
+  // reset by click
+  userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
+  rerender(<TestComponentSingleHook />)
+  // error message disappears
+  await waitForElementToBeRemoved(getErrorElement)
+  // loader returns
+  const newLoader = container.querySelector('[aria-busy="true"]')
+  expect(newLoader).toBeInTheDocument()
+  // loader disappeared
+  await waitForElementToBeRemoved(newLoader)
+  // component successfully re-rendered without errors
+  expect(screen.getByText(hookOneResult)).toBeInTheDocument()
+
+  // check console logging
+  checkConsoleLogging({ consoleError, consoleDir, consoleLog })
+
+  // restore console methods
+  clearConsoleMocks({ consoleError, consoleDir, consoleLog })
+}
 
 test('minimal configuration', async () => {
   const TestComponentSingleHook = withLazyHooks({
@@ -66,46 +143,21 @@ test('multiple hooks', async () => {
   expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
   expect(screen.queryByText(hookTwoResult)).not.toBeInTheDocument()
   // loader disappeared
-  screen.debug()
   await waitForElementToBeRemoved(loader)
   // component appeared
   expect(screen.getByText(hookOneResult)).toBeInTheDocument()
   expect(screen.getByText(hookTwoResult)).toBeInTheDocument()
 })
 
+// eslint-disable-next-line jest/expect-expect
 test('error in hook & reset', async () => {
-  const TestComponentSingleHook = withLazyHooks({
-    hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
-    Component: TestComponentSingleHookImpl
-  })
-
-  const { container, rerender } = render(<TestComponentSingleHook withError />)
-  const loader = container.querySelector('[aria-busy="true"]')
-  const getErrorElement = () => screen.getByText(errorMsg)
-
-  // loader exist
-  expect(loader).toBeInTheDocument()
-  // error message doesn't exist yet
-  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
-  // loader disappeared
-  await waitForElementToBeRemoved(loader)
-  // error message appeared
-  expect(getErrorElement()).toBeInTheDocument()
-  // reset by click
-  userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
-  rerender(<TestComponentSingleHook />)
-  // error message disappears
-  await waitForElementToBeRemoved(getErrorElement)
-  // loader returns
-  const newLoader = container.querySelector('[aria-busy="true"]')
-  expect(newLoader).toBeInTheDocument()
-  // loader disappeared
-  await waitForElementToBeRemoved(newLoader)
-  // component successfully re-rendered without errors
-  expect(screen.getByText(hookOneResult)).toBeInTheDocument()
+  await testErrorCase()
 })
 
-test.todo('custom error fallback (for hook crushed) & reset')
+// eslint-disable-next-line jest/expect-expect
+test('custom error fallback (for hook crushed) & reset', async () => {
+  await testErrorCase(true)
+})
 
 test.todo('error in loader (promise) & reset')
 

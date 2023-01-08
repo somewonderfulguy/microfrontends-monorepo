@@ -37,6 +37,48 @@ const checkConsoleLogging = ({ consoleError, consoleLog, consoleDir }: SpyConsol
   expect(consoleDir.mock.calls[1][0]).toMatch(/at TestComponent/)
 }
 
+const testErrorCase = async (isCustomError = false) => {
+  // mock console methods
+  const { consoleDir, consoleError, consoleLog } = mockConsole()
+
+  const TestComponent = federatedComponent<ComponentType>({
+    Component: lazy(() => import('./TestComponent')),
+    Fallback: isCustomError
+      ? ({ error, resetErrorBoundary }: FallbackProps) => (
+        <div>
+          <div role="alert">{error.message}</div>
+          <button onClick={resetErrorBoundary}>reset</button>
+        </div>
+      )
+      : undefined
+  })
+  const { container, rerender } = render(<TestComponent withError>{successRenderMsg}</TestComponent>)
+  const loader = container.querySelector('[aria-busy="true"]')
+  const getErrorElement = () => screen.getByText(errorMsg)
+
+  // loader exist
+  expect(loader).toBeInTheDocument()
+  // error message doesn't exist yet
+  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
+  // loader disappeared
+  await waitForElementToBeRemoved(loader)
+  // error message appeared
+  expect(getErrorElement()).toBeInTheDocument()
+  // reset by click
+  userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
+  rerender(<TestComponent>{successRenderMsg}</TestComponent>)
+  // error message disappears
+  await waitForElementToBeRemoved(getErrorElement)
+  // component successfully re-rendered without errors
+  expect(screen.getByText(successRenderMsg)).toBeInTheDocument()
+
+  // check console logging
+  checkConsoleLogging({ consoleError, consoleDir, consoleLog })
+
+  // restore console methods
+  clearConsoleMocks({ consoleError, consoleDir, consoleLog })
+}
+
 test('minimal configuration', async () => {
   const TestComponent = federatedComponent<ComponentType>({
     Component: lazy(() => import('./TestComponent'))
@@ -73,74 +115,12 @@ test('custom loader', async () => {
   expect(screen.getByText(successRenderMsg)).toBeInTheDocument()
 })
 
+// eslint-disable-next-line jest/expect-expect
 test('error & reset', async () => {
-  // mock console methods
-  const { consoleDir, consoleError, consoleLog } = mockConsole()
-
-  const TestComponent = federatedComponent<ComponentType>({
-    Component: lazy(() => import('./TestComponent'))
-  })
-  const { container, rerender } = render(<TestComponent withError>{successRenderMsg}</TestComponent>)
-  const loader = container.querySelector('[aria-busy="true"]')
-  const getErrorElement = () => screen.getByText(errorMsg)
-
-  // loader exist
-  expect(loader).toBeInTheDocument()
-  // error message doesn't exist yet
-  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
-  // loader disappeared
-  await waitForElementToBeRemoved(loader)
-  // error message appeared
-  expect(getErrorElement()).toBeInTheDocument()
-  // reset by click
-  userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
-  rerender(<TestComponent>{successRenderMsg}</TestComponent>)
-  // error message disappears
-  await waitForElementToBeRemoved(getErrorElement)
-  // component successfully re-rendered without errors
-  expect(screen.getByText(successRenderMsg)).toBeInTheDocument()
-
-  // check console logging
-  checkConsoleLogging({ consoleError, consoleDir, consoleLog })
-
-  // restore console methods
-  clearConsoleMocks({ consoleError, consoleDir, consoleLog })
+  await testErrorCase()
 })
 
+// eslint-disable-next-line jest/expect-expect
 test('custom error fallback & reset', async () => {
-  // mock console methods
-  const { consoleDir, consoleError, consoleLog } = mockConsole()
-
-  const TestComponent = federatedComponent<ComponentType>({
-    Component: lazy(() => import('./TestComponent')),
-    Fallback: ({ error, resetErrorBoundary }: FallbackProps) => (
-      <div>
-        <div role="alert">{error.message}</div>
-        <button onClick={resetErrorBoundary}>reset</button>
-      </div>
-    )
-  })
-  const { container, rerender } = render(<TestComponent withError>{successRenderMsg}</TestComponent>)
-  const loader = container.querySelector('[aria-busy="true"]')
-  const getErrorElement = () => screen.getByText(errorMsg)
-
-  // loader exist
-  expect(loader).toBeInTheDocument()
-  // error message doesn't exist yet
-  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
-  // loader disappeared
-  await waitForElementToBeRemoved(loader)
-  // reset by click
-  userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
-  rerender(<TestComponent>{successRenderMsg}</TestComponent>)
-  // error message disappears
-  await waitForElementToBeRemoved(getErrorElement)
-  // component successfully re-rendered without errors
-  expect(screen.getByText(successRenderMsg)).toBeInTheDocument()
-
-  // check console logging
-  checkConsoleLogging({ consoleError, consoleDir, consoleLog })
-
-  // restore console methods
-  clearConsoleMocks({ consoleError, consoleDir, consoleLog })
+  await testErrorCase(true)
 })
