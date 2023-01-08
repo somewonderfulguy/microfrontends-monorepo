@@ -1,7 +1,7 @@
 import React from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-import { render, screen, userEvent, waitForElementToBeRemoved } from '../../../tests'
+import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks } from '../../../tests'
 
 import { withLazyHooks } from '..'
 import {
@@ -10,32 +10,7 @@ import {
 import { hookOneResult } from './testHooks/useTestHookOne'
 import { hookTwoResult } from './testHooks/useTestHookTwo'
 
-const mockConsole = () => {
-  const consoleError = jest.spyOn(console, 'error').mockImplementation()
-  const consoleLog = jest.spyOn(console, 'log').mockImplementation()
-  const consoleDir = jest.spyOn(console, 'dir').mockImplementation()
 
-  return { consoleError, consoleLog, consoleDir }
-}
-
-type SpyConsoles = { consoleError: jest.SpyInstance, consoleLog: jest.SpyInstance, consoleDir: jest.SpyInstance }
-
-const clearConsoleMocks = ({ consoleError, consoleLog, consoleDir }: SpyConsoles) => {
-  consoleError.mockRestore()
-  consoleLog.mockRestore()
-  consoleDir.mockRestore()
-}
-
-const checkConsoleLogging = ({ consoleError, consoleLog, consoleDir }: SpyConsoles) => {
-  expect(consoleError).toHaveBeenCalledTimes(2)
-  expect(consoleError.mock.calls[0][0]).toMatch(new RegExp(errorMsg, 'i'))
-  expect(consoleError.mock.calls[1][0]).toMatch(/The above error occurred in the <TestComponentSingleHook> component/i)
-  expect(consoleLog).toHaveBeenCalledTimes(1)
-  expect(consoleLog.mock.lastCall[0]).toMatch(/federated module failed/gi)
-  expect(consoleDir).toHaveBeenCalledTimes(2)
-  expect(consoleDir.mock.calls[0][0].toString()).toBe(`Error: ${errorMsg}`)
-  expect(consoleDir.mock.calls[1][0]).toMatch(/at TestComponent/)
-}
 
 const testErrorCase = async (isCustomError = false) => {
   // mock console methods
@@ -80,7 +55,7 @@ const testErrorCase = async (isCustomError = false) => {
   expect(screen.getByText(hookOneResult)).toBeInTheDocument()
 
   // check console logging
-  checkConsoleLogging({ consoleError, consoleDir, consoleLog })
+  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponentSingleHook' })
 
   // restore console methods
   clearConsoleMocks({ consoleError, consoleDir, consoleLog })
