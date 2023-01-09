@@ -10,8 +10,6 @@ import {
 import { hookOneResult } from './testHooks/useTestHookOne'
 import { hookTwoResult } from './testHooks/useTestHookTwo'
 
-
-
 const testErrorCase = async (isCustomError = false) => {
   // mock console methods
   const { consoleDir, consoleError, consoleLog } = mockConsole()
@@ -134,10 +132,49 @@ test('custom error fallback (for hook crushed) & reset', async () => {
   await testErrorCase(true)
 })
 
-test.todo('error in loader (promise) & reset')
+test('error in loader (promise) & reset', async () => {
+  // mock console methods
+  const { consoleDir, consoleError, consoleLog } = mockConsole()
+
+  const getTestComponentSingleHook = (withLoadingError = false) => withLazyHooks({
+    hooks: { useTestHookOne: withLoadingError ? Promise.reject(errorMsg) : import('./testHooks/useTestHookOne') },
+    Component: TestComponentSingleHookImpl
+  })
+  const TestComponentSingleHook = getTestComponentSingleHook(true)
+
+  const { container, rerender } = render(<TestComponentSingleHook />)
+  const loader = container.querySelector('[aria-busy="true"]')
+  const getErrorElement = () => screen.getByText(errorMsg)
+
+  // loader exist
+  expect(loader).toBeInTheDocument()
+  // component doesn't exist yet
+  expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
+  // loader disappeared
+  await waitForElementToBeRemoved(loader)
+  // error message appeared
+  expect(getErrorElement()).toBeInTheDocument()
+  // reset by click
+  userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
+  const TestComponentSingleHookCorrect = getTestComponentSingleHook()
+  rerender(<TestComponentSingleHookCorrect />)
+  // error message disappears
+  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
+  // loader returns
+  const newLoader = container.querySelector('[aria-busy="true"]')
+  expect(newLoader).toBeInTheDocument()
+  // loader disappeared
+  await waitForElementToBeRemoved(newLoader)
+  // component successfully re-rendered without errors
+  expect(screen.getByText(hookOneResult)).toBeInTheDocument()
+
+  // check console logging
+  // checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponentSingleHook' })
+
+  // restore console methods
+  // clearConsoleMocks({ consoleError, consoleDir, consoleLog })
+})
 
 test.todo('custom error fallback (for loader) & reset')
 
 test.todo('custom query key with accessing query client')
-
-test.todo('? maximum configuration ? (? happy/unhappy paths ?)')

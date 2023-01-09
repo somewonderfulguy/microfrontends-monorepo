@@ -50,14 +50,14 @@ const LoadingWrapper = ({ hooks, render, renderFallback, queryKey = uuidv4(), de
   )
 
   const loader = <>{delayedElement ?? <div aria-busy="true" />}</>
-  const renderWithHooks = (hooks?: AnyFunctionType[]) => <>{hooks ? render(hooks) : null}</>
+  const renderWithHooks = (hooks?: AnyFunctionType[]) => <>{hooks && render(hooks)}</>
 
   if (isLoading) return loader
 
   if (isError) {
     const errorObj = error?.message
       ? error
-      : new Error(typeof error === 'string' ? error : 'Unknown error on federated hooks loading')
+      : new Error(typeof error === 'string' ? error : /* istanbul ignore next */ 'Unknown error on federated hooks loading')
 
     errorHandler(errorObj)
 
