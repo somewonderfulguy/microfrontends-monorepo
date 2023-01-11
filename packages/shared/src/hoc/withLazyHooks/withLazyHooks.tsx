@@ -59,7 +59,7 @@ const LoadingWrapper = ({ hooks, render, renderFallback, queryKey = uuidv4(), de
       ? error
       : new Error(typeof error === 'string' ? error : /* istanbul ignore next */ 'Unknown error on federated hooks loading')
 
-    errorHandler(errorObj)
+    errorHandler(errorObj, { errorMessage })
 
     return <>{renderFallback(errorObj, refetch)}</>
   }
@@ -88,7 +88,7 @@ export const withLazyHooks = <Props = Record<string, never>>({
             const fallbackProps = { ...errorProps, ...props, resetErrorBoundary: resetComponent }
             return renderFallback(fallbackProps)
           }}
-          onError={(...args) => errorHandler(...args)}
+          onError={(error, info) => errorHandler(error, { ...info, errorMessage })}
         >
           <LoadingWrapper
             hooks={hooks}

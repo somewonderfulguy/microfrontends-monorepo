@@ -57,7 +57,7 @@ export const federatedComponent = <T extends ComponentType>({
                 )
             )
           }}
-          onError={(...args) => errorHandler(...args)}
+          onError={(error, info) => errorHandler(error, { ...info, errorMessage: 'Federated module failed!' })}
         >
           <SuspenseWrapper>
             <Component {...props} />

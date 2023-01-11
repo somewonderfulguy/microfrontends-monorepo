@@ -6,7 +6,7 @@ const mockConsole = () => {
   return { consoleError, consoleLog, consoleDir }
 }
 
-type SpyConsoles = { consoleError: jest.SpyInstance, consoleLog: jest.SpyInstance, consoleDir: jest.SpyInstance }
+export type SpyConsoles = { consoleError: jest.SpyInstance, consoleLog: jest.SpyInstance, consoleDir: jest.SpyInstance }
 
 const clearConsoleMocks = ({ consoleError, consoleLog, consoleDir }: SpyConsoles) => {
   consoleError.mockRestore()
@@ -15,13 +15,13 @@ const clearConsoleMocks = ({ consoleError, consoleLog, consoleDir }: SpyConsoles
 }
 
 const checkConsoleLogging = ({
-  consoleError, consoleLog, consoleDir, errorMsg, componentName
-}: SpyConsoles & { errorMsg: string, componentName: string }) => {
+  consoleError, consoleLog, consoleDir, errorMsg, componentName, expectedPattern,
+}: SpyConsoles & { errorMsg: string, componentName: string, expectedPattern: RegExp }) => {
   expect(consoleError).toHaveBeenCalledTimes(2)
   expect(consoleError.mock.calls[0][0]).toMatch(new RegExp(errorMsg, 'i'))
   expect(consoleError.mock.calls[1][0]).toMatch(new RegExp(`The above error occurred in the <${componentName}> component`, 'i'))
   expect(consoleLog).toHaveBeenCalledTimes(1)
-  expect(consoleLog.mock.lastCall[0]).toMatch(/federated module failed/gi)
+  expect(consoleLog.mock.lastCall[0]).toMatch(expectedPattern)
   expect(consoleDir).toHaveBeenCalledTimes(2)
   expect(consoleDir.mock.calls[0][0].toString()).toBe(`Error: ${errorMsg}`)
   expect(consoleDir.mock.calls[1][0]).toMatch(new RegExp(`at ${componentName}`, 'i'))

@@ -1,7 +1,7 @@
 import React from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks } from '../../../tests'
+import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks, SpyConsoles } from '../../../tests'
 
 import { withLazyHooks } from '..'
 import {
@@ -9,6 +9,17 @@ import {
 } from './TestComponents'
 import { hookOneResult } from './testHooks/useTestHookOne'
 import { hookTwoResult } from './testHooks/useTestHookTwo'
+
+const errorRegexp = /federated hook\(s\) failed/gi
+
+const checkPromiseErrorLogging = ({ consoleError, consoleLog, consoleDir }: SpyConsoles) => {
+  expect(consoleError).toHaveBeenCalledTimes(1)
+  expect(consoleError.mock.calls[0][0]).toMatch(new RegExp(errorMsg, 'i'))
+  expect(consoleLog).toHaveBeenCalledTimes(1)
+  expect(consoleLog.mock.lastCall[0]).toMatch(errorRegexp)
+  expect(consoleDir).toHaveBeenCalledTimes(1)
+  expect(consoleDir.mock.calls[0][0].toString()).toBe(`Error: ${errorMsg}`)
+}
 
 const testErrorCase = async (isCustomError = false) => {
   // mock console methods
@@ -53,7 +64,7 @@ const testErrorCase = async (isCustomError = false) => {
   expect(screen.getByText(hookOneResult)).toBeInTheDocument()
 
   // check console logging
-  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponentSingleHook' })
+  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponentSingleHook', expectedPattern: errorRegexp })
 
   // restore console methods
   clearConsoleMocks({ consoleError, consoleDir, consoleLog })
@@ -156,7 +167,7 @@ test('error in loader (promise) & reset', async () => {
   expect(getErrorElement()).toBeInTheDocument()
   // reset by click
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
-  const TestComponentSingleHookCorrect = getTestComponentSingleHook()
+  const TestComponentSingleHookCorrect = getTestComponentSingleHook() 
   rerender(<TestComponentSingleHookCorrect />)
   // error message disappears
   expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
@@ -169,10 +180,10 @@ test('error in loader (promise) & reset', async () => {
   expect(screen.getByText(hookOneResult)).toBeInTheDocument()
 
   // check console logging
-  // checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponentSingleHook' })
+  checkPromiseErrorLogging({ consoleError, consoleDir, consoleLog })
 
   // restore console methods
-  // clearConsoleMocks({ consoleError, consoleDir, consoleLog })
+  clearConsoleMocks({ consoleError, consoleDir, consoleLog })
 })
 
 test.todo('custom error fallback (for loader) & reset')

@@ -46,7 +46,7 @@ const testErrorCase = async (isCustomError = false) => {
   expect(screen.getByText(successRenderMsg)).toBeInTheDocument()
 
   // check console logging
-  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponent' })
+  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponent', expectedPattern: /federated module failed/gi })
 
   // restore console methods
   clearConsoleMocks({ consoleError, consoleDir, consoleLog })

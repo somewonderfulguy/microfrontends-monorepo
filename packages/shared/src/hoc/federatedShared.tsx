@@ -19,10 +19,10 @@ const DefaultFallbackComponent = ({ children, error, resetErrorBoundary }: IDefa
   </div>
 )
 
-const errorHandler = (error: Error, info?: { componentStack: string }) => {
-  console.log(`%cFederated module failed!`, 'color: white; background: red; font-size: 24px')
+const errorHandler = (error: Error, info: { componentStack?: string, errorMessage: string }) => {
+  console.log(`%c${info.errorMessage}`, 'color: white; background: red; font-size: 24px')
   console.dir(error)
-  info && console.dir(info.componentStack)
+  info.componentStack && console.dir(info.componentStack)
 }
 
 const ResetWrapper = ({ render }: { render: (resetComponent: Any) => ReactNode }) => {
