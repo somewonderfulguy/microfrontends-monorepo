@@ -98,10 +98,9 @@ export const withLazyHooks = <Props = Record<string, never>>({
               hookNames.forEach((name, idx) => hooksToProps[name] = loadedHooks[idx].default)
               return <Component {...props} {...hooksToProps} />
             }}
-            renderFallback={(error, refetch) => {
-              const fallbackProps = { error, resetErrorBoundary: () => refetch() }
-              return renderFallback(fallbackProps)
-            }}
+            renderFallback={(error, refetch) => (
+              renderFallback({ error, resetErrorBoundary: refetch })
+            )}
             {...rest}
           />
         </ReactErrorBoundary>
