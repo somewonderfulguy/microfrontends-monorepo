@@ -207,5 +207,3 @@ test('error in loader (promise) & reset', async () => {
 test('custom error fallback (for loader) & reset', async () => {
   await testErrorPromiseCase(true, true)
 })
-
-test.todo('custom query key with accessing query client')
