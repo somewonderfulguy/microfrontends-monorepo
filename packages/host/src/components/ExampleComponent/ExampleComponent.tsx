@@ -29,7 +29,7 @@ const ExampleComponent = withLazyHooks({
     useResizeObserver: import('shared/build-npm/hooks/useResizeObserver')
   },
   Component: ExampleComponentImpl,
-  queryKey: ['useSomeHook', 'useAnotherHook']
+  queryKey: ['usePrevious', 'useResizeObserver']
 })
 
 export default ExampleComponent
