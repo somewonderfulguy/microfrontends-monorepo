@@ -37,6 +37,8 @@ const testErrorCase = async (isCustomError = false) => {
   await waitForElementToBeRemoved(loader)
   // error message appeared
   expect(getErrorElement()).toBeInTheDocument()
+  // no component rendered
+  expect(screen.queryByText(successRenderMsg)).not.toBeInTheDocument()
   // reset by click
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   rerender(<TestComponent>{successRenderMsg}</TestComponent>)
@@ -44,6 +46,8 @@ const testErrorCase = async (isCustomError = false) => {
   await waitForElementToBeRemoved(getErrorElement)
   // component successfully re-rendered without errors
   expect(screen.getByText(successRenderMsg)).toBeInTheDocument()
+  // no error displayed
+  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
 
   // check console logging
   checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponent', expectedPattern: /federated module failed/gi })

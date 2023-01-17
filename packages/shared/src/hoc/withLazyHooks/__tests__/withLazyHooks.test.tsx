@@ -54,6 +54,8 @@ const testErrorCase = async (isCustomError = false) => {
   await waitForElementToBeRemoved(loader)
   // error message appeared
   expect(getErrorElement()).toBeInTheDocument()
+  // no component rendered
+  expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
   // reset by click
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   rerender(<TestComponentSingleHook />)
@@ -64,8 +66,10 @@ const testErrorCase = async (isCustomError = false) => {
   expect(newLoader).toBeInTheDocument()
   // loader disappeared
   await waitForElementToBeRemoved(newLoader)
-  // component successfully re-rendered without errors
+  // component successfully rendered
   expect(screen.getByText(hookOneResult)).toBeInTheDocument()
+  // no error displayed
+  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
 
   // check console logging
   checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponentSingleHook', expectedPattern: errorRegexp })
@@ -104,6 +108,8 @@ const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = fal
   await waitForElementToBeRemoved(loader)
   // error message appeared
   expect(getErrorElement()).toBeInTheDocument()
+  // no component rendered
+  expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
   // reset by click
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   const TestComponentSingleHookCorrect = getTestComponentSingleHook()
@@ -117,6 +123,8 @@ const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = fal
   await waitForElementToBeRemoved(newLoader)
   // component successfully re-rendered without errors
   expect(screen.getByText(hookOneResult)).toBeInTheDocument()
+  // no error displayed
+  expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
 
   // check console logging
   checkPromiseErrorLogging({ consoleError, consoleDir, consoleLog, isErrorAsString })
