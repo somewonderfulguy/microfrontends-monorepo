@@ -66,6 +66,18 @@
       "__tests__/TestComponent",
       "__tests__/TestComponents",
       "__tests__/testHooks"
-    ]
+    ],
+    "coveragePathIgnorePatterns": [
+      "testHooks",
+      "TestComponent"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 10,
+        "functions": 10,
+        "lines": 10,
+        "statements": 10
+      }
+    }
   }
 }
