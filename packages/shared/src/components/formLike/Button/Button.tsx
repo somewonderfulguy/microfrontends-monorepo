@@ -10,7 +10,7 @@ export interface IButtonProps extends HTMLProps<HTMLButtonElement> {
 
 const Button = ({ children, isPreview, ...props }: IButtonProps) => (
   <button {...props} className={styles.button}>
-    {isPreview && <PreviewIcon className={styles.preview}  />} {children}
+    {isPreview && <PreviewIcon className={styles.preview} />} {children}
   </button>
 )
 

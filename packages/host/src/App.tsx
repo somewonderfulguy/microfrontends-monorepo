@@ -32,7 +32,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <div className="App">
       <Block>I am a text in a shared block</Block>
-      <Button type="button">Click for no reason</Button>
+      <Button isPreview type="button">Click for no reason</Button>
       <SubApplication />
       Text from host app
       <ExampleComponent />

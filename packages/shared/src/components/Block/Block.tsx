@@ -6,9 +6,11 @@ export interface IBlockProps extends HTMLProps<HTMLDivElement> {
   withCybercat?: boolean
 }
 
+export const altText = 'Cybercat 2077'
+
 const Block = ({ children, withCybercat, ...props }: IBlockProps) => (
   <div {...props}>
-    {withCybercat && <img src={cybercat} alt="Cybercat 2077" />}
+    {withCybercat && <img src={cybercat} alt={altText} />}
     {children}
   </div>
 )

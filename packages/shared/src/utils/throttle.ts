@@ -1,17 +1,15 @@
 import { AnyArrayType, AnyFunctionType } from '../typesShared'
 
-export const throttle = (func: AnyFunctionType, delay = 0) => {
+const throttle = <T = AnyFunctionType>(func: AnyFunctionType, delay = 0) => {
   let isThrottled = false
   let savedArgs: AnyArrayType | null
+  let result: ReturnType<typeof func>
 
   const wrapper = (...args: AnyArrayType) => {
     if (isThrottled) {
       savedArgs = args
-      return
+      return result
     }
-
-    func(...args)
-    isThrottled = true
 
     setTimeout(() => {
       isThrottled = false
@@ -20,7 +18,13 @@ export const throttle = (func: AnyFunctionType, delay = 0) => {
         savedArgs = null
       }
     }, delay)
+
+    isThrottled = true
+    result = func(...args)
+    return result
   }
 
-  return wrapper
+  return wrapper as T
 }
+
+export default throttle

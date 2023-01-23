@@ -70,7 +70,11 @@
     ],
     "coveragePathIgnorePatterns": [
       "testHooks",
-      "TestComponent"
+      "TestComponent",
+      "src/index.ts",
+      "src/indexReal.tsx",
+      "src/App.tsx",
+      "src/typesShared.ts"
     ],
     "coverageThreshold": {
       "global": {
