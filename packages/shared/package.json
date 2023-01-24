@@ -10,7 +10,9 @@
     "test:once": "react-app-rewired test --watchAll=false --maxWorkers=75%",
     "test:coverage": "react-app-rewired test --coverage --watchAll=false --maxWorkers=75%",
     "eject": "react-app-rewired eject",
-    "serve": "cross-env PORT=5333 npx servor build"
+    "serve": "cross-env PORT=5333 npx servor build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "peerDependencies": {
     "react": "^18.2.0",
@@ -22,10 +24,19 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.12",
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-image": "^3.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-url": "^8.0.1",
+    "@storybook/addon-actions": "^6.5.15",
+    "@storybook/addon-essentials": "^6.5.15",
+    "@storybook/addon-interactions": "^6.5.15",
+    "@storybook/addon-links": "^6.5.15",
+    "@storybook/builder-webpack5": "^6.5.15",
+    "@storybook/manager-webpack5": "^6.5.15",
+    "@storybook/react": "^6.5.15",
+    "@storybook/testing-library": "^0.0.13",
     "@svgr/rollup": "^6.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -37,6 +48,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-table": "^7.7.12",
     "@types/uuid": "^8.3.4",
+    "babel-loader": "^8.3.0",
     "cross-env": "^7.0.3",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1",
