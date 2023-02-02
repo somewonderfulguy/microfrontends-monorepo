@@ -13,7 +13,8 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-error-boundary": "^3.1.4"
+    "react-error-boundary": "^3.1.4",
+    "library": "0.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^23.0.2",
