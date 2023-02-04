@@ -6,8 +6,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently \"wsrun --parallel start\"",
-    "initialize": "cd ./packages/library && yarn build:rollup && cd ../sub-application && yarn build:rollup",
-    "build": "yarn initialize && cd ./packages/host && yarn build",
+    "build": "yarn workspaces run build",
     "serve": "concurrently \"wsrun --parallel serve\"",
     "wipe": "rimraf node_modules packages/**/node_modules"
   },
