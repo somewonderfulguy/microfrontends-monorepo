@@ -1,0 +1,100 @@
+{
+  "name": "library",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./build-npm/index.js",
+  "scripts": {
+    "build:rollup": "rimraf build-npm && rollup -c --bundleConfigAsCjs",
+    "test": "react-app-rewired test --maxWorkers=75%",
+    "test:once": "react-app-rewired test --watchAll=false --maxWorkers=75%",
+    "test:coverage": "react-app-rewired test --coverage --watchAll=false --maxWorkers=75%",
+    "eject": "react-app-rewired eject",
+    "start": "start-storybook -p 3333",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "augmented-ui": "^2.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^3.1.4",
+    "react-query": "^3.39.2"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-image": "^3.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-url": "^8.0.1",
+    "@storybook/addon-actions": "^6.5.15",
+    "@storybook/addon-essentials": "^6.5.15",
+    "@storybook/addon-interactions": "^6.5.15",
+    "@storybook/addon-links": "^6.5.15",
+    "@storybook/builder-webpack5": "^6.5.15",
+    "@storybook/manager-webpack5": "^6.5.15",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.15",
+    "@storybook/testing-library": "^0.0.13",
+    "@svgr/rollup": "^6.5.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/jest": "^28.1.6",
+    "@types/node": "^18.6.0",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-table": "^7.7.12",
+    "@types/uuid": "^8.3.4",
+    "babel-loader": "^8.3.0",
+    "cross-env": "^7.0.3",
+    "react-app-rewired": "^2.2.1",
+    "react-scripts": "^5.0.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.2.3",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "servor": "^4.0.2",
+    "typescript": "^4.8.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "__tests__/TestComponent",
+      "__tests__/TestComponents",
+      "__tests__/testHooks"
+    ],
+    "coveragePathIgnorePatterns": [
+      "testHooks",
+      "TestComponent",
+      "src/index.ts",
+      "src/indexReal.tsx",
+      "src/App.tsx",
+      "src/typesShared.ts"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 10,
+        "functions": 10,
+        "lines": 10,
+        "statements": 10
+      }
+    }
+  }
+}
