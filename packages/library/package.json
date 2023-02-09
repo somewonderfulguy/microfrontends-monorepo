@@ -9,7 +9,8 @@
     "test:once": "react-app-rewired test --watchAll=false --maxWorkers=75%",
     "test:coverage": "react-app-rewired test --coverage --watchAll=false --maxWorkers=75%",
     "eject": "react-app-rewired eject",
-    "start": "start-storybook -p 3333",
+    "start": "cross-env PORT=3333 react-app-rewired start",
+    "start-storybook": "start-storybook -p 3330",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
