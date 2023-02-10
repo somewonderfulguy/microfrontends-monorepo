@@ -4,8 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { BlockComponent, ButtonComponent, FederatedComponent } from 'library/src/typesShared'
-import { federatedComponent as sharedFederatedComponent } from 'library/src/hoc'
-// import { federatedComponent as sharedFederatedComponent } from 'library/build-npm/hoc/federatedComponent'
+import { federatedComponent as sharedFederatedComponent } from 'library/build-npm/hoc/federatedComponent'
 // import Button from 'library/Button'
 
 // import { ExampleComponent } from 'components'
