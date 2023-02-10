@@ -14,8 +14,8 @@ module.exports = function override(config) {
       filename: "remoteEntry.js",
       remotes: {
         // keep in alphabetical order
-        'sub-application-mf': `sub_application@http://localhost:${config.mode === "production" ? 5030 : 3030}/sub-application.js`,
-        'library-mf': `library@http://localhost:${config.mode === "production" ? 5333 : 3333}/library.js`,
+        'sub-application': `sub_application@http://localhost:${config.mode === "production" ? 5030 : 3030}/sub-application.js`,
+        'library': `library@http://localhost:${config.mode === "production" ? 5333 : 3333}/library.js`,
       },
       exposes: {},
       shared: {

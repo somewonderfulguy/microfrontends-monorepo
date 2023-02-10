@@ -5,6 +5,8 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { BlockComponent, ButtonComponent, FederatedComponent } from 'library/src/typesShared'
 import { federatedComponent as sharedFederatedComponent } from 'library/src/hoc'
+// import { federatedComponent as sharedFederatedComponent } from 'library/build-npm/hoc/federatedComponent'
+// import Button from 'library/Button'
 
 // import { ExampleComponent } from 'components'
 import 'services/resizeObserverPolyfill'
@@ -19,22 +21,23 @@ const federatedComponent: FederatedComponent = sharedFederatedComponent
 //   delayedElement: 'Loading...',
 //   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <div {...props} />
 // })
-// const Button = federatedComponent<ButtonComponent>({
-//   Component: lazy(() => import('library/Button')),
-//   delayedElement: <>Loading...</>,
-//   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <button {...props} />
-// })
-const SubApplication = federatedComponent<ComponentType>({
-  Component: lazy(() => import('sub-application/app')),
-  delayedElement: 'please wait...',
+const Button = federatedComponent<ButtonComponent>({
+  Component: lazy(() => import('library/Button')),
+  delayedElement: <>Loading...</>,
+  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <button {...props} />
 })
+// const SubApplication = federatedComponent<ComponentType>({
+//   Component: lazy(() => import('sub-application/app')),
+//   delayedElement: 'please wait...',
+// })
 
 const queryClient = new QueryClient()
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <div className={styles.app}>
-      <SubApplication />
+      <Button type="button">Click for no reason</Button>
+      {/* <SubApplication /> */}
       {/* <Block>I am a text in a shared block</Block>
       <div>
         <Button type="button">Click for no reason</Button>
