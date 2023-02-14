@@ -5,9 +5,8 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { BlockComponent, ButtonComponent, FederatedComponent } from 'library/src/typesShared'
 import { federatedComponent as sharedFederatedComponent } from 'library/build-npm/hoc/federatedComponent'
-// import Button from 'library/Button'
 
-// import { ExampleComponent } from 'components'
+import { ExampleComponent } from 'components'
 import 'services/resizeObserverPolyfill'
 import 'styles/index.css'
 
@@ -15,36 +14,35 @@ import styles from './App.module.css'
 
 const federatedComponent: FederatedComponent = sharedFederatedComponent
 
-// const Block = federatedComponent<BlockComponent>({
-//   Component: lazy(() => import('library/Block')),
-//   delayedElement: 'Loading...',
-//   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <div {...props} />
-// })
+const Block = federatedComponent<BlockComponent>({
+  Component: lazy(() => import('library-mf/Block')),
+  delayedElement: 'Loading...',
+  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <div {...props} />
+})
 const Button = federatedComponent<ButtonComponent>({
-  Component: lazy(() => import('library/Button')),
+  Component: lazy(() => import('library-mf/Button')),
   delayedElement: <>Loading...</>,
   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <button {...props} />
 })
-// const SubApplication = federatedComponent<ComponentType>({
-//   Component: lazy(() => import('sub-application/app')),
-//   delayedElement: 'please wait...',
-// })
+const SubApplication = federatedComponent<ComponentType>({
+  Component: lazy(() => import('sub-application-mf/app')),
+  delayedElement: 'please wait...',
+})
 
 const queryClient = new QueryClient()
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <div className={styles.app}>
-      <Button type="button">Click for no reason</Button>
-      {/* <SubApplication /> */}
-      {/* <Block>I am a text in a shared block</Block>
+      <SubApplication />
+      <Block>I am a text in a shared block</Block>
       <div>
         <Button type="button">Click for no reason</Button>
-      </div> */}
+      </div>
     </div>
-    {/* <div className={styles.exampleContainer}>
+    <div className={styles.exampleContainer}>
       <ExampleComponent />
-    </div> */}
+    </div>
     <ReactQueryDevtools position="bottom-right" />
   </QueryClientProvider>
 )

@@ -12,7 +12,9 @@ module.exports = function override(config) {
     new ModuleFederationPlugin({
       name: 'sub_application',
       filename: 'sub-application.js',
-      remotes: {},
+      remotes: {
+        'library-mf': `library@http://localhost:${config.mode === "production" ? 5333 : 3333}/library.js`,
+      },
       exposes: {
         './app': './src/App.tsx',
       },
