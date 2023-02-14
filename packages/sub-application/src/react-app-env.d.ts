@@ -1,4 +1,6 @@
 /// <reference types="react-scripts" />
 
-declare module 'shared/build-npm/hoc'
-declare module 'shared/build-npm/components/Block'
+declare module 'library-mf/Block'
+
+declare module 'library/build-npm/hoc/federatedComponent'
+declare module 'library/build-npm/hoc/withLazyHooks'
