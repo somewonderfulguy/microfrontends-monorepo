@@ -1,16 +1,16 @@
 import React, { lazy } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-import { BlockComponent, FederatedComponent } from 'library/src/typesShared'
-import { federatedComponent as sharedFederatedComponent } from 'library/build-npm/hoc/federatedComponent'
+import { IBlockProps, WithLazyLoad } from 'library/src/typesShared'
+import { withLazyLoad as sharedWithLazyLoad } from 'library/build-npm/hoc/withLazyLoad'
 
-const federatedComponent: FederatedComponent = sharedFederatedComponent
+const withLazyLoad: WithLazyLoad = sharedWithLazyLoad
 
-const Block = federatedComponent<BlockComponent>({
-  Component: lazy(() => import('library/build-npm/components/Block')),
+const Block = withLazyLoad<IBlockProps>({
   delayedElement: 'Loading...',
-  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <div {...props} />
-})
+  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <div {...props} />,
+  displayName: 'Block'
+})(lazy(() => import('library/build-npm/components/Block')))
 
 function App() {
   return (

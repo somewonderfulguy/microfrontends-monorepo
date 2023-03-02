@@ -13,7 +13,7 @@ import image from '@rollup/plugin-image'
 const paths = [
   'components/Block',
   'components/formLike/Button',
-  'hoc/federatedComponent',
+  'hoc/withLazyLoad',
   'hoc/withLazyHooks',
   'hooks/usePrevious',
   'hooks/useResizeObserver'

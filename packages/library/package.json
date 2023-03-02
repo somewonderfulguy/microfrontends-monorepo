@@ -86,7 +86,8 @@
       "src/index.ts",
       "src/indexReal.tsx",
       "src/App.tsx",
-      "src/typesShared.ts"
+      "src/typesShared.ts",
+      ".stories.tsx"
     ],
     "coverageThreshold": {
       "global": {
