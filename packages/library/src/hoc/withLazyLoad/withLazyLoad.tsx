@@ -39,7 +39,7 @@ const errorMessage = 'Lazy component failed!'
 
 export const withLazyLoad = <P extends object, T extends object = Record<string, unknown>>({ delayedElement, Fallback, displayName }: FederatedComponentProps<P> = {}) => (
   (WrappedComponent: HOCForRefComponent<T, P>): HOCForRefComponent<T, P> => {
-    const ReturnComponent = forwardRef<T, P>(((props: P): JSX.Element => (
+    const ReturnComponent = forwardRef<T, P>(((props: P, ref): JSX.Element => (
       <ResetWrapper render={(resetComponent) => (
         <ReactErrorBoundary
           fallbackRender={errorProps => {
@@ -57,7 +57,7 @@ export const withLazyLoad = <P extends object, T extends object = Record<string,
           onError={(error, info) => errorHandler(error, { ...info, errorMessage })}
         >
           <Suspense fallback={delayedElement ?? <div aria-busy="true" />}>
-            <WrappedComponent {...props as PropsWithoutRef<P>} />
+            <WrappedComponent {...props as PropsWithoutRef<P>} ref={ref} />
           </Suspense>
         </ReactErrorBoundary>
       )} />

@@ -23,6 +23,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "augmented-ui": "^2.0.0",
     "@babel/core": "^7.20.12",
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-image": "^3.0.1",
