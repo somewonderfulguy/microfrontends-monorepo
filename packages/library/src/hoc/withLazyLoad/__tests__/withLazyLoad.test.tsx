@@ -1,12 +1,11 @@
-import React, { FunctionComponent, lazy } from 'react'
+import React, { lazy } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
+// TODO in master branch all imports should use baseUrl
 import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks } from '../../../tests'
 
-import { federatedComponent } from '../federatedComponent'
+import { withLazyLoad } from '../withLazyLoad'
 import { IProps, errorMsg } from './TestComponent'
-
-type ComponentType = FunctionComponent<IProps>
 
 const successRenderMsg = 'success render'
 
@@ -14,8 +13,7 @@ const testErrorCase = async (isCustomError = false) => {
   // mock console methods
   const { consoleDir, consoleError, consoleLog } = mockConsole()
 
-  const TestComponent = federatedComponent<ComponentType>({
-    Component: lazy(() => import('./TestComponent')),
+  const TestComponent = withLazyLoad<IProps>({
     Fallback: isCustomError
       ? ({ error, resetErrorBoundary }: FallbackProps) => (
         <div>
@@ -24,7 +22,7 @@ const testErrorCase = async (isCustomError = false) => {
         </div>
       )
       : undefined
-  })
+  })(lazy(() => import('./TestComponent')))
   const { container, rerender } = render(<TestComponent withError>{successRenderMsg}</TestComponent>)
   const loader = container.querySelector('[aria-busy="true"]')
   const getErrorElement = () => screen.getByText(errorMsg)
@@ -50,16 +48,14 @@ const testErrorCase = async (isCustomError = false) => {
   expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
 
   // check console logging
-  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponent', expectedPattern: /federated module failed/gi })
+  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponent', expectedPattern: /component failed/gi })
 
   // restore console methods
   clearConsoleMocks({ consoleError, consoleDir, consoleLog })
 }
 
 test('minimal configuration', async () => {
-  const TestComponent = federatedComponent<ComponentType>({
-    Component: lazy(() => import('./TestComponent'))
-  })
+  const TestComponent = withLazyLoad<IProps>()(lazy(() => import('./TestComponent')))
   const { container } = render(<TestComponent>{successRenderMsg}</TestComponent>)
   const loader = container.querySelector('[aria-busy="true"]')
 
@@ -75,10 +71,9 @@ test('minimal configuration', async () => {
 
 test('custom loader', async () => {
   const loadingMsg = 'Loading...'
-  const TestComponent = federatedComponent<ComponentType>({
-    Component: lazy(() => import('./TestComponent')),
+  const TestComponent = withLazyLoad<IProps>({
     delayedElement: <>{loadingMsg}</>
-  })
+  })(lazy(() => import('./TestComponent')))
   render(<TestComponent>{successRenderMsg}</TestComponent>)
   const getLoader = () => screen.getByText(loadingMsg)
 

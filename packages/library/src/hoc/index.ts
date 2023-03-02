@@ -1,2 +1,2 @@
-export * from './federatedComponent';
 export * from './withLazyHooks';
+export * from './withLazyLoad';

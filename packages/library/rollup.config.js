@@ -11,7 +11,7 @@ import image from '@rollup/plugin-image'
 
 // keep alphabetical (like in file browser)
 const paths = [
-  'hoc/federatedComponent',
+  'hoc/withLazyLoad',
   'hoc/withLazyHooks',
 ]
 

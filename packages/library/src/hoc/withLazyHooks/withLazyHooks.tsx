@@ -127,6 +127,7 @@ const LoadingWrapper = ({ hooks, render, renderFallback, queryKey = uuidv4(), de
   return renderWithHooks(loadedHooks)
 }
 
+// TODO: currying
 export const withLazyHooks = <Props = Record<string, never>>({
   hooks, Component, Fallback, ...rest
 }: WithLazyHooksProps<Props>) => {
