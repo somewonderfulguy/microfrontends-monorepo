@@ -41,7 +41,7 @@ const App = () => {
         <SubApplication />
         <Block ref={blockRef}>I am a text in a shared block</Block>
         <div>
-          <Button onClick={blockRef?.current?.log} type="button">Click for no reason</Button>
+          <Button onClick={() => blockRef?.current?.log()} type="button">Click for no reason</Button>
         </div>
       </div>
       <div className={styles.exampleContainer}>
