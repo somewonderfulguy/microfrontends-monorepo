@@ -7,7 +7,7 @@ Please, see architecture of project in `architecture.dio` file. You can open it 
 
 ## Launch application
 
-If you came from amother branch start with this command:
+If you came from another branch start with this command:
 ```
 yarn wipe
 ```
@@ -19,6 +19,18 @@ yarn initialize
 And now, whenever you develop just do this:
 ```
 yarn start
+```
+
+## Edit shared components
+Assuming you are working with some library component and see changes in Storybook but you want your changes to be in other projects (host and sub-application). Then yo need to perform this:
+```
+cd ./packages/library
+yarn build:rollup
+```
+Do the same thing when you edit sub-appication code and want to see your changes in host application:
+```
+cd ./packages/sub-application
+yarn build:rollup
 ```
 
 ## Build & serve
