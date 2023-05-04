@@ -1,45 +1,45 @@
 /**
- * HOC that wraps lazy loaded component into Suspence & ErrorBoundary.
- * As loader, `delayedElement` can be passed as loader - if no passed then empty <div aria-busy="true" /> will be displayed.
- * `Fallback` prop will be used if `Component` failed.
+ * HOC that wraps lazy loaded component into Suspense & ErrorBoundary.
+ * As loader, `delayedElement` can be passed - if no passed then empty <div aria-busy="true" /> will be displayed.
+ * `Fallback` prop will be used if lazily loaded component failed.
  * If no `Fallback` provided, the default fallback will be used.
- * 
+ *
  * Ref forwarding is supported.
- * 
- * Default fallback outputs error and reset button. The reset works through key prop that rerenders component completely.
- * 
+ *
+ * Default fallback outputs error and reset button. The reset works through key prop that re-renders component completely.
+ *
  * Examples of usage:
- * 
+ *
  * // minimal config (bear in mind that if you don't pass `displayName` then it will be `LazyComponent`)
  * const Button = federatedComponent<IButtonProps>()(lazy(() => import('pathTo/Button')))
- * 
- * // full config
+ *
+ * // full config (all props & ref)
  * type RefType = { log: () => void }
  * const Button = federatedComponent<IButtonProps, RefType>({
  *   delayedElement: <>Loading...</>,
- *   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <button {...props} />,
+ *   // see FallbackProps & IButtonProps - this is for ESLint (react/prop-types rule), TS actually will work perfectly
+ *   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & IButtonProps) => <button {...props} />,
  *   displayName: 'Button'
  * })(lazy(() => import('pathTo/Button')))
  */
 
-import React, { ComponentType, ReactNode, Suspense, PropsWithoutRef, RefAttributes, ForwardRefExoticComponent, forwardRef } from 'react'
+import React, { ComponentType, ReactNode, Suspense, PropsWithoutRef, forwardRef } from 'react'
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary'
 
 import { DefaultFallbackComponent, errorHandler, ResetWrapper } from '../federatedShared'
+import { HOCRefComponent } from '../types'
 
-type HOCForRefComponent<T, P extends object> = ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>>
-
-type FederatedComponentProps<P> = {
+type FederatedComponentProps<TProps> = {
   delayedElement?: ReactNode
-  Fallback?: ComponentType<FallbackProps & P>
+  Fallback?: ComponentType<FallbackProps & TProps>
   displayName?: string
 }
 
 const errorMessage = 'Lazy component failed!'
 
-export const withLazyLoad = <P extends object, T extends object = Record<string, unknown>>({ delayedElement, Fallback, displayName }: FederatedComponentProps<P> = {}) => (
-  (WrappedComponent: HOCForRefComponent<T, P>): HOCForRefComponent<T, P> => {
-    const ReturnComponent = forwardRef<T, P>(((props: P, ref): JSX.Element => (
+export const withLazyLoad = <TProps extends object, TRef extends object = Record<string, unknown>>({ delayedElement, Fallback, displayName }: FederatedComponentProps<TProps> = {}) => (
+  (WrappedComponent: HOCRefComponent<TRef, TProps>): HOCRefComponent<TRef, TProps> => {
+    const ReturnComponent = forwardRef<TRef, TProps>(((props: TProps, ref): JSX.Element => (
       <ResetWrapper render={(resetComponent) => (
         <ReactErrorBoundary
           fallbackRender={errorProps => {
@@ -57,7 +57,7 @@ export const withLazyLoad = <P extends object, T extends object = Record<string,
           onError={(error, info) => errorHandler(error, { ...info, errorMessage })}
         >
           <Suspense fallback={delayedElement ?? <div aria-busy="true" />}>
-            <WrappedComponent {...props as PropsWithoutRef<P>} ref={ref} />
+            <WrappedComponent {...props as PropsWithoutRef<TProps>} ref={ref} />
           </Suspense>
         </ReactErrorBoundary>
       )} />

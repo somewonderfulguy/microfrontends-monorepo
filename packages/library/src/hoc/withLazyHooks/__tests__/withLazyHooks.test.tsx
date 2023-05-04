@@ -5,7 +5,12 @@ import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, chec
 
 import { withLazyHooks } from '..'
 import {
-  TestComponentSingleHook as TestComponentSingleHookImpl, TestComponentMultipleHooks as TestComponentMultipleHooksImpl, errorMsg
+  TestComponentSingleHook as TestComponentSingleHookImpl,
+  PropTypeSingle,
+  HooksTypeSingle,
+  TestComponentMultipleHooks as TestComponentMultipleHooksImpl,
+  errorMsg,
+  HooksTypeMultiple
 } from './TestComponents'
 import { hookOneResult } from './testHooks/useTestHookOne'
 import { hookTwoResult } from './testHooks/useTestHookTwo'
@@ -29,9 +34,8 @@ const testErrorCase = async (isCustomError = false) => {
   // mock console methods
   const { consoleDir, consoleError, consoleLog } = mockConsole()
 
-  const TestComponentSingleHook = withLazyHooks({
+  const TestComponentSingleHook = withLazyHooks<HooksTypeSingle, PropTypeSingle>({
     hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
-    Component: TestComponentSingleHookImpl,
     Fallback: isCustomError
       ? ({ error, resetErrorBoundary }: FallbackProps) => (
         <div>
@@ -40,7 +44,7 @@ const testErrorCase = async (isCustomError = false) => {
         </div>
       )
       : undefined
-  })
+  })(TestComponentSingleHookImpl)
 
   const { container, rerender } = render(<TestComponentSingleHook withError />)
   const loader = container.querySelector('[aria-busy="true"]')
@@ -57,6 +61,7 @@ const testErrorCase = async (isCustomError = false) => {
   // no component rendered
   expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
   // reset by click
+  // TODO: await?
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   rerender(<TestComponentSingleHook />)
   // error message disappears
@@ -82,9 +87,8 @@ const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = fal
   // mock console methods
   const { consoleDir, consoleError, consoleLog } = mockConsole()
 
-  const getTestComponentSingleHook = (withLoadingError = false) => withLazyHooks({
+  const getTestComponentSingleHook = (withLoadingError = false) => withLazyHooks<HooksTypeSingle, PropTypeSingle>({
     hooks: { useTestHookOne: withLoadingError ? Promise.reject(isErrorAsString ? errorMsg : new Error(errorMsg)) : import('./testHooks/useTestHookOne') },
-    Component: TestComponentSingleHookImpl,
     Fallback: isCustomError
       ? ({ error, resetErrorBoundary }: FallbackProps) => (
         <div>
@@ -93,7 +97,7 @@ const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = fal
         </div>
       )
       : undefined
-  })
+  })(TestComponentSingleHookImpl)
   const TestComponentSingleHook = getTestComponentSingleHook(true)
 
   const { container, rerender } = render(<TestComponentSingleHook />)
@@ -111,6 +115,7 @@ const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = fal
   // no component rendered
   expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
   // reset by click
+  // TODO: await?
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   const TestComponentSingleHookCorrect = getTestComponentSingleHook()
   rerender(<TestComponentSingleHookCorrect />)
@@ -134,10 +139,9 @@ const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = fal
 }
 
 test('minimal configuration', async () => {
-  const TestComponentSingleHook = withLazyHooks({
+  const TestComponentSingleHook = withLazyHooks<HooksTypeSingle, PropTypeSingle>({
     hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
-    Component: TestComponentSingleHookImpl
-  })
+  })(TestComponentSingleHookImpl)
 
   const { container } = render(<TestComponentSingleHook />)
   const loader = container.querySelector('[aria-busy="true"]')
@@ -154,11 +158,10 @@ test('minimal configuration', async () => {
 
 test('custom loader', async () => {
   const loadingMsg = 'Loading...'
-  const TestComponentSingleHook = withLazyHooks({
+  const TestComponentSingleHook = withLazyHooks<HooksTypeSingle, PropTypeSingle>({
     hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
-    Component: TestComponentSingleHookImpl,
     delayedElement: <>{loadingMsg}</>
-  })
+  })(TestComponentSingleHookImpl)
   render(<TestComponentSingleHook />)
   const getLoader = () => screen.getByText(loadingMsg)
 
@@ -173,13 +176,12 @@ test('custom loader', async () => {
 })
 
 test('multiple hooks', async () => {
-  const TestComponentSingleHook = withLazyHooks({
+  const TestComponentSingleHook = withLazyHooks<HooksTypeMultiple>({
     hooks: {
       useTestHookOne: import('./testHooks/useTestHookOne'),
       useTestHookTwo: import('./testHooks/useTestHookTwo')
-    },
-    Component: TestComponentMultipleHooksImpl
-  })
+    }
+  })(TestComponentMultipleHooksImpl)
 
   const { container } = render(<TestComponentSingleHook />)
   const loader = container.querySelector('[aria-busy="true"]')
@@ -215,3 +217,5 @@ test('error in loader (promise) & reset', async () => {
 test('custom error fallback (for loader) & reset', async () => {
   await testErrorPromiseCase(true, true)
 })
+
+test.todo('withLazyHooks ref')

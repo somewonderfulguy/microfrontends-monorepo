@@ -2,23 +2,21 @@ import React, { useEffect } from 'react'
 
 import useTestHookOne from '../testHooks/useTestHookOne'
 
-type HooksType = {
+export type HooksType = {
   useTestHookOne: typeof useTestHookOne
 }
 
-type Props = {
+export type PropType = {
   withError?: boolean
 }
 
 export const errorMsg = '💣'
 
-const TestComponentSingleHook = (props: Props) => {
-  const { useTestHookOne, withError = false } = props as unknown as Props & HooksType
-  
+const TestComponentSingleHook = ({ useTestHookOne, withError }: PropType & HooksType) => {
   useEffect(() => {
     if (withError) throw new Error(errorMsg)
   }, [withError])
-  
+
   const result = useTestHookOne()
   return <div>{result}</div>
 }

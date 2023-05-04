@@ -8,8 +8,8 @@ export interface IButtonProps extends HTMLProps<HTMLButtonElement> {
   isPreview?: boolean
 }
 
-const Button = ({ children, isPreview, ...props }: IButtonProps) => (
-  <button {...props} className={styles.button} data-augmented-ui="bl-clip">
+const Button = ({ children, isPreview, type = 'button', ...props }: IButtonProps) => (
+  <button {...props} className={styles.button} data-augmented-ui="bl-clip" type={type}>
     {isPreview && <PreviewIcon className={styles.preview} />} {children}
   </button>
 )

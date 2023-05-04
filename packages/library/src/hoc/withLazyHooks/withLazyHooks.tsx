@@ -1,123 +1,129 @@
 /**
- * HOC that takes a Component and array of lazy loaded hooks and wraps it in useQuery & ErrorBoundary.
- * `Component` prop is, as name implies, a Component that is going to get lazy loaded hooks.
- * These lazy loaded hooks will be added as props to the component. Required.
- * `hooks` are list of lazy loading hooks. Required.
- * As loader, `delayedElement` can be passed as loader - if no passed then empty <div aria-busy="true" /> will be displayed.
- * `Fallback` will be used if hooks lazy loading failed
- * If no `Fallback` provided, the default fallback will be used.
- * `queryKey` is QueryKey type from react-query. Might be used in order to refetch.
- * If no `queryKey` passed, then uuid generated will be applied.
- * 
- * Default fallback outputs error and reset button. The reset works through key prop that rerenders component completely.
- * 
+ * HOC that takes a Component and array of lazy loaded hooks and wraps it in useQuery (for loading hooks) & ErrorBoundary.
+ *
+ * hooks prop: { [key: string]: () => Promise<any> } -- required, will be injected as props to the component.
+ *
+ * queryKey prop: QueryKey -- can be user to re-fetch, if not passed will be generated uuid.
+ *
+ * As loader, `delayedElement` can be passed - if no passed then empty <div aria-busy="true" /> will be displayed.
+ *
+ * Fallback prop will be used if lazily loaded component failed. If no Fallback provided, the default fallback will be used.
+ * Default fallback outputs error and reset button. The reset works through key prop that re-renders component completely.
+ *
+ * Ref forwarding is supported.
+ *
  * Examples of usage:
- * 
+ *
  * 1) Minimal configuration:
- * 
- * const ExampleComponentImpl = ((props: Any) => {
- *   const { someHook } = props as { someHook: () => string }
- *   const hookResult = someHook()
- *   return <>{hookResult}</>
+ *
+ * type HooksType = { usePrevious: usePreviousHook }
+ *
+ * const ExampleComponent = (({ usePrevious }: HooksType) => {
+ *   // ... component implementation ...
  * })
- * 
- * const ExampleComponent = withLazyHooks({
- *   hooks: { someHook: import('pathTo/someHook') },
- *   Component: TestComponentSingleHookImpl
- * })
- * 
+ *
+ * const ExampleComponentWrapped = withLazyHooks<HooksType>({
+ *   hooks: { usePrevious: import('path/to/usePrevious') },
+ * })(ExampleComponent)
+ *
  * ------------------------------------------------------------
- * 
- * 2) Extended configuration:
- * 
+ *
+ * 2) Full configuration (all props & ref):
+ *
+ * type PropType = { exampleProp: string }
+ *
  * type HooksType = {
- *   usePrevious: typeof usePrevious
- *   useResizeObserver: typeof useResizeObserver
+ *   usePrevious: usePreviousHook
+ *   useResizeObserver: useResizeObserverHook
  * }
- * 
- * type Props = {
- *   exampleProp: boolean;
- * }
- * 
- * const ExampleComponentImpl = (props: Props) => {
- *   const { usePrevious, useResizeObserver, exampleProp } = props as unknown as Props & HooksType
- *   const [bindResizeObserver, { width }] = useResizeObserver()
- *   const prevWidth = usePrevious(width)
- *   return (
- *     <>
- *       <div>current width: {width}</div>
- *       <div>previous width: {prevWidth}</div>
- *     </>
- *   )
- * }
- * 
- * const ExampleComponent = withLazyHooks({
+ *
+ * type RefType = { log: () => void }
+ *
+ * const ExampleComponentWithRef = forwardRef((({ usePrevious, exampleProp }: PropType & HooksType, ref) => {
+ *   useImperativeHandle(ref, () => ({ log: () => console.log('logging...') }))
+ *   // ... component implementation ...
+ * }))
+ * ExampleComponentWithRef.displayName = 'ExampleComponentWithRef'
+ *
+ * const ExampleComponentWrapped = withLazyHooks<HooksType, PropType, RefType>({
  *   hooks: {
- *     usePrevious: import('pathTo/usePrevious'),
- *     useResizeObserver: import('pathTo/useResizeObserver')
+ *     usePrevious: import('library/build-npm/hooks/usePrevious'),
+ *     useResizeObserver: import('library/build-npm/hooks/useResizeObserver')
  *   },
- *   Component: ExampleComponentImpl,
  *   queryKey: ['usePrevious', 'useResizeObserver'],
  *   delayedElement: <div>Please wait, loading...</div>,
- *   Fallback: ({ error, resetErrorBoundary }: FallbackProps) => (
+ *   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & Props) => (
  *     <div>
- *       <div role="alert">{error.message}</div>
- *       <button onClick={resetErrorBoundary}>reset</button>
+ *       Custom fallback,{' '}
+ *       <button onClick={resetErrorBoundary}>try to reset</button>
+ *       <br />
+ *       Error: {error.message}
+ *       <br />
+ *       Props: exampleProp = {props.exampleProp}
  *     </div>
  *   )
- * })
+ * })(ExampleComponent)
  */
 
-import React, { ComponentType, FunctionComponent, ReactNode, useRef } from 'react'
-import { useQuery, QueryKey } from 'react-query'
+import React, { ComponentType, forwardRef, ReactNode, useRef } from 'react'
+import { QueryKey, useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary'
 
-import { Any, AnyFunctionType } from '../../typesShared'
-
 import { DefaultFallbackComponent, errorHandler, ResetWrapper } from '../federatedShared'
+import { HOCRefComponent } from '../types'
 
-type CommonProps = {
-  hooks: { [key: string]: Promise<Any> }
+// when lazily do import('useHook'), this module will be asynchonously loaded under default property
+type LazifyHooks<T> = {
+  [K in keyof T]: Promise<{ default: T[K] }>
+}
+
+// Promise.all(hooks) will return Array<{ default: typeof hook }>
+type SetDefaultKey<T> = {
+  [K in keyof T]: { default: T[K] }
+}[keyof T]
+
+type CommonProps<THooks> = {
+  hooks: LazifyHooks<THooks>
   queryKey?: QueryKey
   delayedElement?: ReactNode
 }
 
-type LoadingWrapperProps = CommonProps & {
-  render: (loadedHooks: Any) => ReactNode
-  renderFallback: (error: Error, refetch: () => void) => void
+type LoadingWrapperProps<THooks> = CommonProps<THooks> & {
+  render: (loadedHooks: SetDefaultKey<THooks>[]) => ReactNode
+  renderFallback: (error: Error, refetch: () => void) => JSX.Element
 }
 
-type WithLazyHooksProps<Props = undefined> = CommonProps & {
-  Component: ComponentType<Props>
-  Fallback?: ComponentType<Props & FallbackProps>
+type WithLazyHooksProps<THooks, TProps> = CommonProps<THooks> & {
+  Fallback?: ComponentType<FallbackProps & TProps>
 }
 
 const errorMessage = 'Federated hook(s) failed!'
 
-const LoadingWrapper = ({ hooks, render, renderFallback, queryKey = uuidv4(), delayedElement }: LoadingWrapperProps) => {
-  const queryKeyValue = useRef(queryKey);
+function LoadingWrapper<THooks>({
+  hooks,
+  render,
+  renderFallback,
+  queryKey = uuidv4(),
+  delayedElement
+}: LoadingWrapperProps<THooks>) {
+  type LoadedHooks = SetDefaultKey<THooks>[];
+  const queryKeyValue = useRef(queryKey)
   const {
     data: loadedHooks, isLoading, isError, refetch, error
-  } = useQuery<AnyFunctionType[], Error>(
-    queryKeyValue.current,
-    () => Promise.all(Object.values(hooks)),
-    {
-      staleTime: Infinity,
-      cacheTime: 0,
-      refetchOnWindowFocus: false
-    }
-  )
+  } = useQuery<LoadedHooks, Error>(queryKeyValue.current, () => Promise.all(Object.values(hooks)).then((result: unknown) => {
+    return result as LoadedHooks
+  }), {
+    staleTime: Infinity, cacheTime: 0, refetchOnWindowFocus: false
+  })
 
-  const loader = <>{delayedElement ?? <div aria-busy="true" />}</>
-  const renderWithHooks = (hooks?: AnyFunctionType[]) => <>{hooks && render(hooks)}</>
+  const loader = <>{delayedElement ?? <div aria-busy="true"/>}</>
+  const renderWithHooks = (hooks?: LoadedHooks) => <>{hooks && render(hooks)}</>
 
   if (isLoading) return loader
 
   if (isError) {
-    const errorObj = error?.message
-      ? error
-      : new Error(typeof error === 'string' ? error : /* istanbul ignore next */ 'Unknown error on federated hooks loading')
+    const errorObj = error?.message ? error : new Error(typeof error === 'string' ? error : /* istanbul ignore next */ 'Unknown error on federated hooks loading')
 
     errorHandler(errorObj, { errorMessage })
 
@@ -127,45 +133,50 @@ const LoadingWrapper = ({ hooks, render, renderFallback, queryKey = uuidv4(), de
   return renderWithHooks(loadedHooks)
 }
 
-// TODO: currying
-export const withLazyHooks = <Props = Record<string, never>>({
-  hooks, Component, Fallback, ...rest
-}: WithLazyHooksProps<Props>) => {
-  const renderFallback = (fallbackProps: FallbackProps & Any) => (
-    Fallback
-      ? <Fallback {...fallbackProps} />
-      : (
-        <DefaultFallbackComponent {...fallbackProps}>
-          {errorMessage}
-        </DefaultFallbackComponent>
-      )
+export const withLazyHooks = <THooks, TProps extends object = Record<string, unknown>, TRef extends object = Record<string, unknown>>({
+  hooks,
+  Fallback,
+  ...rest
+}: WithLazyHooksProps<THooks, TProps>) => {
+  const renderFallback = (fallbackProps: FallbackProps & TProps) => (
+    Fallback ? (
+      <Fallback {...fallbackProps as FallbackProps & TProps} />
+    ) : (
+      <DefaultFallbackComponent {...fallbackProps}>
+        {errorMessage}
+      </DefaultFallbackComponent>
+    )
   )
 
-  return (
-    ((props: Any) => (
+  return ((WrappedComponent: ComponentType<TProps & THooks>): HOCRefComponent<TRef, TProps> => {
+    const ReturnComponent = forwardRef<TRef, TProps>(((props: TProps, ref): JSX.Element => (
       <ResetWrapper render={(resetComponent) => (
         <ReactErrorBoundary
           fallbackRender={errorProps => {
-            const fallbackProps = { ...errorProps, ...props, resetErrorBoundary: resetComponent }
+            const fallbackProps = {...errorProps, ...props, resetErrorBoundary: resetComponent}
             return renderFallback(fallbackProps)
           }}
           onError={(error, info) => errorHandler(error, { ...info, errorMessage })}
         >
-          <LoadingWrapper
+          <LoadingWrapper<THooks>
             hooks={hooks}
             render={(loadedHooks) => {
               const hookNames = Object.keys(hooks)
-              const hooksToProps: { [key: string]: AnyFunctionType } = {}
-              hookNames.forEach((name, idx) => hooksToProps[name] = loadedHooks[idx].default)
-              return <Component {...props} {...hooksToProps} />
+              const hooksToProps = hookNames.reduce((acc, name, idx) =>
+                ({ ...acc, [name]: loadedHooks[idx].default }), {} as THooks
+              )
+
+              return <WrappedComponent {...{ ...props, ...hooksToProps }} ref={ref} />
             }}
-            renderFallback={(error, refetch) => (
-              renderFallback({ error, resetErrorBoundary: refetch })
-            )}
+            renderFallback={(error, refetch) => (renderFallback({ error, resetErrorBoundary: refetch, ...props }))}
             {...rest}
           />
         </ReactErrorBoundary>
-      )} />
-    )) as unknown as FunctionComponent<Props>
-  )
+      )} />)
+    ))
+
+    ReturnComponent.displayName = WrappedComponent.name ?? WrappedComponent.displayName ?? 'ComponentWithLazyHooks'
+
+    return ReturnComponent
+  })
 }

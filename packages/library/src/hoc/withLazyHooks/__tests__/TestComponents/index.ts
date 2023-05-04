@@ -1,3 +1,3 @@
-export { default as TestComponentSingleHook } from './TestComponentSingleHook'
+export { default as TestComponentSingleHook, type PropType as PropTypeSingle, type HooksType as HooksTypeSingle } from './TestComponentSingleHook'
 export * from './TestComponentSingleHook'
-export { default as TestComponentMultipleHooks } from './TestComponentMultipleHooks'
+export { default as TestComponentMultipleHooks, type HooksType as HooksTypeMultiple } from './TestComponentMultipleHooks'

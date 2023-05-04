@@ -5,7 +5,9 @@ import { MutableRefObject } from 'react'
 import { usePrevious, useResizeObserver } from './hooks'
 import { withLazyLoad, withLazyHooks } from './hoc'
 
-export { type IBlockProps, type IButtonProps } from './components'
+export { type IBlockProps, type IButtonProps, type ForwardedRefType } from './components'
+
+// TODO: revisit this
 
 export type WithLazyHooks = typeof withLazyHooks
 export type WithLazyLoad = typeof withLazyLoad

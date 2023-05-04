@@ -3,8 +3,6 @@
 import React, { Fragment, ReactNode, useCallback, useState } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-import { Any } from '../typesShared'
-
 import styles from './federated.module.css'
 
 interface IDefaultFallbackComponent extends FallbackProps {
@@ -25,7 +23,7 @@ const errorHandler = (error: Error, info: { componentStack?: string, errorMessag
   info.componentStack && console.dir(info.componentStack)
 }
 
-const ResetWrapper = ({ render }: { render: (resetComponent: Any) => ReactNode }) => {
+const ResetWrapper = ({ render }: { render: (resetComponent: () => void) => ReactNode }) => {
   const getKey = () => new Date().getTime()
   const [key, setKey] = useState(() => getKey())
   const resetComponent = useCallback(() => void setKey(getKey()), [])

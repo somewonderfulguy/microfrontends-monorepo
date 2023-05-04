@@ -38,6 +38,7 @@ const testErrorCase = async (isCustomError = false) => {
   // no component rendered
   expect(screen.queryByText(successRenderMsg)).not.toBeInTheDocument()
   // reset by click
+  // TODO: await?
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   rerender(<TestComponent>{successRenderMsg}</TestComponent>)
   // error message disappears
@@ -96,3 +97,5 @@ test('error & reset', async () => {
 test('custom error fallback & reset', async () => {
   await testErrorCase(true)
 })
+
+test.todo('withLazyLoad ref')

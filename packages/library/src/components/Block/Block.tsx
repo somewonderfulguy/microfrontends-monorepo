@@ -8,8 +8,10 @@ export interface IBlockProps extends HTMLProps<HTMLDivElement> {
 
 export const altText = 'Cybercat 2077'
 
-const Block = forwardRef(({ children, withCybercat, ...props }: IBlockProps, ref: ForwardedRef<{ log: () => void }>) => {
-  useImperativeHandle(ref, () => ({ log: () => alert('Well done. Now, stop doing it!') }));
+export type ForwardedRefType = { log: () => void }
+
+const Block = forwardRef(({ children, withCybercat, ...props }: IBlockProps, ref: ForwardedRef<ForwardedRefType>) => {
+  useImperativeHandle(ref, () => ({ log: () => alert('Well done. Now, stop doing it!') }))
   return (
     <div {...props}>
       {withCybercat && <div><img src={cybercat} alt={altText} /></div>}
