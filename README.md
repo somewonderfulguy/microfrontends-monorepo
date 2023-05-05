@@ -2,11 +2,7 @@ Please, see architecture of project in `architecture.dio` file. You can open it 
 
 ## Launch application
 
-If you came from another branch start with this command:
-```
-yarn wipe
-```
-Then, before first start, perform following commands:
+Before first start, perform following commands:
 ```
 yarn
 yarn initialize
