@@ -1,11 +1,10 @@
-import React, { lazy } from 'react'
+import React, { MutableRefObject, lazy, useRef } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-// TODO in master branch all imports should use baseUrl
-import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks } from '../../../tests'
+import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks, SpyConsoles } from '../../../tests'
 
 import { withLazyLoad } from '../withLazyLoad'
-import { IProps, errorMsg } from './TestComponent'
+import { PropType, RefType, errorMsg, logMsg } from './TestComponent'
 
 const successRenderMsg = 'success render'
 
@@ -13,7 +12,7 @@ const testErrorCase = async (isCustomError = false) => {
   // mock console methods
   const { consoleDir, consoleError, consoleLog } = mockConsole()
 
-  const TestComponent = withLazyLoad<IProps>({
+  const TestComponent = withLazyLoad<PropType>({
     Fallback: isCustomError
       ? ({ error, resetErrorBoundary }: FallbackProps) => (
         <div>
@@ -38,7 +37,6 @@ const testErrorCase = async (isCustomError = false) => {
   // no component rendered
   expect(screen.queryByText(successRenderMsg)).not.toBeInTheDocument()
   // reset by click
-  // TODO: await?
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   rerender(<TestComponent>{successRenderMsg}</TestComponent>)
   // error message disappears
@@ -56,7 +54,7 @@ const testErrorCase = async (isCustomError = false) => {
 }
 
 test('minimal configuration', async () => {
-  const TestComponent = withLazyLoad<IProps>()(lazy(() => import('./TestComponent')))
+  const TestComponent = withLazyLoad<PropType>()(lazy(() => import('./TestComponent')))
   const { container } = render(<TestComponent>{successRenderMsg}</TestComponent>)
   const loader = container.querySelector('[aria-busy="true"]')
 
@@ -72,7 +70,7 @@ test('minimal configuration', async () => {
 
 test('custom loader', async () => {
   const loadingMsg = 'Loading...'
-  const TestComponent = withLazyLoad<IProps>({
+  const TestComponent = withLazyLoad<PropType>({
     delayedElement: <>{loadingMsg}</>
   })(lazy(() => import('./TestComponent')))
   render(<TestComponent>{successRenderMsg}</TestComponent>)
@@ -98,4 +96,23 @@ test('custom error fallback & reset', async () => {
   await testErrorCase(true)
 })
 
-test.todo('withLazyLoad ref')
+test('withLazyLoad forwarding ref works', async () => {
+  const TestComponent = withLazyLoad<PropType, RefType>()(lazy(() => import('./TestComponent')))
+  const TestComponentWrapper = () => {
+    const ref = useRef<RefType>()
+    return (
+      <>
+        <TestComponent ref={ref as MutableRefObject<RefType>} />
+        <button type="button" onClick={() => ref.current?.log()}>click</button>
+      </>
+    )
+  }
+
+  render(<TestComponentWrapper />)
+  expect(screen.getByRole('button')).toBeInTheDocument()
+  
+  const consoleLog = jest.spyOn(console, 'log').mockImplementation()
+  await userEvent.click(screen.getByRole('button'))
+  expect(consoleLog).toHaveBeenCalledWith(logMsg)
+  consoleLog.mockRestore()
+})

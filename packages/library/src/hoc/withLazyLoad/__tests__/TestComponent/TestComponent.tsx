@@ -1,13 +1,21 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode, forwardRef, useEffect, useImperativeHandle } from 'react'
 
-export interface IProps {
+export type PropType = {
   children?: ReactNode
   withError?: boolean
 }
 
-export const errorMsg = '💣'
+export type RefType = {
+  log: () => void
+}
 
-const TestComponent = ({ children, withError }: IProps) => {
+export const errorMsg = '💣'
+export const logMsg = 'it works!'
+
+const TestComponent = forwardRef(({ children, withError }: PropType, ref) => {
+  // eslint-disable-next-line no-console
+  useImperativeHandle(ref, () => ({ log: () => console.log(logMsg) }))
+
   useEffect(() => {
     if (withError) throw new Error(errorMsg)
   }, [withError])
@@ -15,6 +23,7 @@ const TestComponent = ({ children, withError }: IProps) => {
   return (
     <div>{children}</div>
   )
-}
+})
+TestComponent.displayName = 'TestComponent'
 
 export default TestComponent

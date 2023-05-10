@@ -24,7 +24,7 @@ const checkConsoleLogging = ({
   expect(consoleLog.mock.lastCall[0]).toMatch(expectedPattern)
   expect(consoleDir).toHaveBeenCalledTimes(2)
   expect(consoleDir.mock.calls[0][0].toString()).toBe(`Error: ${errorMsg}`)
-  expect(consoleDir.mock.calls[1][0]).toMatch(new RegExp(`at ${componentName}`, 'i'))
+  expect(consoleDir.mock.calls[1][0]).toMatch(new RegExp(`at.{1,}${componentName}`, 'i'))
 }
 
 export { mockConsole, clearConsoleMocks, checkConsoleLogging }

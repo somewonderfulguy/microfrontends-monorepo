@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MutableRefObject, useRef } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
 import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks, SpyConsoles } from '../../../tests'
@@ -10,7 +10,9 @@ import {
   HooksTypeSingle,
   TestComponentMultipleHooks as TestComponentMultipleHooksImpl,
   errorMsg,
-  HooksTypeMultiple
+  HooksTypeMultiple,
+  RefType,
+  logMsg
 } from './TestComponents'
 import { hookOneResult } from './testHooks/useTestHookOne'
 import { hookTwoResult } from './testHooks/useTestHookTwo'
@@ -18,15 +20,15 @@ import { hookTwoResult } from './testHooks/useTestHookTwo'
 const errorRegexp = /federated hook\(s\) failed/gi
 
 const checkPromiseErrorLogging = ({ consoleError, consoleLog, consoleDir, isErrorAsString }: SpyConsoles & { isErrorAsString: boolean }) => {
-  expect(consoleError).toHaveBeenCalledTimes(1)
+  expect(consoleError).toHaveBeenCalledTimes(2)
   if (isErrorAsString) {
     expect(consoleError.mock.calls[0][0]).toMatch(new RegExp(errorMsg, 'i'))
   } else {
     expect(consoleError.mock.calls[0][0].message).toMatch(new RegExp(errorMsg, 'i'))
   }
-  expect(consoleLog).toHaveBeenCalledTimes(1)
+  expect(consoleLog).toHaveBeenCalledTimes(2)
   expect(consoleLog.mock.lastCall[0]).toMatch(errorRegexp)
-  expect(consoleDir).toHaveBeenCalledTimes(1)
+  expect(consoleDir).toHaveBeenCalledTimes(2)
   expect(consoleDir.mock.calls[0][0].toString()).toBe(`Error: ${errorMsg}`)
 }
 
@@ -61,7 +63,6 @@ const testErrorCase = async (isCustomError = false) => {
   // no component rendered
   expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
   // reset by click
-  // TODO: await?
   userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   rerender(<TestComponentSingleHook />)
   // error message disappears
@@ -115,8 +116,7 @@ const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = fal
   // no component rendered
   expect(screen.queryByText(hookOneResult)).not.toBeInTheDocument()
   // reset by click
-  // TODO: await?
-  userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
+  await userEvent.click(screen.getByText(/reset/i, { selector: 'button' }))
   const TestComponentSingleHookCorrect = getTestComponentSingleHook()
   rerender(<TestComponentSingleHookCorrect />)
   // error message disappears
@@ -218,4 +218,26 @@ test('custom error fallback (for loader) & reset', async () => {
   await testErrorPromiseCase(true, true)
 })
 
-test.todo('withLazyHooks ref')
+test('withLazyHooks ref', async () => {
+  const TestComponent = withLazyHooks<HooksTypeSingle, PropTypeSingle, RefType>({
+    hooks: { useTestHookOne: import('./testHooks/useTestHookOne') }
+  })(TestComponentSingleHookImpl)
+
+  const TestComponentWrapper = () => {
+    const ref = useRef<RefType>()
+    return (
+      <>
+        <TestComponent ref={ref as MutableRefObject<RefType>} />
+        <button type="button" onClick={() => ref.current?.log()}>click</button>
+      </>
+    )
+  }
+
+  render(<TestComponentWrapper />)
+  expect(screen.getByText('click', { selector: 'button' })).toBeInTheDocument()
+
+  const consoleLog = jest.spyOn(console, 'log').mockImplementation()
+  await userEvent.click(screen.getByRole('button'))
+  expect(consoleLog).toHaveBeenCalledWith(logMsg)
+  consoleLog.mockRestore()
+})

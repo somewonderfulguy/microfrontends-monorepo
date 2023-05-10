@@ -11,14 +11,14 @@
  * Examples of usage:
  *
  * // minimal config (bear in mind that if you don't pass `displayName` then it will be `LazyComponent`)
- * const Button = federatedComponent<IButtonProps>()(lazy(() => import('pathTo/Button')))
+ * const Button = federatedComponent<ButtonProps>()(lazy(() => import('pathTo/Button')))
  *
  * // full config (all props & ref)
  * type RefType = { log: () => void }
- * const Button = federatedComponent<IButtonProps, RefType>({
+ * const Button = federatedComponent<ButtonProps, RefType>({
  *   delayedElement: <>Loading...</>,
- *   // see FallbackProps & IButtonProps - this is for ESLint (react/prop-types rule), TS actually will work perfectly
- *   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & IButtonProps) => <button {...props} />,
+ *   // see FallbackProps & ButtonProps - this is for ESLint (react/prop-types rule), TS actually will work perfectly
+ *   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & ButtonProps) => <button {...props} />,
  *   displayName: 'Button'
  * })(lazy(() => import('pathTo/Button')))
  */

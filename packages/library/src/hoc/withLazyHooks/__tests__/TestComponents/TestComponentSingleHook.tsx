@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react'
 
 import useTestHookOne from '../testHooks/useTestHookOne'
 
@@ -10,15 +10,24 @@ export type PropType = {
   withError?: boolean
 }
 
-export const errorMsg = '💣'
+export type RefType = {
+  log: () => void
+}
 
-const TestComponentSingleHook = ({ useTestHookOne, withError }: PropType & HooksType) => {
+export const errorMsg = '💣'
+export const logMsg = 'it works!'
+
+const TestComponentSingleHook = forwardRef<RefType, PropType & HooksType>(({ useTestHookOne, withError }, ref) => {
+  // eslint-disable-next-line no-console
+  useImperativeHandle(ref, () => ({ log: () => console.log(logMsg) }))
+
   useEffect(() => {
     if (withError) throw new Error(errorMsg)
   }, [withError])
 
   const result = useTestHookOne()
   return <div>{result}</div>
-}
+})
+TestComponentSingleHook.displayName = 'TestComponentSingleHook'
 
 export default TestComponentSingleHook

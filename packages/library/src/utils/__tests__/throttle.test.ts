@@ -16,11 +16,11 @@ test('throttle works', async () => {
   jest.spyOn(spyObject, 'fnToThrottleOne')
   jest.spyOn(spyObject, 'fnToThrottleTwo')
 
-  // single call, without delay paramether and generic
+  // single call, without delay parameter and generic
   const throttledFnOne = throttle(spyObject.fnToThrottleOne)
   expect(throttledFnOne()).toBe(1)
   expect(spyObject.fnToThrottleOne).toHaveBeenCalledTimes(1)
-  
+
   // multiple calls with delay executes function only once
   const throttledFnTwo = throttle(spyObject.fnToThrottleTwo, 200)
   throttledFnTwo()

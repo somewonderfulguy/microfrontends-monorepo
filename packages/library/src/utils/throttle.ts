@@ -1,11 +1,15 @@
-import { AnyArrayType, AnyFunctionType } from '../typesShared'
+// eslint-disable-next-line
+type AnyFunctionType = (...args: any[]) => any
 
-const throttle = <T = AnyFunctionType>(func: AnyFunctionType, delay = 0) => {
+const throttle = <T extends AnyFunctionType>(
+  func: T,
+  delay = 0
+): (...args: Parameters<T>) => ReturnType<T> => {
   let isThrottled = false
-  let savedArgs: AnyArrayType | null
+  let savedArgs: Parameters<T> | null = null
   let result: ReturnType<typeof func>
 
-  const wrapper = (...args: AnyArrayType) => {
+  const wrapper = (...args: Parameters<T>): ReturnType<T> => {
     if (isThrottled) {
       savedArgs = args
       return result
@@ -14,7 +18,7 @@ const throttle = <T = AnyFunctionType>(func: AnyFunctionType, delay = 0) => {
     setTimeout(() => {
       isThrottled = false
       if (savedArgs) {
-        wrapper(savedArgs)
+        wrapper(...savedArgs)
         savedArgs = null
       }
     }, delay)
@@ -24,7 +28,7 @@ const throttle = <T = AnyFunctionType>(func: AnyFunctionType, delay = 0) => {
     return result
   }
 
-  return wrapper as T
+  return wrapper
 }
 
 export default throttle
