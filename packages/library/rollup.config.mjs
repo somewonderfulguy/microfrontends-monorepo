@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import resolve from '@rollup/plugin-node-resolve'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import typescript from 'rollup-plugin-typescript2'
@@ -8,6 +7,7 @@ import postcss from 'rollup-plugin-postcss'
 import url from '@rollup/plugin-url'
 import svgr from '@svgr/rollup'
 import image from '@rollup/plugin-image'
+import json from '@rollup/plugin-json'
 
 // keep alphabetical (like in file browser)
 const paths = [
@@ -22,26 +22,35 @@ const paths = [
 export default paths.map(path => ({
   input: `src/${path}/index.ts`,
   output: [{
-    file: `build-npm/${path}/index.js`,
+    file: `build/${path}/index.js`,
     format: 'es',
+    sourcemap: true
+  }, {
+    /*
+      CommonJS (cjs) here for require() support. Unlike ES Modules (esm), CommonJS has dynamic module structure.
+      This makes tree shaking impossible, and importing one module will import all other modules in the dependency tree.
+    */
+    file: `build/${path}/index.cjs.js`,
+    format: 'cjs',
     sourcemap: true
   }],
   plugins: [
     peerDepsExternal(), // this looks into peerDependencies and removes it from bundle, so the bundle will be smaller
-    resolve(), // to locate third-party modules used inside our project (node_modules)
+    resolve(), // locate third-party modules used inside project (node_modules)
     commonjs(), // commonJS modules to ES6 modules
-    typescript({ tsconfig: './tsconfig.json' }), // ts compiler
+    typescript({ // ts compiler
+      tsconfig: './tsconfig.json',
+      useTsconfigDeclarationDir: true
+    }),
     postcss({ // css, css-modules
       modules: true,
       sourcemap: true,
       minimize: true
     }),
+    json(), // import json files
     image(), // images i.e. .jpg, .png (will be converted to base64; keep image() before url() so src path will be correct in output)
-    url(), // url + svgr allows to compile `import { ReactComponent as SvgIcon } from './assets/svgIcon.svg'`
+    url(), // url + svgr allows to compile `import { ReactComponent as SvgIcon } from './pathTo/svgIcon.svg'`
     svgr({ icon: true }),
-    terser(), // minifier
-  ],
-
-  // duplicate from peerDependencies (in package.json) - without it using bundles won't work
-  external: ['react', 'react-dom', 'react-error-boundary', 'react-query']
+    terser() // minifier
+  ]
 }))

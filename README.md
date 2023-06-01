@@ -1,5 +1,12 @@
 Please, see architecture of project in `architecture.dio` file. You can open it right in VS Code if you have [Draw.io Integration](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) plugin installed.
 
+Project roadmap:\
+1. `packages/library` to work using Rollup, Storybook, Jest & import Federated Module
+1. HOCs (`withLazyLoad` and `withLazyHooks`) to be an npm package
+1. `packages/host` to work using Vite & Vitest
+1. a project to be set up using Webpack + Module Federation
+1. Possible options to learn & practice: Parcel, Lerna, single-spa, Astro
+
 ## Launch application
 
 Before first start, perform following commands:

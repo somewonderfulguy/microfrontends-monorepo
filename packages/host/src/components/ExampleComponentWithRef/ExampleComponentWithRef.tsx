@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 
 import { WithLazyHooks, usePreviousHook } from 'library/src/typesShared'
-import { withLazyHooks as sharedWithLazyHooks } from 'library/build-npm/hoc/withLazyHooks'
+import { withLazyHooks as sharedWithLazyHooks } from 'library/build/hoc/withLazyHooks'
 import { FallbackProps } from "react-error-boundary";
 
 const withLazyHooks: WithLazyHooks = sharedWithLazyHooks
@@ -26,7 +26,7 @@ const ExampleComponentWithRef = forwardRef((({ usePrevious, exampleProp }: PropT
 ExampleComponentWithRef.displayName = 'ExampleComponentWithRef'
 
 const ExampleComponentWithRefWrapped = withLazyHooks<HooksType, PropType, { crushComponent: () => void }>({
-  hooks: { usePrevious: import('library/build-npm/hooks/usePrevious') },
+  hooks: { usePrevious: import('library/build/hooks/usePrevious') },
   delayedElement: <div>Please wait, loading...</div>,
   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & PropType) => (
     <div>

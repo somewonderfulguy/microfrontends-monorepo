@@ -163,6 +163,7 @@ export const withLazyHooks = <THooks, TProps extends object = Record<string, unk
             render={(loadedHooks) => {
               const hookNames = Object.keys(hooks)
               const hooksToProps = hookNames.reduce((acc, name, idx) =>
+                // TODO: check if default property exists and throw error if not
                 ({ ...acc, [name]: loadedHooks[idx].default }), {} as THooks
               )
 

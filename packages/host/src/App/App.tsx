@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { WithLazyLoad, ButtonProps } from 'library/src/typesShared'
-import { withLazyLoad as sharedWithLazyLoad } from 'library/build-npm/hoc/withLazyLoad'
+import { withLazyLoad as sharedWithLazyLoad } from 'library/build/hoc/withLazyLoad'
 
 import { ExampleComponent, ExampleComponentWithRef, OccasionallyFailingComponent } from 'components'
 import 'polyfills'
@@ -18,7 +18,7 @@ const Button = withLazyLoad<ButtonProps>({
   delayedElement: <>Loading...</>,
   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & ButtonProps) => <button {...props} />,
   displayName: 'Button'
-})(lazy(() => import('library/build-npm/components/formLike/Button')))
+})(lazy(() => import('library/build/components/formLike/Button')))
 
 const SubApplication = withLazyLoad({
   delayedElement: 'please wait...',

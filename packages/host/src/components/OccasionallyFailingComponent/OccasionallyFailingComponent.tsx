@@ -2,20 +2,20 @@ import React, { lazy, MutableRefObject, useEffect, useRef, useState } from 'reac
 import { FallbackProps } from "react-error-boundary";
 
 import { BlockProps, ButtonProps, ForwardedRefType, WithLazyLoad } from "library/src/typesShared";
-import { withLazyLoad as sharedWithLazyLoad } from 'library/build-npm/hoc/withLazyLoad'
+import { withLazyLoad as sharedWithLazyLoad } from 'library/build/hoc/withLazyLoad'
 
 const withLazyLoad: WithLazyLoad = sharedWithLazyLoad
 
 const Block = withLazyLoad<BlockProps, ForwardedRefType>({
   delayedElement: 'Loading...',
   displayName: 'Block'
-})(lazy(() => import('library/build-npm/components/Block')))
+})(lazy(() => import('library/build/components/Block')))
 
 const Button = withLazyLoad<ButtonProps>({
   delayedElement: <>Loading...</>,
   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & ButtonProps) => <button {...props} />,
   displayName: 'Button'
-})(lazy(() => import('library/build-npm/components/formLike/Button')))
+})(lazy(() => import('library/build/components/formLike/Button')))
 
 const generateRandomZeroOrOne = () => Math.floor(Math.random() * 2)
 

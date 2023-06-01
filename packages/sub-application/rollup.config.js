@@ -8,6 +8,7 @@ import postcss from 'rollup-plugin-postcss'
 import url from '@rollup/plugin-url'
 import svgr from '@svgr/rollup'
 import image from '@rollup/plugin-image'
+import json from '@rollup/plugin-json'
 
 export default {
   input: `src/App.tsx`,
@@ -27,6 +28,7 @@ export default {
       sourcemap: true,
       minimize: true
     }),
+    json(), // import json files
     image(), // images i.e. .jpg, .png (will be converted to base64; keep image() before url() so src path will be correct in output)
     url(), // url + svgr allows to compile import { ReactComponent as SvgIcon } from './assets/svgIcon.svg'
     svgr({ icon: true }),

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { DivRefType, WithLazyHooks, usePreviousHook, useResizeObserverHook } from 'library/src/typesShared'
-import { withLazyHooks as sharedWithLazyHooks } from 'library/build-npm/hoc/withLazyHooks'
+import { withLazyHooks as sharedWithLazyHooks } from 'library/build/hoc/withLazyHooks'
 
 const withLazyHooks: WithLazyHooks = sharedWithLazyHooks
 
@@ -25,8 +25,8 @@ const ExampleComponent = (({ usePrevious, useResizeObserver }: HooksType) => {
 
 const ExampleComponentWrapped = withLazyHooks<HooksType>({
   hooks: {
-    usePrevious: import('library/build-npm/hooks/usePrevious'),
-    useResizeObserver: import('library/build-npm/hooks/useResizeObserver')
+    usePrevious: import('library/build/hooks/usePrevious'),
+    useResizeObserver: import('library/build/hooks/useResizeObserver')
   },
   queryKey: ['usePrevious', 'useResizeObserver'],
 })(ExampleComponent)

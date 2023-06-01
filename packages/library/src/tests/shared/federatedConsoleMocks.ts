@@ -18,7 +18,7 @@ const checkConsoleLogging = ({
   consoleError, consoleLog, consoleDir, errorMsg, componentName, expectedPattern,
 }: SpyConsoles & { errorMsg: string, componentName: string, expectedPattern: RegExp }) => {
   expect(consoleError).toHaveBeenCalledTimes(2)
-  expect(consoleError.mock.calls[0][0]).toMatch(new RegExp(errorMsg, 'i'))
+  expect(consoleError.mock.calls[0][0]).toMatchObject(new RegExp(errorMsg, 'i'))
   expect(consoleError.mock.calls[1][0]).toMatch(new RegExp(`The above error occurred in the <${componentName}> component`, 'i'))
   expect(consoleLog).toHaveBeenCalledTimes(1)
   expect(consoleLog.mock.lastCall[0]).toMatch(expectedPattern)

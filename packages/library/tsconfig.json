@@ -22,10 +22,18 @@
     "downlevelIteration": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
-    // no, you can't use it, for some reason you get annoying popup errors when using built modules, although no errors in console and everything works fine. really weird
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "build",
+
+    // TODO: config aliases for TS + Rollup
     // "baseUrl": "src/"
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
   ]
 }
