@@ -25,6 +25,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "build",
+    "types": ["node", "jest", "@testing-library/jest-dom"]
 
     // TODO: config aliases for TS + Rollup
     // "baseUrl": "src/"
