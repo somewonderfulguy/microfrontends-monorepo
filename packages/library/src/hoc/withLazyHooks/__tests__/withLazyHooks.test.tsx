@@ -67,13 +67,6 @@ const testErrorCase = async (isCustomError = false) => {
   rerender(<TestComponentSingleHook />)
   // error message disappears
   await waitForElementToBeRemoved(getErrorElement)
-  // loader returns
-
-  // TODO: learn why loader doesn't return
-  // const newLoader = await waitFor(() => container.querySelector('[aria-busy="true"]'))
-  // expect(newLoader).toBeInTheDocument()
-  // // loader disappeared
-  // await waitForElementToBeRemoved(newLoader)
 
   // component successfully rendered
   expect(screen.getByText(hookOneResult)).toBeInTheDocument()
