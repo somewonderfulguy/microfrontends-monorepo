@@ -1,7 +1,7 @@
 import React, { MutableRefObject, lazy, useRef } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks, SpyConsoles } from '../../../tests'
+import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks } from '../../../tests'
 
 import { withLazyLoad } from '../withLazyLoad'
 import { PropType, RefType, errorMsg, logMsg } from './TestComponent'
