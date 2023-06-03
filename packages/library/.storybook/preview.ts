@@ -1,15 +1,17 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from '@storybook/react'
+
+import '../src/styles/cyberFont.css'
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/,
-      },
-    },
-  },
-};
+        date: /Date$/
+      }
+    }
+  }
+}
 
-export default preview;
+export default preview

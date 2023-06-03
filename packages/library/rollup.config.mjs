@@ -19,6 +19,11 @@ const paths = [
   'hooks/useResizeObserver'
 ]
 
+// TODO: learn how to use rollup-plugin-alias
+// TODO: learn how to use rollup-plugin-visualizer
+// TODO: learn how to launch rollup in watch mode (application, not library)
+// TODO: learn module federation in rollup
+
 export default paths.map(path => ({
   input: `src/${path}/index.ts`,
   output: [{

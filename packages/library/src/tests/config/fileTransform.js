@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const camelcase = require('camelcase')
+import path from 'path'
+import camelcase from 'camelcase'
 
 /*
  * EVERYTHING EXCEPT SVG, given:
@@ -32,7 +32,9 @@ const camelcase = require('camelcase')
  * It transforms svg JSX tags, so you'll see file name and be able to search in tests this way:
  * expect(screen.getByText('eye.svg', { selector: 'svg' }).toBeInTheDocument()
 */
-module.exports = {
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
   process(src, filename) {
     const assetFilename = JSON.stringify(path.basename(filename))
 

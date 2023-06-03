@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useRef } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks, SpyConsoles } from '../../../tests'
+import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks, SpyConsoles, waitFor } from '../../../tests'
 
 import { withLazyHooks } from '..'
 import {
@@ -68,7 +68,7 @@ const testErrorCase = async (isCustomError = false) => {
   // error message disappears
   await waitForElementToBeRemoved(getErrorElement)
   // loader returns
-  const newLoader = container.querySelector('[aria-busy="true"]')
+  const newLoader = await waitFor(() => container.querySelector('[aria-busy="true"]'))
   expect(newLoader).toBeInTheDocument()
   // loader disappeared
   await waitForElementToBeRemoved(newLoader)
@@ -199,8 +199,9 @@ test('multiple hooks', async () => {
 })
 
 // eslint-disable-next-line jest/expect-expect
-test('error in hook & reset', async () => {
+test.only('error in hook & reset', async () => {
   await testErrorCase()
+  screen.debug()
 })
 
 // eslint-disable-next-line jest/expect-expect

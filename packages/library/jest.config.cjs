@@ -1,3 +1,11 @@
+// TODO: test https://www.npmjs.com/package/jest-styled-components
+// TODO: test https://emotion.sh/docs/@emotion/jest
+// TODO: fix react dom issues
+// TODO: snapshots support (incl. inline)
+// TODO: emotion/styled-components support
+// TODO: support aliases
+// TODO: fix React 18 warning
+
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
@@ -13,7 +21,7 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
     // TODO: test it all
-    '^.+\\.(jpg|svg|ico|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)?$': './src/tests/config/fileTransform.cjs'
+    '^.+\\.(jpg|svg|ico|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)?$': './src/tests/config/fileTransform.js'
   },
   transformIgnorePatterns: [
     '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$',

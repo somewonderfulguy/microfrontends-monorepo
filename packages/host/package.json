@@ -10,12 +10,12 @@
     "serve": "cross-env PORT=5003 npx servor build"
   },
   "dependencies": {
+    "library": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-query": "^3.39.2",
     "resize-observer-polyfill": "^1.5.1",
-    "library": "*",
     "sub-application": "*"
   },
   "devDependencies": {
