@@ -1,10 +1,14 @@
 {
+  "plugins": ["jest"],
   "extends": [
-    "react-app", "eslint:recommended", "plugin:react/recommended", "plugin:jest/style", "plugin:jest/recommended", "plugin:@typescript-eslint/recommended"
+    "react-app",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jest/style",
+    "plugin:jest/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "no-console": ["warn", {"allow": ["warn", "error"]}],
-    "@typescript-eslint/explicit-module-boundary-types": "off"
-  },
-  "ignorePatterns": ["src/index.ts", "config-overrides.js"]
+    "no-console": ["warn", { "allow": ["warn", "error"] }]
+  }
 }

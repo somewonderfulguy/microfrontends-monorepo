@@ -21,7 +21,8 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
     // TODO: test it all
-    '^.+\\.(jpg|svg|ico|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)?$': './src/tests/config/fileTransform.js'
+    '^.+\\.(jpg|svg|ico|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)?$':
+      './src/tests/config/fileTransform.js'
   },
   transformIgnorePatterns: [
     '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|cjs|ts|tsx)$',
@@ -43,10 +44,10 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      'branches': 10,
-      'functions': 10,
-      'lines': 10,
-      'statements': 10
+      branches: 10,
+      functions: 10,
+      lines: 10,
+      statements: 10
     }
   }
 }

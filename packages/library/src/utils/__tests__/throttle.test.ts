@@ -28,7 +28,7 @@ test('throttle works', async () => {
   throttledFnTwo()
   expect(throttledFnTwo()).toBe(1)
   expect(spyObject.fnToThrottleTwo).toHaveBeenCalledTimes(1)
-  await new Promise(r => setTimeout(r, 200))
+  await new Promise((r) => setTimeout(r, 200))
   expect(throttledFnTwo()).toBe(2)
   expect(spyObject.fnToThrottleTwo).toHaveBeenCalledTimes(2)
 })

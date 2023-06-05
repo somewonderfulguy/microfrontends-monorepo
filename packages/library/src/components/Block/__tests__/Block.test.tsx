@@ -10,9 +10,10 @@ test('block work as expected', () => {
   expect(screen.getByText('test')).toBeInTheDocument()
   expect(screen.queryByRole('img')).not.toBeInTheDocument()
   cleanup()
-  
+
   // render with image and ref
-  const ref = renderHook(() => useRef<ForwardedRefType>()).result.current as MutableRefObject<ForwardedRefType>
+  const ref = renderHook(() => useRef<ForwardedRefType>()).result
+    .current as MutableRefObject<ForwardedRefType>
   render(<Block ref={ref} withCybercat />)
 
   // check image

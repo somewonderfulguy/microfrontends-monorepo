@@ -1,2 +1,2 @@
-export * from './withLazyHooks';
-export * from './withLazyLoad';
+export * from './withLazyHooks'
+export * from './withLazyLoad'

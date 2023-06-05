@@ -24,30 +24,35 @@ const paths = [
 // TODO: learn how to launch rollup in watch mode (application, not library)
 // TODO: learn module federation in rollup
 
-export default paths.map(path => ({
+export default paths.map((path) => ({
   input: `src/${path}/index.ts`,
-  output: [{
-    file: `build/${path}/index.js`,
-    format: 'es',
-    sourcemap: true
-  }, {
-    /*
+  output: [
+    {
+      file: `build/${path}/index.js`,
+      format: 'es',
+      sourcemap: true
+    },
+    {
+      /*
       CommonJS (cjs) here for require() support. Unlike ES Modules (esm), CommonJS has dynamic module structure.
       This makes tree shaking impossible, and importing one module will import all other modules in the dependency tree.
     */
-    file: `build/${path}/index.cjs.js`,
-    format: 'cjs',
-    sourcemap: true
-  }],
+      file: `build/${path}/index.cjs.js`,
+      format: 'cjs',
+      sourcemap: true
+    }
+  ],
   plugins: [
     peerDepsExternal(), // this looks into peerDependencies and removes it from bundle, so the bundle will be smaller
     resolve(), // locate third-party modules used inside project (node_modules)
     commonjs(), // commonJS modules to ES6 modules
-    typescript({ // ts compiler
+    typescript({
+      // ts compiler
       tsconfig: './tsconfig.json',
       useTsconfigDeclarationDir: true
     }),
-    postcss({ // css, css-modules
+    postcss({
+      // css, css-modules
       modules: true,
       sourcemap: true,
       minimize: true

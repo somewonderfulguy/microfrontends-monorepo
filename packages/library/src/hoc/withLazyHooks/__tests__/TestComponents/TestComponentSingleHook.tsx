@@ -17,17 +17,19 @@ export type RefType = {
 export const errorMsg = '💣'
 export const logMsg = 'it works!'
 
-const TestComponentSingleHook = forwardRef<RefType, PropType & HooksType>(({ useTestHookOne, withError }, ref) => {
-  // eslint-disable-next-line no-console
-  useImperativeHandle(ref, () => ({ log: () => console.log(logMsg) }))
+const TestComponentSingleHook = forwardRef<RefType, PropType & HooksType>(
+  ({ useTestHookOne, withError }, ref) => {
+    // eslint-disable-next-line no-console
+    useImperativeHandle(ref, () => ({ log: () => console.log(logMsg) }))
 
-  useEffect(() => {
-    if (withError) throw new Error(errorMsg)
-  }, [withError])
+    useEffect(() => {
+      if (withError) throw new Error(errorMsg)
+    }, [withError])
 
-  const result = useTestHookOne()
-  return <div>{result}</div>
-})
+    const result = useTestHookOne()
+    return <div>{result}</div>
+  }
+)
 TestComponentSingleHook.displayName = 'TestComponentSingleHook'
 
 export default TestComponentSingleHook

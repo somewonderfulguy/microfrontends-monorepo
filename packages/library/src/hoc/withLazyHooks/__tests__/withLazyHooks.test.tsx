@@ -1,7 +1,16 @@
 import React, { MutableRefObject, useRef } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks, SpyConsoles } from '../../../tests'
+import {
+  render,
+  screen,
+  userEvent,
+  waitForElementToBeRemoved,
+  mockConsole,
+  checkConsoleLogging,
+  clearConsoleMocks,
+  SpyConsoles
+} from '../../../tests'
 
 import { withLazyHooks } from '..'
 import {
@@ -19,12 +28,19 @@ import { hookTwoResult } from './testHooks/useTestHookTwo'
 
 const errorRegexp = /federated hook\(s\) failed/gi
 
-const checkPromiseErrorLogging = ({ consoleError, consoleLog, consoleDir, isErrorAsString }: SpyConsoles & { isErrorAsString: boolean }) => {
+const checkPromiseErrorLogging = ({
+  consoleError,
+  consoleLog,
+  consoleDir,
+  isErrorAsString
+}: SpyConsoles & { isErrorAsString: boolean }) => {
   expect(consoleError).toHaveBeenCalledTimes(4)
   if (isErrorAsString) {
     expect(consoleError.mock.calls[0][0]).toMatch(new RegExp(errorMsg, 'i'))
   } else {
-    expect(consoleError.mock.calls[0][0].message).toMatch(new RegExp(errorMsg, 'i'))
+    expect(consoleError.mock.calls[0][0].message).toMatch(
+      new RegExp(errorMsg, 'i')
+    )
   }
   expect(consoleLog).toHaveBeenCalledTimes(2)
   expect(consoleLog.mock.lastCall[0]).toMatch(errorRegexp)
@@ -36,15 +52,18 @@ const testErrorCase = async (isCustomError = false) => {
   // mock console methods
   const { consoleDir, consoleError, consoleLog } = mockConsole()
 
-  const TestComponentSingleHook = withLazyHooks<HooksTypeSingle, PropTypeSingle>({
+  const TestComponentSingleHook = withLazyHooks<
+    HooksTypeSingle,
+    PropTypeSingle
+  >({
     hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
     Fallback: isCustomError
       ? ({ error, resetErrorBoundary }: FallbackProps) => (
-        <div>
-          <div role="alert">{error.message}</div>
-          <button onClick={resetErrorBoundary}>reset</button>
-        </div>
-      )
+          <div>
+            <div role="alert">{error.message}</div>
+            <button onClick={resetErrorBoundary}>reset</button>
+          </div>
+        )
       : undefined
   })(TestComponentSingleHookImpl)
 
@@ -74,27 +93,42 @@ const testErrorCase = async (isCustomError = false) => {
   expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
 
   // check console logging
-  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponentSingleHook', expectedPattern: errorRegexp })
+  checkConsoleLogging({
+    consoleError,
+    consoleDir,
+    consoleLog,
+    errorMsg,
+    componentName: 'TestComponentSingleHook',
+    expectedPattern: errorRegexp
+  })
 
   // restore console methods
   clearConsoleMocks({ consoleError, consoleDir, consoleLog })
 }
 
-const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = false) => {
+const testErrorPromiseCase = async (
+  isCustomError = false,
+  isErrorAsString = false
+) => {
   // mock console methods
   const { consoleDir, consoleError, consoleLog } = mockConsole()
 
-  const getTestComponentSingleHook = (withLoadingError = false) => withLazyHooks<HooksTypeSingle, PropTypeSingle>({
-    hooks: { useTestHookOne: withLoadingError ? Promise.reject(isErrorAsString ? errorMsg : new Error(errorMsg)) : import('./testHooks/useTestHookOne') },
-    Fallback: isCustomError
-      ? ({ error, resetErrorBoundary }: FallbackProps) => (
-        <div>
-          <div role="alert">{error.message}</div>
-          <button onClick={resetErrorBoundary}>reset</button>
-        </div>
-      )
-      : undefined
-  })(TestComponentSingleHookImpl)
+  const getTestComponentSingleHook = (withLoadingError = false) =>
+    withLazyHooks<HooksTypeSingle, PropTypeSingle>({
+      hooks: {
+        useTestHookOne: withLoadingError
+          ? Promise.reject(isErrorAsString ? errorMsg : new Error(errorMsg))
+          : import('./testHooks/useTestHookOne')
+      },
+      Fallback: isCustomError
+        ? ({ error, resetErrorBoundary }: FallbackProps) => (
+            <div>
+              <div role="alert">{error.message}</div>
+              <button onClick={resetErrorBoundary}>reset</button>
+            </div>
+          )
+        : undefined
+    })(TestComponentSingleHookImpl)
   const TestComponentSingleHook = getTestComponentSingleHook(true)
 
   const { container, rerender } = render(<TestComponentSingleHook />)
@@ -128,15 +162,23 @@ const testErrorPromiseCase = async (isCustomError = false, isErrorAsString = fal
   expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
 
   // check console logging
-  checkPromiseErrorLogging({ consoleError, consoleDir, consoleLog, isErrorAsString })
+  checkPromiseErrorLogging({
+    consoleError,
+    consoleDir,
+    consoleLog,
+    isErrorAsString
+  })
 
   // restore console methods
   clearConsoleMocks({ consoleError, consoleDir, consoleLog })
 }
 
 test('minimal configuration', async () => {
-  const TestComponentSingleHook = withLazyHooks<HooksTypeSingle, PropTypeSingle>({
-    hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
+  const TestComponentSingleHook = withLazyHooks<
+    HooksTypeSingle,
+    PropTypeSingle
+  >({
+    hooks: { useTestHookOne: import('./testHooks/useTestHookOne') }
   })(TestComponentSingleHookImpl)
 
   const { container } = render(<TestComponentSingleHook />)
@@ -154,7 +196,10 @@ test('minimal configuration', async () => {
 
 test('custom loader', async () => {
   const loadingMsg = 'Loading...'
-  const TestComponentSingleHook = withLazyHooks<HooksTypeSingle, PropTypeSingle>({
+  const TestComponentSingleHook = withLazyHooks<
+    HooksTypeSingle,
+    PropTypeSingle
+  >({
     hooks: { useTestHookOne: import('./testHooks/useTestHookOne') },
     delayedElement: <>{loadingMsg}</>
   })(TestComponentSingleHookImpl)
@@ -215,16 +260,20 @@ test('custom error fallback (for loader) & reset', async () => {
 })
 
 test('withLazyHooks ref', async () => {
-  const TestComponent = withLazyHooks<HooksTypeSingle, PropTypeSingle, RefType>({
-    hooks: { useTestHookOne: import('./testHooks/useTestHookOne') }
-  })(TestComponentSingleHookImpl)
+  const TestComponent = withLazyHooks<HooksTypeSingle, PropTypeSingle, RefType>(
+    {
+      hooks: { useTestHookOne: import('./testHooks/useTestHookOne') }
+    }
+  )(TestComponentSingleHookImpl)
 
   const TestComponentWrapper = () => {
     const ref = useRef<RefType>()
     return (
       <>
         <TestComponent ref={ref as MutableRefObject<RefType>} />
-        <button type="button" onClick={() => ref.current?.log()}>click</button>
+        <button type="button" onClick={() => ref.current?.log()}>
+          click
+        </button>
       </>
     )
   }

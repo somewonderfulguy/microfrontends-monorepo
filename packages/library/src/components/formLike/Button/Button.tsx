@@ -8,8 +8,18 @@ export type ButtonProps = HTMLProps<HTMLButtonElement> & {
   isPreview?: boolean
 }
 
-const Button = ({ children, isPreview, type = 'button', ...props }: ButtonProps) => (
-  <button {...props} className={styles.button} data-augmented-ui="bl-clip" type={type}>
+const Button = ({
+  children,
+  isPreview,
+  type = 'button',
+  ...props
+}: ButtonProps) => (
+  <button
+    {...props}
+    className={styles.button}
+    data-augmented-ui="bl-clip"
+    type={type}
+  >
     {isPreview && <PreviewIcon className={styles.preview} />} {children}
   </button>
 )

@@ -23,10 +23,23 @@
  * })(lazy(() => import('pathTo/Button')))
  */
 
-import React, { ComponentType, ReactNode, Suspense, PropsWithoutRef, forwardRef } from 'react'
-import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary'
+import React, {
+  ComponentType,
+  ReactNode,
+  Suspense,
+  PropsWithoutRef,
+  forwardRef
+} from 'react'
+import {
+  ErrorBoundary as ReactErrorBoundary,
+  FallbackProps
+} from 'react-error-boundary'
 
-import { DefaultFallbackComponent, errorHandler, ResetWrapper } from '../federatedShared'
+import {
+  DefaultFallbackComponent,
+  errorHandler,
+  ResetWrapper
+} from '../federatedShared'
 import { HOCRefComponent } from '../types'
 
 type FederatedComponentProps<TProps> = {
@@ -37,34 +50,53 @@ type FederatedComponentProps<TProps> = {
 
 const errorMessage = 'Lazy component failed!'
 
-export const withLazyLoad = <TProps extends object, TRef extends object = Record<string, unknown>>({ delayedElement, Fallback, displayName }: FederatedComponentProps<TProps> = {}) => (
-  (WrappedComponent: HOCRefComponent<TRef, TProps>): HOCRefComponent<TRef, TProps> => {
-    const ReturnComponent = forwardRef<TRef, TProps>(((props: TProps, ref): JSX.Element => (
-      <ResetWrapper render={(resetComponent) => (
-        <ReactErrorBoundary
-          fallbackRender={errorProps => {
-            const unitedProps = { ...errorProps, ...props, resetErrorBoundary: resetComponent }
-            return (
-              Fallback
-                ? <Fallback {...unitedProps} />
-                : (
+export const withLazyLoad =
+  <TProps extends object, TRef extends object = Record<string, unknown>>({
+    delayedElement,
+    Fallback,
+    displayName
+  }: FederatedComponentProps<TProps> = {}) =>
+  (
+    WrappedComponent: HOCRefComponent<TRef, TProps>
+  ): HOCRefComponent<TRef, TProps> => {
+    const ReturnComponent = forwardRef<TRef, TProps>(
+      (props: TProps, ref): JSX.Element => (
+        <ResetWrapper
+          render={(resetComponent) => (
+            <ReactErrorBoundary
+              fallbackRender={(errorProps) => {
+                const unitedProps = {
+                  ...errorProps,
+                  ...props,
+                  resetErrorBoundary: resetComponent
+                }
+                return Fallback ? (
+                  <Fallback {...unitedProps} />
+                ) : (
                   <DefaultFallbackComponent {...unitedProps}>
                     {errorMessage}
                   </DefaultFallbackComponent>
                 )
-            )
-          }}
-          onError={(error, info) => errorHandler(error, { ...info, errorMessage })}
-        >
-          <Suspense fallback={delayedElement ?? <div aria-busy="true" />}>
-            <WrappedComponent {...props as PropsWithoutRef<TProps>} ref={ref} />
-          </Suspense>
-        </ReactErrorBoundary>
-      )} />
-    )))
+              }}
+              onError={(error, info) =>
+                errorHandler(error, { ...info, errorMessage })
+              }
+            >
+              <Suspense fallback={delayedElement ?? <div aria-busy="true" />}>
+                <WrappedComponent
+                  {...(props as PropsWithoutRef<TProps>)}
+                  ref={ref}
+                />
+              </Suspense>
+            </ReactErrorBoundary>
+          )}
+        />
+      )
+    )
 
-    ReturnComponent.displayName = `withLazyLoad(${displayName ?? 'LazyComponent'})`
+    ReturnComponent.displayName = `withLazyLoad(${
+      displayName ?? 'LazyComponent'
+    })`
 
     return ReturnComponent
   }
-)

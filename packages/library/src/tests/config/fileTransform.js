@@ -8,14 +8,14 @@ import camelcase from 'camelcase'
  * ...
  * <img src={cybercat} alt="cybercat" />
  * ...
- * 
+ *
  * Output in tests:
  * ...
  * <img src="cybercat.jpg" alt="cybercat" />
  * ...
- * 
+ *
  * It transforms imports to strings
- * 
+ *
  * ----------------------------------------------------------------------------------------
  *
  * FOR SVG, given:
@@ -23,15 +23,15 @@ import camelcase from 'camelcase'
  * ...
  * <PreviewIcon className={styles.preview} />
  * ...
- * 
+ *
  * Output in tests:
  * ...
  * <svg class="preview">eye.svg</svg>
  * ...
- * 
+ *
  * It transforms svg JSX tags, so you'll see file name and be able to search in tests this way:
  * expect(screen.getByText('eye.svg', { selector: 'svg' }).toBeInTheDocument()
-*/
+ */
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -42,12 +42,11 @@ export default {
       const pascalCaseFilename = camelcase(path.parse(filename).name, {
         pascalCase: true
       })
-        
+
       const componentName = `Svg${pascalCaseFilename}`
 
       return {
-        code:
-          `const React = require('react')
+        code: `const React = require('react')
           module.exports = {
             __esModule: true,
             default: ${assetFilename},

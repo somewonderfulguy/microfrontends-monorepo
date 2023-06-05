@@ -16,9 +16,7 @@ const queryClient = new QueryClient({
 
 const render = (ui: ReactElement, options = {}) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   )
   return rtlRender(ui, { wrapper: Wrapper as FunctionComponent, ...options })
 }

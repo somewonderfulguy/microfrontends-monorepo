@@ -1,7 +1,15 @@
 import React, { MutableRefObject, lazy, useRef } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
-import { render, screen, userEvent, waitForElementToBeRemoved, mockConsole, checkConsoleLogging, clearConsoleMocks } from '../../../tests'
+import {
+  render,
+  screen,
+  userEvent,
+  waitForElementToBeRemoved,
+  mockConsole,
+  checkConsoleLogging,
+  clearConsoleMocks
+} from '../../../tests'
 
 import { withLazyLoad } from '../withLazyLoad'
 import { PropType, RefType, errorMsg, logMsg } from './TestComponent'
@@ -15,14 +23,16 @@ const testErrorCase = async (isCustomError = false) => {
   const TestComponent = withLazyLoad<PropType>({
     Fallback: isCustomError
       ? ({ error, resetErrorBoundary }: FallbackProps) => (
-        <div>
-          <div role="alert">{error.message}</div>
-          <button onClick={resetErrorBoundary}>reset</button>
-        </div>
-      )
+          <div>
+            <div role="alert">{error.message}</div>
+            <button onClick={resetErrorBoundary}>reset</button>
+          </div>
+        )
       : undefined
   })(lazy(() => import('./TestComponent')))
-  const { container, rerender } = render(<TestComponent withError>{successRenderMsg}</TestComponent>)
+  const { container, rerender } = render(
+    <TestComponent withError>{successRenderMsg}</TestComponent>
+  )
   const loader = container.querySelector('[aria-busy="true"]')
   const getErrorElement = () => screen.getByText(errorMsg)
 
@@ -47,15 +57,26 @@ const testErrorCase = async (isCustomError = false) => {
   expect(screen.queryByText(errorMsg)).not.toBeInTheDocument()
 
   // check console logging
-  checkConsoleLogging({ consoleError, consoleDir, consoleLog, errorMsg, componentName: 'TestComponent', expectedPattern: /component failed/gi })
+  checkConsoleLogging({
+    consoleError,
+    consoleDir,
+    consoleLog,
+    errorMsg,
+    componentName: 'TestComponent',
+    expectedPattern: /component failed/gi
+  })
 
   // restore console methods
   clearConsoleMocks({ consoleError, consoleDir, consoleLog })
 }
 
 test('minimal configuration', async () => {
-  const TestComponent = withLazyLoad<PropType>()(lazy(() => import('./TestComponent')))
-  const { container } = render(<TestComponent>{successRenderMsg}</TestComponent>)
+  const TestComponent = withLazyLoad<PropType>()(
+    lazy(() => import('./TestComponent'))
+  )
+  const { container } = render(
+    <TestComponent>{successRenderMsg}</TestComponent>
+  )
   const loader = container.querySelector('[aria-busy="true"]')
 
   // loader exist
@@ -97,20 +118,24 @@ test('custom error fallback & reset', async () => {
 })
 
 test('withLazyLoad forwarding ref works', async () => {
-  const TestComponent = withLazyLoad<PropType, RefType>()(lazy(() => import('./TestComponent')))
+  const TestComponent = withLazyLoad<PropType, RefType>()(
+    lazy(() => import('./TestComponent'))
+  )
   const TestComponentWrapper = () => {
     const ref = useRef<RefType>()
     return (
       <>
         <TestComponent ref={ref as MutableRefObject<RefType>} />
-        <button type="button" onClick={() => ref.current?.log()}>click</button>
+        <button type="button" onClick={() => ref.current?.log()}>
+          click
+        </button>
       </>
     )
   }
 
   render(<TestComponentWrapper />)
   expect(screen.getByRole('button')).toBeInTheDocument()
-  
+
   const consoleLog = jest.spyOn(console, 'log').mockImplementation()
   await userEvent.click(screen.getByRole('button'))
   expect(consoleLog).toHaveBeenCalledWith(logMsg)

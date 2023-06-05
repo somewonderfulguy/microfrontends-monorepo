@@ -4,7 +4,7 @@ type AnyFunctionType = (...args: any[]) => any
 const throttle = <T extends AnyFunctionType>(
   func: T,
   delay = 0
-): (...args: Parameters<T>) => ReturnType<T> => {
+): ((...args: Parameters<T>) => ReturnType<T>) => {
   let isThrottled = false
   let savedArgs: Parameters<T> | null = null
   let result: ReturnType<typeof func>

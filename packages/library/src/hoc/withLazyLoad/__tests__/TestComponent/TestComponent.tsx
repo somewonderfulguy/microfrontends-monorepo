@@ -1,4 +1,9 @@
-import React, { ReactNode, forwardRef, useEffect, useImperativeHandle } from 'react'
+import React, {
+  ReactNode,
+  forwardRef,
+  useEffect,
+  useImperativeHandle
+} from 'react'
 
 export type PropType = {
   children?: ReactNode
@@ -20,9 +25,7 @@ const TestComponent = forwardRef(({ children, withError }: PropType, ref) => {
     if (withError) throw new Error(errorMsg)
   }, [withError])
 
-  return (
-    <div>{children}</div>
-  )
+  return <div>{children}</div>
 })
 TestComponent.displayName = 'TestComponent'
 

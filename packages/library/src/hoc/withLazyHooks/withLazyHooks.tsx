@@ -68,9 +68,16 @@
 import React, { ComponentType, forwardRef, ReactNode, useRef } from 'react'
 import { QueryKey, useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
-import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary'
+import {
+  ErrorBoundary as ReactErrorBoundary,
+  FallbackProps
+} from 'react-error-boundary'
 
-import { DefaultFallbackComponent, errorHandler, ResetWrapper } from '../federatedShared'
+import {
+  DefaultFallbackComponent,
+  errorHandler,
+  ResetWrapper
+} from '../federatedShared'
 import { HOCRefComponent } from '../types'
 
 // when lazily do import('useHook'), this module will be asynchonously loaded under default property
@@ -107,23 +114,40 @@ function LoadingWrapper<THooks>({
   queryKey = uuidv4(),
   delayedElement
 }: LoadingWrapperProps<THooks>) {
-  type LoadedHooks = SetDefaultKey<THooks>[];
+  type LoadedHooks = SetDefaultKey<THooks>[]
   const queryKeyValue = useRef(queryKey)
   const {
-    data: loadedHooks, isLoading, isError, refetch, error
-  } = useQuery<LoadedHooks, Error>(queryKeyValue.current, () => Promise.all(Object.values(hooks)).then((result: unknown) => {
-    return result as LoadedHooks
-  }), {
-    staleTime: Infinity, cacheTime: 0, refetchOnWindowFocus: false
-  })
+    data: loadedHooks,
+    isLoading,
+    isError,
+    refetch,
+    error
+  } = useQuery<LoadedHooks, Error>(
+    queryKeyValue.current,
+    () =>
+      Promise.all(Object.values(hooks)).then((result: unknown) => {
+        return result as LoadedHooks
+      }),
+    {
+      staleTime: Infinity,
+      cacheTime: 0,
+      refetchOnWindowFocus: false
+    }
+  )
 
-  const loader = <>{delayedElement ?? <div aria-busy="true"/>}</>
+  const loader = <>{delayedElement ?? <div aria-busy="true" />}</>
   const renderWithHooks = (hooks?: LoadedHooks) => <>{hooks && render(hooks)}</>
 
   if (isLoading) return loader
 
   if (isError) {
-    const errorObj = error?.message ? error : new Error(typeof error === 'string' ? error : /* istanbul ignore next */ 'Unknown error on federated hooks loading')
+    const errorObj = error?.message
+      ? error
+      : new Error(
+          typeof error === 'string'
+            ? error
+            : /* istanbul ignore next */ 'Unknown error on federated hooks loading'
+        )
 
     errorHandler(errorObj, { errorMessage })
 
@@ -133,51 +157,82 @@ function LoadingWrapper<THooks>({
   return renderWithHooks(loadedHooks)
 }
 
-export const withLazyHooks = <THooks, TProps extends object = Record<string, unknown>, TRef extends object = Record<string, unknown>>({
+export const withLazyHooks = <
+  THooks,
+  TProps extends object = Record<string, unknown>,
+  TRef extends object = Record<string, unknown>
+>({
   hooks,
   Fallback,
   ...rest
 }: WithLazyHooksProps<THooks, TProps>) => {
-  const renderFallback = (fallbackProps: FallbackProps & TProps) => (
+  const renderFallback = (fallbackProps: FallbackProps & TProps) =>
     Fallback ? (
-      <Fallback {...fallbackProps as FallbackProps & TProps} />
+      <Fallback {...(fallbackProps as FallbackProps & TProps)} />
     ) : (
       <DefaultFallbackComponent {...fallbackProps}>
         {errorMessage}
       </DefaultFallbackComponent>
     )
-  )
 
-  return ((WrappedComponent: ComponentType<TProps & THooks>): HOCRefComponent<TRef, TProps> => {
-    const ReturnComponent = forwardRef<TRef, TProps>(((props: TProps, ref): JSX.Element => (
-      <ResetWrapper render={(resetComponent) => (
-        <ReactErrorBoundary
-          fallbackRender={errorProps => {
-            const fallbackProps = {...errorProps, ...props, resetErrorBoundary: resetComponent}
-            return renderFallback(fallbackProps)
-          }}
-          onError={(error, info) => errorHandler(error, { ...info, errorMessage })}
-        >
-          <LoadingWrapper<THooks>
-            hooks={hooks}
-            render={(loadedHooks) => {
-              const hookNames = Object.keys(hooks)
-              const hooksToProps = hookNames.reduce((acc, name, idx) =>
-                // TODO: check if default property exists and throw error if not
-                ({ ...acc, [name]: loadedHooks[idx].default }), {} as THooks
-              )
+  return (
+    WrappedComponent: ComponentType<TProps & THooks>
+  ): HOCRefComponent<TRef, TProps> => {
+    const ReturnComponent = forwardRef<TRef, TProps>(
+      (props: TProps, ref): JSX.Element => (
+        <ResetWrapper
+          render={(resetComponent) => (
+            <ReactErrorBoundary
+              fallbackRender={(errorProps) => {
+                const fallbackProps = {
+                  ...errorProps,
+                  ...props,
+                  resetErrorBoundary: resetComponent
+                }
+                return renderFallback(fallbackProps)
+              }}
+              onError={(error, info) =>
+                errorHandler(error, { ...info, errorMessage })
+              }
+            >
+              <LoadingWrapper<THooks>
+                hooks={hooks}
+                render={(loadedHooks) => {
+                  const hookNames = Object.keys(hooks)
+                  const hooksToProps = hookNames.reduce(
+                    (acc, name, idx) =>
+                      // TODO: check if default property exists and throw error if not
+                      ({ ...acc, [name]: loadedHooks[idx].default }),
+                    {} as THooks
+                  )
 
-              return <WrappedComponent {...{ ...props, ...hooksToProps }} ref={ref} />
-            }}
-            renderFallback={(error, refetch) => (renderFallback({ error, resetErrorBoundary: refetch, ...props }))}
-            {...rest}
-          />
-        </ReactErrorBoundary>
-      )} />)
-    ))
+                  return (
+                    <WrappedComponent
+                      {...{ ...props, ...hooksToProps }}
+                      ref={ref}
+                    />
+                  )
+                }}
+                renderFallback={(error, refetch) =>
+                  renderFallback({
+                    error,
+                    resetErrorBoundary: refetch,
+                    ...props
+                  })
+                }
+                {...rest}
+              />
+            </ReactErrorBoundary>
+          )}
+        />
+      )
+    )
 
-    ReturnComponent.displayName = WrappedComponent.name ?? WrappedComponent.displayName ?? 'ComponentWithLazyHooks'
+    ReturnComponent.displayName =
+      WrappedComponent.name ??
+      WrappedComponent.displayName ??
+      'ComponentWithLazyHooks'
 
     return ReturnComponent
-  })
+  }
 }

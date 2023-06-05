@@ -9,30 +9,48 @@ interface IDefaultFallbackComponent extends FallbackProps {
   children?: ReactNode
 }
 
-const DefaultFallbackComponent = ({ children, error, resetErrorBoundary }: IDefaultFallbackComponent) => (
+const DefaultFallbackComponent = ({
+  children,
+  error,
+  resetErrorBoundary
+}: IDefaultFallbackComponent) => (
   <div role="alert" className={styles.error}>
     <p>{children}</p>
     <pre>{error.message}</pre>
-    <button onClick={resetErrorBoundary} className={styles.errorButton} title="Reset component">Try to reset</button>
+    <button
+      onClick={resetErrorBoundary}
+      className={styles.errorButton}
+      title="Reset component"
+    >
+      Try to reset
+    </button>
   </div>
 )
 
-const errorHandler = (error: Error, info: { componentStack?: string, errorMessage: string }) => {
-  console.log(`%c${info.errorMessage}`, 'color: white; background: red; font-size: 24px')
+const errorHandler = (
+  error: Error,
+  info: { componentStack?: string; errorMessage: string }
+) => {
+  console.log(
+    `%c${info.errorMessage}`,
+    'color: white; background: red; font-size: 24px'
+  )
   console.dir(error)
   info.componentStack && console.dir(info.componentStack)
 }
 
-const ResetWrapper = ({ render }: { render: (resetComponent: () => void) => ReactNode }) => {
+const ResetWrapper = ({
+  render
+}: {
+  render: (resetComponent: () => void) => ReactNode
+}) => {
   const getKey = () => new Date().getTime()
   const [key, setKey] = useState(() => getKey())
   const resetComponent = useCallback(() => void setKey(getKey()), [])
 
   return (
     // changing key resets node completely and internal state of all subcomponents
-    <Fragment key={key}>
-      {render(resetComponent)}
-    </Fragment>
+    <Fragment key={key}>{render(resetComponent)}</Fragment>
   )
 }
 

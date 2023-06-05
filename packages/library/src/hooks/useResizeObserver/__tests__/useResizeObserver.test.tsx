@@ -18,7 +18,11 @@ test('useResizeObserver renders successfully', () => {
 })
 
 test('useResizeObserver with inital bounds renders successfully', () => {
-  render(<TestComponent initialBounds={{ width: 50, height: 100, left: 150, top: 200 }} />)
+  render(
+    <TestComponent
+      initialBounds={{ width: 50, height: 100, left: 150, top: 200 }}
+    />
+  )
   expect(screen.getByText('width: 50')).toBeInTheDocument()
   expect(screen.getByText('height: 100')).toBeInTheDocument()
   expect(screen.getByText('left: 150')).toBeInTheDocument()
