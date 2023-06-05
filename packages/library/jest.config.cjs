@@ -1,10 +1,12 @@
 // TODO: test https://www.npmjs.com/package/jest-styled-components
 // TODO: test https://emotion.sh/docs/@emotion/jest
+// TODO: add snapshot-diff
+// TODO: short snapshot eslint rule
 // TODO: fix react dom issues
-// TODO: snapshots support (incl. inline)
 // TODO: emotion/styled-components support
 // TODO: support aliases
 // TODO: fix React 18 warning
+// TODO: coverage
 
 module.exports = {
   preset: 'ts-jest',

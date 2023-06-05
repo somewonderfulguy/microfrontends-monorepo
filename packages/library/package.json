@@ -6,6 +6,7 @@
     "build": "rimraf build && rollup -c",
     "test": "jest --watch",
     "test:once": "jest",
+    "test:upd-snapshot": "jest -u",
     "start": "storybook dev -p 3333",
     "build-storybook": "storybook build",
     "prettier": "prettier --write ."
