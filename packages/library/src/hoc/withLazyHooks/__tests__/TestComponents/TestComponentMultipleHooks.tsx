@@ -1,5 +1,3 @@
-import React from 'react'
-
 import useTestHookOne from '../testHooks/useTestHookOne'
 import useTestHookTwo from '../testHooks/useTestHookTwo'
 

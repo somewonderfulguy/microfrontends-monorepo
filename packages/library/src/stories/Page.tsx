@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 
 import { Header } from './Header'
 import './page.css'
@@ -8,7 +8,7 @@ type User = {
 }
 
 export const Page: React.FC = () => {
-  const [user, setUser] = React.useState<User>()
+  const [user, setUser] = useState<User>()
 
   return (
     <article>
@@ -40,6 +40,7 @@ export const Page: React.FC = () => {
         <ul>
           <li>
             Use a higher-level connected component. Storybook helps you compose
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
             such data from the "args" of child component stories
           </li>
           <li>

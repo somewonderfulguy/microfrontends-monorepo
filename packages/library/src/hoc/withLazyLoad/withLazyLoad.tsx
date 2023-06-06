@@ -23,7 +23,7 @@
  * })(lazy(() => import('pathTo/Button')))
  */
 
-import React, {
+import {
   ComponentType,
   ReactNode,
   Suspense,

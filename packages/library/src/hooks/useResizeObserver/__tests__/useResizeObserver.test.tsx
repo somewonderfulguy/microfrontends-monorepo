@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { render, screen } from '../../../tests'
 
 import TestComponent from './TestComponent'

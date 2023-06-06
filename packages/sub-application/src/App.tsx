@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import { lazy } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
 import { BlockProps, WithLazyLoad } from 'library/src/typesShared'
@@ -8,7 +8,9 @@ const withLazyLoad: WithLazyLoad = sharedWithLazyLoad
 
 const Block = withLazyLoad<BlockProps>({
   delayedElement: 'Loading...',
-  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => <div {...props} />,
+  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => (
+    <div {...props} />
+  ),
   displayName: 'Block'
 })(lazy(() => import('library/build/components/Block')))
 

@@ -1,8 +1,8 @@
-import React, { forwardRef, useImperativeHandle, useState } from 'react'
+import { forwardRef, useImperativeHandle, useState } from 'react'
 
 import { WithLazyHooks, usePreviousHook } from 'library/src/typesShared'
 import { withLazyHooks as sharedWithLazyHooks } from 'library/build/hoc/withLazyHooks'
-import { FallbackProps } from "react-error-boundary";
+import { FallbackProps } from 'react-error-boundary'
 
 const withLazyHooks: WithLazyHooks = sharedWithLazyHooks
 
@@ -14,21 +14,35 @@ type HooksType = {
   usePrevious: usePreviousHook
 }
 
-const ExampleComponentWithRef = forwardRef((({ usePrevious, exampleProp }: PropType & HooksType, ref) => {
-  const [count, setCount] = useState(0)
-  const previousExampleProp = usePrevious(exampleProp)
+const ExampleComponentWithRef = forwardRef(
+  ({ usePrevious, exampleProp }: PropType & HooksType, ref) => {
+    const [count, setCount] = useState(0)
+    const previousExampleProp = usePrevious(exampleProp)
 
-  useImperativeHandle(ref, () => ({ crushComponent: () => void setCount(1) }))
-  if (count === 1) throw new Error('Crushed component')
+    useImperativeHandle(ref, () => ({ crushComponent: () => void setCount(1) }))
+    if (count === 1) throw new Error('Crushed component')
 
-  return <>{exampleProp} {previousExampleProp}</>
-}))
+    return (
+      <>
+        {exampleProp} {previousExampleProp}
+      </>
+    )
+  }
+)
 ExampleComponentWithRef.displayName = 'ExampleComponentWithRef'
 
-const ExampleComponentWithRefWrapped = withLazyHooks<HooksType, PropType, { crushComponent: () => void }>({
+const ExampleComponentWithRefWrapped = withLazyHooks<
+  HooksType,
+  PropType,
+  { crushComponent: () => void }
+>({
   hooks: { usePrevious: import('library/build/hooks/usePrevious') },
   delayedElement: <div>Please wait, loading...</div>,
-  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & PropType) => (
+  Fallback: ({
+    error,
+    resetErrorBoundary,
+    ...props
+  }: FallbackProps & PropType) => (
     <div>
       Custom fallback,{' '}
       <button onClick={resetErrorBoundary}>try to reset</button>

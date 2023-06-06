@@ -1,4 +1,4 @@
-import React, { MutableRefObject, lazy, useRef } from 'react'
+import { MutableRefObject, lazy, useRef } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
 import {

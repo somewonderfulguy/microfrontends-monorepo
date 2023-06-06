@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import React, { Fragment, ReactNode, useCallback, useState } from 'react'
+import { Fragment, ReactNode, useCallback, useState } from 'react'
 import { FallbackProps } from 'react-error-boundary'
 
 import styles from './federated.module.css'

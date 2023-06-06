@@ -1,9 +1,4 @@
-import React, {
-  ForwardedRef,
-  forwardRef,
-  HTMLProps,
-  useImperativeHandle
-} from 'react'
+import { ForwardedRef, forwardRef, HTMLProps, useImperativeHandle } from 'react'
 
 import cybercat from './assets/cybercat.jpg'
 import blockJson from './Block.json'

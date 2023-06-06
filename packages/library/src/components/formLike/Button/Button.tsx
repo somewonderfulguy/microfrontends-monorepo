@@ -1,4 +1,4 @@
-import React, { HTMLProps } from 'react'
+import { HTMLProps } from 'react'
 
 import { ReactComponent as PreviewIcon } from './assets/eye.svg'
 import styles from './Button.module.css'

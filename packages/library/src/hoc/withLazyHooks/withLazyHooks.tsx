@@ -65,7 +65,7 @@
  * })(ExampleComponent)
  */
 
-import React, { ComponentType, forwardRef, ReactNode, useRef } from 'react'
+import { ComponentType, forwardRef, ReactNode, useRef } from 'react'
 import { QueryKey, useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
 import {

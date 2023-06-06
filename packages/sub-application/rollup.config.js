@@ -12,18 +12,21 @@ import json from '@rollup/plugin-json'
 
 export default {
   input: `src/App.tsx`,
-  output: [{
-    // file: `/index.js`,
-    dir: 'build-npm',
-    format: 'es',
-    sourcemap: true
-  }],
+  output: [
+    {
+      // file: `/index.js`,
+      dir: 'build-npm',
+      format: 'es',
+      sourcemap: true
+    }
+  ],
   plugins: [
     peerDepsExternal(), // this looks into peerDependencies and removes it from bundle, so the bundle will be smaller
     resolve(), // to locate third-party modules used inside our project (node_modules)
     commonjs(), // commonJS modules to ES6 modules
     typescript({ tsconfig: './tsconfig.json' }), // ts compiler
-    postcss({ // css, css-modules
+    postcss({
+      // css, css-modules
       modules: true,
       sourcemap: true,
       minimize: true
@@ -32,7 +35,7 @@ export default {
     image(), // images i.e. .jpg, .png (will be converted to base64; keep image() before url() so src path will be correct in output)
     url(), // url + svgr allows to compile import { ReactComponent as SvgIcon } from './assets/svgIcon.svg'
     svgr({ icon: true }),
-    terser(), // minifier
+    terser() // minifier
   ],
 
   // duplicate from peerDependencies - without it using bundles won't work

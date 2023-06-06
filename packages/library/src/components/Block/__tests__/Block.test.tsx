@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useRef } from 'react'
+import { MutableRefObject, useRef } from 'react'
 
 import { render, screen, cleanup, renderHook } from '../../../tests'
 
