@@ -8,6 +8,7 @@ import url from '@rollup/plugin-url'
 import svgr from '@svgr/rollup'
 import image from '@rollup/plugin-image'
 import json from '@rollup/plugin-json'
+import dotenv from 'rollup-plugin-dotenv'
 
 // keep alphabetical (like in file browser)
 const paths = [
@@ -43,6 +44,7 @@ export default paths.map((path) => ({
     }
   ],
   plugins: [
+    dotenv(), // import .env variables
     peerDepsExternal(), // this looks into peerDependencies and removes it from bundle, so the bundle will be smaller
     resolve(), // locate third-party modules used inside project (node_modules)
     commonjs(), // commonJS modules to ES6 modules
