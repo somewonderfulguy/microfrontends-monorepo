@@ -3,7 +3,7 @@
 // TODO: add snapshot-diff
 // TODO: short snapshot eslint rule
 // TODO: fix react dom issues
-// TODO: emotion/styled-components support
+// TODO: styled-components support
 // TODO: support aliases
 // TODO: fix React 18 warning
 // TODO: coverage
