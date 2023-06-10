@@ -16,7 +16,6 @@ const useResizeObserver = <T extends Element>(
   const [bounds, setBounds] = useState(initialBounds)
 
   const observer = throttle(
-    // TODO: verify is it works after prettier
     /* istanbul ignore next */ ([entry]) =>
       setBounds(
         Array.isArray(entry) ? entry[0].contentRect : entry.contentRect

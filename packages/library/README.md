@@ -13,6 +13,8 @@ TODO
 
 ## Adding Emotion
 
+_Tested with `@emotion/react@11.11.1`, `@emotion/styled@11.11.0`, `@emotion/jest@11.11.0`._
+
 In order to add emotion, you need to install the following packages:
 
 ```

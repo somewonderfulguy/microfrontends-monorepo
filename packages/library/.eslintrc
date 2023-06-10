@@ -9,7 +9,10 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    // General
     "no-console": ["warn", { "allow": ["warn", "error"] }],
+
+    // React
     "react/react-in-jsx-scope": "off"
   }
 }

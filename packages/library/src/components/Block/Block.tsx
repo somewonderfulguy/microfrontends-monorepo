@@ -27,7 +27,6 @@ const Block = forwardRef(
             <img src={cybercat} alt={altText} />
           </div>
         )}
-        {/* TODO: add test case */}
         {withJohnySilverhand && (
           <pre>{JSON.stringify(blockJson, undefined, 2)}</pre>
         )}
