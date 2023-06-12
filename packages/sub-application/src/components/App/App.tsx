@@ -1,24 +1,41 @@
-import { lazy } from 'react'
-import { FallbackProps } from 'react-error-boundary'
-
-import { BlockProps, WithLazyLoad } from 'library/src/typesShared'
-import { withLazyLoad as sharedWithLazyLoad } from 'library/build/hoc/withLazyLoad'
-
-const withLazyLoad: WithLazyLoad = sharedWithLazyLoad
-
-const Block = withLazyLoad<BlockProps>({
-  delayedElement: 'Loading...',
-  Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps) => (
-    <div {...props} />
-  ),
-  displayName: 'Block'
-})(lazy(() => import('library/build/components/Block')))
-
-function App() {
+const App = () => {
   return (
-    <Block className="App" withCybercat withJohnySilverhand>
-      Sub Application
-    </Block>
+    <div>
+      <div>
+        <label>
+          <span>
+            Fibonacci, <code>for</code> loop:
+          </span>
+          <input />
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>
+            Fibonacci, <code>while</code> loop:
+          </span>
+          <input />
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Fibonacci, recursion:</span>
+          <input />
+        </label>
+        <div>
+          <label>
+            <span>Fibonacci, recursion with memoization:</span>
+            <input />
+          </label>
+        </div>
+      </div>
+      <div>
+        <label>
+          <span>Fibonacci, recursion with memoization & promisification:</span>
+          <input />
+        </label>
+      </div>
+    </div>
   )
 }
 

@@ -11,7 +11,7 @@ import image from '@rollup/plugin-image'
 import json from '@rollup/plugin-json'
 
 export default {
-  input: `src/App.tsx`,
+  input: `src/components/App/App.tsx`,
   output: [
     {
       // file: `/index.js`,
