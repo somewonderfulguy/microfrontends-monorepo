@@ -1,4 +1,4 @@
-import { throttle } from '..'
+import throttle from '../throttle'
 
 test('throttle works', async () => {
   let i = 0

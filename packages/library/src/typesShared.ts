@@ -1,15 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { MutableRefObject } from 'react'
 
-import { usePrevious, useResizeObserver } from './hooks'
-import { withLazyLoad, withLazyHooks } from './hoc'
+import usePrevious from './hooks/usePrevious'
+import useResizeObserver from './hooks/useResizeObserver'
+import { withLazyLoad } from './hoc/withLazyLoad'
+import { withLazyHooks } from './hoc/withLazyHooks'
 
-export {
-  type BlockProps,
-  type ButtonProps,
-  type ForwardedRefType
-} from './components'
+export { type BlockProps, type ForwardedRefType } from './components/Block'
+export { type ButtonProps } from './components/formLike/Button'
 
 export type WithLazyHooks = typeof withLazyHooks
 export type WithLazyLoad = typeof withLazyLoad

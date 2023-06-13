@@ -21,10 +21,15 @@
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "build",
-    "types": ["node", "jest", "@testing-library/jest-dom"]
-
-    // TODO: config aliases for TS + Rollup
-    // "baseUrl": "src/"
+    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@assets/*": ["assets/*"],
+      "@hooks/*": ["hooks/*"],
+      "@hoc/*": ["hoc/*"],
+      "@utils/*": ["utils/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules", "build"]

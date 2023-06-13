@@ -9,6 +9,7 @@ import svgr from '@svgr/rollup'
 import image from '@rollup/plugin-image'
 import json from '@rollup/plugin-json'
 import dotenv from 'rollup-plugin-dotenv'
+import alias from '@rollup/plugin-alias'
 
 // keep alphabetical (like in file browser)
 const paths = [
@@ -20,10 +21,10 @@ const paths = [
   'hooks/useResizeObserver'
 ]
 
-// TODO: learn how to use rollup-plugin-alias
 // TODO: learn how to use rollup-plugin-visualizer
 // TODO: learn how to launch rollup in watch mode (application, not library)
 // TODO: learn module federation in rollup
+// TODO: code splitting in rollup
 
 export default paths.map((path) => ({
   input: `src/${path}/index.ts`,
@@ -44,6 +45,17 @@ export default paths.map((path) => ({
     }
   ],
   plugins: [
+    // import modules using aliases import batman from '../../../batman'; -> import batman from '@batman';
+    alias({
+      entries: [
+        // keep alphabetical (like in file browser)
+        // TODO: test each alias
+        { find: '@components/**/*.*', replacement: './src/components' },
+        { find: '@hoc/**/*.*', replacement: './src/hoc' },
+        { find: '@hooks/**/*.*', replacement: './src/hooks' },
+        { find: '@utils/**/*.*', replacement: './src/utils' }
+      ]
+    }),
     dotenv(), // import .env variables
     peerDepsExternal(), // this looks into peerDependencies and removes it from bundle, so the bundle will be smaller
     resolve(), // locate third-party modules used inside project (node_modules)
