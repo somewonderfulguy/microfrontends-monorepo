@@ -24,7 +24,7 @@ const Button = withLazyLoad<ButtonProps>({
     ...props
   }: FallbackProps & ButtonProps) => <button {...props} />,
   displayName: 'Button'
-})(lazy(() => import('library/build/components/formLike/Button')))
+})(lazy(() => import('library/build/components/controls/Button')))
 
 const generateRandomZeroOrOne = () => Math.floor(Math.random() * 2)
 

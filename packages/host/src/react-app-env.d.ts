@@ -1,7 +1,7 @@
 /// <reference types="react-scripts" />
 
 declare module 'library/build/components/Block'
-declare module 'library/build/components/formLike/Button'
+declare module 'library/build/components/controls/Button'
 declare module 'library/build/hoc/withLazyLoad'
 declare module 'library/build/hoc/withLazyHooks'
 declare module 'library/build/hooks/usePrevious'

@@ -14,7 +14,7 @@ import alias from '@rollup/plugin-alias'
 // keep alphabetical (like in file browser)
 const paths = [
   'components/Block',
-  'components/formLike/Button',
+  'components/controls/Button',
   'hoc/withLazyLoad',
   'hoc/withLazyHooks',
   'hooks/usePrevious',

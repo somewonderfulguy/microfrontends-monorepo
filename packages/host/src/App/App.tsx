@@ -26,7 +26,7 @@ const Button = withLazyLoad<ButtonProps>({
     ...props
   }: FallbackProps & ButtonProps) => <button {...props} />,
   displayName: 'Button'
-})(lazy(() => import('library/build/components/formLike/Button')))
+})(lazy(() => import('library/build/components/controls/Button')))
 
 const SubApplication = withLazyLoad({
   delayedElement: 'please wait...',

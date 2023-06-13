@@ -6,7 +6,7 @@ import { withLazyLoad } from './hoc/withLazyLoad'
 import { withLazyHooks } from './hoc/withLazyHooks'
 
 export { type BlockProps, type ForwardedRefType } from './components/Block'
-export { type ButtonProps } from './components/formLike/Button'
+export { type ButtonProps } from './components/controls/Button'
 
 export type WithLazyHooks = typeof withLazyHooks
 export type WithLazyLoad = typeof withLazyLoad
