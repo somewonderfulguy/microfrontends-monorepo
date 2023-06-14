@@ -49,7 +49,6 @@ export default paths.map((path) => ({
     alias({
       entries: [
         // keep alphabetical (like in file browser)
-        // TODO: test each alias
         { find: '@components/**/*.*', replacement: './src/components' },
         { find: '@hoc/**/*.*', replacement: './src/hoc' },
         { find: '@hooks/**/*.*', replacement: './src/hooks' },
