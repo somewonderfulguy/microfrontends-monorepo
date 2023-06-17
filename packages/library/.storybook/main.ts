@@ -20,6 +20,7 @@ const config: StorybookConfig = {
     // config aliases
     if (config.resolve) {
       config.resolve.alias = {
+        '@api': path.resolve(__dirname, '../src/api'),
         '@components': path.resolve(__dirname, '../src/components'),
         '@hoc': path.resolve(__dirname, '../src/hoc'),
         '@hooks': path.resolve(__dirname, '../src/hooks'),

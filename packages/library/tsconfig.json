@@ -24,6 +24,7 @@
     "types": ["node", "jest", "@testing-library/jest-dom"],
     "baseUrl": "src",
     "paths": {
+      "@api/*": ["api/*"],
       "@components/*": ["components/*"],
       "@assets/*": ["assets/*"],
       "@hooks/*": ["hooks/*"],

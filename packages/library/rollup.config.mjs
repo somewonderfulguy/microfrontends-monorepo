@@ -49,6 +49,8 @@ export default paths.map((path) => ({
     alias({
       entries: [
         // keep alphabetical (like in file browser)
+        // TODO: aliases configured in many places (tsconfig, rollup.config, jest.config, .storybook/main) - it's better to have an array of aliases in one place
+        { find: '@api/**/*.*', replacement: './src/api' },
         { find: '@components/**/*.*', replacement: './src/components' },
         { find: '@hoc/**/*.*', replacement: './src/hoc' },
         { find: '@hooks/**/*.*', replacement: './src/hooks' },

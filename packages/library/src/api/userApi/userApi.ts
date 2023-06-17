@@ -1,6 +1,6 @@
 import { useQuery, UseQueryOptions } from 'react-query'
 
-import { request } from '..'
+import { request } from '../request'
 import { User } from './userTypes'
 
 const getUser = (id: string) =>
@@ -8,7 +8,7 @@ const getUser = (id: string) =>
 
 const getUserQueryKey = (id: string) => ['user', id]
 
-export const useGetUser = (id: string, options: UseQueryOptions<User> = {}) =>
+export const useGetUser = (id = '', options: UseQueryOptions<User> = {}) =>
   useQuery<User>(getUserQueryKey(id), () => getUser(id), {
     ...options,
     enabled: !!id && (options.enabled ?? true)
