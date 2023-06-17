@@ -24,4 +24,9 @@ const preview: Preview = {
   ]
 }
 
+if (typeof global.process === 'undefined') {
+  const { worker } = require('../src/api/offline')
+  worker.start()
+}
+
 export default preview

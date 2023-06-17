@@ -4,7 +4,7 @@ const UserCard = () => {
   const { data } = useGetUser('1')
   return (
     <div>
-      {data && JSON.stringify(data, undefined, 2)}
+      <pre>{data && JSON.stringify(data, undefined, 2)}</pre>
       <p>User Card</p>
     </div>
   )

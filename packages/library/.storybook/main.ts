@@ -16,6 +16,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag'
   },
+  staticDirs: ['../msw'],
   webpackFinal: async (config) => {
     // config aliases
     if (config.resolve) {
