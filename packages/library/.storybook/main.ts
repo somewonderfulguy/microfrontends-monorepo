@@ -1,17 +1,19 @@
 import type { StorybookConfig } from '@storybook/react-webpack5'
 import path from 'path'
-
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@storybook/addon-a11y'
+    '@storybook/addon-a11y',
+    '@storybook/addon-mdx-gfm'
   ],
   framework: {
     name: '@storybook/react-webpack5',
-    options: {}
+    options: {
+      strictMode: true
+    }
   },
   docs: {
     autodocs: 'tag'
@@ -38,7 +40,6 @@ const config: StorybookConfig = {
     if (typeof imageRule !== 'string') {
       imageRule!.exclude = /\.svg$/
     }
-
     config.module!.rules!.unshift({
       test: /\.svg$/,
       use: [
@@ -48,7 +49,11 @@ const config: StorybookConfig = {
             prettier: false,
             svgo: false,
             svgoConfig: {
-              plugins: [{ removeViewBox: false }]
+              plugins: [
+                {
+                  removeViewBox: false
+                }
+              ]
             },
             titleProp: true,
             ref: true
@@ -65,9 +70,7 @@ const config: StorybookConfig = {
         and: [/\.(ts|tsx|js|jsx|md|mdx)$/]
       }
     })
-
     return config
   }
 }
-
 export default config

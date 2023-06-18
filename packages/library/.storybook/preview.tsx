@@ -18,15 +18,35 @@ const preview: Preview = {
     }
   },
   decorators: [
-    (Story) => (
-      <QueryClientProvider client={queryClient}>{Story()}</QueryClientProvider>
+    (story) => (
+      <QueryClientProvider client={queryClient}>{story()}</QueryClientProvider>
     )
   ]
 }
 
+// Storybook makes lots of requests and MSW throws warnings about unhandled requests, so whitelist some endpoints
+const whiteListEndpoints = [
+  '/sb-common-assets',
+  '/static/media',
+  '/node_modules_',
+  '.bundle.js',
+  '/iframe.html'
+]
+
 if (typeof global.process === 'undefined') {
   const { worker } = require('../src/api/offline')
-  worker.start()
+  worker.start({
+    onUnhandledRequest(req, print) {
+      if (
+        whiteListEndpoints.some((endpoint) =>
+          req.url.pathname.includes(endpoint)
+        )
+      ) {
+        return
+      }
+      print.warning()
+    }
+  })
 }
 
 export default preview
