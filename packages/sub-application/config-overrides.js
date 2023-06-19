@@ -14,7 +14,7 @@ module.exports = function override(config) {
       filename: 'sub-application.js',
       remotes: {},
       exposes: {
-        './app': './src/App.tsx'
+        './app': './src/components/App/App.tsx'
       },
       shared: {
         ...deps,

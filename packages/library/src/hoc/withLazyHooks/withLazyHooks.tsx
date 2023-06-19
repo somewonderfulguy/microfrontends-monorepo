@@ -1,9 +1,7 @@
 /**
- * HOC that takes a Component and array of lazy loaded hooks and wraps it in useQuery (for loading hooks) & ErrorBoundary.
+ * HOC that takes a Component and array of lazy loaded hooks and wraps it in ErrorBoundary. Loaded hooks will be injected as props.
  *
  * hooks prop: { [key: string]: () => Promise<any> } -- required, will be injected as props to the component.
- *
- * queryKey prop: QueryKey -- can be user to re-fetch, if not passed will be generated uuid.
  *
  * As loader, `delayedElement` can be passed - if no passed then empty <div aria-busy="true" /> will be displayed.
  *
@@ -50,7 +48,6 @@
  *     usePrevious: import('library/build-npm/hooks/usePrevious'),
  *     useResizeObserver: import('library/build-npm/hooks/useResizeObserver')
  *   },
- *   queryKey: ['usePrevious', 'useResizeObserver'],
  *   delayedElement: <div>Please wait, loading...</div>,
  *   Fallback: ({ error, resetErrorBoundary, ...props }: FallbackProps & Props) => (
  *     <div>
@@ -65,9 +62,15 @@
  * })(ExampleComponent)
  */
 
-import { ComponentType, forwardRef, ReactNode, useRef } from 'react'
-import { QueryKey, useQuery } from 'react-query'
-import { v4 as uuidv4 } from 'uuid'
+import {
+  ComponentType,
+  forwardRef,
+  ReactNode,
+  useEffect,
+  useRef,
+  useCallback,
+  useState
+} from 'react'
 import {
   ErrorBoundary as ReactErrorBoundary,
   FallbackProps
@@ -92,7 +95,6 @@ type SetDefaultKey<T> = {
 
 type CommonProps<THooks> = {
   hooks: LazifyHooks<THooks>
-  queryKey?: QueryKey
   delayedElement?: ReactNode
 }
 
@@ -111,29 +113,39 @@ function LoadingWrapper<THooks>({
   hooks,
   render,
   renderFallback,
-  queryKey = uuidv4(),
   delayedElement
 }: LoadingWrapperProps<THooks>) {
   type LoadedHooks = SetDefaultKey<THooks>[]
-  const queryKeyValue = useRef(queryKey)
-  const {
-    data: loadedHooks,
-    isLoading,
-    isError,
-    refetch,
-    error
-  } = useQuery<LoadedHooks, Error>(
-    queryKeyValue.current,
-    () =>
-      Promise.all(Object.values(hooks)).then((result: unknown) => {
+  const [loadedHooks, setLoadedHooks] = useState<LoadedHooks>([])
+
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setIsError] = useState<Error | null>(null)
+  const isError = error !== null
+
+  const fetchHooks = useCallback(() => {
+    setIsLoading(true)
+    return Promise.all(Object.values(hooks))
+      .then((result: unknown) => {
+        setIsLoading(false)
+        setIsError(null)
         return result as LoadedHooks
-      }),
-    {
-      staleTime: Infinity,
-      cacheTime: 0,
-      refetchOnWindowFocus: false
-    }
-  )
+      })
+      .catch((error) => {
+        setIsLoading(false)
+        setIsError(error)
+        errorHandler(error, { errorMessage })
+        return []
+      })
+  }, [hooks])
+
+  const initialized = useRef(false)
+  useEffect(() => {
+    if (initialized.current) return
+    fetchHooks().then((hooks) => {
+      setLoadedHooks(hooks)
+      initialized.current = true
+    })
+  }, [fetchHooks])
 
   const loader = <>{delayedElement ?? <div aria-busy="true" />}</>
   const renderWithHooks = (hooks?: LoadedHooks) => <>{hooks && render(hooks)}</>
@@ -151,7 +163,7 @@ function LoadingWrapper<THooks>({
 
     errorHandler(errorObj, { errorMessage })
 
-    return <>{renderFallback(errorObj, refetch)}</>
+    return <>{renderFallback(errorObj, fetchHooks)}</>
   }
 
   return renderWithHooks(loadedHooks)

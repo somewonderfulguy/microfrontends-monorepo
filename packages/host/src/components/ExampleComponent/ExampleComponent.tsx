@@ -30,8 +30,7 @@ const ExampleComponentWrapped = withLazyHooks<HooksType>({
   hooks: {
     usePrevious: import('library/build/hooks/usePrevious'),
     useResizeObserver: import('library/build/hooks/useResizeObserver')
-  },
-  queryKey: ['usePrevious', 'useResizeObserver']
+  }
 })(ExampleComponent)
 
 export default ExampleComponentWrapped
