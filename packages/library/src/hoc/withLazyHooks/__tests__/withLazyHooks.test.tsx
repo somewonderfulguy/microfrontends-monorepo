@@ -28,6 +28,7 @@ import { hookTwoResult } from './testHooks/useTestHookTwo'
 
 const errorRegexp = /federated hook\(s\) failed/gi
 
+// TODO: fix tests (also test crushing in browser)
 const checkPromiseErrorLogging = ({
   consoleError,
   consoleLog,

@@ -19,6 +19,7 @@ export const logMsg = 'it works!'
 
 const TestComponentSingleHook = forwardRef<RefType, PropType & HooksType>(
   ({ useTestHookOne, withError }, ref) => {
+    // TODO: replace (or not, investigate) with alert or something else (console.log affects tests)
     // eslint-disable-next-line no-console
     useImperativeHandle(ref, () => ({ log: () => console.log(logMsg) }))
 

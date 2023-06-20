@@ -54,6 +54,7 @@ export default paths.map((path) => ({
         { find: '@components/**/*.*', replacement: './src/components' },
         { find: '@hoc/**/*.*', replacement: './src/hoc' },
         { find: '@hooks/**/*.*', replacement: './src/hooks' },
+        { find: '@tests/**/*.*', replacement: './src/tests' },
         { find: '@utils/**/*.*', replacement: './src/utils' }
       ]
     }),

@@ -1,9 +1,24 @@
 // TODO: test https://www.npmjs.com/package/jest-styled-components
 // TODO: add snapshot-diff
 // TODO: short snapshot eslint rule
-// TODO: support aliases
 // TODO: fix react dom issues
 // TODO: fix React 18 warning
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const tsconfig = require('./tsconfig.json')
+
+const { paths } = tsconfig.compilerOptions
+const aliases = Object.keys(paths).reduce((acc, key) => {
+  const keyWithoutStar = key.replace('*', '')
+  const value = paths[key][0].replace('*', '')
+  return {
+    ...acc,
+    // regex explanation:
+    // (.*)$: capture whatever comes after the exact match (the directory)
+    // $1: map it to this value in the directory specified
+    [`^${keyWithoutStar}(.*)$`]: `<rootDir>/src/${value}$1`
+  }
+}, {})
 
 module.exports = {
   preset: 'ts-jest',
@@ -29,8 +44,9 @@ module.exports = {
   ],
   testMatch: ['**/*.test.(ts|tsx)'],
   moduleNameMapper: {
-    // TODO: test it all
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+    // TODO: test it all (css|less|scss|sass)
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    ...aliases
   },
   coveragePathIgnorePatterns: [
     'testHooks',
