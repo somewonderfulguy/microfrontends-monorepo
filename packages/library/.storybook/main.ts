@@ -1,5 +1,8 @@
 import type { StorybookConfig } from '@storybook/react-webpack5'
 import path from 'path'
+
+import tsconfig from '../tsconfig.json'
+
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -22,13 +25,20 @@ const config: StorybookConfig = {
   webpackFinal: async (config) => {
     // config aliases
     if (config.resolve) {
-      config.resolve.alias = {
-        '@api': path.resolve(__dirname, '../src/api'),
-        '@components': path.resolve(__dirname, '../src/components'),
-        '@hoc': path.resolve(__dirname, '../src/hoc'),
-        '@hooks': path.resolve(__dirname, '../src/hooks'),
-        '@tests': path.resolve(__dirname, '../src/tests'),
-        '@utils': path.resolve(__dirname, '../src/utils')
+      const { paths } = tsconfig.compilerOptions
+
+      if (paths) {
+        const alias: { [key: string]: string } = Object.entries(paths).reduce(
+          (acc, [key, value]) => ({
+            ...acc,
+            [key.replace('/*', '')]: path.resolve(
+              __dirname,
+              `../src/${value[0].replace('/*', '')}`
+            )
+          }),
+          {}
+        )
+        config.resolve.alias = alias
       }
     }
 

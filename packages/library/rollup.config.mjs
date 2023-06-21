@@ -11,6 +11,8 @@ import json from '@rollup/plugin-json'
 import dotenv from 'rollup-plugin-dotenv'
 import alias from '@rollup/plugin-alias'
 
+import tsconfig from './tsconfig.json' assert { type: 'json' }
+
 // keep alphabetical (like in file browser)
 const paths = [
   'components/Block',
@@ -20,6 +22,14 @@ const paths = [
   'hooks/usePrevious',
   'hooks/useResizeObserver'
 ]
+
+// configure aliases
+const { paths: tsPaths } = tsconfig.compilerOptions
+const entries = Object.entries(tsPaths).map(([key, value]) => {
+  const find = `${key}*/*.*`
+  const replacement = `./src/${value[0].replace('/*', '')}`
+  return { find, replacement }
+})
 
 // TODO: learn how to use rollup-plugin-visualizer
 // TODO: learn how to launch rollup in watch mode (application, not library)
@@ -46,18 +56,7 @@ export default paths.map((path) => ({
   ],
   plugins: [
     // import modules using aliases import batman from '../../../batman'; -> import batman from '@batman';
-    alias({
-      entries: [
-        // keep alphabetical (like in file browser)
-        // TODO: aliases configured in many places (tsconfig, rollup.config, jest.config, .storybook/main) - it's better to have an array of aliases in one place
-        { find: '@api/**/*.*', replacement: './src/api' },
-        { find: '@components/**/*.*', replacement: './src/components' },
-        { find: '@hoc/**/*.*', replacement: './src/hoc' },
-        { find: '@hooks/**/*.*', replacement: './src/hooks' },
-        { find: '@tests/**/*.*', replacement: './src/tests' },
-        { find: '@utils/**/*.*', replacement: './src/utils' }
-      ]
-    }),
+    alias({ entries }),
     dotenv(), // import .env variables
     peerDepsExternal(), // this looks into peerDependencies and removes it from bundle, so the bundle will be smaller
     resolve(), // locate third-party modules used inside project (node_modules)
