@@ -33,20 +33,20 @@ const whiteListEndpoints = [
   '/iframe.html'
 ]
 
-// if (typeof global.process === 'undefined') {
-//   const { worker } = require('../src/api/offline')
-//   worker.start({
-//     onUnhandledRequest(req, print) {
-//       if (
-//         whiteListEndpoints.some((endpoint) =>
-//           req.url.pathname.includes(endpoint)
-//         )
-//       ) {
-//         return
-//       }
-//       print.warning()
-//     }
-//   })
-// }
+if (typeof global.process === 'undefined') {
+  const { worker } = require('../src/api/offline')
+  worker.start({
+    onUnhandledRequest(req, print) {
+      if (
+        whiteListEndpoints.some((endpoint) =>
+          req.url.pathname.includes(endpoint)
+        )
+      ) {
+        return
+      }
+      print.warning()
+    }
+  })
+}
 
 export default preview
