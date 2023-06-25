@@ -35,6 +35,7 @@ const entries = Object.entries(tsPaths).map(([key, value]) => {
 // TODO: learn how to launch rollup in watch mode (application, not library)
 // TODO: learn module federation in rollup
 // TODO: code splitting in rollup
+// TODO: export only css file from rollup
 
 export default paths.map((path) => ({
   input: `src/${path}/index.ts`,
@@ -48,7 +49,7 @@ export default paths.map((path) => ({
       /*
       CommonJS (cjs) here for require() support. Unlike ES Modules (esm), CommonJS has dynamic module structure.
       This makes tree shaking impossible, and importing one module will import all other modules in the dependency tree.
-    */
+      */
       file: `build/${path}/index.cjs.js`,
       format: 'cjs',
       sourcemap: true
