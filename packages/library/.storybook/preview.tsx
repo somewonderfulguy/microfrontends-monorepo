@@ -1,8 +1,9 @@
 import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import type { Preview } from '@storybook/react'
+import 'augmented-ui/augmented-ui.min.css'
 
-import '../src/styles/cyberFont.css'
+import '../src/styles/fonts.css'
 
 // TODO: update react-query to the latest version
 const queryClient = new QueryClient()

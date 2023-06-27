@@ -1,28 +1,38 @@
-.main {
-  --aug-bl: 30px;
-  width: 100%;
-  max-width: 300px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
-  background-color: #fff;
+.card {
+  font-family: 'Blender Pro', sans-serif;
+
+  display: grid;
+  grid-template-columns: auto auto;
+  max-width: 600px;
+  gap: 10px;
 }
 
-.info {
-  composes: main;
-  max-width: 400px;
+.userSection {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+
+  --aug-bl: 30px;
+
+  color: #333;
+
+  margin-top: 1px;
+}
+
+.name {
+  font-weight: 800;
 }
 
 .avatar {
   width: 100px;
   height: 100px;
   overflow: hidden;
+
+  --aug-border-bg: #00f0ff;
+  --aug-border-all: 1px;
+
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 2px 16px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 .avatar img {

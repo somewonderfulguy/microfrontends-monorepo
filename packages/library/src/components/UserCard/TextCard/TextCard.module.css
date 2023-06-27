@@ -1,0 +1,68 @@
+.infoContainer {
+  /* --aug-tr: 15px;
+  --aug-tr1-width: 20px;
+  --aug-tr1-height: 20px; */
+  --aug-border-bg: #00f0ff;
+  --aug-border-all: 1px;
+  /* overflow: hidden; */
+  /* --aug-border-bg: #00f0ff; */
+  /* --aug-border-all: 1px; */
+
+  /* --var-border-left-width: 8px; */
+}
+
+.info {
+  /* width: calc(100% - 8px); */
+
+  color: #fff;
+
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6);
+  /* border: 1px solid #00f0ff; */
+  border-left: 8px solid #00f0ff;
+  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 2px 16px rgba(0, 0, 0, 0.25); */
+
+  /* height: 80px;
+  overflow: hidden; */
+}
+
+.innerShapeContainer {
+  width: 20px;
+  /* height: 100%; */
+  float: left;
+
+  /* TODO: make dynamic (?) */
+  shape-outside: polygon(1px 71px, 40% 65.34%, 0 90.34%);
+  shape-margin: 1rem;
+}
+
+.innerShape {
+  --aug-tr: 70px;
+  width: 10px;
+  height: 145px;
+  background-color: #00f0ff;
+}
+
+.outerShapeContainer {
+  float: right;
+  width: 20px;
+
+  shape-outside: polygon(1px 71px, 40% 65.34%, 0 90.34%);
+  shape-margin: 1rem;
+}
+
+.outerShape {
+  --aug-tr: 70px;
+  width: 10px;
+  height: 145px;
+  background-color: #00f0ff;
+}
+
+.shortDescription {
+  /* TODO: set margin 0 for all p tags globally */
+  margin: 0;
+  padding: 10px;
+
+  /* TODO: set font globally */
+  font-family: 'Blender Pro', sans-serif;
+}
