@@ -17,7 +17,7 @@ const TextCard = ({ style, className, children }: Props) => {
     <div
       className={styles.infoContainer + ' ' + (className ?? '')}
       style={{ ...style, height: !height ? 'auto' : `${height}px` }}
-      // data-augmented-ui="tr-clip-x border"
+      data-augmented-ui="tr-2-clip-x br-clip-y border"
     >
       <div className={styles.info}>
         <div className={styles.innerShapeContainer}>

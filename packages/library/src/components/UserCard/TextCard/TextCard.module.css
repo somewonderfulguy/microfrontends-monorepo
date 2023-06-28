@@ -1,18 +1,28 @@
 .infoContainer {
-  /* --aug-tr: 15px;
-  --aug-tr1-width: 20px;
-  --aug-tr1-height: 20px; */
+  /* --aug-tr: 15px; */
+  --aug-tr1-width: 10px;
+  --aug-tr1-height: 10px;
+  --aug-tr2-width: 10px;
+  --aug-tr2-height: 10px;
+  /* --aug-tr-border2: 70px; */
   --aug-border-bg: #00f0ff;
   --aug-border-all: 1px;
-  /* overflow: hidden; */
-  /* --aug-border-bg: #00f0ff; */
-  /* --aug-border-all: 1px; */
+
+  /* --aug-tr-inset1: calc(100% - 7.5rem); */
+  /* --aug-br: 1rem;
+  --aug-br-inset2: calc(100% - 7.5rem); */
+
+  --aug-br: 10px;
+  --aug-br-inset2: 99px;
+
+  --aug-tr-extend2: 49px;
 
   /* --var-border-left-width: 8px; */
 }
 
 .info {
   /* width: calc(100% - 8px); */
+  height: 100%;
 
   color: #fff;
 
@@ -45,17 +55,29 @@
 
 .outerShapeContainer {
   float: right;
-  width: 20px;
+  width: 30px;
+  height: 100%;
 
-  shape-outside: polygon(1px 71px, 40% 65.34%, 0 90.34%);
+  shape-outside: polygon(
+    -16px 0px,
+    55px 0px,
+    99.14% 98.41%,
+    24px 97.97%,
+    22px 72.48%,
+    96.18% 62.32%,
+    96.16% 25.91%,
+    25px 18.06%,
+    24px 8.74%
+  );
   shape-margin: 1rem;
 }
 
 .outerShape {
   --aug-tr: 70px;
+  margin: 0 0 0 auto;
   width: 10px;
   height: 145px;
-  background-color: #00f0ff;
+  /* background-color: #00f0ff; */
 }
 
 .shortDescription {
