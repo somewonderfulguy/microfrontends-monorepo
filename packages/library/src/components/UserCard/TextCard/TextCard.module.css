@@ -13,7 +13,7 @@
   --aug-br-inset2: calc(100% - 7.5rem); */
 
   --aug-br: 10px;
-  --aug-br-inset2: 99px;
+  --aug-br-inset2: calc(100% - 141px);
 
   --aug-tr-extend2: 49px;
 
@@ -38,10 +38,9 @@
 
 .innerShapeContainer {
   width: 20px;
-  /* height: 100%; */
   float: left;
 
-  /* TODO: make dynamic (?) */
+  /* TODO: make dynamic */
   shape-outside: polygon(1px 71px, 40% 65.34%, 0 90.34%);
   shape-margin: 1rem;
 }
@@ -55,21 +54,21 @@
 
 .outerShapeContainer {
   float: right;
-  width: 30px;
+  width: 55px;
   height: 100%;
 
   shape-outside: polygon(
-    -16px 0px,
-    55px 0px,
-    99.14% 98.41%,
-    24px 97.97%,
-    22px 72.48%,
-    96.18% 62.32%,
-    96.16% 25.91%,
-    25px 18.06%,
-    24px 8.74%
+    0px 0px,
+    3px 18px,
+    29px 22px,
+    28px 61px,
+    40px 71px,
+    40px 125px,
+    27px 140px,
+    28px 100%,
+    50px 100%,
+    50px 0px
   );
-  shape-margin: 1rem;
 }
 
 .outerShape {
@@ -85,6 +84,6 @@
   margin: 0;
   padding: 10px;
 
-  /* TODO: set font globally */
+  text-align: justify;
   font-family: 'Blender Pro', sans-serif;
 }
