@@ -1,4 +1,4 @@
-import { CSSProperties, ReactNode, useEffect, useRef } from 'react'
+import { CSSProperties, ReactNode, useLayoutEffect, useRef } from 'react'
 
 import useResizeObserver from '@hooks/useResizeObserver'
 
@@ -14,7 +14,8 @@ const TextCard = ({ style, className, children }: Props) => {
   const [bindResizeObserver, { height }] = useResizeObserver<HTMLDivElement>()
 
   const innerShapeRef = useRef<HTMLDivElement | null>(null)
-  useEffect(() => {
+  // keep useLayoutEffect - it affect how nicely position updates when content changes
+  useLayoutEffect(() => {
     if (!innerShapeRef.current || !height) return
     const innerShape = innerShapeRef.current
     const setHeight = height - 105

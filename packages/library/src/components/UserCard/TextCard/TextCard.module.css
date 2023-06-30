@@ -31,19 +31,24 @@
   overflow: hidden; */
 }
 
+/* text flow of inner shape defines here */
 .innerShapeContainer {
   width: 20px;
-  float: left;
   height: 100%;
+  min-height: 175px;
 
-  /* TODO: make dynamic */
-  shape-outside: polygon(1px 71px, 40% 65.34%, 0 90.34%);
+  float: left;
+  shape-outside: polygon(
+    0 calc(100% - 110px),
+    10px calc(100% - 80px),
+    0 calc(100% - 50px)
+  );
   shape-margin: 1rem;
 }
 
+/* the shape itself but text flow is in .innerShapeContainer (see shape-outside/margin) */
+/* top position is set via --aug-tr in useEffect */
 .innerShape {
-  /* the shape itself but text flow is in .innerShapeContainer (see shape-outside/margin) */
-  /* top position is set via --aug-tr in useEffect */
   width: 10px;
   height: calc(100% - 30px);
   min-height: 145px;

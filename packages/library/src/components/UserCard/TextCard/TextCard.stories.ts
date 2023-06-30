@@ -45,3 +45,20 @@ a a a a a a a a a a a a a a a a a a a a a a a a`
     }
   }
 }
+
+export const CroppedSideShapes: Story = {
+  args: {
+    ...Default.args,
+    children:
+      'a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a'
+  },
+  parameters: Default.parameters
+}
+
+export const Empty: Story = {
+  args: {
+    ...Default.args,
+    children: undefined
+  },
+  parameters: Default.parameters
+}
