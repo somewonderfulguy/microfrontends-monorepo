@@ -34,6 +34,7 @@
 .innerShapeContainer {
   width: 20px;
   float: left;
+  height: 100%;
 
   /* TODO: make dynamic */
   shape-outside: polygon(1px 71px, 40% 65.34%, 0 90.34%);
@@ -42,9 +43,10 @@
 
 .innerShape {
   /* the shape itself but text flow is in .innerShapeContainer (see shape-outside/margin) */
-  --aug-tr: 70px;
+  /* top position is set via --aug-tr in useEffect */
   width: 10px;
-  height: 145px;
+  height: calc(100% - 30px);
+  min-height: 145px;
   background-color: #00f0ff;
 }
 
