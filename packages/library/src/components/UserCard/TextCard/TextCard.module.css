@@ -11,14 +11,10 @@
   --aug-tr2-width: 10px;
   --aug-tr2-height: 10px;
   --aug-br: 10px;
-  --aug-br-inset2: calc(100% - 141px);
-  --aug-tr-extend2: 49px;
-
-  /* --var-border-left-width: 8px; */
+  --aug-br-inset2: 33px;
 }
 
 .info {
-  /* width: calc(100% - 8px); */
   height: 100%;
 
   color: #fff;
@@ -27,8 +23,7 @@
   background: rgba(0, 0, 0, 0.6);
   border-left: 8px solid #00f0ff;
 
-  /* height: 80px;
-  overflow: hidden; */
+  overflow: hidden;
 }
 
 /* text flow of inner shape defines here */
@@ -61,24 +56,26 @@
   height: 100%;
 
   shape-outside: polygon(
+    /* 0 calc(100% - 110px), */ 0 0,
+    /* 18 */ 3px 18px,
+    /* 22 */ 29px 22px,
+    45px 45px,
+    /* 45px 125px, */
+      /* 28px calc(375px - 129px),
+    40px calc(375px - 119px),
+    40px calc(375px - 75px),
+    27px calc(375px - 50px), */
+      /* 28px 100%,
+    50px 100%, */ 100% 0
+  );
+
+  shape-outside: polygon(
     0px 0px,
     3px 18px,
     29px 22px,
-    28px 61px,
-    40px 71px,
-    40px 125px,
-    27px 140px,
-    28px 100%,
-    50px 100%,
-    50px 0px
+    29px calc(333px - 210px),
+    100% 0px
   );
-}
-
-.outerShape {
-  --aug-tr: 70px;
-  margin: 0 0 0 auto;
-  width: 10px;
-  height: 145px;
 }
 
 .shortDescription {

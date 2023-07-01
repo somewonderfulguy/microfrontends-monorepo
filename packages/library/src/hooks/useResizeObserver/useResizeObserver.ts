@@ -1,7 +1,7 @@
 import {
   MutableRefObject,
   useCallback,
-  useEffect,
+  useLayoutEffect,
   useRef,
   useState
 } from 'react'
@@ -28,7 +28,7 @@ const useResizeObserver = <T extends Element>(
     [resizeObserver]
   )
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (elemRef.current) {
       resizeObserver.observe(elemRef.current)
     }
