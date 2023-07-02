@@ -52,28 +52,19 @@
 
 .outerShapeContainer {
   float: right;
-  width: 55px;
+  width: 57px;
   height: 100%;
-
-  shape-outside: polygon(
-    /* 0 calc(100% - 110px), */ 0 0,
-    /* 18 */ 3px 18px,
-    /* 22 */ 29px 22px,
-    45px 45px,
-    /* 45px 125px, */
-      /* 28px calc(375px - 129px),
-    40px calc(375px - 119px),
-    40px calc(375px - 75px),
-    27px calc(375px - 50px), */
-      /* 28px 100%,
-    50px 100%, */ 100% 0
-  );
 
   shape-outside: polygon(
     0px 0px,
     3px 18px,
     29px 22px,
-    29px calc(333px - 210px),
+    29px calc(var(--block-height) - 138px),
+    42px calc(var(--block-height) - 105px),
+    42px calc(var(--block-height) - 53px),
+    35px calc(var(--block-height) - 33px),
+    29px 100%,
+    100% 100%,
     100% 0px
   );
 }
