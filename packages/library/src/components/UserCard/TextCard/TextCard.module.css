@@ -1,17 +1,23 @@
 .infoContainer {
+  /* TODO: border color to global vars (but it must work in Storybook as well + add theming */
+  --border-color: #00f0ff;
+
   /* all the border */
-  --aug-border-bg: #00f0ff;
+  --aug-border-bg: var(--border-color);
   --aug-border-all: 1.5px;
+  --aug-border-bottom: 0px;
+  border-bottom: 1.5px solid var(--border-color);
 
   /* right top corner */
   --aug-tr1-width: 10px;
   --aug-tr1-height: 10px;
+  /* --aug-tr-extend2 is set in useEffect */
 
   /* right shape */
   --aug-tr2-width: 10px;
   --aug-tr2-height: 10px;
   --aug-br: 10px;
-  --aug-br-inset2: 33px;
+  /* --aug-br-inset2 is set in useEffect */
 }
 
 .info {
@@ -21,7 +27,7 @@
 
   backdrop-filter: blur(8px);
   background: rgba(0, 0, 0, 0.6);
-  border-left: 8px solid #00f0ff;
+  border-left: 8px solid var(--border-color);
 
   overflow: hidden;
 }
@@ -47,7 +53,7 @@
   width: 10px;
   height: calc(100% - 30px);
   min-height: 145px;
-  background-color: #00f0ff;
+  background-color: var(--border-color);
 }
 
 .outerShapeContainer {
@@ -55,6 +61,7 @@
   width: 57px;
   height: 100%;
 
+  /* --block-height is set in useEffect, as 100% doesn't work in calc */
   shape-outside: polygon(
     0px 0px,
     3px 18px,
@@ -70,7 +77,6 @@
 }
 
 .shortDescription {
-  /* TODO: set margin 0 for all p tags globally */
   margin: 0;
   padding: 10px;
 

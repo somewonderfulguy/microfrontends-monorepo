@@ -1,4 +1,7 @@
 .card {
+  /* TODO: border color to global vars (but it must work in Storybook as well + add theming */
+  --border-color: #00f0ff;
+
   font-family: 'Blender Pro', sans-serif;
 
   display: grid;
@@ -28,11 +31,10 @@
   height: 100px;
   overflow: hidden;
 
-  --aug-border-bg: #00f0ff;
+  --aug-border-bg: var(--border-color);
   --aug-border-all: 1px;
 
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 2px 16px rgba(0, 0, 0, 0.25);
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 .avatar img {
