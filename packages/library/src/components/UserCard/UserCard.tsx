@@ -1,13 +1,17 @@
 import TextCard from './TextCard'
 
+import useAvatar from '@hooks/useAvatar'
+
 import avatar from './assets/silverhand300.jpg'
 import styles from './UserCard.module.css'
 
 const UserCard = () => {
+  const { getAvatarProps } = useAvatar<HTMLDivElement>()
+
   return (
     <div className={styles.card}>
       <div className={styles.userSection}>
-        <div className={styles.avatar} data-augmented-ui="bl-clip border">
+        <div {...getAvatarProps()}>
           <img src={avatar} alt="avatar" />
         </div>
         <div className={styles.name}>Johnny Silverhand</div>
