@@ -1,0 +1,8 @@
+.heightImportantSixHundredsPx {
+  height: 200px !important;
+}
+
+/* fix outer side shapes */
+.heightImportantSixHundredsPx :global(.textCardContentWrapper) {
+  height: 100%;
+}

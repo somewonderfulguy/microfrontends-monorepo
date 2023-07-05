@@ -5,11 +5,20 @@ import useResizeObserver from '@hooks/useResizeObserver'
 import styles from './TextCard.module.css'
 
 type Props = {
-  style?: CSSProperties
-  className?: string
+  /** Any valid react node, however if you want text to flow and match the shape of
+   * block then `children` must be plain text or inline block. If no `children` provided
+   * then there will be text "No description_". If you need to make it intentionally
+   * empty - put any non `undefined` value. */
   children?: ReactNode
+  /** Add class(es) to the most outer html element of the component. */
+  className?: string
+  /** `style` applied to the the most outer html element of the component.
+   * Cannot override `height` as it used internally.
+   * Use css `!important` if you need to override. */
+  style?: CSSProperties
 }
 
+/** A component to wrap text (or components) with cyberpunk shaped & styled block. */
 const TextCard = ({ style, className, children }: Props) => {
   const [bindResizeObserver, { height }] = useResizeObserver<HTMLDivElement>()
 
@@ -73,7 +82,7 @@ const TextCard = ({ style, className, children }: Props) => {
           />
         </div>
         <div className={styles.outerShapeContainer} />
-        <div ref={bindResizeObserver}>
+        <div className="textCardContentWrapper" ref={bindResizeObserver}>
           <p className={styles.shortDescription}>
             {children ?? 'No description_'}
           </p>

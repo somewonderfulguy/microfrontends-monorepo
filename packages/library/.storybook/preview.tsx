@@ -16,6 +16,10 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/
       }
+    },
+    backgrounds: {
+      default: 'cyberpunk',
+      values: [{ name: 'cyberpunk', value: '#f5ed00' }]
     }
   },
   decorators: [
