@@ -23,8 +23,10 @@ const preview: Preview = {
     }
   },
   decorators: [
-    (story) => (
-      <QueryClientProvider client={queryClient}>{story()}</QueryClientProvider>
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
     )
   ]
 }
@@ -52,6 +54,22 @@ if (typeof global.process === 'undefined') {
       print.warning()
     }
   })
+}
+
+export const globalTypes = {
+  scheme: {
+    name: 'Scheme',
+    description: 'Color scheme',
+    defaultValue: 'all',
+    toolbar: {
+      icon: 'circlehollow',
+      items: [
+        { value: 'all', title: 'All', icon: 'circlehollow' },
+        { value: 'light', title: 'Light', icon: 'circlehollow' },
+        { value: 'dark', title: 'Dark', icon: 'circlehollow' }
+      ]
+    }
+  }
 }
 
 export default preview
