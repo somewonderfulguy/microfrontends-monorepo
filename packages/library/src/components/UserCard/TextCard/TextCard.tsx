@@ -18,7 +18,9 @@ type Props = {
   style?: CSSProperties
 }
 
-/** A component to wrap text (or components) with cyberpunk shaped & styled block. */
+/** A component to wrap text (or components) with cyberpunk shaped & styled block.
+ * The text will flow and match the shape of the block.
+ */
 const TextCard = ({ style, className, children }: Props) => {
   const [bindResizeObserver, { height }] = useResizeObserver<HTMLDivElement>()
 

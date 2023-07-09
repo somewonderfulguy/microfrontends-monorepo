@@ -28,7 +28,23 @@ const preview: Preview = {
         <Story />
       </QueryClientProvider>
     )
-  ]
+  ],
+  globalTypes: {
+    theme: {
+      name: 'Theme',
+      description: 'Color theme',
+      defaultValue: 'yellow',
+      toolbar: {
+        icon: 'mirror',
+        dynamicTitle: true,
+        items: [
+          { value: 'yellow', title: 'Yellow', left: '🌕' },
+          { value: 'darkRed', title: 'Dark red', left: '🔴' },
+          { value: 'darkGreenish', title: 'Dark greenish', left: '🟢' }
+        ]
+      }
+    }
+  }
 }
 
 // Storybook makes lots of requests and MSW throws warnings about unhandled requests, so whitelist some endpoints
@@ -54,22 +70,6 @@ if (typeof global.process === 'undefined') {
       print.warning()
     }
   })
-}
-
-export const globalTypes = {
-  scheme: {
-    name: 'Scheme',
-    description: 'Color scheme',
-    defaultValue: 'all',
-    toolbar: {
-      icon: 'circlehollow',
-      items: [
-        { value: 'all', title: 'All', icon: 'circlehollow' },
-        { value: 'light', title: 'Light', icon: 'circlehollow' },
-        { value: 'dark', title: 'Dark', icon: 'circlehollow' }
-      ]
-    }
-  }
 }
 
 export default preview
