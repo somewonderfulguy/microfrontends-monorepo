@@ -17,6 +17,8 @@ import tsconfig from './tsconfig.json' assert { type: 'json' }
 const paths = [
   'components/Block',
   'components/controls/Button',
+  'components/UserCard',
+  'components/UserCard/TextCard',
   'hoc/withLazyLoad',
   'hoc/withLazyHooks',
   'hooks/usePrevious',
