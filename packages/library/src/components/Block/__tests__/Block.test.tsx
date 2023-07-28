@@ -26,11 +26,11 @@ test('block work as expected', () => {
   windowAlert.mockRestore()
 
   // check json
-  rerender(<Block withJohnySilverhand />)
+  rerender(<Block withJohnnySilverhand />)
   const pre = container.querySelector('pre')
   expect(pre?.innerHTML).toMatchInlineSnapshot(`
     "{
-      "name": "Johny",
+      "name": "Johnny",
       "lastName": "Silverhand",
       "car": "Porsche 911"
     }"

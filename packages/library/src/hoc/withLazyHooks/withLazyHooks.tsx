@@ -83,7 +83,7 @@ import {
 } from '../federatedShared'
 import { HOCRefComponent } from '../types'
 
-// when lazily do import('useHook'), this module will be asynchonously loaded under default property
+// when lazily do import('useHook'), this module will be asynchronously loaded under default property
 type LazifyHooks<T> = {
   [K in keyof T]: Promise<{ default: T[K] }>
 }

@@ -10,7 +10,7 @@ const getUserMSW = rest.get<User>(
       ctx.status(200),
       ctx.json({
         id: '1',
-        firstName: 'Johny',
+        firstName: 'Johnny',
         lastName: 'Silverhand',
         email: 'johny.silverhand@nightcity.com'
       })

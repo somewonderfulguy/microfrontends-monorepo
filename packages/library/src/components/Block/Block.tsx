@@ -5,7 +5,7 @@ import blockJson from './Block.json'
 
 export type BlockProps = HTMLProps<HTMLDivElement> & {
   withCybercat?: boolean
-  withJohnySilverhand?: boolean
+  withJohnnySilverhand?: boolean
 }
 
 export const altText = 'Cybercat 2077'
@@ -14,7 +14,7 @@ export type ForwardedRefType = { log: () => void }
 
 const Block = forwardRef(
   (
-    { children, withCybercat, withJohnySilverhand, ...props }: BlockProps,
+    { children, withCybercat, withJohnnySilverhand, ...props }: BlockProps,
     ref: ForwardedRef<ForwardedRefType>
   ) => {
     useImperativeHandle(ref, () => ({
@@ -27,7 +27,7 @@ const Block = forwardRef(
             <img src={cybercat} alt={altText} />
           </div>
         )}
-        {withJohnySilverhand && (
+        {withJohnnySilverhand && (
           <pre>{JSON.stringify(blockJson, undefined, 2)}</pre>
         )}
         {children}
