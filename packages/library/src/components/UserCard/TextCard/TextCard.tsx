@@ -85,9 +85,9 @@ const TextCard = ({ style, className, children }: Props) => {
         </div>
         <div className={styles.outerShapeContainer} />
         <div className="textCardContentWrapper" ref={bindResizeObserver}>
-          <p className={styles.shortDescription}>
+          <div className={styles.shortDescription}>
             {children ?? 'No description_'}
-          </p>
+          </div>
         </div>
       </div>
     </div>
