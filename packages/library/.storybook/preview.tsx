@@ -4,9 +4,10 @@ import type { Preview } from '@storybook/react'
 import { Addon } from 'storybook-addon-multiselect'
 import 'augmented-ui/augmented-ui.min.css'
 
-import withThemeAndLanguage from './withThemeAndLanguage'
+import withThemeAndLanguage from '../src/storybook/decorators/ThemeAndLanguage'
 
 import '../src/styles/fonts.css'
+import '../src/storybook/styles/storybook.css'
 
 const svgSharedProps2 = {
   stroke: 'currentColor',
@@ -178,6 +179,7 @@ const multiselect: Addon = {
 
 const preview: Preview = {
   parameters: {
+    layout: 'fullscreen',
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
@@ -187,9 +189,6 @@ const preview: Preview = {
     },
     backgrounds: {
       disable: true
-      // '#f5ed00'
-      // 'linear-gradient(355deg, rgba(5,9,14,1) 0%, rgba(71,21,25,1) 100%)'
-      // '#171017'
     },
     multiselect
   },

@@ -70,6 +70,7 @@ const TextCard = ({ style, className, children }: Props) => {
 
   return (
     <div
+      id="textCardContent"
       className={styles.infoContainer + ' ' + (className ?? '')}
       style={{ ...style, height: !height ? 'auto' : `${height}px` }}
       data-augmented-ui="tr-2-clip-x br-clip-y border"
