@@ -3,9 +3,14 @@
   flex-wrap: nowrap;
   height: 100%;
 }
+.gridVertical {
+  composes: grid;
+  flex-direction: column;
+}
 
 .gridElement {
   flex: 1 1 auto;
+  /* TODO: media query */
   padding: 3rem;
 }
 

@@ -95,7 +95,7 @@ const multiselect: Addon = {
         type: 'singleSelect',
         queryKey: 'orientation',
         title: 'Orientation',
-        defaultValue: 'horizontal',
+        defaultValue: 'vertical',
         options: [
           {
             title: 'Horizontal',
