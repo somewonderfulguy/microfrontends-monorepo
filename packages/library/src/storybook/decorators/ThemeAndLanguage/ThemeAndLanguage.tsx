@@ -1,15 +1,9 @@
 import { CSSProperties } from 'react'
 import type { Decorator } from '@storybook/react'
 
-import styles from './ThemeAndLanguage.module.css'
+import classNames from '@utils/classNames'
 
-function cx(...args: unknown[]) {
-  return args
-    .flat()
-    .filter((x) => typeof x === 'string')
-    .join(' ')
-    .trim()
-}
+import styles from './ThemeAndLanguage.module.css'
 
 const ThemeAndLanguage: Decorator = (Story, context) => {
   const { globals, parameters } = context
@@ -29,7 +23,7 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
     >
       {theme.map((_theme) => (
         <div
-          className={cx(
+          className={classNames(
             _theme === 'yellow' && styles.gridElementYellow,
             _theme === 'darkRed' && styles.gridElementDarkRed,
             _theme === 'dark' && styles.gridElementDark
