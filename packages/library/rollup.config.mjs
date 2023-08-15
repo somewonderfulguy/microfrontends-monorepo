@@ -19,6 +19,7 @@ const paths = [
   'components/controls/Button',
   'components/UserCard',
   'components/UserCard/TextCard',
+  'contexts/themeContext',
   'hoc/withLazyLoad',
   'hoc/withLazyHooks',
   'hooks/usePrevious',

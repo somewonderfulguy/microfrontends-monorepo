@@ -2,6 +2,7 @@ import { CSSProperties } from 'react'
 import type { Decorator } from '@storybook/react'
 
 import classNames from '@utils/classNames'
+import { ThemeProvider } from '@contexts/themeContext'
 
 import styles from './ThemeAndLanguage.module.css'
 
@@ -22,17 +23,27 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
       }
     >
       {theme.map((_theme) => (
-        <div
-          className={classNames(
-            _theme === 'yellow' && styles.gridElementYellow,
-            _theme === 'darkRed' && styles.gridElementDarkRed,
-            _theme === 'dark' && styles.gridElementDark
-          )}
-          key={_theme}
-          style={gridElementCss}
-        >
-          <Story />
-        </div>
+        <ThemeProvider key={_theme} initialTheme={_theme}>
+          <div
+            className={classNames(
+              _theme === 'yellow' && [
+                styles.gridElementYellow,
+                'cyberpunk-ui-theme-yellow'
+              ],
+              _theme === 'darkRed' && [
+                styles.gridElementDarkRed,
+                'cyberpunk-ui-theme-dark-red'
+              ],
+              _theme === 'dark' && [
+                styles.gridElementDark,
+                'cyberpunk-ui-theme-dark'
+              ]
+            )}
+            style={gridElementCss}
+          >
+            <Story />
+          </div>
+        </ThemeProvider>
       ))}
     </div>
   )

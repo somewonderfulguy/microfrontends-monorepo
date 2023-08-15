@@ -26,6 +26,7 @@
     "paths": {
       "@api/*": ["api/*"],
       "@components/*": ["components/*"],
+      "@contexts/*": ["contexts/*"],
       "@hooks/*": ["hooks/*"],
       "@hoc/*": ["hoc/*"],
       "@tests/*": ["tests/*"],
