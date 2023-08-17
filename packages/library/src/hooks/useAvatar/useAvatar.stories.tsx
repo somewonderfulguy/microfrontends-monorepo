@@ -1,14 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { useThemeState } from '@contexts/themeContext'
+
 import useAvatar from './useAvatar'
 
 import avatar from './assets/silverhand300.jpg'
+import avatarRed from './assets/silverhand300_red.jpg'
+import avatarGreen from './assets/silverhand300_green.jpg'
 
 const ExampleComponent = () => {
   const { getAvatarProps } = useAvatar<HTMLDivElement>()
+  const theme = useThemeState()
   return (
     <div {...getAvatarProps()}>
-      <img src={avatar} alt="avatar" />
+      <img
+        src={
+          theme === 'darkRed'
+            ? avatarRed
+            : theme === 'dark'
+            ? avatarGreen
+            : avatar
+        }
+        alt="avatar"
+      />
     </div>
   )
 }
@@ -23,11 +37,4 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const Default: Story = {
-  parameters: {
-    backgrounds: {
-      default: 'cyberpunk',
-      values: [{ name: 'cyberpunk', value: '#f5ed00' }]
-    }
-  }
-}
+export const Default: Story = {}

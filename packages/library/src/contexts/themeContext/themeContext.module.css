@@ -1,0 +1,49 @@
+:root {
+  --cb-yellow-main: hsl(58, 100%, 48%);
+  --cb-yellow-alt: hsl(73, 100%, 68%);
+  --cb-yellow-transparent: hsla(73, 100%, 68%, 0.15);
+  --cb-red: hsl(3, 100%, 67%);
+  --cb-turquoise: hsl(184, 100%, 50%);
+  --cb-green: hsl(149, 85%, 52%);
+  --cb-while: hsl(0, 0%, 100%);
+  --cb-gray: hsl(10, 6%, 79%);
+  --cb-darkest-gray: hsl(300, 18%, 8%);
+  --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.6);
+  --cb-black: hsl(0, 0%, 0%);
+}
+
+.theme:global(.cyberpunk-ui-theme-yellow) {
+  --cb-background-color: var(--cb-yellow-main);
+  --cb-secondary-background-color: var(--cb-darkest-gray-transparent);
+  --cb-primary-text-color: var(--cb-while);
+  --cb-secondary-text-color: var(--cb-black);
+  --cb-primary-color: var(--cb-turquoise);
+  --cb-accent-color: var(--cb-turquoise);
+  --cb-secondary-color: #000;
+  --cb-tertiary-color: #000;
+  --cb-quaternary-color: #000;
+}
+
+.theme:global(.cyberpunk-ui-theme-dark-red) {
+  --cb-background-color: var(--cb-yellow-main);
+  --cb-secondary-background-color: var(--cb-darkest-gray);
+  --cb-primary-text-color: var(--cb-red);
+  --cb-secondary-text-color: var(--cb-red);
+  --cb-primary-color: var(--cb-red);
+  --cb-accent-color: var(--cb-turquoise);
+  --cb-secondary-color: #000;
+  --cb-tertiary-color: #000;
+  --cb-quaternary-color: #000;
+}
+
+.theme:global(.cyberpunk-ui-theme-dark) {
+  --cb-primary-background-color: var(--cb-darkest-gray);
+  --cb-secondary-background-color: var(--cb-yellow-transparent);
+  --cb-primary-text-color: var(--cb-yellow-alt);
+  --cb-secondary-text-color: var(--cb-yellow-alt);
+  --cb-primary-color: var(--cb-yellow-alt);
+  --cb-accent-color: var(--cb-turquoise);
+  --cb-secondary-color: #000;
+  --cb-tertiary-color: #000;
+  --cb-quaternary-color: #000;
+}

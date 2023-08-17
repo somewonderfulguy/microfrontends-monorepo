@@ -11,10 +11,10 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
   const multiselect: { [key: string]: string | string[] } = globals.multiselect
   const gridElementCss = parameters.gridElementCss as CSSProperties | undefined
 
-  const lang = multiselect.lang as Array<'en' | 'pl' | 'ua'>
   const theme = multiselect.theme as Array<'yellow' | 'darkRed' | 'dark'>
+  // const lang = multiselect.lang as Array<'en' | 'pl' | 'ua'>
   const orientation = multiselect.orientation as 'horizontal' | 'vertical'
-  const priority = globals.priority as 'theme' | 'lang'
+  // const priority = globals.priority as 'theme' | 'lang'
 
   return (
     <div
@@ -23,26 +23,17 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
       }
     >
       {theme.map((_theme) => (
-        <ThemeProvider key={_theme} initialTheme={_theme}>
-          <div
-            className={classNames(
-              _theme === 'yellow' && [
-                styles.gridElementYellow,
-                'cyberpunk-ui-theme-yellow'
-              ],
-              _theme === 'darkRed' && [
-                styles.gridElementDarkRed,
-                'cyberpunk-ui-theme-dark-red'
-              ],
-              _theme === 'dark' && [
-                styles.gridElementDark,
-                'cyberpunk-ui-theme-dark'
-              ]
-            )}
-            style={gridElementCss}
-          >
-            <Story />
-          </div>
+        <ThemeProvider
+          className={classNames(
+            _theme === 'yellow' && styles.gridElementYellow,
+            _theme === 'darkRed' && styles.gridElementDarkRed,
+            _theme === 'dark' && styles.gridElementDark
+          )}
+          initialTheme={_theme}
+          key={_theme}
+          style={gridElementCss}
+        >
+          <Story />
         </ThemeProvider>
       ))}
     </div>

@@ -1,6 +1,5 @@
 .avatar {
-  /* TODO: border color to global vars (but it must work in Storybook as well + add theming */
-  --border-color: #00f0ff;
+  --border-color: var(--cb-primary-color);
 
   width: 100px;
   height: 100px;

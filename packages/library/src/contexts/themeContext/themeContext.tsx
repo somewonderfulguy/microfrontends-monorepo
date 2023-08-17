@@ -1,11 +1,16 @@
 import React, {
   createContext,
+  CSSProperties,
   Dispatch,
   ReactNode,
   SetStateAction,
   useContext,
   useState
 } from 'react'
+
+import classNames from '@utils/classNames'
+
+import styles from './themeContext.module.css'
 
 export type Theme = 'yellow' | 'darkRed' | 'dark'
 
@@ -19,16 +24,34 @@ ThemeDispatchContext.displayName = 'ThemeDispatchContext'
 
 type Props = {
   children: ReactNode
+  className?: string
   initialTheme?: Theme
+  style?: CSSProperties
 }
 
-const ThemeProvider = ({ children, initialTheme = 'yellow' }: Props) => {
+const ThemeProvider = ({
+  children,
+  className,
+  initialTheme = 'yellow',
+  style
+}: Props) => {
   const [theme, setTheme] = useState<Theme>(initialTheme)
 
   return (
     <ThemeStateContext.Provider value={theme}>
       <ThemeDispatchContext.Provider value={setTheme}>
-        {children}
+        <div
+          className={classNames(
+            styles.theme,
+            theme === 'yellow' && 'cyberpunk-ui-theme-yellow',
+            theme === 'darkRed' && 'cyberpunk-ui-theme-dark-red',
+            theme === 'dark' && 'cyberpunk-ui-theme-dark',
+            className
+          )}
+          style={style}
+        >
+          {children}
+        </div>
       </ThemeDispatchContext.Provider>
     </ThemeStateContext.Provider>
   )

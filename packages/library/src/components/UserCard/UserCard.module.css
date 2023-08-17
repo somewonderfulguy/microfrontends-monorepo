@@ -14,7 +14,7 @@
 
   --aug-bl: 30px;
 
-  color: #333;
+  color: var(--cb-secondary-text-color);
 
   margin-top: 1px;
 }

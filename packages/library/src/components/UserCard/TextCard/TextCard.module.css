@@ -1,6 +1,5 @@
 .infoContainer {
-  /* TODO: border color to global vars (but it must work in Storybook as well + add theming */
-  --border-color: #00f0ff;
+  --border-color: var(--cb-primary-color);
 
   /* all the border */
   --aug-border-bg: var(--border-color);
@@ -23,10 +22,10 @@
 .info {
   height: 100%;
 
-  color: #fff;
+  color: var(--cb-primary-text-color);
 
   backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.6);
+  background-color: var(--cb-secondary-background-color);
   border-left: 8px solid var(--border-color);
 
   overflow: hidden;

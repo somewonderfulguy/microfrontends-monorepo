@@ -1,18 +1,31 @@
 import TextCard from './TextCard'
 
 import useAvatar from '@hooks/useAvatar'
+import { useThemeState } from '@contexts/themeContext'
 
 import avatar from './assets/silverhand300.jpg'
+import avatarRed from './assets/silverhand300_red.jpg'
+import avatarGreen from './assets/silverhand300_green.jpg'
 import styles from './UserCard.module.css'
 
 const UserCard = () => {
   const { getAvatarProps } = useAvatar<HTMLDivElement>()
+  const theme = useThemeState()
 
   return (
     <div className={styles.card}>
       <div className={styles.userSection}>
         <div {...getAvatarProps()}>
-          <img src={avatar} alt="avatar" />
+          <img
+            src={
+              theme === 'darkRed'
+                ? avatarRed
+                : theme === 'dark'
+                ? avatarGreen
+                : avatar
+            }
+            alt="avatar"
+          />
         </div>
         <div className={styles.name}>Johnny Silverhand</div>
         <div>Rockerboy</div>
