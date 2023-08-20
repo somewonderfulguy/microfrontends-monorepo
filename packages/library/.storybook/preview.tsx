@@ -4,7 +4,8 @@ import type { Preview } from '@storybook/react'
 import { Addon } from 'storybook-addon-multiselect'
 import 'augmented-ui/augmented-ui.min.css'
 
-import withThemeAndLanguage from '../src/storybook/decorators/ThemeAndLanguage'
+import ThemeAndLanguage from '../src/storybook/decorators/ThemeAndLanguage'
+import ThemeStorybook from '../src/storybook/decorators/ThemeStorybook'
 
 import '../src/styles/fonts.css'
 import '../src/storybook/styles/storybook.css'
@@ -238,7 +239,8 @@ const preview: Preview = {
         <Story />
       </QueryClientProvider>
     ),
-    withThemeAndLanguage
+    ThemeAndLanguage,
+    ThemeStorybook
   ]
 }
 
