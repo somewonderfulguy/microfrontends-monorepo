@@ -1,7 +1,7 @@
 import TextCard from './TextCard'
 
-import useAvatar from '@hooks/useAvatar'
-import { useThemeState } from '@contexts/themeContext'
+import useAvatar from 'hooks/useAvatar'
+import { useThemeState } from 'contexts/themeContext'
 
 import avatar from './assets/silverhand300.jpg'
 import avatarRed from './assets/silverhand300_red.jpg'

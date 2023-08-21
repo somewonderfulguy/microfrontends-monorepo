@@ -5,7 +5,6 @@ import { Addon } from 'storybook-addon-multiselect'
 import 'augmented-ui/augmented-ui.min.css'
 
 import ThemeAndLanguage from '../src/storybook/decorators/ThemeAndLanguage'
-import ThemeStorybook from '../src/storybook/decorators/ThemeStorybook'
 
 import '../src/styles/fonts.css'
 import '../src/storybook/styles/storybook.css'
@@ -44,6 +43,10 @@ const multiselect: Addon = {
         title: 'Storybook theme',
         queryKey: 'themeStorybook',
         defaultValue: 'yellow',
+        onChange: (value, storybookApi) => {
+          storybookApi.emit('changeTheme', value)
+          return value
+        },
         options: [
           {
             title: 'Yellow',
@@ -239,19 +242,9 @@ const preview: Preview = {
         <Story />
       </QueryClientProvider>
     ),
-    ThemeAndLanguage,
-    ThemeStorybook
+    ThemeAndLanguage
   ]
 }
-
-// decorator
-/*
-const withSmth = (Story, context) => {
-  const { scheme } = context.globals
-
-  return ...
-}
-*/
 
 // Storybook makes lots of requests and MSW throws warnings about unhandled requests, so whitelist some endpoints
 const whiteListEndpoints = [

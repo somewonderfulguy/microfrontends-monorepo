@@ -24,13 +24,15 @@
     "types": ["node", "jest", "@testing-library/jest-dom"],
     "baseUrl": "src",
     "paths": {
-      "@api/*": ["api/*"],
-      "@components/*": ["components/*"],
-      "@contexts/*": ["contexts/*"],
-      "@hooks/*": ["hooks/*"],
-      "@hoc/*": ["hoc/*"],
-      "@tests/*": ["tests/*"],
-      "@utils/*": ["utils/*"]
+      "api/*": ["api/*"],
+      "components/*": ["components/*"],
+      "contexts/*": ["contexts/*"],
+      "hooks/*": ["hooks/*"],
+      "hoc/*": ["hoc/*"],
+      "tests/*": ["tests/*"],
+      "types": ["types/index"],
+      "types/*": ["types/*"],
+      "utils/*": ["utils/*"]
     }
   },
   "include": ["src"],

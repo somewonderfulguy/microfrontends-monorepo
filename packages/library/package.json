@@ -74,7 +74,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "storybook": "7.3.2",
-    "storybook-addon-multiselect": "0.0.25",
+    "storybook-addon-multiselect": "0.0.27",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
   },

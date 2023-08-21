@@ -1,20 +1,17 @@
 import { addons } from '@storybook/addons'
 
-import { yellow, darkRed } from './themes'
+import { Theme } from '../src/types'
 
-/*
-const currentStore = store();
-const currentTheme =
-  currentStore.current || (prefersDark.matches && 'dark') || 'light';
-*/
+import * as themes from './themes'
 
 addons.setConfig({
-  theme: yellow
+  theme: themes.yellow
 })
 
-setTimeout(() => {
-  console.log(window.document.body)
+addons.getChannel().on('changeTheme', (theme: Theme) => {
   addons.setConfig({
-    theme: darkRed
+    theme: themes[theme]
   })
-}, 5000)
+  window.document.body.classList.remove('dark', 'darkRed', 'yellow')
+  window.document.body.classList.add(theme)
+})

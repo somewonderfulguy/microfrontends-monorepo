@@ -1,6 +1,6 @@
 import { CSSProperties, ReactNode, useLayoutEffect, useRef } from 'react'
 
-import useResizeObserver from '@hooks/useResizeObserver'
+import useResizeObserver from 'hooks/useResizeObserver'
 
 import styles from './TextCard.module.css'
 

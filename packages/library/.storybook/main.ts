@@ -83,6 +83,7 @@ const config: StorybookConfig = {
         and: [/\.(ts|tsx|js|jsx|md|mdx)$/]
       }
     })
+
     return config
   }
 }

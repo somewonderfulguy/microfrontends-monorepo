@@ -1,8 +1,9 @@
 import { CSSProperties } from 'react'
 import type { Decorator } from '@storybook/react'
 
-import classNames from '@utils/classNames'
-import { ThemeProvider } from '@contexts/themeContext'
+import classNames from 'utils/classNames'
+import { ThemeProvider } from 'contexts/themeContext'
+import { Theme } from 'types/index'
 
 import styles from './ThemeAndLanguage.module.css'
 
@@ -11,7 +12,7 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
   const multiselect: { [key: string]: string | string[] } = globals.multiselect
   const gridElementCss = parameters.gridElementCss as CSSProperties | undefined
 
-  const theme = multiselect.theme as Array<'yellow' | 'darkRed' | 'dark'>
+  const theme = multiselect.theme as Array<Theme>
   // const lang = multiselect.lang as Array<'en' | 'pl' | 'ua'>
   const orientation = multiselect.orientation as 'horizontal' | 'vertical'
   // const priority = globals.priority as 'theme' | 'lang'

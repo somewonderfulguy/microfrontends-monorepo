@@ -8,11 +8,10 @@ import React, {
   useState
 } from 'react'
 
-import classNames from '@utils/classNames'
+import classNames from 'utils/classNames'
+import { Theme } from 'types/theme'
 
 import styles from './themeContext.module.css'
-
-export type Theme = 'yellow' | 'darkRed' | 'dark'
 
 const ThemeStateContext = createContext<Theme | undefined>(undefined)
 ThemeStateContext.displayName = 'ThemeStateContext'
