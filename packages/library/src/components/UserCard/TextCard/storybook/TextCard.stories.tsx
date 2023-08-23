@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import TextCard from './TextCard'
+import TextCard from '../TextCard'
 
 import styles from './TextCard.stories.module.css'
 

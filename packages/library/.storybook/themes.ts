@@ -1,6 +1,7 @@
 import { create } from '@storybook/theming'
 
 /**
+ TODO: upd - no decorator anymore
  * full theme control in these files:
  * - .storybook/manager.ts - setting initial theme
  * - .storybook/preview.ts - one, setting multiselect with `themeStorybook` property; two, setting decorator ThemeStorybook
@@ -19,68 +20,48 @@ import { create } from '@storybook/theming'
 // Step 6: create logo for dark theme
 // Step 7: experiment with cursor
 
-interface ThemeVarsColors {
-  colorPrimary: string
-  colorSecondary: string
-  appBg: string
-  appContentBg: string
-  appBorderColor: string
-  appBorderRadius: number
-  fontBase: string
-  fontCode: string
-  textColor: string
-  textInverseColor: string
-  textMutedColor: string
-  barTextColor: string
-  barSelectedColor: string
-  barBg: string
-  buttonBg: string
-  buttonBorder: string
-  booleanBg: string
-  booleanSelectedBg: string
-  inputBg: string
-  inputBorder: string
-  inputTextColor: string
-  inputBorderRadius: number
-  brandTitle?: string
-  brandUrl?: string
-  brandImage?: string
-  brandTarget?: string
-  gridCellSize?: number
-}
+const yellowColor = 'hsl(58, 100%, 48%)'
+const turquoise = 'hsl(184, 100%, 50%)'
+const black = 'hsl(0, 0%, 0%)'
+const white = 'hsl(0, 0%, 100%)'
+const lightGrayOnDark = 'hsla(0, 0%, 100%, 0.2)'
 
 export const yellow = create({
   base: 'dark',
 
-  appBorderRadius: 0,
-  colorPrimary: 'green', // does it work?
-  colorSecondary: 'deepskyblue',
+  // colors
+  colorPrimary: yellowColor,
+  colorSecondary: turquoise,
+  appBg: black,
+  appContentBg: yellowColor,
+  appBorderColor: lightGrayOnDark,
+  textColor: white,
+  barBg: black,
+  barTextColor: white,
+  barSelectedColor: turquoise,
 
-  // UI
-  appBg: '#000',
-  appContentBg: '#000',
-  // appBorderColor: 'grey',
+  // wip
+  inputBorder: 'red',
+  inputBg: 'navy',
+  textInverseColor: 'red', // not sure this one is working
+  inputTextColor: 'purple',
+  textMutedColor: 'pink',
 
-  // Typography
+  // typography
   fontBase: '"Open Sans", sans-serif',
   fontCode: 'monospace',
 
-  // Text colors
-  textColor: 'white',
-  // textInverseColor: 'rgba(0, 0, 0, 0.9)',
+  // shapes
+  appBorderRadius: 0,
+  inputBorderRadius: 0,
 
-  // Toolbar default and active colors
-  // barTextColor: 'silver',
-  // barSelectedColor: 'black',
-  barBg: '#89eaea'
+  // buttonBg: string
+  // buttonBorder: string
+  // booleanBg: string
+  // booleanSelectedBg: string
+  // gridCellSize?: number
 
-  // // Form colors
-  // inputBg: 'white',
-  // inputBorder: 'silver',
-  // inputTextColor: 'black',
-  // inputBorderRadius: 4,
-
-  // brandTitle: 'My custom storybook',
+  brandTitle: 'Cyberpunk'
   // brandUrl: 'https://example.com',
   // brandImage: 'https://place-hold.it/350x150',
   // brandTarget: '_self'

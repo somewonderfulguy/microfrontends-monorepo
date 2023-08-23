@@ -39,6 +39,7 @@ const TextCard = ({ style, className, children }: Props) => {
       `${innerHeight < 70 ? 70 : innerHeight}px`
     )
 
+    // FIXME: there's bug in positioning - see UserCard storybook
     // outer shape top positioning
     const outerShape = outerShapeRef.current
     const outerHeightTop = height - 125
