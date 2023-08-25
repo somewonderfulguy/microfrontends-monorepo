@@ -1,5 +1,30 @@
-body.yellow {
+:root {
+  --cb-yellow-main: hsl(58, 100%, 48%);
+  --cb-yellow-alt: hsl(73, 100%, 68%);
+  --cb-yellow-transparent: hsla(73, 100%, 68%, 0.15);
+  --cb-red: hsl(3, 100%, 67%);
+  --cb-turquoise: hsl(184, 100%, 50%);
+  --cb-green: hsl(149, 85%, 52%);
+  --cb-while: hsl(0, 0%, 100%);
+  --cb-gray: hsl(10, 6%, 79%);
+  --cb-darkest-gray: hsl(300, 18%, 8%);
+  --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.6);
+  --cb-black: hsl(0, 0%, 0%);
 }
+
+body #storybook-explorer-searchfield {
+  border-radius: 0;
+}
+
+body.yellow a[id$='--docs'] svg {
+  color: var(--cb-yellow-main);
+}
+
+body.yellow .sidebar-item[data-selected='true'],
+body.yellow .sidebar-item[data-selected='true'] svg {
+  color: var(--cb-black);
+}
+
 body.darkRed {
 }
 body.dark {

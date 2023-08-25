@@ -25,12 +25,13 @@ const turquoise = 'hsl(184, 100%, 50%)'
 const black = 'hsl(0, 0%, 0%)'
 const white = 'hsl(0, 0%, 100%)'
 const lightGrayOnDark = 'hsla(0, 0%, 100%, 0.2)'
+const green = 'hsl(149, 85%, 52%)'
 
 export const yellow = create({
   base: 'dark',
 
   // colors
-  colorPrimary: yellowColor,
+  colorPrimary: turquoise,
   colorSecondary: turquoise,
   appBg: black,
   appContentBg: yellowColor,
@@ -39,13 +40,17 @@ export const yellow = create({
   barBg: black,
   barTextColor: white,
   barSelectedColor: turquoise,
+  textMutedColor: white,
 
   // wip
   inputBorder: 'red',
   inputBg: 'navy',
-  textInverseColor: 'red', // not sure this one is working
+  textInverseColor: 'pink', // not sure this one is working
   inputTextColor: 'purple',
-  textMutedColor: 'pink',
+  buttonBg: 'green',
+  buttonBorder: 'brown',
+  booleanBg: 'teal',
+  booleanSelectedBg: 'orange',
 
   // typography
   fontBase: '"Open Sans", sans-serif',
@@ -55,10 +60,6 @@ export const yellow = create({
   appBorderRadius: 0,
   inputBorderRadius: 0,
 
-  // buttonBg: string
-  // buttonBorder: string
-  // booleanBg: string
-  // booleanSelectedBg: string
   // gridCellSize?: number
 
   brandTitle: 'Cyberpunk'
