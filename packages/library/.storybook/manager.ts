@@ -17,3 +17,9 @@ addons.getChannel().on('changeTheme', (theme: Theme) => {
   window.document.body.classList.remove('dark', 'darkRed', 'yellow')
   window.document.body.classList.add(theme)
 })
+
+window.onload = () => {
+  document
+    .querySelector('#storybook-explorer-searchfield')
+    ?.parentElement?.classList.add('br-clip', 'border', 'tr-clip')
+}
