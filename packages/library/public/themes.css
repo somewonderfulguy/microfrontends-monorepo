@@ -1,5 +1,8 @@
 :root {
   --cb-yellow-main: hsl(58, 100%, 48%);
+  --cb-black: hsl(0, 0%, 0%);
+
+  /* NOT IN USE (copy pasted) */
   --cb-yellow-alt: hsl(73, 100%, 68%);
   --cb-yellow-transparent: hsla(73, 100%, 68%, 0.15);
   --cb-red: hsl(3, 100%, 67%);
@@ -9,7 +12,6 @@
   --cb-gray: hsl(10, 6%, 79%);
   --cb-darkest-gray: hsl(300, 18%, 8%);
   --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.6);
-  --cb-black: hsl(0, 0%, 0%);
 }
 
 body #storybook-explorer-searchfield {
