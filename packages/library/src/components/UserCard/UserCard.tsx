@@ -40,15 +40,14 @@ const UserCard = () => {
           as a terrorist.
         </TextCard>
       </div>
-      {/* 
-        <div className={styles.controls}>
-          <button className={styles.control} title="details">
-            i
-          </button>
-          <button className={styles.control} title="location">
-            loc.
-          </button>
-        </div> */}
+      {/* <div className={styles.controls}>
+        <button className={styles.control} title="details">
+          i
+        </button>
+        <button className={styles.control} title="location">
+          loc.
+        </button>
+      </div> */}
     </div>
   )
 }
