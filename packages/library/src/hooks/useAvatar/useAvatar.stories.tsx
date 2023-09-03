@@ -27,11 +27,11 @@ const ExampleComponent = () => {
   )
 }
 
-const meta = {
+const meta: Meta<typeof ExampleComponent> = {
   title: 'hooks/useAvatar',
   component: ExampleComponent,
   tags: ['autodocs']
-} as Meta<typeof ExampleComponent>
+}
 
 export default meta
 

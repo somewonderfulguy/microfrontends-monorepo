@@ -12,8 +12,6 @@
   --cb-black: hsl(0, 0%, 0%);
 }
 
-:root:has(:global(.cyberpunk-ui-theme-yellow)),
-/* TODO: remove when FF finally supports :has selector */
 .theme:global(.cyberpunk-ui-theme-yellow) {
   --cb-background-color: var(--cb-yellow-main);
   --cb-secondary-background-color: var(--cb-darkest-gray-transparent);
@@ -26,8 +24,6 @@
   --cb-quaternary-color: #000;
 }
 
-:root:has(:global(.cyberpunk-ui-theme-dark-red)),
-/* TODO: remove when FF finally supports :has selector */
 .theme:global(.cyberpunk-ui-theme-dark-red) {
   --cb-background-color: var(--cb-yellow-main);
   --cb-secondary-background-color: var(--cb-darkest-gray);
@@ -40,8 +36,6 @@
   --cb-quaternary-color: #000;
 }
 
-:root:has(:global(.cyberpunk-ui-theme-dark)),
-/* TODO: remove when FF finally supports :has selector */
 .theme:global(.cyberpunk-ui-theme-dark) {
   --cb-primary-background-color: var(--cb-darkest-gray);
   --cb-secondary-background-color: var(--cb-yellow-transparent);

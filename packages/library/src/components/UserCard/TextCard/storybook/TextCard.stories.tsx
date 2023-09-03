@@ -4,10 +4,10 @@ import TextCard from '../TextCard'
 
 import styles from './TextCard.stories.module.css'
 
-const meta = {
+const meta: Meta<typeof TextCard> = {
   component: TextCard,
   tags: ['autodocs']
-} as Meta<typeof TextCard>
+}
 
 export default meta
 
@@ -29,23 +29,12 @@ export const Default: Story = {
     ...defaultArgs,
     children: (
       <div className={styles.paragraphsWrapper}>
-        <p>
-          Adam Smasher is a full borg solo and rival of Morgan Blackhand. He is
-          employed by Arasaka and by 2077, has risen to the position of head of
-          security and the personal bodyguard of Yorinobu Arasaka.
-        </p>
-        <p>
-          Smasher is a towering cyborg, with little humanity left to be seen -
-          not that he ever had much. After being reduced to mush by an RPG
-          blast, Arasaka offered him a choice - either pull the plug or become a
-          full body conversion cyborg. With little to no options and a lack of
-          care for his human side, he agreed and became more machine than man.
-        </p>
-        <p>
-          Adam has no empathy for others - including his fellow employees - but
-          Arasaka kept him alive, so he lives to repay their act by killing any
-          enemies of the corporation that they put in front of him.
-        </p>
+        Johnny Silverhand, born Robert John Linder, was a famous influential
+        rockerboy and the lead singer of the band Samurai before its breakup in
+        2008. A military veteran who defined the rockerboy movement to what it
+        is today, he was the most prominent figure that fought against the
+        corrupted NUSA government and megacorporations, often being described as
+        a terrorist.
       </div>
     )
   }
@@ -75,7 +64,7 @@ export const Empty: Story = {
   }
 }
 
-// TODO: add story with block that won't flow (e.g. table(?))
+// TODO: add story with block that won't flow (e.g. table, video-player)
 
 export const AbsolutelyEmpty: Story = {
   name: 'Absolutely empty (with forced height)',
