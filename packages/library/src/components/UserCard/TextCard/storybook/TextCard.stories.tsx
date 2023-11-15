@@ -5,6 +5,7 @@ import TextCard from '../TextCard'
 import styles from './TextCard.stories.module.css'
 
 const meta: Meta<typeof TextCard> = {
+  title: 'Components/UserCard/TextCard',
   component: TextCard,
   tags: ['autodocs']
 }

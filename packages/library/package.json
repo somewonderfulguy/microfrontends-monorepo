@@ -4,6 +4,8 @@
   "description": "Library is a set of reusable modules (e.g., components, hooks, utils) that can be used in other projects of monorepo. Potentially, it can be published to npm or deployed using Module Federation.",
   "scripts": {
     "start": "storybook dev -p 3333",
+    "storybook-docs": "storybook dev --docs",
+    "build-storybook-docs": "storybook build --docs",
     "build": "rimraf build && rollup -c",
     "build-storybook": "storybook build",
     "check-types": "tsc",

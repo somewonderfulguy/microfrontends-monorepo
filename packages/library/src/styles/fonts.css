@@ -1,11 +1,16 @@
 @font-face {
-  font-family: Cyber;
-  src: url('./assets/Blender-Pro-Bold.otf');
-  font-display: swap;
+  font-family: 'Blender Pro Bold';
+  src: local('Blender Pro Bold'), local('Blender-Pro-Bold'),
+    url('./assets/BlenderPro-Bold.woff2') format('woff2'),
+    url('./assets/BlenderPro-Bold.woff') format('woff'),
+    url('./assets/BlenderPro-Bold.otf') format('opentype'),
+    url('./assets/BlenderPro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: 'Blender Pro';
+  font-family: 'Blender Pro Book';
   src: local('Blender Pro Book'), local('Blender-Pro-Book'),
     url('./assets/BlenderPro-Book.woff2') format('woff2'),
     url('./assets/BlenderPro-Book.woff') format('woff'),

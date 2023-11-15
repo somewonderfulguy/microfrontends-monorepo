@@ -19,7 +19,9 @@ addons.getChannel().on('changeTheme', (theme: Theme) => {
 })
 
 window.onload = () => {
-  document
-    .querySelector('#storybook-explorer-searchfield')
-    ?.parentElement?.classList.add('br-clip', 'border', 'tr-clip')
+  setTimeout(() => {
+    document
+      .querySelector('.search-field')
+      ?.setAttribute('data-augmented-ui', 'tl-clip br-clip border')
+  })
 }
