@@ -109,6 +109,9 @@ button.sidebar-item,
   font-family: var(--cb-font-family-bold);
 }
 /* item icon */
+.sidebar-item:not([data-selected='true']) svg {
+  margin-top: 4px;
+}
 body.yellow a[id$='--docs'] svg {
   color: var(--cb-yellow-main);
 }
@@ -122,6 +125,13 @@ body.yellow .sidebar-item[data-selected='true'] svg {
 .sidebar-item[data-selected='true'] svg {
   width: 15px;
   height: 15px;
+}
+/* expand button */
+.sidebar-item span {
+  margin-top: 6px;
+  border-top-width: 4px;
+  border-bottom-width: 4px;
+  border-left-width: 4px;
 }
 
 /* skip to canvas */
@@ -143,4 +153,25 @@ body.yellow .sidebar-item[data-selected='true'] svg {
 body.yellow .sidebar-item[data-selected='true'] a + a {
   background-color: var(--cb-yellow-main);
   color: var(--cb-black);
+}
+
+/* recently opened */
+div.search-result-recentlyOpened {
+  font-size: var(--cb-font-size);
+  letter-spacing: 3.85px;
+}
+#storybook-explorer-menu li button,
+#storybook-explorer-menu li a {
+  font-size: var(--cb-font-size);
+}
+div.search-result-item--label *,
+li.search-result-back *,
+li.search-result-clearHistory * {
+  font-size: var(--cb-font-size-small);
+}
+body.yellow li.search-result-item a svg {
+  color: var(--cb-yellow-main);
+}
+.search-result-item svg {
+  margin-top: 4px;
 }
