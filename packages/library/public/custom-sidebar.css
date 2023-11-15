@@ -175,3 +175,12 @@ body.yellow li.search-result-item a svg {
 .search-result-item svg {
   margin-top: 4px;
 }
+
+/* no components found */
+#storybook-explorer-menu li div strong,
+#storybook-explorer-menu li div small {
+  font-size: var(--cb-font-size);
+}
+#storybook-explorer-menu li div strong {
+  font-family: var(--cb-font-family-bold);
+}
