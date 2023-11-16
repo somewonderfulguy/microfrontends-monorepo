@@ -5,7 +5,7 @@
   --cb-red: hsl(3, 100%, 67%);
   --cb-turquoise: hsl(184, 100%, 50%);
   --cb-green: hsl(149, 85%, 52%);
-  --cb-while: hsl(0, 0%, 100%);
+  --cb-white: hsl(0, 0%, 100%);
   --cb-gray: hsl(10, 6%, 79%);
   --cb-darkest-gray: hsl(300, 18%, 8%);
   --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.6);
@@ -15,7 +15,7 @@
 .theme:global(.cyberpunk-ui-theme-yellow) {
   --cb-background-color: var(--cb-yellow-main);
   --cb-secondary-background-color: var(--cb-darkest-gray-transparent);
-  --cb-primary-text-color: var(--cb-while);
+  --cb-primary-text-color: var(--cb-white);
   --cb-secondary-text-color: var(--cb-black);
   --cb-primary-color: var(--cb-turquoise);
   --cb-accent-color: var(--cb-turquoise);

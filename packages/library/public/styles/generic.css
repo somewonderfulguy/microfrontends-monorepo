@@ -106,3 +106,13 @@ div[data-testid='tooltip'] a {
   font-size: var(--cb-font-size-small);
   line-height: 20px;
 }
+/* multiselect plugin */
+body.yellow
+  div[data-testid='tooltip']
+  .multiselect
+  .menu-item
+  span:first-child
+  svg,
+body.yellow div[data-testid='tooltip'] .multiselect #list-item-reset {
+  color: var(--cb-gray);
+}

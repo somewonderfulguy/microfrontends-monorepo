@@ -57,7 +57,7 @@ body.yellow .search-field code {
   top: 9px;
 }
 .search-field:has(#storybook-explorer-searchfield:focus) svg {
-  color: var(--cb-while);
+  color: var(--cb-white);
 }
 #storybook-explorer-searchfield:focus::placeholder {
   color: hsla(0, 0%, 100%, 0.4);
