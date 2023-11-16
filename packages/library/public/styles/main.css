@@ -1,3 +1,4 @@
+/* TODO: http://localhost:3333/?path=/settings/whats-new */
 /* TODO: add font Title Refinery-25, sans-serif */
 
 :root {
@@ -6,10 +7,12 @@
   --cb-black: hsl(0, 0%, 0%);
   --cb-turquoise: hsl(184, 100%, 50%);
   --cb-while: hsl(0, 0%, 100%);
+  --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.8);
 
   /* other */
   --cb-font-family: 'Blender Pro Book', sans-serif;
   --cb-font-family-bold: 'Blender Pro Bold', sans-serif;
+  --cb-font-size-small: 14px;
   --cb-font-size: 16px;
   --cb-font-size-large: 18px;
 
@@ -20,15 +23,14 @@
   --cb-green: hsl(149, 85%, 52%);
   --cb-gray: hsl(10, 6%, 79%);
   --cb-darkest-gray: hsl(300, 18%, 8%);
-  --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.6);
 }
 
 @font-face {
   font-family: 'Blender Pro Book';
   src: local('Blender Pro Book'), local('Blender-Pro-Book'),
-    url('./fonts/BlenderPro-Book.woff2') format('woff2'),
-    url('./fonts/BlenderPro-Book.woff') format('woff'),
-    url('./fonts/BlenderPro-Book.ttf') format('truetype');
+    url('../fonts/BlenderPro-Book.woff2') format('woff2'),
+    url('../fonts/BlenderPro-Book.woff') format('woff'),
+    url('../fonts/BlenderPro-Book.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -36,10 +38,10 @@
 @font-face {
   font-family: 'Blender Pro Bold';
   src: local('Blender Pro Bold'), local('Blender-Pro-Bold'),
-    url('./fonts/BlenderPro-Bold.woff2') format('woff2'),
-    url('./fonts/BlenderPro-Bold.woff') format('woff'),
-    url('./fonts/BlenderPro-Bold.otf') format('opentype'),
-    url('./fonts/BlenderPro-Bold.ttf') format('truetype');
+    url('../fonts/BlenderPro-Bold.woff2') format('woff2'),
+    url('../fonts/BlenderPro-Bold.woff') format('woff'),
+    url('../fonts/BlenderPro-Bold.otf') format('opentype'),
+    url('../fonts/BlenderPro-Bold.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
