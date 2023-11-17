@@ -17,11 +17,3 @@ addons.getChannel().on('changeTheme', (theme: Theme) => {
   window.document.body.classList.remove('dark', 'darkRed', 'yellow')
   window.document.body.classList.add(theme)
 })
-
-window.onload = () => {
-  setTimeout(() => {
-    document
-      .querySelector('.search-field')
-      ?.setAttribute('data-augmented-ui', 'tl-clip br-clip border')
-  })
-}

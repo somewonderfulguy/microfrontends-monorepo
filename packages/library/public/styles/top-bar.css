@@ -1,0 +1,107 @@
+:root {
+  --top-bar-height: 43px;
+}
+
+#root div[role='main'] > div > div > div:first-child > div:first-child,
+#root div[role='main'] > div > div > div:first-child > div:first-child > div {
+  height: var(--top-bar-height);
+}
+#root div[role='main'] > div > div > div:first-child > div:first-child + div {
+  height: calc(100% - var(--top-bar-height));
+  top: var(--top-bar-height);
+}
+#root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button
+  span,
+#root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button
+  div
+  svg {
+  font-size: var(--cb-font-size);
+}
+#root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button
+  svg {
+  width: 16px;
+  height: 16px;
+}
+#root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button,
+#root div[role='main'] > div > div > div:first-child > div:first-child > div a {
+  margin-top: 7px;
+  border-radius: 1px;
+}
+#root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button:focus-visible,
+#root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  a:focus-visible {
+  outline: none;
+}
+body.yellow
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button:focus-visible,
+body.yellow
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  a:focus-visible {
+  border: 1px solid var(--cb-turquoise);
+}
+#root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button
+  div:has(> svg + span)
+  span {
+  margin-top: 0;
+}
