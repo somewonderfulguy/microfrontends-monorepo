@@ -1,7 +1,13 @@
-:root {
+#root {
   --top-bar-height: 43px;
 }
 
+#root div[role='main'] > div {
+  /* remove border */
+  box-shadow: none;
+}
+
+/* sidebar height */
 #root div[role='main'] > div > div > div:first-child > div:first-child,
 #root div[role='main'] > div > div > div:first-child > div:first-child > div {
   height: var(--top-bar-height);
@@ -10,6 +16,8 @@
   height: calc(100% - var(--top-bar-height));
   top: var(--top-bar-height);
 }
+
+/* font */
 #root
   div[role='main']
   > div
@@ -31,6 +39,20 @@
   svg {
   font-size: var(--cb-font-size);
 }
+#root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button
+  div:has(> svg + span)
+  span {
+  margin-top: 0;
+}
+
+/* icons */
 #root
   div[role='main']
   > div
@@ -93,6 +115,8 @@ body.yellow
   a:focus-visible {
   border: 1px solid var(--cb-turquoise);
 }
+
+/* right side controls & angled border */
 #root
   div[role='main']
   > div
@@ -100,8 +124,57 @@ body.yellow
   > div:first-child
   > div:first-child
   > div
-  button
-  div:has(> svg + span)
-  span {
-  margin-top: 0;
+  > div:last-child {
+  margin-right: 0;
+  padding-right: 3px;
+  padding-left: 90px;
+  margin-left: 0;
+  clip-path: polygon(100% 100%, 100% 0, 90px 0, 65px 22px, 31px 22px, 3px 100%);
+}
+body.yellow
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child {
+  background-color: var(--cb-white);
+  color: var(--cb-black);
+}
+body.yellow
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child:has(a[title='Open canvas in new tab']),
+body.yellow
+  #root
+  div[role='main']:has(#preview-loader)
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child {
+  background-color: var(--cb-yellow-main);
+}
+
+/* left side angled border */
+#root div[role='main'] > div > div > div:first-child > div:first-child {
+  position: relative;
+}
+#root div[role='main']:after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  height: 32px;
+  background-color: black;
+  width: 98px;
+  clip-path: polygon(24px 100%, 40px 18px, 77px 18px, 100% 0, 0 0, 0 100%);
+  z-index: 9;
 }
