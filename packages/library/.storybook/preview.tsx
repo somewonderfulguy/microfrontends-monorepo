@@ -5,6 +5,7 @@ import { Addon } from 'storybook-addon-multiselect'
 import 'augmented-ui/augmented-ui.min.css'
 
 import ThemeAndLanguage from '../src/storybook/decorators/ThemeAndLanguage'
+import { orientationKey, themeKey, themeStorybookKey } from '../src/constants'
 
 import '../src/styles/fonts.css'
 import '../src/storybook/styles/storybook.css'
@@ -43,8 +44,9 @@ const multiselect: Addon = {
         title: 'Storybook theme',
         queryKey: 'themeStorybook',
         defaultValue: 'yellow',
+        localStorageKey: themeStorybookKey,
         onChange: (value, storybookApi) => {
-          storybookApi.emit('changeTheme', value)
+          storybookApi.emit('changeThemeStorybook', value)
           return value
         },
         options: [
@@ -134,6 +136,11 @@ const multiselect: Addon = {
         queryKey: 'orientation',
         title: 'Orientation',
         defaultValue: 'vertical',
+        localStorageKey: orientationKey,
+        onChange: (value, storybookApi) => {
+          storybookApi.emit('changeOrientation', value)
+          return value
+        },
         options: [
           {
             title: 'Horizontal',
@@ -170,6 +177,11 @@ const multiselect: Addon = {
         type: 'multiSelect',
         queryKey: 'theme',
         defaultValues: ['yellow'],
+        localStorageKey: themeKey,
+        onChange: (value, storybookApi) => {
+          storybookApi.emit('changeTheme', value)
+          return value
+        },
         options: [
           {
             title: 'Yellow',

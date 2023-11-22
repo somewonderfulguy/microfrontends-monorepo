@@ -131,7 +131,7 @@ body.yellow
   margin-left: 0;
   clip-path: polygon(100% 100%, 100% 0, 90px 0, 65px 22px, 31px 22px, 3px 100%);
 }
-body.yellow
+body.topRightYellow
   #root
   div[role='main']
   > div
@@ -143,7 +143,7 @@ body.yellow
   background-color: var(--cb-white);
   color: var(--cb-black);
 }
-body.yellow
+body.topRightYellow
   #root
   div[role='main']
   > div
@@ -152,7 +152,7 @@ body.yellow
   > div:first-child
   > div
   > div:last-child:has(a[title='Open canvas in new tab']),
-body.yellow
+body.topRightYellow
   #root
   div[role='main']:has(#preview-loader)
   > div
@@ -162,6 +162,72 @@ body.yellow
   > div
   > div:last-child {
   background-color: var(--cb-yellow-main);
+}
+body.topRightDark
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child {
+  background-color: var(--cb-white);
+  color: var(--cb-black);
+}
+body.topRightDark
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child:has(a[title='Open canvas in new tab']),
+body.topRightDark
+  #root
+  div[role='main']:has(#preview-loader)
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child {
+  background-color: var(--cb-darkest-gray);
+  color: var(--cb-white);
+}
+body.topRightDarkRed
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child {
+  background-color: var(--cb-white);
+  color: var(--cb-black);
+}
+body.topRightDarkRed
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child:has(a[title='Open canvas in new tab']),
+body.topRightDarkRed
+  #root
+  div[role='main']:has(#preview-loader)
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child {
+  background-color: var(--cb-black);
+  color: var(--cb-white);
 }
 
 /* left side angled border */
