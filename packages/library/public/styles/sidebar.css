@@ -17,6 +17,7 @@
 }
 body.yellow .sidebar-header button[title='Shortcuts']:focus-visible {
   border: 1px solid var(--cb-turquoise);
+  color: var(--cb-turquoise);
 }
 
 /* search field */

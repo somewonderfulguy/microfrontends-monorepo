@@ -114,6 +114,7 @@ body.yellow
   > div
   a:focus-visible {
   border: 1px solid var(--cb-turquoise);
+  color: var(--cb-turquoise);
 }
 
 /* right side controls & angled border */
