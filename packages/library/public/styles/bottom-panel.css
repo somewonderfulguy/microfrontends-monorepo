@@ -1,0 +1,13 @@
+#storybook-panel-root *[role='tablist'] .tabbutton {
+  font-size: var(--cb-font-size);
+  line-height: initial;
+  transition: color 0.2s linear, background-color 0.2s linear;
+}
+#storybook-panel-root *[role='tablist'] .tabbutton.tabbutton-active {
+  background-color: var(--cb-turquoise);
+  color: var(--cb-black);
+  border-bottom-color: transparent;
+}
+#storybook-panel-root *[role='tablist'] .tabbutton:focus {
+  border-bottom-color: transparent;
+}
