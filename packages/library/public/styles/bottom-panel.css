@@ -17,6 +17,21 @@
 #storybook-panel-root *[role='tablist'] .tabbutton:focus {
   border-bottom-color: transparent;
 }
+#storybook-panel-root *[role='tablist'] .tabbutton:focus-visible {
+  border: 2px solid var(--cb-turquoise);
+  outline: none;
+}
+#storybook-panel-root
+  *[role='tablist']
+  .tabbutton.tabbutton-active:focus-visible {
+  border-color: var(--cb-red);
+}
+#storybook-panel-root *[role='tablist'] .tabbutton:has(span + div) {
+  padding-right: 12px;
+}
+#storybook-panel-root *[role='tablist'] .tabbutton span {
+  transform: translateY(-1px);
+}
 
 /* number badge */
 #storybook-panel-root *[role='tablist'] .tabbutton span + div {
