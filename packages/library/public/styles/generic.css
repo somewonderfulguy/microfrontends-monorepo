@@ -6,6 +6,8 @@ div[data-testid='tooltip'] {
   margin-top: -8px;
   font-size: var(--cb-font-size-small);
 
+  min-height: 62px;
+
   /* fix for cropped (invisible) borders */
   border-left: 0.5px solid var(--cb-turquoise);
   border-right: 0.5px solid var(--cb-turquoise);

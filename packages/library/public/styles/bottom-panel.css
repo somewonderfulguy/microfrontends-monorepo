@@ -136,3 +136,66 @@ body.yellow
   + div {
   background-color: var(--cb-yellow-main);
 }
+
+/* right side controls */
+#storybook-panel-root div div div:last-child button {
+  border-radius: 0;
+}
+body.yellow #storybook-panel-root div div div:last-child button:focus-visible {
+  outline: 1px solid var(--cb-turquoise);
+}
+body.yellow #storybook-panel-root div div div:last-child button:focus-visible,
+body.yellow #storybook-panel-root div div div:last-child button:hover svg {
+  color: var(--cb-turquoise);
+}
+#storybook-panel-root div div div:last-child svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* sub tabs */
+#panel-tab-content
+  > div:nth-child(2)
+  > div
+  > div
+  > div
+  > div:first-child
+  button {
+  font-size: var(--cb-font-size);
+}
+#panel-tab-content
+  > div:nth-child(2)
+  > div
+  > div
+  > div
+  > div:first-child
+  button
+  span {
+  display: block;
+  transform: translateY(-2px);
+}
+#panel-tab-content
+  > div:nth-child(2)
+  > div
+  > div
+  > div
+  > div:nth-child(2):has(label + input)
+  label {
+  font-size: var(--cb-font-size);
+  color: var(--cb-white);
+  transform: translateY(-1px);
+}
+
+/* panel background */
+#panel-tab-content,
+#panel-tab-content > div:last-child,
+#panel-tab-content > div:last-child button,
+#panel-tab-content > div > div,
+#panel-tab-content .docblock-argstable td {
+  background-color: var(--cb-black);
+}
+
+/* panel border */
+div:has(> #storybook-panel-root) {
+  border-left-color: var(--cb-black);
+}
