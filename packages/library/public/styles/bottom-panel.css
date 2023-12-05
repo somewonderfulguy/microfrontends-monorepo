@@ -9,28 +9,66 @@
   line-height: initial;
   transition: color 0.2s linear, background-color 0.2s linear;
 }
-#storybook-panel-root *[role='tablist'] .tabbutton.tabbutton-active {
+body.yellow
+  #storybook-panel-root
+  *[role='tablist']
+  .tabbutton.tabbutton-active {
   background-color: var(--cb-turquoise);
   color: var(--cb-black);
-  border-bottom-color: transparent;
-}
-#storybook-panel-root *[role='tablist'] .tabbutton:focus {
-  border-bottom-color: transparent;
-}
-#storybook-panel-root *[role='tablist'] .tabbutton:focus-visible {
-  border: 2px solid var(--cb-turquoise);
-  outline: none;
 }
 #storybook-panel-root
   *[role='tablist']
+  .tabbutton:is(.tabbutton-active, :focus) {
+  border-bottom-color: transparent;
+}
+#storybook-panel-root *[role='tablist'] .tabbutton:focus-visible {
+  outline: none;
+}
+body.yellow #storybook-panel-root *[role='tablist'] .tabbutton:focus-visible {
+  border: 2px solid var(--cb-turquoise);
+}
+body.yellow
+  #storybook-panel-root
+  *[role='tablist']
   .tabbutton.tabbutton-active:focus-visible {
   border-color: var(--cb-red);
+  color: var(--cb-black);
 }
 #storybook-panel-root *[role='tablist'] .tabbutton:has(span + div) {
   padding-right: 12px;
 }
 #storybook-panel-root *[role='tablist'] .tabbutton span {
   transform: translateY(-1px);
+}
+
+/* Addons tab (right side panel) */
+body.yellow
+  #storybook-panel-root
+  *[role='tablist']
+  > div
+  :is(.tabbutton, span) {
+  color: var(--cb-white);
+}
+#storybook-panel-root *[role='tablist'] > div > .tabbutton span {
+  margin-left: 10px;
+  margin-top: 2px;
+  border-width: 5px;
+}
+body.yellow
+  #storybook-panel-root
+  *[role='tablist']:not(:has(.tabbutton-active))
+  > div
+  > .tabbutton {
+  background-color: var(--cb-turquoise);
+  color: var(--cb-black);
+}
+body.yellow
+  #storybook-panel-root
+  *[role='tablist']:not(:has(.tabbutton-active))
+  > div
+  > .tabbutton
+  span {
+  border-top-color: var(--cb-black);
 }
 
 /* number badge */
@@ -144,8 +182,12 @@ body.yellow
 body.yellow #storybook-panel-root div div div:last-child button:focus-visible {
   outline: 1px solid var(--cb-turquoise);
 }
-body.yellow #storybook-panel-root div div div:last-child button:focus-visible,
-body.yellow #storybook-panel-root div div div:last-child button:hover svg {
+body.yellow
+  #storybook-panel-root
+  div
+  div
+  div:last-child
+  :is(button:focus-visible, button:hover svg) {
   color: var(--cb-turquoise);
 }
 #storybook-panel-root div div div:last-child svg {
