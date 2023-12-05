@@ -26,17 +26,7 @@
   > div:first-child
   > div
   button
-  span,
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  button
-  div
-  svg {
+  :is(span, div svg) {
   font-size: var(--cb-font-size);
 }
 #root
@@ -72,8 +62,7 @@
   > div:first-child
   > div:first-child
   > div
-  button,
-#root div[role='main'] > div > div > div:first-child > div:first-child > div a {
+  :is(button, a) {
   margin-top: 7px;
   border-radius: 1px;
 }
@@ -84,15 +73,7 @@
   > div:first-child
   > div:first-child
   > div
-  button:focus-visible,
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  a:focus-visible {
+  :is(button:focus-visible, a:focus-visible) {
   outline: none;
 }
 body.yellow
@@ -103,16 +84,7 @@ body.yellow
   > div:first-child
   > div:first-child
   > div
-  button:focus-visible,
-body.yellow
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  a:focus-visible {
+  :is(button:focus-visible, a:focus-visible) {
   border: 1px solid var(--cb-turquoise);
   color: var(--cb-turquoise);
 }

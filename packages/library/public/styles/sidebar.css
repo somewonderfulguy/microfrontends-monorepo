@@ -98,13 +98,11 @@ body.yellow .search-field:has(#storybook-explorer-searchfield:focus):after {
   padding-right: 36px;
 }
 #storybook-explorer-searchfield::placeholder,
-.search-field svg,
-.search-field code {
+.search-field :is(svg, code) {
   transition: color 0.2s;
 }
 body.yellow #storybook-explorer-searchfield::placeholder,
-body.yellow .search-field svg,
-body.yellow .search-field code {
+.search-field :is(svg, code) {
   color: hsla(0, 0%, 100%, 0.7);
 }
 .search-field code {
@@ -232,8 +230,7 @@ body.yellow li.search-result-item a svg {
 }
 
 /* no components found */
-#storybook-explorer-menu li div strong,
-#storybook-explorer-menu li div small {
+#storybook-explorer-menu li div :is(strong, small) {
   font-size: var(--cb-font-size);
 }
 #storybook-explorer-menu li div strong {

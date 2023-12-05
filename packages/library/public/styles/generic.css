@@ -116,10 +116,7 @@ div[data-testid='tooltip'] a {
 body.yellow
   div[data-testid='tooltip']
   .multiselect
-  .menu-item
-  span:first-child
-  svg,
-body.yellow div[data-testid='tooltip'] .multiselect #list-item-reset {
+  :is(.menu-item span:first-child svg, #list-item-reset) {
   color: var(--cb-gray);
 }
 /* vision simulator % of users line */
