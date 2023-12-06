@@ -73,7 +73,7 @@ addons.getChannel().on('changeTheme', (themes: Theme[]) => {
   performTopRightClassChange(themes, orientation)
 })
 
-// hooking on panel to know it position (bottom or right side)
+// hooking on panel to know it position (bottom or right side); adding element for border
 let initialized = false
 addons.getChannel().on(Events.STORY_RENDERED, () => {
   if (initialized) return
@@ -81,27 +81,33 @@ addons.getChannel().on(Events.STORY_RENDERED, () => {
   const panelElement = document.querySelector(
     '#storybook-panel-root'
   )?.parentElement
-  console.log(panelElement)
 
   if (!panelElement)
     return console.warn(
       `Couldn't find panel element (selector: #storybook-panel-root.parentElement)`
     )
 
+  const newDiv = document.createElement('div')
+  newDiv.classList.add('panel-border')
+  panelElement.parentElement?.appendChild(newDiv)
+
   const observer = throttle(([entry]) => {
-    const target = (Array.isArray(entry) ? entry[0] : entry).target
+    const target = (Array.isArray(entry) ? entry[0] : entry)
+      .target as HTMLDivElement
     const left = window.getComputedStyle(target).left
     const top = window.getComputedStyle(target).top
     const isBottom = left === '0px' && top !== '0px'
 
     if (isBottom) {
-      target.classList.remove('right-panel')
-      target.classList.add('bottom-panel')
+      newDiv.style.top = +top.replace('px', '') - 20 + 'px'
+      ;(target.parentElement as HTMLDivElement).classList.remove('right-panel')
+      ;(target.parentElement as HTMLDivElement).classList.add('bottom-panel')
     } else {
-      target.classList.remove('bottom-panel')
-      target.classList.add('right-panel')
+      newDiv.style.removeProperty('top')
+      ;(target.parentElement as HTMLDivElement).classList.remove('bottom-panel')
+      ;(target.parentElement as HTMLDivElement).classList.add('right-panel')
     }
-  }, 200)
+  }, 0)
   const resizeObserver = new ResizeObserver(observer)
 
   resizeObserver.observe(panelElement)

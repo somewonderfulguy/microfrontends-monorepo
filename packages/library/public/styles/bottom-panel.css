@@ -241,3 +241,20 @@ body.yellow
 div:has(> #storybook-panel-root) {
   border: none;
 }
+
+/* border shape */
+body:has(button[aria-label='Show addons']) .bottom-panel .panel-border {
+  display: none;
+}
+.bottom-panel .panel-border {
+  pointer-events: none;
+
+  height: 20px;
+  right: 0;
+  left: 580px;
+  background-color: var(--cb-black);
+  position: absolute;
+  z-index: 9;
+
+  clip-path: polygon(30px 0px, 0% 100%, 100% 100%, 100% 0px);
+}
