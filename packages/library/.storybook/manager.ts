@@ -1,7 +1,9 @@
 import { addons } from '@storybook/addons'
+import * as Events from '@storybook/core-events'
 
 import { Theme } from '../src/types'
 import { orientationKey, themeKey, themeStorybookKey } from '../src/constants'
+import throttle from '../src/utils/throttle'
 
 import * as themes from './themes'
 
@@ -69,4 +71,38 @@ addons.getChannel().on('changeTheme', (themes: Theme[]) => {
   const orientation = (localStorage.getItem(orientationKey) ||
     'horizontal') as Orientation
   performTopRightClassChange(themes, orientation)
+})
+
+// hooking on panel to know it position (bottom or right side)
+let initialized = false
+addons.getChannel().on(Events.STORY_RENDERED, () => {
+  if (initialized) return
+  initialized = true
+  const panelElement = document.querySelector(
+    '#storybook-panel-root'
+  )?.parentElement
+  console.log(panelElement)
+
+  if (!panelElement)
+    return console.warn(
+      `Couldn't find panel element (selector: #storybook-panel-root.parentElement)`
+    )
+
+  const observer = throttle(([entry]) => {
+    const target = (Array.isArray(entry) ? entry[0] : entry).target
+    const left = window.getComputedStyle(target).left
+    const top = window.getComputedStyle(target).top
+    const isBottom = left === '0px' && top !== '0px'
+
+    if (isBottom) {
+      target.classList.remove('right-panel')
+      target.classList.add('bottom-panel')
+    } else {
+      target.classList.remove('bottom-panel')
+      target.classList.add('right-panel')
+    }
+  }, 200)
+  const resizeObserver = new ResizeObserver(observer)
+
+  resizeObserver.observe(panelElement)
 })

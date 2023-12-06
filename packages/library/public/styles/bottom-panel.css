@@ -239,5 +239,5 @@ body.yellow
 
 /* panel border */
 div:has(> #storybook-panel-root) {
-  border-left-color: var(--cb-black);
+  border: none;
 }
