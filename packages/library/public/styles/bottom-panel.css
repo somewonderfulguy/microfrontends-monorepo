@@ -243,18 +243,27 @@ div:has(> #storybook-panel-root) {
 }
 
 /* border shape */
-body:has(button[aria-label='Show addons']) .bottom-panel .panel-border {
+body:has(button[aria-label='Show addons'])
+  :is(.bottom-panel .panel-border, .right-panel .panel-border) {
   display: none;
 }
-.bottom-panel .panel-border {
+.panel-border {
   pointer-events: none;
-
-  height: 20px;
-  right: 0;
-  left: 580px;
   background-color: var(--cb-black);
   position: absolute;
   z-index: 9;
+}
+.bottom-panel .panel-border {
+  height: 20px;
+  right: 0;
+  left: 580px;
 
   clip-path: polygon(30px 0px, 0% 100%, 100% 100%, 100% 0px);
+}
+.right-panel .panel-border {
+  width: 20px;
+  bottom: 0;
+  height: 38%;
+
+  clip-path: polygon(0px 30px, 0% 100%, 100% 100%, 100% 0px);
 }

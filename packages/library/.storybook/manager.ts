@@ -91,21 +91,29 @@ addons.getChannel().on(Events.STORY_RENDERED, () => {
   newDiv.classList.add('panel-border')
   panelElement.parentElement?.appendChild(newDiv)
 
-  const observer = throttle(([entry]) => {
-    const target = (Array.isArray(entry) ? entry[0] : entry)
-      .target as HTMLDivElement
-    const left = window.getComputedStyle(target).left
-    const top = window.getComputedStyle(target).top
+  const observer = throttle(() => {
+    const left = window.getComputedStyle(panelElement).left
+    const top = window.getComputedStyle(panelElement).top
     const isBottom = left === '0px' && top !== '0px'
 
     if (isBottom) {
+      newDiv.style.removeProperty('left')
       newDiv.style.top = +top.replace('px', '') - 20 + 'px'
-      ;(target.parentElement as HTMLDivElement).classList.remove('right-panel')
-      ;(target.parentElement as HTMLDivElement).classList.add('bottom-panel')
+      ;(panelElement.parentElement as HTMLDivElement).classList.remove(
+        'right-panel'
+      )
+      ;(panelElement.parentElement as HTMLDivElement).classList.add(
+        'bottom-panel'
+      )
     } else {
+      newDiv.style.left = +left.replace('px', '') - 20 + 'px'
       newDiv.style.removeProperty('top')
-      ;(target.parentElement as HTMLDivElement).classList.remove('bottom-panel')
-      ;(target.parentElement as HTMLDivElement).classList.add('right-panel')
+      ;(panelElement.parentElement as HTMLDivElement).classList.remove(
+        'bottom-panel'
+      )
+      ;(panelElement.parentElement as HTMLDivElement).classList.add(
+        'right-panel'
+      )
     }
   }, 0)
   const resizeObserver = new ResizeObserver(observer)
