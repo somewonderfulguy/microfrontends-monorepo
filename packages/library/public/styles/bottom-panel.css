@@ -56,6 +56,14 @@ body.yellow
 }
 body.yellow
   #storybook-panel-root
+  *[role='tablist']
+  > div
+  > .tabbutton:focus-visible
+  span {
+  border-top-color: var(--cb-turquoise);
+}
+body.yellow
+  #storybook-panel-root
   *[role='tablist']:not(:has(.tabbutton-active))
   > div
   > .tabbutton {
@@ -169,7 +177,7 @@ body.yellow
 body.yellow
   #storybook-panel-root
   *[role='tablist']
-  .tabbutton.tabbutton-active
+  :is(.tabbutton.tabbutton-active, .tabbutton:focus-visible)
   span
   + div {
   background-color: var(--cb-yellow-main);

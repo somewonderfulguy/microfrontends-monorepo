@@ -55,6 +55,17 @@
   width: 16px;
   height: 16px;
 }
+body.yellow
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  button:hover {
+  color: var(--cb-turquoise);
+}
 #root
   div[role='main']
   > div
