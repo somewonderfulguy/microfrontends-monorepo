@@ -1,9 +1,7 @@
 import { addons } from '@storybook/addons'
-import * as Events from '@storybook/core-events'
 
 import { Theme } from '../src/types'
 import { orientationKey, themeKey, themeStorybookKey } from '../src/constants'
-import throttle from '../src/utils/throttle'
 
 import * as themes from './themes'
 
@@ -71,52 +69,4 @@ addons.getChannel().on('changeTheme', (themes: Theme[]) => {
   const orientation = (localStorage.getItem(orientationKey) ||
     'horizontal') as Orientation
   performTopRightClassChange(themes, orientation)
-})
-
-// hooking on panel to know it position (bottom or right side); adding element for border
-let initialized = false
-addons.getChannel().on(Events.STORY_RENDERED, () => {
-  if (initialized) return
-  initialized = true
-  const panelElement = document.querySelector(
-    '#storybook-panel-root'
-  )?.parentElement
-
-  if (!panelElement)
-    return console.warn(
-      `Couldn't find panel element (selector: #storybook-panel-root.parentElement)`
-    )
-
-  const newDiv = document.createElement('div')
-  newDiv.classList.add('panel-border')
-  panelElement.parentElement?.appendChild(newDiv)
-
-  const observer = throttle(() => {
-    const left = window.getComputedStyle(panelElement).left
-    const top = window.getComputedStyle(panelElement).top
-    const isBottom = left === '0px' && top !== '0px'
-
-    if (isBottom) {
-      newDiv.style.removeProperty('left')
-      newDiv.style.top = +top.replace('px', '') - 20 + 'px'
-      ;(panelElement.parentElement as HTMLDivElement).classList.remove(
-        'right-panel'
-      )
-      ;(panelElement.parentElement as HTMLDivElement).classList.add(
-        'bottom-panel'
-      )
-    } else {
-      newDiv.style.left = +left.replace('px', '') - 20 + 'px'
-      newDiv.style.removeProperty('top')
-      ;(panelElement.parentElement as HTMLDivElement).classList.remove(
-        'bottom-panel'
-      )
-      ;(panelElement.parentElement as HTMLDivElement).classList.add(
-        'right-panel'
-      )
-    }
-  }, 0)
-  const resizeObserver = new ResizeObserver(observer)
-
-  resizeObserver.observe(panelElement)
 })
