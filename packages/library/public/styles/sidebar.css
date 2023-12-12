@@ -189,7 +189,6 @@ body.yellow .sidebar-item[data-selected='true'] svg {
 
 /* skip to canvas */
 .sidebar-item[data-selected='true'] a + a {
-  font-family: var(--cb-font-family);
   border-radius: 0;
   padding: 2px 12px;
 

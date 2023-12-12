@@ -6,6 +6,7 @@
   --cb-yellow-main: hsl(58, 100%, 48%);
   --cb-black: hsl(0, 0%, 0%);
   --cb-turquoise: hsl(184, 100%, 50%);
+  --cb-turquoise-transparent: hsla(184, 100%, 50%, 0.12);
   --cb-white: hsl(0, 0%, 100%);
   --cb-gray: hsl(10, 6%, 79%);
   --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.8);
@@ -13,7 +14,6 @@
   --cb-red: hsl(3, 100%, 67%);
 
   /* other */
-  --cb-font-family: 'Blender Pro Book', sans-serif;
   --cb-font-family-bold: 'Blender Pro Bold', sans-serif;
   --cb-font-size-small: 14px;
   --cb-font-size: 16px;
@@ -46,14 +46,20 @@
   font-style: normal;
 }
 
-* {
-  font-family: var(--cb-font-family);
+@font-face {
+  font-family: 'Audiowide Mono';
+  src: local('Audiowide Mono'), local('Audiowide-Mono'),
+    url('../fonts/Audiowide-Mono-301.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
+/* TODO: */
 body.darkRed {
   display: initial;
 }
 
+/* TODO */
 body.dark {
   display: initial;
 }

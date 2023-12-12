@@ -41,31 +41,28 @@ export const yellow = create({
   barTextColor: white,
   barSelectedColor: turquoise,
   textMutedColor: white,
+  booleanBg: turquoise,
 
   // wip
-  inputBorder: 'red',
+  inputBorder: 'yellow',
   inputBg: 'navy',
-  textInverseColor: 'pink', // not sure this one is working
+  textInverseColor: 'yellow', // not sure this one is working
   inputTextColor: 'purple',
   buttonBg: 'green',
   buttonBorder: 'brown',
-  booleanBg: 'teal',
   booleanSelectedBg: 'orange',
 
   // typography
-  fontBase: '"Open Sans", sans-serif',
-  fontCode: 'monospace',
+  fontBase: '"Blender Pro Book", sans-serif',
+  fontCode: '"Audiowide Mono", monospace',
 
   // shapes
   appBorderRadius: 0,
   inputBorderRadius: 0,
 
-  // gridCellSize?: number
+  gridCellSize: 50,
 
   brandTitle: 'Cyberpunk'
-  // brandUrl: 'https://example.com',
-  // brandImage: 'https://place-hold.it/350x150',
-  // brandTarget: '_self'
 })
 
 export const darkRed = create({

@@ -249,3 +249,65 @@ body.yellow
 div:has(> #storybook-panel-root) {
   border: none;
 }
+
+/* controls tab */
+#storybook-panel-root #panel-tab-content .docblock-argstable {
+  font-size: var(--cb-font-size);
+}
+/* controls tab - raw button */
+#storybook-panel-root #panel-tab-content .docblock-argstable a:has(svg + span) {
+  font-size: var(--cb-font-size-small);
+  padding: 11px 8px;
+  border-radius: 0;
+}
+#storybook-panel-root
+  #panel-tab-content
+  .docblock-argstable
+  a:has(svg + span)
+  span {
+  margin-top: 0;
+  margin-left: 6px;
+}
+body.yellow
+  #storybook-panel-root
+  #panel-tab-content
+  .docblock-argstable
+  :is(a:has(svg + span):hover, a:has(svg + span):focus-visible) {
+  outline: none;
+  background-color: var(--cb-turquoise-transparent);
+  color: var(--cb-turquoise);
+}
+body.yellow
+  #storybook-panel-root
+  #panel-tab-content
+  .docblock-argstable
+  a:has(svg + span):focus-visible {
+  outline: 1px solid var(--cb-turquoise);
+}
+/* controls tab - code */
+.rejt-object-node * {
+  font-family: 'Audiowide Mono', monospace;
+  font-size: calc(var(--cb-font-size-small) - 2px);
+}
+.rejt-object-node .rejt-value {
+  border-radius: 0;
+}
+#panel-tab-content .rejt-object-node .rejt-value-node:hover .rejt-value {
+  border-color: transparent;
+}
+body.yellow .rejt-object-node .rejt-value-node:hover .rejt-value {
+  background-color: var(--cb-turquoise-transparent);
+}
+#storybook-panel-root
+  .rejt-tree
+  .rejt-object-node
+  :is(.rejt-collapsed, .rejt-not-collapsed)
+  svg {
+  padding-top: 2px;
+  width: 19px;
+  height: 19px;
+}
+.rejt-not-collapsed-delimiter {
+  transform: translateY(0.5px);
+  display: inline-block;
+}
