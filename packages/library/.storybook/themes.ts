@@ -22,6 +22,7 @@ import { create } from '@storybook/theming'
 
 const yellowColor = 'hsl(58, 100%, 48%)'
 const turquoise = 'hsl(184, 100%, 50%)'
+const turquoiseDark = 'hsl(184deg 100% 18%)'
 const black = 'hsl(0, 0%, 0%)'
 const white = 'hsl(0, 0%, 100%)'
 const lightGrayOnDark = 'hsla(0, 0%, 100%, 0.2)'
@@ -43,11 +44,13 @@ export const yellow = create({
   textMutedColor: white,
   booleanBg: turquoise,
 
+  // textarea
+  inputBg: turquoiseDark,
+  inputTextColor: turquoise,
+  inputBorder: turquoise,
+
   // wip
-  inputBorder: 'yellow',
-  inputBg: 'navy',
-  textInverseColor: 'yellow', // not sure this one is working
-  inputTextColor: 'purple',
+  textInverseColor: 'navy', // not sure this one is working
   buttonBg: 'green',
   buttonBorder: 'brown',
   booleanSelectedBg: 'orange',

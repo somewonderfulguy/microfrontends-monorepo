@@ -311,3 +311,26 @@ body.yellow .rejt-object-node .rejt-value-node:hover .rejt-value {
   transform: translateY(0.5px);
   display: inline-block;
 }
+/* controls tab - code inputs, buttons, textarea */
+.rejt-object-node input {
+  border-radius: 0;
+}
+.rejt-object-node input[placeholder='Value'] {
+  margin-right: 5px;
+}
+.rejt-add-value-node button {
+  margin-top: -1px;
+}
+.rejt-add-value-node button[type='submit'] {
+  color: var(--cb-black);
+}
+body.yellow
+  #storybook-panel-root
+  .rejt-add-value-node
+  button[type='submit']:focus-visible {
+  color: var(--cb-black);
+  outline: 2px solid var(--cb-red);
+}
+.docblock-argstable :is(textarea, textarea:focus) {
+  box-shadow: none;
+}
