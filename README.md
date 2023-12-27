@@ -29,6 +29,10 @@ What is to be done:
 - finish theming of the storybook itself
 - implement switching language of components
 
+How Storybook UI and multiple theme variations look like:
+![image](https://github.com/somewonderfulguy/microfrontends-monorepo/assets/23312484/604af243-509d-43c0-8611-4fb3bfd3d8dd)
+
+
 ## Launch application
 
 Before first start, perform following commands:
