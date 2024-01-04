@@ -27,6 +27,8 @@ const black = 'hsl(0, 0%, 0%)'
 const white = 'hsl(0, 0%, 100%)'
 const lightGrayOnDark = 'hsla(0, 0%, 100%, 0.2)'
 const green = 'hsl(149, 85%, 52%)'
+const red = 'hsl(3, 100%, 67%)'
+const midnightNavy = 'hsl(240, 50%, 6%)'
 
 export const yellow = create({
   base: 'dark',
@@ -69,9 +71,81 @@ export const yellow = create({
 })
 
 export const darkRed = create({
-  base: 'dark'
+  base: 'dark',
+
+  // colors
+  colorPrimary: turquoise,
+  colorSecondary: turquoise,
+  appBg: midnightNavy,
+  appContentBg: turquoise,
+  appBorderColor: midnightNavy,
+  textColor: red,
+  barBg: midnightNavy,
+  barTextColor: red,
+  barSelectedColor: turquoise,
+  textMutedColor: turquoise,
+  booleanBg: red,
+
+  // textarea
+  inputBg: 'green',
+  inputTextColor: red,
+  inputBorder: red,
+
+  // wip
+  textInverseColor: 'navy', // not sure this one is working
+  buttonBg: 'green',
+  buttonBorder: 'brown',
+  booleanSelectedBg: 'orange',
+
+  // typography
+  fontBase: '"Blender Pro Book", sans-serif',
+  fontCode: '"Audiowide Mono", monospace',
+
+  // shapes
+  appBorderRadius: 0,
+  inputBorderRadius: 0,
+
+  gridCellSize: 50,
+
+  brandTitle: 'Cyberpunk'
 })
 
 export const dark = create({
-  base: 'light'
+  base: 'dark',
+
+  // colors
+  colorPrimary: green,
+  colorSecondary: green,
+  appBg: black,
+  appContentBg: yellowColor,
+  appBorderColor: lightGrayOnDark,
+  textColor: white,
+  barBg: black,
+  barTextColor: white,
+  barSelectedColor: green,
+  textMutedColor: white,
+  booleanBg: green,
+
+  // textarea
+  inputBg: turquoiseDark,
+  inputTextColor: green,
+  inputBorder: green,
+
+  // wip
+  textInverseColor: 'navy', // not sure this one is working
+  buttonBg: 'green',
+  buttonBorder: 'brown',
+  booleanSelectedBg: 'orange',
+
+  // typography
+  fontBase: '"Blender Pro Book", sans-serif',
+  fontCode: '"Audiowide Mono", monospace',
+
+  // shapes
+  appBorderRadius: 0,
+  inputBorderRadius: 0,
+
+  gridCellSize: 50,
+
+  brandTitle: 'Cyberpunk'
 })

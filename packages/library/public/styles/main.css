@@ -12,17 +12,13 @@
   --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.8);
   --cb-darkest-gray: hsl(300, 18%, 8%);
   --cb-red: hsl(3, 100%, 67%);
+  --cb-green: hsl(149, 85%, 52%);
 
   /* other */
   --cb-font-family-bold: 'Blender Pro Bold', sans-serif;
   --cb-font-size-small: 14px;
   --cb-font-size: 16px;
   --cb-font-size-large: 18px;
-
-  /* NOT IN USE (copy pasted) */
-  --cb-yellow-alt: hsl(73, 100%, 68%);
-  --cb-yellow-transparent: hsla(73, 100%, 68%, 0.15);
-  --cb-green: hsl(149, 85%, 52%);
 }
 
 @font-face {
@@ -52,6 +48,11 @@
     url('../fonts/Audiowide-Mono-301.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* TODO: */

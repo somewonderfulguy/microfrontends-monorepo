@@ -9,15 +9,27 @@
 .sidebar-header a:first-child + div a {
   color: rgba(255, 255, 255, 0);
 }
+.sidebar-header a:first-child + div svg {
+  opacity: 0;
+}
 
 /* gear icon */
 .sidebar-header button[title='Shortcuts']:focus-visible {
   border-radius: 1px;
   outline: none;
 }
-body.yellow .sidebar-header button[title='Shortcuts']:focus-visible {
+:is(body.yellow, body.darkRed)
+  .sidebar-header
+  button[title='Shortcuts']:focus-visible {
   border: 1px solid var(--cb-turquoise);
   color: var(--cb-turquoise);
+}
+body.darkRed .sidebar-header button[title='Shortcuts'] {
+  color: var(--cb-turquoise);
+}
+body.dark .sidebar-header button[title='Shortcuts']:focus-visible {
+  border: 1px solid green;
+  color: green;
 }
 
 /* search field */
@@ -84,8 +96,14 @@ body.yellow .sidebar-header button[title='Shortcuts']:focus-visible {
 body.yellow .search-field:after {
   background-color: hsla(184, 100%, 50%, 0.4);
 }
+body.darkRed .search-field:after {
+  background-color: hsla(3, 100%, 67%, 0.4);
+}
 body.yellow .search-field:has(#storybook-explorer-searchfield:focus):after {
   background-color: var(--cb-turquoise);
+}
+body.darkRed .search-field:has(#storybook-explorer-searchfield:focus):after {
+  background-color: var(--cb-red);
 }
 .search-field::after {
   transition: background-color 0.2s;
@@ -102,15 +120,22 @@ body.yellow .search-field:has(#storybook-explorer-searchfield:focus):after {
   transition: color 0.2s;
 }
 body.yellow #storybook-explorer-searchfield::placeholder,
-.search-field :is(svg, code) {
+body.yellow .search-field :is(svg, code) {
   color: hsla(0, 0%, 100%, 0.7);
+}
+body.darkRed #storybook-explorer-searchfield::placeholder,
+body.darkRed .search-field :is(svg, code) {
+  color: hsla(3, 100%, 67%, 0.7);
 }
 .search-field code {
   font-size: calc(var(--cb-font-size) - 1px);
   top: 9px;
 }
-.search-field:has(#storybook-explorer-searchfield:focus) svg {
+body.yellow .search-field:has(#storybook-explorer-searchfield:focus) svg {
   color: var(--cb-white);
+}
+body.darkRed .search-field:has(#storybook-explorer-searchfield:focus) svg {
+  color: var(--cb-turquoise);
 }
 #storybook-explorer-searchfield:focus::placeholder {
   color: hsla(0, 0%, 100%, 0.4);
@@ -168,8 +193,11 @@ button.sidebar-item,
 body.yellow a[id$='--docs'] svg {
   color: var(--cb-yellow-main);
 }
-body.yellow .sidebar-item[data-selected='true'],
-body.yellow .sidebar-item[data-selected='true'] svg {
+body.darkRed a[id$='--docs'] svg {
+  color: var(--cb-green);
+}
+:is(body.yellow, body.darkRed) .sidebar-item[data-selected='true'],
+:is(body.yellow, body.darkRed) .sidebar-item[data-selected='true'] svg {
   color: var(--cb-black);
 }
 .sidebar-item[data-selected='true'] a:first-child svg {
@@ -187,7 +215,7 @@ body.yellow .sidebar-item[data-selected='true'] svg {
   border-left-width: 4px;
 }
 
-/* skip to canvas */
+/* skip to canvas in menu items */
 .sidebar-item[data-selected='true'] a + a {
   border-radius: 0;
   padding: 2px 12px;
@@ -205,6 +233,10 @@ body.yellow .sidebar-item[data-selected='true'] svg {
 body.yellow .sidebar-item[data-selected='true'] a + a {
   background-color: var(--cb-yellow-main);
   color: var(--cb-black);
+}
+body.darkRed .sidebar-item[data-selected='true'] a + a {
+  background-color: var(--cb-red);
+  color: var(--cb-white);
 }
 
 /* recently opened */
@@ -224,6 +256,9 @@ li.search-result-clearHistory * {
 body.yellow li.search-result-item a svg {
   color: var(--cb-yellow-main);
 }
+body.darkRed li.search-result-item a svg {
+  color: var(--cb-green);
+}
 .search-result-item svg {
   margin-top: 4px;
 }
@@ -236,7 +271,7 @@ body.yellow li.search-result-item a svg {
   font-family: var(--cb-font-family-bold);
 }
 
-/* skip to canvas */
+/* skip to canvas in top of sidebar */
 nav.sidebar-container .sidebar-header a[href='#storybook-preview-wrapper'] {
   font-size: var(--cb-font-size);
   box-shadow: none;
@@ -279,4 +314,11 @@ body.yellow
   .sidebar-header
   a[href='#storybook-preview-wrapper'] {
   color: var(--cb-black);
+}
+body.darkRed
+  nav.sidebar-container
+  .sidebar-header
+  a[href='#storybook-preview-wrapper'] {
+  color: var(--cb-white);
+  background-color: var(--cb-red);
 }
