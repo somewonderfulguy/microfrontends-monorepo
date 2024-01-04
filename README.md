@@ -14,7 +14,7 @@ Architecture plans:
 - migrate monorepo to Nx
 - create an app or components and share them via Module Federation (microfrontends)
 
-## Storybook comments (library package)
+## Storybook (library package)
 
 If you run library package you'll notice that Storybook is heavily modified.\
 It is still in progress with customizing it.
