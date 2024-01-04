@@ -14565,10 +14565,10 @@ store2@^2.14.2:
   resolved "https://registry.npmjs.org/store2/-/store2-2.14.2.tgz"
   integrity sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==
 
-storybook-addon-multiselect@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/storybook-addon-multiselect/-/storybook-addon-multiselect-1.0.1.tgz#b1d229475a89e2cc805daf7ca9576cf4a9b2986f"
-  integrity sha512-ZvOKLwtH7rM80L3tkN++4glnsk4QPbGl3e3mxo3geYAyoCm0ymGKykv2MaCy4IS2ZKXHYtqQkTvW3dkRqmAqww==
+storybook-addon-multiselect@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/storybook-addon-multiselect/-/storybook-addon-multiselect-1.0.2.tgz#628ed0318422d71357338c438ef30727f65615ea"
+  integrity sha512-iRC5FutcVmPZ8zQHgl7Fw7TmRjmAFwe2R31DlG/A3JNZw6RW38y8036CMaNGWwX43diV9yN4W2TTT5JCoYWi2Q==
 
 storybook@7.6.7:
   version "7.6.7"
