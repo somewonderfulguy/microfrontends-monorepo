@@ -4,3 +4,4 @@ build-npm
 coverage
 .vscode
 .idea
+storybook-static

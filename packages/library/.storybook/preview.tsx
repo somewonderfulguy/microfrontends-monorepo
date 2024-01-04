@@ -45,7 +45,7 @@ const multiselect: Addon = {
         queryKey: 'themeStorybook',
         defaultValue: 'yellow',
         localStorageKey: themeStorybookKey,
-        onChange: (value, storybookApi) => {
+        onChange: function (value, storybookApi) {
           storybookApi.emit('changeThemeStorybook', value)
           return value
         },
@@ -137,7 +137,7 @@ const multiselect: Addon = {
         title: 'Orientation',
         defaultValue: 'vertical',
         localStorageKey: orientationKey,
-        onChange: (value, storybookApi) => {
+        onChange: function (value, storybookApi) {
           storybookApi.emit('changeOrientation', value)
           return value
         },
@@ -178,7 +178,7 @@ const multiselect: Addon = {
         queryKey: 'theme',
         defaultValues: ['yellow'],
         localStorageKey: themeKey,
-        onChange: (value, storybookApi) => {
+        onChange: function (value, storybookApi) {
           storybookApi.emit('changeTheme', value)
           return value
         },
