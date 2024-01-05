@@ -21,6 +21,7 @@ import { create } from '@storybook/theming'
 // Step 7: experiment with cursor
 
 const yellowColor = 'hsl(58, 100%, 48%)'
+const yellowAlt = 'hsl(73, 100%, 68%)'
 const turquoise = 'hsl(184, 100%, 50%)'
 const turquoiseDark = 'hsl(184deg 100% 18%)'
 const black = 'hsl(0, 0%, 0%)'
@@ -29,6 +30,7 @@ const lightGrayOnDark = 'hsla(0, 0%, 100%, 0.2)'
 const green = 'hsl(149, 85%, 52%)'
 const red = 'hsl(3, 100%, 67%)'
 const midnightNavy = 'hsl(240, 50%, 6%)'
+const darkestGray = 'hsl(300, 18%, 8%)'
 
 export const yellow = create({
   base: 'dark',
@@ -67,7 +69,7 @@ export const yellow = create({
 
   gridCellSize: 50,
 
-  brandTitle: 'Cyberpunk'
+  brandTitle: ''
 })
 
 export const darkRed = create({
@@ -107,29 +109,29 @@ export const darkRed = create({
 
   gridCellSize: 50,
 
-  brandTitle: 'Cyberpunk'
+  brandTitle: ''
 })
 
 export const dark = create({
   base: 'dark',
 
   // colors
-  colorPrimary: green,
-  colorSecondary: green,
-  appBg: black,
-  appContentBg: yellowColor,
-  appBorderColor: lightGrayOnDark,
-  textColor: white,
-  barBg: black,
-  barTextColor: white,
-  barSelectedColor: green,
-  textMutedColor: white,
-  booleanBg: green,
+  colorPrimary: yellowAlt,
+  colorSecondary: yellowAlt,
+  appBg: darkestGray,
+  appContentBg: yellowAlt,
+  appBorderColor: darkestGray,
+  textColor: yellowAlt,
+  barBg: darkestGray,
+  barTextColor: turquoise,
+  barSelectedColor: yellowAlt,
+  textMutedColor: yellowAlt,
+  booleanBg: yellowAlt,
 
   // textarea
   inputBg: turquoiseDark,
-  inputTextColor: green,
-  inputBorder: green,
+  inputTextColor: yellowAlt,
+  inputBorder: yellowAlt,
 
   // wip
   textInverseColor: 'navy', // not sure this one is working
@@ -147,5 +149,5 @@ export const dark = create({
 
   gridCellSize: 50,
 
-  brandTitle: 'Cyberpunk'
+  brandTitle: ''
 })

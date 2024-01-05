@@ -16,7 +16,7 @@
 
 .gridElementYellow {
   composes: gridElement;
-  background-color: #f5ed00;
+  background-color: var(--cb-yellow-main);
 }
 
 .gridElementDarkRed {
@@ -30,5 +30,5 @@
 
 .gridElementDark {
   composes: gridElement;
-  background-color: #171017;
+  background-color: var(--cb-darkest-gray);
 }

@@ -12,24 +12,19 @@
 .sidebar-header a:first-child + div svg {
   opacity: 0;
 }
+body.dark .sidebar-header a:first-child + div a:focus {
+  border-color: var(--cb-turquoise);
+}
 
 /* gear icon */
 .sidebar-header button[title='Shortcuts']:focus-visible {
   border-radius: 1px;
   outline: none;
-}
-:is(body.yellow, body.darkRed)
-  .sidebar-header
-  button[title='Shortcuts']:focus-visible {
   border: 1px solid var(--cb-turquoise);
   color: var(--cb-turquoise);
 }
-body.darkRed .sidebar-header button[title='Shortcuts'] {
+:is(body.darkRed, body.dark) .sidebar-header button[title='Shortcuts'] {
   color: var(--cb-turquoise);
-}
-body.dark .sidebar-header button[title='Shortcuts']:focus-visible {
-  border: 1px solid green;
-  color: green;
 }
 
 /* search field */
@@ -99,11 +94,17 @@ body.yellow .search-field:after {
 body.darkRed .search-field:after {
   background-color: hsla(3, 100%, 67%, 0.4);
 }
+body.dark .search-field:after {
+  background-color: hsla(73, 100%, 68%, 0.4);
+}
 body.yellow .search-field:has(#storybook-explorer-searchfield:focus):after {
   background-color: var(--cb-turquoise);
 }
 body.darkRed .search-field:has(#storybook-explorer-searchfield:focus):after {
   background-color: var(--cb-red);
+}
+body.dark .search-field:has(#storybook-explorer-searchfield:focus):after {
+  background-color: var(--cb-yellow-alt);
 }
 .search-field::after {
   transition: background-color 0.2s;
@@ -126,6 +127,9 @@ body.yellow .search-field :is(svg, code) {
 body.darkRed #storybook-explorer-searchfield::placeholder,
 body.darkRed .search-field :is(svg, code) {
   color: hsla(3, 100%, 67%, 0.7);
+}
+body.dark .search-field :is(svg, code) {
+  color: hsla(184, 100%, 50%, 0.7);
 }
 .search-field code {
   font-size: calc(var(--cb-font-size) - 1px);
@@ -167,6 +171,9 @@ button[data-action='collapse-root'] > span:first-of-type {
   margin-top: 4px;
   margin-right: 8px;
 }
+body.dark button[data-action='collapse-root']:focus-visible {
+  box-shadow: 0 0 0 1px var(--cb-turquoise);
+}
 
 /* expand all button */
 button.sidebar-subheading-action {
@@ -175,6 +182,9 @@ button.sidebar-subheading-action {
 button.sidebar-subheading-action svg {
   width: 12px;
   height: 12px;
+}
+body.dark button.sidebar-subheading-action:focus-visible {
+  border-color: var(--cb-turquoise);
 }
 
 /* components tree */
@@ -186,6 +196,9 @@ button.sidebar-item,
 .sidebar-item[data-selected='true'] * {
   font-family: var(--cb-font-family-bold);
 }
+body.dark .sidebar-item[data-selected='true'] {
+  background-color: hsla(73, 100%, 68%, 0.12);
+}
 /* item icon */
 .sidebar-item:not([data-selected='true']) svg {
   margin-top: 4px;
@@ -196,9 +209,25 @@ body.yellow a[id$='--docs'] svg {
 body.darkRed a[id$='--docs'] svg {
   color: var(--cb-green);
 }
+body.dark a[id$='--docs'] svg {
+  color: var(--cb-yellow-alt);
+}
+body.dark button[data-nodetype='group'] svg,
+body.dark button[data-nodetype='component'] svg {
+  color: var(--cb-turquoise);
+}
 :is(body.yellow, body.darkRed) .sidebar-item[data-selected='true'],
 :is(body.yellow, body.darkRed) .sidebar-item[data-selected='true'] svg {
   color: var(--cb-black);
+}
+body.dark .sidebar-item[data-selected='true'] {
+  color: var(--cb-yellow-alt);
+}
+body.dark .sidebar-item[data-selected='true'] svg {
+  color: var(--cb-turquoise);
+}
+body.dark .sidebar-item[data-selected='true'] a[id$='--docs'] svg {
+  color: var(--cb-yellow-alt);
 }
 .sidebar-item[data-selected='true'] a:first-child svg {
   margin-left: -2px;
@@ -238,6 +267,10 @@ body.darkRed .sidebar-item[data-selected='true'] a + a {
   background-color: var(--cb-red);
   color: var(--cb-white);
 }
+body.dark .sidebar-item[data-selected='true'] a + a {
+  background-color: var(--cb-yellow-alt);
+  color: var(--cb-black);
+}
 
 /* recently opened */
 div.search-result-recentlyOpened {
@@ -269,6 +302,9 @@ body.darkRed li.search-result-item a svg {
 }
 #storybook-explorer-menu li div strong {
   font-family: var(--cb-font-family-bold);
+}
+body.dark #storybook-explorer-menu li div small {
+  color: var(--cb-white);
 }
 
 /* skip to canvas in top of sidebar */
@@ -321,4 +357,21 @@ body.darkRed
   a[href='#storybook-preview-wrapper'] {
   color: var(--cb-white);
   background-color: var(--cb-red);
+}
+body.darkRed
+  nav.sidebar-container
+  .sidebar-header
+  a[href='#storybook-preview-wrapper'] {
+  color: var(--cb-black);
+}
+
+/* border right */
+body.dark .sidebar-container::after {
+  content: '';
+  position: absolute;
+  background-color: var(--cb-yellow-alt);
+  width: 2px;
+  right: 0;
+  top: 73px;
+  bottom: 0;
 }

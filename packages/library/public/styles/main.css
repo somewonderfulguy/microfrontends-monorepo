@@ -4,6 +4,7 @@
 :root {
   /* colors */
   --cb-yellow-main: hsl(58, 100%, 48%);
+  --cb-yellow-alt: hsl(73, 100%, 68%);
   --cb-black: hsl(0, 0%, 0%);
   --cb-turquoise: hsl(184, 100%, 50%);
   --cb-turquoise-transparent: hsla(184, 100%, 50%, 0.12);

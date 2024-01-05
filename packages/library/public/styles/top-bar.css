@@ -17,6 +17,41 @@
   top: var(--top-bar-height);
 }
 
+/* sidebar border */
+body.dark
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 124px;
+  height: 1px;
+  background-color: var(--cb-yellow-alt);
+}
+body.dark:has(div:last-child a[title='Open canvas in new tab'])
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child::after {
+  right: 189px;
+}
+body.dark:has(div:last-child button[title='Show addons'])
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child::after {
+  right: 222px;
+}
+
 /* font */
 #root
   div[role='main']
@@ -258,20 +293,71 @@ body.topRightDarkRed
   background-color: var(--cb-black);
   color: var(--cb-white);
 }
+:is(body.dark.topRightDarkRed, body.dark.topRightDark)
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child,
+body.dark
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child:has(a[title='Open canvas in new tab']) {
+  background-color: var(--cb-yellow-alt);
+  color: var(--cb-black);
+}
+body.dark.topRightYellow
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child,
+body.dark.topRightYellow
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child:has(a[title='Open canvas in new tab']) {
+  background-color: var(--cb-yellow-main);
+  color: var(--cb-black);
+}
 
 /* left side angled border */
 #root div[role='main'] > div > div > div:first-child > div:first-child {
   position: relative;
 }
-#root div[role='main']:after {
+#root div[role='main']:before,
+body.dark #root div[role='main']:after {
   content: '';
   position: absolute;
-  top: 40px;
+  top: 42px;
   height: 32px;
   background-color: black;
   width: 98px;
   clip-path: polygon(24px 100%, 40px 18px, 77px 18px, 100% 0, 0 0, 0 100%);
   z-index: 9;
+}
+body.dark #root div[role='main']:before {
+  transform: translate(-1px, -1px);
+  background-color: var(--cb-darkest-gray);
+  z-index: 10;
+}
+body.dark #root div[role='main']:after {
+  background-color: var(--cb-yellow-alt);
 }
 
 /* Skip to sidebar */

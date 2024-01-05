@@ -249,6 +249,9 @@ body.yellow
 div:has(> #storybook-panel-root) {
   border: none;
 }
+body.dark #storybook-panel-root {
+  border-top: 1px solid var(--cb-yellow-alt);
+}
 
 /* controls tab */
 #storybook-panel-root #panel-tab-content .docblock-argstable {
