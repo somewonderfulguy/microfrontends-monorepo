@@ -35,7 +35,7 @@ How Storybook UI and multiple theme variations look like:
 
 You can change the theme of the Storybook itself using "Theme Storybook" dropdown in top panel - it will change the theme of the outer shell, not internal components (compare with screenshot above):
 
-![image](https://github.com/somewonderfulguy/cyberpunk/assets/23312484/3e02345a-6117-474f-bd01-75824cd0b839)
+![image](https://github.com/somewonderfulguy/cyberpunk/assets/23312484/fa233c70-7950-4f7d-a34b-6ddb02ecfa62)
 
 
 ## Launch application
