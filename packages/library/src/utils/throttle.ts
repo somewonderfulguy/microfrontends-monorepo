@@ -8,6 +8,7 @@ const throttle = <T extends AnyFunctionType>(
   let isThrottled = false
   let savedArgs: Parameters<T> | null = null
   let result: ReturnType<typeof func>
+  let timer: ReturnType<typeof setTimeout> | null = null
 
   const wrapper = (...args: Parameters<T>): ReturnType<T> => {
     if (isThrottled) {
@@ -15,7 +16,8 @@ const throttle = <T extends AnyFunctionType>(
       return result
     }
 
-    setTimeout(() => {
+    timer && clearTimeout(timer)
+    timer = setTimeout(() => {
       isThrottled = false
       if (savedArgs) {
         wrapper(...savedArgs)
