@@ -33,6 +33,11 @@ How Storybook UI and multiple theme variations look like:
 
 ![image](https://github.com/somewonderfulguy/microfrontends-monorepo/assets/23312484/604af243-509d-43c0-8611-4fb3bfd3d8dd)
 
+You can change the theme of the Storybook itself using "Theme Storybook" dropdown in top panel - it will change the theme of the outer shell, not internal components (compare with screenshot above):
+
+![image](https://github.com/somewonderfulguy/cyberpunk/assets/23312484/3e02345a-6117-474f-bd01-75824cd0b839)
+
+
 ## Launch application
 
 Before first start, perform following commands:
