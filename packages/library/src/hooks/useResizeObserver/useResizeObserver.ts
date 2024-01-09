@@ -8,11 +8,11 @@ import {
 
 import throttle from '../../utils/throttle'
 
-const useResizeObserver = <T extends Element>(
+const useResizeObserver = <T extends HTMLElement>(
   delay = 0,
   initialBounds = { left: 0, top: 0, width: 0, height: 0 }
 ) => {
-  const elemRef = useRef<Element>(null)
+  const elemRef = useRef<HTMLElement>(null)
   const [bounds, setBounds] = useState(initialBounds)
 
   const observer = throttle(
