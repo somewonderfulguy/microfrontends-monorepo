@@ -18,24 +18,24 @@ test('throttle works', async () => {
   jest.spyOn(spyObject, 'fnToThrottleOne')
   jest.spyOn(spyObject, 'fnToThrottleTwo')
 
-  // single call, without delay parameter and generic
+  // single call, without delay parameter
   const throttledFnOne = throttle(spyObject.fnToThrottleOne)
   expect(throttledFnOne()).toBe(1)
   expect(spyObject.fnToThrottleOne).toHaveBeenCalledTimes(1)
 
-  // multiple calls with delay executes function only once
-  const throttledFnTwo = throttle(spyObject.fnToThrottleTwo, 200)
+  // multiple calls with delay executes function on start and only once at the end
+  const throttledFnTwo = throttle(spyObject.fnToThrottleTwo, 50)
   throttledFnTwo()
   throttledFnTwo()
   throttledFnTwo()
   throttledFnTwo()
   expect(throttledFnTwo()).toBe(1)
   expect(spyObject.fnToThrottleTwo).toHaveBeenCalledTimes(1)
-  await new Promise((r) => setTimeout(r, 200))
+  await new Promise((r) => setTimeout(r, 50))
   expect(throttledFnTwo()).toBe(2)
   expect(spyObject.fnToThrottleTwo).toHaveBeenCalledTimes(2)
 
-  // `this` context test
+  // `this` context test using .bind
   class Counter {
     count = 0
 
@@ -51,4 +51,6 @@ test('throttle works', async () => {
   expect(counter.count).toBe(0)
   await new Promise((r) => setTimeout(r))
   expect(counter.count).toBe(1)
+
+  // TODO: test for calling with parameters (make sure that parameters are working correctly)
 })
