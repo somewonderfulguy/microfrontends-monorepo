@@ -7,10 +7,11 @@
   box-shadow: none;
 }
 
-/* sidebar height */
+/* topbar height */
 #root div[role='main'] > div > div > div:first-child > div:first-child,
 #root div[role='main'] > div > div > div:first-child > div:first-child > div {
   height: var(--top-bar-height);
+  box-shadow: none;
 }
 #root div[role='main'] > div > div > div:first-child > div:first-child + div {
   height: calc(100% - var(--top-bar-height));
@@ -90,15 +91,14 @@ body.dark:has(div:last-child button[title='Show addons'])
   width: 16px;
   height: 16px;
 }
-body.yellow
-  #root
+#root
   div[role='main']
   > div
   > div
   > div:first-child
   > div:first-child
   > div
-  button:hover {
+  :is(button:hover, a:hover) {
   color: var(--cb-turquoise);
 }
 #root
@@ -122,8 +122,7 @@ body.yellow
   :is(button:focus-visible, a:focus-visible) {
   outline: none;
 }
-body.yellow
-  #root
+#root
   div[role='main']
   > div
   > div
@@ -358,6 +357,11 @@ body.dark #root div[role='main']:before {
 }
 body.dark #root div[role='main']:after {
   background-color: var(--cb-yellow-alt);
+}
+body.darkRed #root div[role='main']:before {
+  transform: translate(-1px, -1px);
+  background-color: var(--cb-mindight-navy);
+  z-index: 10;
 }
 
 /* Skip to sidebar */
