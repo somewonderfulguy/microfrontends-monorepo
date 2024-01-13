@@ -292,6 +292,26 @@ body.topRightDarkRed
   background-color: var(--cb-black);
   color: var(--cb-white);
 }
+body.darkRed.topRightDarkRed
+  #root
+  div[role='main']
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child:has(a[title='Open canvas in new tab']),
+body.darkRed.topRightDarkRed
+  #root
+  div[role='main']:has(#preview-loader)
+  > div
+  > div
+  > div:first-child
+  > div:first-child
+  > div
+  > div:last-child {
+  background-color: var(--cb-mindight-navy);
+}
 :is(body.dark.topRightDarkRed, body.dark.topRightDark)
   #root
   div[role='main']
