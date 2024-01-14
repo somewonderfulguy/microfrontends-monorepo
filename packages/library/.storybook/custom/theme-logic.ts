@@ -123,3 +123,38 @@ addons.getChannel().on('changeTheme', (themes: Theme[]) => {
     'horizontal') as Orientation
   performTopRightClassChange(themes, orientation)
 })
+
+// yellow bottom border on top panel (dark theme)
+document.addEventListener('DOMContentLoaded', () => {
+  const baseSelector = `#root div[role='main'] > div > div > div:first-child > div:first-child`
+  const topRightElement = document.querySelector(
+    `${baseSelector} > div > div:last-child`
+  )
+  const header = document.querySelector(baseSelector)
+
+  if (!topRightElement) {
+    console.warn(`couldn't find top right corner element`)
+    return
+  }
+
+  if (!header) {
+    console.warn(`couldn't find header`)
+    return
+  }
+
+  const observer = ([entry]: ResizeObserverEntry[]) => {
+    const bounds = (
+      Array.isArray(entry) ? entry[0].contentRect : entry.contentRect
+    ) as ResizeObserverEntry['contentRect']
+
+    const width = bounds.right - 1
+    ;(header as HTMLDivElement).style.setProperty(
+      '--corner--width',
+      `${width}px`
+    )
+  }
+
+  const resizeObserver = new ResizeObserver(observer)
+
+  resizeObserver.observe(topRightElement)
+})
