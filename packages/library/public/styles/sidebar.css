@@ -17,10 +17,15 @@ body.dark .sidebar-header a:first-child + div a:focus {
 }
 
 /* gear icon */
+.sidebar-header button[title='Shortcuts'] {
+  border-radius: 0;
+}
 .sidebar-header button[title='Shortcuts']:focus-visible {
-  border-radius: 1px;
   outline: none;
   border: 1px solid var(--cb-turquoise);
+  color: var(--cb-turquoise);
+}
+.sidebar-header button[title='Shortcuts']:hover {
   color: var(--cb-turquoise);
 }
 :is(body.darkRed, body.dark) .sidebar-header button[title='Shortcuts'] {
@@ -200,9 +205,6 @@ body.dark .sidebar-item[data-selected='true'] {
   background-color: hsla(73, 100%, 68%, 0.12);
 }
 /* item icon */
-.sidebar-item:not([data-selected='true']) svg {
-  margin-top: 4px;
-}
 body.yellow a[id$='--docs'] svg {
   color: var(--cb-yellow-main);
 }
@@ -238,7 +240,6 @@ body.dark .sidebar-item[data-selected='true'] a[id$='--docs'] svg {
 }
 /* expand button */
 .sidebar-item span {
-  margin-top: 6px;
   border-top-width: 4px;
   border-bottom-width: 4px;
   border-left-width: 4px;
@@ -291,6 +292,12 @@ body.yellow li.search-result-item a svg {
 }
 body.darkRed li.search-result-item a svg {
   color: var(--cb-green);
+}
+body.dark li.search-result-item a svg {
+  color: var(--cb-yellow-alt);
+}
+body.dark li.search-result-item button svg {
+  color: var(--cb-turquoise);
 }
 .search-result-item svg {
   margin-top: 4px;

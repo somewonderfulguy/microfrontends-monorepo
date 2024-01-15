@@ -121,10 +121,17 @@ body.dark div[data-testid='tooltip'] {
     0 100%,
     0 var(--crop)
   );
+
+  color: var(--cb-black);
 }
 body.yellow #list-item-whats-new span div {
   background-color: var(--cb-yellow-main);
-  color: var(--cb-black);
+}
+body.dark #list-item-whats-new span div {
+  background-color: var(--cb-yellow-alt);
+}
+body.darkRed #list-item-whats-new span div {
+  background-color: var(--cb-red);
 }
 div[data-testid='tooltip'] a {
   font-size: var(--cb-font-size-small);
