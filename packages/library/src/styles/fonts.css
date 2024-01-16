@@ -18,3 +18,11 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Refinery 25';
+  src: local('Refinery 25'), local('Refinery-25'),
+    url('./assets/refinery-25-bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
