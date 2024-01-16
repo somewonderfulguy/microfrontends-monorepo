@@ -1,1 +1,1 @@
-import './custom'
+import './custom/manager-theme-logic'

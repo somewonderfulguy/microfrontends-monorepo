@@ -3,3 +3,20 @@ body,
 #storybook-root {
   height: 100%;
 }
+
+[data-theme='yellow'] .sbdocs-wrapper {
+  background-color: var(--cb-yellow-main);
+}
+
+[data-theme='darkRed'] .sbdocs-wrapper {
+  background-color: transparent;
+  background: linear-gradient(
+    355deg,
+    rgba(5, 9, 14, 1) 0%,
+    rgba(71, 21, 25, 1) 100%
+  );
+}
+
+[data-theme='dark'] .sbdocs-wrapper {
+  background-color: var(--cb-darkest-gray);
+}

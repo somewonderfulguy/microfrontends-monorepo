@@ -148,3 +148,10 @@ body.yellow
 div[data-testid='tooltip'] a span span span span + span {
   font-size: calc(var(--cb-font-size-small) - 1px);
 }
+
+/* what's new notification */
+#root > div > div > a[href*='whats-new'] {
+  border-radius: 0;
+  border: 1px solid var(--cb-turquoise);
+  border-left-width: 5px;
+}

@@ -65,6 +65,8 @@ addons.setConfig({
 })
 window.document.body.classList.add(initialThemeStorybook)
 window.document.body.classList.add(initTopRightClass || 'topRightYellow')
+// make sure storybook theme in local storage (needed for preview (`preview-theme-logic.ts`)))
+localStorage.setItem(themeStorybookKey, initialThemeStorybook)
 
 // on storybook theme change
 addons.getChannel().on('changeThemeStorybook', (theme: Theme) => {
