@@ -125,7 +125,10 @@ addons.getChannel().on('changeTheme', (themes: Theme[]) => {
 })
 
 // yellow bottom border on top panel (dark theme)
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  // wait for storybook to initialize (needed in Chrome, FF works without it)
+  await new Promise((resolve) => setTimeout(resolve))
+
   const baseSelector = `#root div[role='main'] > div > div > div:first-child > div:first-child`
   const topRightElement = document.querySelector(
     `${baseSelector} > div > div:last-child`
