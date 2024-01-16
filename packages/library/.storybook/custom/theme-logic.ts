@@ -24,19 +24,24 @@ const removeTopRightClasses = () =>
   window.document.body.classList.remove(...Object.values(topRightClasses))
 
 // initial orientation and theme from url
-const params = new URLSearchParams(document.location.search)
-const urlGlobals = params.get('globals')
-const wantedKeys = ['multiselect.theme[', 'multiselect.orientation:']
-const urlOrientationTheme =
-  urlGlobals
-    ?.split(';')
-    .filter((_) => wantedKeys.some((key) => _.startsWith(key))) ?? []
-const urlOrientation = urlOrientationTheme
-  .find((_) => _.startsWith('multiselect.orientation:'))
-  ?.replace('multiselect.orientation:', '') as Orientation | undefined
-const urlTheme = urlOrientationTheme
-  .filter((_) => !_.startsWith(wantedKeys[1]))
-  .map((_) => _.replace(wantedKeys[0], '').replace(/^\d+\]:/, '')) as Theme[]
+const wantedKeys = ['multiselect.theme[', 'multiselect.orientation:'] as const
+const getThemeOrientationFromUrl = () => {
+  const params = new URLSearchParams(document.location.search)
+  const urlGlobals = params.get('globals')
+  const urlOrientationTheme =
+    urlGlobals
+      ?.split(';')
+      .filter((_) => wantedKeys.some((key) => _.startsWith(key))) ?? []
+  const urlOrientation = urlOrientationTheme
+    .find((_) => _.startsWith('multiselect.orientation:'))
+    ?.replace('multiselect.orientation:', '') as Orientation | undefined
+  const urlTheme = urlOrientationTheme
+    .filter((_) => !_.startsWith(wantedKeys[1]))
+    .map((_) => _.replace(wantedKeys[0], '').replace(/^\d+\]:/, '')) as Theme[]
+
+  return { urlOrientation, urlTheme }
+}
+const { urlOrientation, urlTheme } = getThemeOrientationFromUrl()
 
 const localStorageTheme = localStorage.getItem(themeKey)
 const initialTheme = localStorageTheme
@@ -53,12 +58,12 @@ const initTopRightClass =
     : topRightClasses[initialTheme[0]]
 
 // initialization
-addons.setConfig({
-  theme: themes[localStorage.getItem(themeStorybookKey) || 'yellow']
-})
-window.document.body.classList.add(
+const initialThemeStorybook =
   localStorage.getItem(themeStorybookKey) || 'yellow'
-)
+addons.setConfig({
+  theme: themes[initialThemeStorybook]
+})
+window.document.body.classList.add(initialThemeStorybook)
 window.document.body.classList.add(initTopRightClass || 'topRightYellow')
 
 // on storybook theme change
@@ -93,8 +98,8 @@ addons.getChannel().on('changeOrientation', (orientation: Orientation) => {
   const urlThemes = new URLSearchParams(document.location.search)
     .get('globals')
     ?.split(';')
-    .filter((_) => _.startsWith('multiselect.theme['))
-    .map((_) => _.replace('multiselect.theme[', '').replace(/^\d+\]:/, '')) as
+    .filter((_) => _.startsWith(wantedKeys[0]))
+    .map((_) => _.replace(wantedKeys[0], '').replace(/^\d+\]:/, '')) as
     | Theme[]
     | undefined
 
@@ -111,8 +116,8 @@ addons.getChannel().on('changeTheme', (themes: Theme[]) => {
   const urlOrientation = new URLSearchParams(document.location.search)
     .get('globals')
     ?.split(';')
-    .find((_) => _.startsWith('multiselect.orientation:'))
-    ?.replace('multiselect.orientation:', '') as Orientation | undefined
+    .find((_) => _.startsWith(wantedKeys[1]))
+    ?.replace(wantedKeys[1], '') as Orientation | undefined
 
   if (!localStorageOrientation && !urlOrientation) {
     console.warn('no orientation in url or local storage')
