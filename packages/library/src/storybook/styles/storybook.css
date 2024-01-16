@@ -67,23 +67,58 @@ body,
   border-radius: 0;
   box-shadow: none;
   background-color: transparent;
-  border-width: 1px;
-  border-style: solid;
-  border-left-width: 2px;
-}
+  border-width: 0;
+  position: relative;
 
-[data-theme='yellow'] .sbdocs-wrapper .sbdocs-preview {
-  border-color: var(--cb-turquoise);
+  clip-path: polygon(
+    -1px 15px,
+    0px 15px,
+    15px 0px,
+    15px 0px,
+    15px 0px,
+    15px 0px,
+    15px -1px,
+    calc(100% + 1px) -1px,
+    calc(100% + 1px) calc(100% + 1px),
+    -1px calc(100% + 1px)
+  );
+}
+.sbdocs-wrapper .sbdocs-preview::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  clip-path: polygon(
+    2px 17px,
+    2px 16px,
+    16px 2px,
+    17px 2px,
+    17px 2px,
+    17px 2px,
+    17px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 17px,
+    -1px 17px,
+    -1px calc(100% + 1px),
+    calc(100% + 1px) calc(100% + 1px),
+    calc(100% + 1px) -1px,
+    -1px -1px,
+    -1px 17px,
+    2px 17px
+  );
+}
+[data-theme='yellow'] .sbdocs-wrapper .sbdocs-preview::after {
   background-color: var(--cb-turquoise);
 }
-
-[data-theme='darkRed'] .sbdocs-wrapper .sbdocs-preview {
-  border-color: var(--cb-red);
+[data-theme='darkRed'] .sbdocs-wrapper .sbdocs-preview::after {
   background-color: var(--cb-red);
 }
-
-[data-theme='dark'] .sbdocs-wrapper .sbdocs-preview {
-  border-color: var(--cb-yellow-alt);
+[data-theme='dark'] .sbdocs-wrapper .sbdocs-preview::after {
   background-color: var(--cb-yellow-alt);
 }
 
