@@ -15,6 +15,7 @@ body,
     rgba(5, 9, 14, 1) 0%,
     rgba(71, 21, 25, 1) 100%
   );
+  background-attachment: fixed;
 }
 
 [data-theme='dark'] .sbdocs-wrapper {
@@ -122,10 +123,144 @@ body,
   background-color: var(--cb-yellow-alt);
 }
 
+.sbdocs-wrapper .sbdocs-preview > div:has(button[title='Zoom in']) {
+  box-shadow: none;
+}
+.sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in'])
+  button:first-child {
+  margin-left: 10px;
+}
+[data-theme='yellow']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in']) {
+  background-color: var(--cb-turquoise);
+  color: var(--cb-black);
+}
+[data-theme='darkRed']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in']) {
+  background-color: hsl(355, 51%, 18%);
+  color: var(--cb-red);
+}
+[data-theme='darkRed']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in'])
+  > div {
+  position: relative;
+}
+[data-theme='darkRed']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in'])
+  > div::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--cb-red);
+}
+[data-theme='darkRed']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in'])
+  :is(button:hover, button:focus-visible) {
+  background-color: transparent;
+  color: var(--cb-turquoise);
+  filter: drop-shadow(0px 0px 3px var(--cb-turquoise))
+    drop-shadow(0px 0px 12px var(--cb-turquoise))
+    drop-shadow(0px 0px 16px var(--cb-turquoise));
+  outline: none;
+}
+
 .sb-anchor > h3 {
   font-family: 'Blender Pro Bold', sans-serif;
   font-size: 26px;
   font-style: normal;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+/* show code button */
+.docs-story > div:last-child:has(> button) {
+  bottom: 0;
+  right: 2px;
+  background: transparent;
+}
+.docs-story > div:last-child > button {
+  border: none;
+  border-radius: 0;
+  font-family: 'Blender Pro Bold', sans-serif;
+  font-size: 14px;
+}
+[data-theme='darkRed'] .docs-story > div:last-child > button {
+  --aug-tl1-width: 7px;
+  --aug-tl1-height: 7px;
+  --aug-border-all: 2px;
+  --aug-border-bg: var(--cb-red);
+  --aug-border-right: 0px;
+
+  background-color: var(--cb-turquoise);
+  color: var(--cb-black);
+
+  padding-right: 14px;
+  padding-left: 14px;
+
+  position: relative;
+  clip-path: polygon(
+    -1px 7px,
+    0px 7px,
+    7px 0px,
+    7px 0px,
+    7px 0px,
+    7px 0px,
+    7px -1px,
+    calc(100% + 1px) -1px,
+    calc(100% + 1px) calc(100% + 1px),
+    -1px calc(100% + 1px)
+  );
+}
+[data-theme='darkRed'] .docs-story > div:last-child > button::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 7px;
+  height: 2px;
+  background: var(--cb-red);
+}
+[data-theme='darkRed'] .docs-story > div:last-child > button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  background-color: var(--cb-red);
+  clip-path: polygon(
+    2px 9px,
+    2px 8px,
+    8px 2px,
+    9px 2px,
+    9px 2px,
+    9px 2px,
+    9px 2px,
+    100% 2px,
+    100% calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 9px,
+    -1px 9px,
+    -1px calc(100% + 1px),
+    calc(100% + 1px) calc(100% + 1px),
+    calc(100% + 1px) -1px,
+    -1px -1px,
+    -1px 9px,
+    2px 9px
+  );
 }
