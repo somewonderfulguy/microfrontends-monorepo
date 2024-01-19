@@ -198,10 +198,11 @@ body,
   border-radius: 0;
   font-family: 'Blender Pro Bold', sans-serif;
   font-size: 14px;
-}
-.docs-story > div:last-child > button {
+
   padding-right: 14px;
   padding-left: 14px;
+
+  transition: box-shadow 0.2s ease-in-out;
 
   position: relative;
   clip-path: polygon(
@@ -225,11 +226,18 @@ body,
   background-color: var(--cb-turquoise-dark);
   color: var(--cb-turquoise);
 }
+[data-theme='dark'] .docs-story > div:last-child > button {
+  background-color: var(--cb-darkest-gray);
+  color: var(--cb-yellow-alt);
+}
 :is([data-theme='yellow'], [data-theme='darkRed'])
   .docs-story
   > div:last-child
   > button:focus {
   box-shadow: var(--cb-turquoise) 0px 0px 14px -1px inset;
+}
+[data-theme='dark'] .docs-story > div:last-child > button:focus {
+  box-shadow: var(--cb-green) 0px 0px 14px -1px inset;
 }
 .docs-story > div:last-child > button::before {
   content: '';
@@ -244,6 +252,9 @@ body,
 }
 [data-theme='darkRed'] .docs-story > div:last-child > button::before {
   background-color: var(--cb-red);
+}
+[data-theme='dark'] .docs-story > div:last-child > button::before {
+  background-color: var(--cb-yellow-alt);
 }
 .docs-story > div:last-child > button::after {
   content: '';
@@ -278,4 +289,7 @@ body,
 }
 [data-theme='darkRed'] .docs-story > div:last-child > button::after {
   background-color: var(--cb-red);
+}
+[data-theme='dark'] .docs-story > div:last-child > button::after {
+  background-color: var(--cb-yellow-alt);
 }
