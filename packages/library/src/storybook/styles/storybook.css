@@ -139,6 +139,13 @@ body,
   background-color: var(--cb-turquoise);
   color: var(--cb-black);
 }
+[data-theme='dark']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in']) {
+  background-color: var(--cb-yellow-alt);
+  color: var(--cb-black);
+}
 [data-theme='darkRed']
   .sbdocs-wrapper
   .sbdocs-preview
