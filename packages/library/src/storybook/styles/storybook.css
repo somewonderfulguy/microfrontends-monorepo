@@ -206,8 +206,8 @@ body,
   --aug-border-bg: var(--cb-red);
   --aug-border-right: 0px;
 
-  background-color: var(--cb-turquoise);
-  color: var(--cb-black);
+  background-color: var(--cb-turquoise-dark);
+  color: var(--cb-turquoise);
 
   padding-right: 14px;
   padding-left: 14px;
@@ -225,6 +225,9 @@ body,
     calc(100% + 1px) calc(100% + 1px),
     -1px calc(100% + 1px)
   );
+}
+[data-theme='darkRed'] .docs-story > div:last-child > button:focus {
+  box-shadow: var(--cb-turquoise) 0px 0px 14px -1px inset;
 }
 [data-theme='darkRed'] .docs-story > div:last-child > button::before {
   content: '';
