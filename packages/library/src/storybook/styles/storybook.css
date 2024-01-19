@@ -199,16 +199,7 @@ body,
   font-family: 'Blender Pro Bold', sans-serif;
   font-size: 14px;
 }
-[data-theme='darkRed'] .docs-story > div:last-child > button {
-  --aug-tl1-width: 7px;
-  --aug-tl1-height: 7px;
-  --aug-border-all: 2px;
-  --aug-border-bg: var(--cb-red);
-  --aug-border-right: 0px;
-
-  background-color: var(--cb-turquoise-dark);
-  color: var(--cb-turquoise);
-
+.docs-story > div:last-child > button {
   padding-right: 14px;
   padding-left: 14px;
 
@@ -226,26 +217,41 @@ body,
     -1px calc(100% + 1px)
   );
 }
-[data-theme='darkRed'] .docs-story > div:last-child > button:focus {
+[data-theme='yellow'] .docs-story > div:last-child > button {
+  background-color: var(--cb-black-transparent);
+  color: var(--cb-turquoise);
+}
+[data-theme='darkRed'] .docs-story > div:last-child > button {
+  background-color: var(--cb-turquoise-dark);
+  color: var(--cb-turquoise);
+}
+:is([data-theme='yellow'], [data-theme='darkRed'])
+  .docs-story
+  > div:last-child
+  > button:focus {
   box-shadow: var(--cb-turquoise) 0px 0px 14px -1px inset;
 }
-[data-theme='darkRed'] .docs-story > div:last-child > button::before {
+.docs-story > div:last-child > button::before {
   content: '';
   position: absolute;
   right: 0;
   top: 50%;
   width: 7px;
   height: 2px;
-  background: var(--cb-red);
 }
-[data-theme='darkRed'] .docs-story > div:last-child > button::after {
+[data-theme='yellow'] .docs-story > div:last-child > button::before {
+  background-color: var(--cb-turquoise);
+}
+[data-theme='darkRed'] .docs-story > div:last-child > button::before {
+  background-color: var(--cb-red);
+}
+.docs-story > div:last-child > button::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
   top: 0;
   right: 0;
-  background-color: var(--cb-red);
   clip-path: polygon(
     2px 9px,
     2px 8px,
@@ -266,4 +272,10 @@ body,
     -1px 9px,
     2px 9px
   );
+}
+[data-theme='yellow'] .docs-story > div:last-child > button::after {
+  background-color: var(--cb-turquoise);
+}
+[data-theme='darkRed'] .docs-story > div:last-child > button::after {
+  background-color: var(--cb-red);
 }

@@ -11,6 +11,7 @@
   --cb-darkest-gray: hsl(300, 18%, 8%);
   --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.6);
   --cb-black: hsl(0, 0%, 0%);
+  --cb-black-transparent: hsla(0, 0%, 0%, 0.5);
 }
 
 .theme:global(.cyberpunk-ui-theme-yellow) {
