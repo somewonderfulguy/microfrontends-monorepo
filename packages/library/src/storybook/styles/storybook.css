@@ -173,6 +173,10 @@ body,
   height: 1px;
   background-color: var(--cb-red);
 }
+.sbdocs-wrapper .sbdocs-preview > div:has(button[title='Zoom in']) button {
+  border-radius: 0;
+  outline: none;
+}
 [data-theme='darkRed']
   .sbdocs-wrapper
   .sbdocs-preview
@@ -183,7 +187,29 @@ body,
   filter: drop-shadow(0px 0px 3px var(--cb-turquoise))
     drop-shadow(0px 0px 12px var(--cb-turquoise))
     drop-shadow(0px 0px 16px var(--cb-turquoise));
-  outline: none;
+}
+[data-theme='darkRed']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in'])
+  :is(button:hover, button:focus-visible) {
+  background-color: var(--cb-turquoise-transparent);
+  color: var(--cb-turquoise);
+}
+[data-theme='yellow']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in'])
+  :is(button:hover, button:focus-visible) {
+  background-color: var(--cb-red-transparent);
+  color: var(--cb-red);
+}
+[data-theme='yellow']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in'])
+  button:focus-visible {
+  outline: 1px solid var(--cb-red);
 }
 
 .sb-anchor > h3 {
