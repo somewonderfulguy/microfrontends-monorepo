@@ -326,3 +326,43 @@ body,
 [data-theme='dark'] .docs-story > div:last-child > button::after {
   background-color: var(--cb-yellow-alt);
 }
+
+/* args table */
+#storybook-docs .docblock-argstable .docblock-argstable-head th {
+  font-family: 'Blender Pro Bold', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+[data-theme='yellow']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-head
+  th {
+  color: var(--cb-black);
+}
+#storybook-docs .docblock-argstable .docblock-argstable-body {
+  filter: none;
+}
+#storybook-docs .docblock-argstable .docblock-argstable-body td {
+  border-radius: 0;
+  border-block: none;
+  border-inline: none;
+  font-family: 'Blender Pro Book', sans-serif;
+  font-size: 16px;
+}
+#storybook-docs .docblock-argstable .docblock-argstable-body tr:first-child td {
+  padding-top: 15px;
+}
+#storybook-docs .docblock-argstable .docblock-argstable-body tr:last-child td {
+  padding-bottom: 20px;
+}
+[data-theme='yellow']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-body
+  td {
+  color: var(--cb-white);
+  background-color: var(--cb-black);
+}
