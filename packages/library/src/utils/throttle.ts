@@ -1,14 +1,14 @@
 import { AnyFunctionType } from 'types/common'
 
-const throttle = <T extends AnyFunctionType>(
-  func: T,
+const throttle = <TFunc extends AnyFunctionType>(
+  func: TFunc,
   delay = 0
-): ((...args: Parameters<T>) => ReturnType<T>) => {
+): ((...args: Parameters<TFunc>) => ReturnType<TFunc>) => {
   let isThrottled = false
-  let savedArgs: Parameters<T> | null = null
-  let result: ReturnType<T>
+  let savedArgs: Parameters<TFunc> | null = null
+  let result: ReturnType<TFunc>
 
-  const wrapper = (...args: Parameters<T>): ReturnType<T> => {
+  const wrapper = (...args: Parameters<TFunc>): ReturnType<TFunc> => {
     if (isThrottled) {
       savedArgs = args
       return result
