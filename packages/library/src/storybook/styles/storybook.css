@@ -1,3 +1,5 @@
+/* TODO: split to multiple files */
+
 html,
 body,
 #storybook-root {
@@ -193,8 +195,15 @@ body,
   .sbdocs-preview
   > div:has(button[title='Zoom in'])
   :is(button:hover, button:focus-visible) {
-  background-color: var(--cb-turquoise-transparent);
   color: var(--cb-turquoise);
+}
+[data-theme='dark']
+  .sbdocs-wrapper
+  .sbdocs-preview
+  > div:has(button[title='Zoom in'])
+  :is(button:hover, button:focus-visible) {
+  color: var(--cb-turquoise);
+  background-color: var(--cb-turquoise-transparent);
 }
 [data-theme='yellow']
   .sbdocs-wrapper
@@ -419,6 +428,15 @@ body,
   button {
   color: var(--cb-black);
 }
+[data-theme='dark']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-head
+  th:last-child
+  button:is(:hover, :focus-visible) {
+  color: var(--cb-turquoise);
+  background-color: var(--cb-turquoise-transparent);
+}
 :is([data-theme='yellow'], [data-theme='darkRed'])
   #storybook-docs
   .docblock-argstable
@@ -437,7 +455,6 @@ body,
   .docblock-argstable-head
   th:last-child
   button:is(:hover, :focus-visible) {
-  background: var(--cb-turquoise-transparent);
   color: var(--cb-turquoise);
   outline: none;
 }
@@ -460,6 +477,7 @@ body,
   th {
   color: var(--cb-turquoise);
   background-color: var(--cb-mindight-navy);
+  border-bottom: 1px solid var(--cb-red-dark);
 }
 [data-theme='dark']
   #storybook-docs
@@ -475,12 +493,28 @@ body,
   :is(th:not(:last-child), td:not(:last-child)) {
   border-right: 1px solid var(--cb-turquoise-transparent);
 }
+[data-theme='dark']
+  #storybook-docs
+  .docblock-argstable
+  :is(th:not(:last-child), td:not(:last-child)) {
+  border-right: 1px solid var(--cb-yellow-more-transparent);
+}
 [data-theme='yellow']
   #storybook-docs
   .docblock-argstable
   tr:not(:last-child)
   td {
   border-bottom: 1px solid var(--cb-turquoise-transparent);
+}
+[data-theme='dark'] #storybook-docs .docblock-argstable tr:not(:last-child) td {
+  border-bottom: 1px solid var(--cb-yellow-more-transparent);
+}
+[data-theme='darkRed']
+  #storybook-docs
+  .docblock-argstable
+  tr:not(:last-child)
+  td {
+  border-bottom: 1px solid var(--cb-red-transparent);
 }
 #storybook-docs .docblock-argstable .docblock-argstable-body {
   filter: none;
@@ -675,4 +709,96 @@ body,
   td
   > button[id^='set-']:is(:hover, :focus-visible)::after {
   background-color: var(--cb-turquoise);
+}
+
+/* code in args table */
+[data-theme='yellow'] .rejt-name {
+  color: var(--cb-turquoise) !important;
+}
+[data-theme='yellow'] #storybook-docs .docblock-argstable .rejt-value {
+  color: var(--cb-white);
+}
+#storybook-docs .rejt-not-collapsed::before {
+  border-radius: 0;
+}
+#storybook-docs .rejt-value-node > .rejt-value {
+  border: none;
+  border-radius: 0;
+}
+[data-theme='yellow'] #storybook-docs .rejt-value-node:hover > .rejt-value {
+  background-color: var(--cb-blue-transparent);
+}
+#storybook-docs :is(.rejt-plus-menu, .rejt-minus-menu) {
+  transform: translateY(-1px);
+}
+#storybook-docs .rejt-add-value-node {
+  margin-top: 5px;
+}
+#storybook-docs .rejt-add-value-node :is(input, button),
+#storybook-docs .rejt-edit-form input {
+  border-radius: 0;
+  font-family: 'Blender Pro Book', sans-serif;
+  font-size: 16px;
+}
+#storybook-docs .rejt-add-value-node button {
+  height: 28px;
+  --padding: 8px;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
+}
+#storybook-docs .rejt-add-value-node button {
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+[data-theme='yellow']
+  #storybook-docs
+  .rejt-add-value-node
+  button[type='submit'] {
+  color: var(--cb-black);
+  background-color: var(--cb-turquoise);
+}
+[data-theme='yellow']
+  #storybook-docs
+  .rejt-add-value-node
+  button[type='submit']:focus-visible {
+  outline: none;
+  text-decoration: underline;
+  border-color: var(--cb-red);
+}
+[data-theme='yellow']
+  #storybook-docs
+  .rejt-add-value-node
+  button[type='button']:is(:hover, :focus-visible) {
+  border-color: var(--cb-turquoise);
+  color: var(--cb-turquoise);
+  outline: none;
+}
+[data-theme='yellow'] #storybook-docs .rejt-add-value-node input,
+[data-theme='yellow'] #storybook-docs .rejt-edit-form input {
+  color: var(--cb-white);
+  background-color: var(--cb-black);
+  border: 1px solid var(--cb-light-gray-transparent);
+}
+[data-theme='yellow'] #storybook-docs .rejt-add-value-node input:focus,
+[data-theme='yellow'] #storybook-docs .rejt-edit-form input:focus {
+  border-color: var(--cb-turquoise);
+}
+[data-theme='yellow'] #storybook-docs .rejt-minus-menu:hover {
+  color: var(--cb-red);
+}
+#storybook-docs textarea {
+  min-height: 70px;
+  border-radius: 0;
+  font-family: 'Audiowide Mono', monospace;
+  font-size: 12px;
+}
+#storybook-docs textarea::placeholder {
+  color: var(--cb-turquoise-opaque);
+}
+[data-theme='yellow'] #storybook-docs textarea {
+  background-color: var(--cb-turquoise-dark-alt);
+  color: var(--cb-turquoise);
+}
+[data-theme='yellow'] #storybook-docs textarea:focus {
+  box-shadow: var(--cb-turquoise) 0 0 0 1px inset;
 }
