@@ -32,6 +32,8 @@ const red = 'hsl(3, 100%, 67%)'
 const midnightNavy = 'hsl(240, 50%, 6%)'
 const darkestGray = 'hsl(300, 18%, 8%)'
 
+// TODO: reduce duplication
+
 export const yellow = create({
   base: 'dark',
 

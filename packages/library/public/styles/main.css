@@ -1,5 +1,4 @@
 /* TODO: http://localhost:3333/?path=/settings/whats-new */
-/* TODO: add font Title Refinery-25, sans-serif */
 
 :root {
   /* colors */
@@ -23,6 +22,7 @@
   --cb-font-size-large: 18px;
 }
 
+/* TODO: use fonts from src? */
 @font-face {
   font-family: 'Blender Pro Book';
   src: local('Blender Pro Book'), local('Blender-Pro-Book'),
