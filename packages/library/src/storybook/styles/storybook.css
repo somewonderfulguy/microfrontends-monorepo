@@ -802,3 +802,44 @@ body,
 [data-theme='yellow'] #storybook-docs textarea:focus {
   box-shadow: var(--cb-turquoise) 0 0 0 1px inset;
 }
+/* raw button */
+#storybook-docs
+  td
+  > div:first-child
+  > a:first-child:has(svg:first-child + span:last-child) {
+  font-size: 14px;
+  padding: 0 4px;
+  border-radius: 0;
+  margin-right: 3px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+#storybook-docs
+  td
+  > div:first-child
+  > a:first-child:has(svg:first-child + span:last-child)
+  span {
+  margin-left: 6px;
+}
+[data-theme='yellow']
+  #storybook-docs
+  td
+  > div:first-child
+  > a:first-child:has(svg:first-child + span:last-child) {
+  color: var(--cb-white);
+  background-color: var(--cb-black);
+  border-color: var(--cb-light-gray-transparent);
+}
+[data-theme='yellow']
+  #storybook-docs
+  td
+  > div:first-child
+  > a:first-child:has(svg:first-child + span:last-child):is(
+    :hover,
+    :focus-visible
+  ) {
+  background-color: var(--cb-turquoise-transparent);
+  color: var(--cb-turquoise);
+  border-color: var(--cb-turquoise);
+  outline: none;
+}
