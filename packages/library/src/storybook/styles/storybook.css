@@ -375,6 +375,9 @@ body,
 [data-theme='yellow'] #storybook-docs .docblock-argstable::after {
   background-color: var(--cb-turquoise);
 }
+[data-theme='darkRed'] #storybook-docs .docblock-argstable::after {
+  background-color: var(--cb-red);
+}
 [data-theme='dark'] #storybook-docs .docblock-argstable::after {
   background-color: var(--cb-yellow-alt);
 }
@@ -398,8 +401,9 @@ body,
   th:last-child
   button {
   border-radius: none;
+  border-radius: 0;
 }
-[data-theme='yellow']
+:is([data-theme='yellow'], [data-theme='darkRed'])
   #storybook-docs
   .docblock-argstable
   .docblock-argstable-head
@@ -407,7 +411,6 @@ body,
   button {
   color: var(--cb-turquoise);
 }
-
 [data-theme='dark']
   #storybook-docs
   .docblock-argstable
@@ -415,9 +418,8 @@ body,
   th:last-child
   button {
   color: var(--cb-black);
-  border-radius: 0;
 }
-[data-theme='yellow']
+:is([data-theme='yellow'], [data-theme='darkRed'])
   #storybook-docs
   .docblock-argstable
   .docblock-argstable-head
@@ -450,6 +452,14 @@ body,
   color: var(--cb-turquoise);
   background-color: var(--cb-black);
   border-bottom: 1px solid var(--cb-turquoise-dark);
+}
+[data-theme='darkRed']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-head
+  th {
+  color: var(--cb-turquoise);
+  background-color: var(--cb-mindight-navy);
 }
 [data-theme='dark']
   #storybook-docs
@@ -492,7 +502,7 @@ body,
   font-family: 'Audiowide Mono', monospace;
   font-size: 12px;
 }
-[data-theme='yellow']
+:is([data-theme='yellow'], [data-theme='darkRed'])
   #storybook-docs
   .docblock-argstable
   .docblock-argstable-body
@@ -515,6 +525,14 @@ body,
   td {
   color: var(--cb-white);
   background-color: var(--cb-black);
+}
+[data-theme='darkRed']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-body
+  td {
+  color: var(--cb-turquoise-opaque);
+  background-color: var(--cb-mindight-navy);
 }
 [data-theme='dark']
   #storybook-docs
@@ -551,6 +569,16 @@ body,
   span {
   color: var(--cb-turquoise);
 }
+[data-theme='darkRed'] #storybook-docs code,
+[data-theme='darkRed']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-body
+  td:nth-child(2)
+  div:last-child
+  span {
+  color: var(--cb-turquoise);
+}
 [data-theme='dark'] #storybook-docs code,
 [data-theme='dark']
   #storybook-docs
@@ -561,7 +589,6 @@ body,
   span {
   color: var(--cb-yellow-alt);
 }
-
 #storybook-docs .docblock-argstable td > button[id^='set-'] {
   background-color: transparent;
   border-radius: 0;
@@ -631,29 +658,19 @@ body,
     1px 1px
   );
 }
-:is([data-theme='yellow'], [data-theme='dark'])
-  #storybook-docs
-  .docblock-argstable
-  td
-  > button[id^='set-'] {
+#storybook-docs .docblock-argstable td > button[id^='set-'] {
   color: var(--cb-turquoise-dark);
 }
-:is([data-theme='yellow'], [data-theme='dark'])
-  #storybook-docs
-  .docblock-argstable
-  td
-  > button[id^='set-']::after {
+#storybook-docs .docblock-argstable td > button[id^='set-']::after {
   background-color: var(--cb-turquoise-dark);
 }
-:is([data-theme='yellow'], [data-theme='dark'])
-  #storybook-docs
+#storybook-docs
   .docblock-argstable
   td
   > button[id^='set-']:is(:hover, :focus-visible) {
   color: var(--cb-turquoise);
 }
-:is([data-theme='yellow'], [data-theme='dark'])
-  #storybook-docs
+#storybook-docs
   .docblock-argstable
   td
   > button[id^='set-']:is(:hover, :focus-visible)::after {

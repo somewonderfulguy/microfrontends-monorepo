@@ -6,6 +6,7 @@
   --cb-red: hsl(3, 100%, 67%);
   --cb-red-transparent: hsla(3, 100%, 67%, 0.15);
   --cb-turquoise: hsl(184, 100%, 50%);
+  --cb-turquoise-opaque: hsla(184, 100%, 50%, 0.75);
   --cb-turquoise-transparent: hsla(184, 100%, 50%, 0.12);
   --cb-turquoise-dark: hsl(184, 51%, 24%);
   --cb-green: hsl(149, 85%, 52%);
@@ -15,6 +16,7 @@
   --cb-darkest-gray-transparent: hsla(300, 18%, 8%, 0.6);
   --cb-black: hsl(0, 0%, 0%);
   --cb-black-transparent: hsla(0, 0%, 0%, 0.5);
+  --cb-mindight-navy: hsl(240, 50%, 6%);
 }
 
 .theme:global(.cyberpunk-ui-theme-yellow) {
