@@ -501,3 +501,101 @@ body,
   span {
   color: var(--cb-turquoise);
 }
+
+#storybook-docs .docblock-argstable td > button[id^='set-'] {
+  background-color: transparent;
+  border-radius: 0;
+  padding: 10px 35px;
+
+  transition: color 0.2s ease-in-out;
+
+  position: relative;
+  clip-path: polygon(
+    -1px -1px,
+    calc(100% + 1px) -1px,
+    calc(100% + 1px) calc(50% - 0.75px),
+    calc(100% - 0.5px) calc(50% - 0.75px),
+    calc(100% - 7.5px) calc(50% - 0.75px),
+    calc(100% - 7.5px) calc(50% - 0.25px),
+    calc(100% - 7.5px) calc(50% + 0.25px),
+    calc(100% - 7.5px) calc(50% + 0.75px),
+    calc(100% - 7px) calc(50% + 0.75px),
+    calc(100% + 1px) calc(50% + 0.75px),
+    calc(100% + 1px) calc(100% + 1px),
+    11px calc(100% + 1px),
+    11px 100%,
+    0px calc(100% - 11px),
+    0px calc(100% - 11px),
+    0px calc(100% - 11px),
+    0px calc(100% - 11px),
+    -1px calc(100% - 11px)
+  );
+}
+
+#storybook-docs .docblock-argstable td > button[id^='set-']::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  transition: background-color 0.2s ease-in-out;
+
+  clip-path: polygon(
+    1px 1px,
+    calc(100% - 1px) 1px,
+    calc(100% - 1px) calc(50% - 1.75px),
+    calc(100% - 1.5px) calc(50% - 1.75px),
+    calc(100% - 8.5px) calc(50% - 1.75px),
+    calc(100% - 8.5px) calc(50% - 1.25px),
+    calc(100% - 8.5px) calc(50% + 1.25px),
+    calc(100% - 8.5px) calc(50% + 1.75px),
+    calc(100% - 8px) calc(50% + 1.75px),
+    calc(100% - 1px) calc(50% + 1.75px),
+    calc(100% - 1px) calc(100% - 1px),
+    12px calc(100% - 1px),
+    11.5px calc(100% - 1px),
+    1px calc(100% - 11.5px),
+    1px calc(100% - 12px),
+    1px calc(100% - 12px),
+    1px calc(100% - 12px),
+    1px calc(100% - 12px),
+    1px 1px,
+    -1px 1px,
+    -1px calc(100% + 1px),
+    calc(100% + 1px) calc(100% + 1px),
+    calc(100% + 1px) -1px,
+    -1px -1px,
+    -1px 1px,
+    1px 1px
+  );
+}
+[data-theme='yellow']
+  #storybook-docs
+  .docblock-argstable
+  td
+  > button[id^='set-'] {
+  color: var(--cb-turquoise-dark);
+}
+[data-theme='yellow']
+  #storybook-docs
+  .docblock-argstable
+  td
+  > button[id^='set-']::after {
+  background-color: var(--cb-turquoise-dark);
+}
+[data-theme='yellow']
+  #storybook-docs
+  .docblock-argstable
+  td
+  > button[id^='set-']:is(:hover, :focus-visible) {
+  color: var(--cb-turquoise);
+}
+[data-theme='yellow']
+  #storybook-docs
+  .docblock-argstable
+  td
+  > button[id^='set-']:is(:hover, :focus-visible)::after {
+  background-color: var(--cb-turquoise);
+}
