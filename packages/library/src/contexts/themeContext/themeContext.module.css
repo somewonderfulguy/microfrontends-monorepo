@@ -2,6 +2,7 @@
   --cb-yellow-main: hsl(58, 100%, 48%);
   --cb-yellow-alt: hsl(73, 100%, 68%);
   --cb-yellow-transparent: hsla(73, 100%, 68%, 0.15);
+  --cb-yellow-more-transparent: hsla(73, 100%, 68%, 0.05);
   --cb-red: hsl(3, 100%, 67%);
   --cb-red-transparent: hsla(3, 100%, 67%, 0.15);
   --cb-turquoise: hsl(184, 100%, 50%);

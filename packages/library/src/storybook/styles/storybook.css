@@ -439,6 +439,9 @@ body,
   color: var(--cb-turquoise);
   outline: none;
 }
+[data-theme='dark'] #storybook-docs .docblock-argstable tr:hover td {
+  background-color: var(--cb-yellow-more-transparent);
+}
 [data-theme='yellow']
   #storybook-docs
   .docblock-argstable
