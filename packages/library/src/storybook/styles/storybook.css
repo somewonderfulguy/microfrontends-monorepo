@@ -375,6 +375,9 @@ body,
 [data-theme='yellow'] #storybook-docs .docblock-argstable::after {
   background-color: var(--cb-turquoise);
 }
+[data-theme='dark'] #storybook-docs .docblock-argstable::after {
+  background-color: var(--cb-yellow-alt);
+}
 #storybook-docs .docblock-argstable .docblock-argstable-head th {
   font-family: 'Blender Pro Bold', sans-serif;
   font-size: 16px;
@@ -404,6 +407,16 @@ body,
   button {
   color: var(--cb-turquoise);
 }
+
+[data-theme='dark']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-head
+  th:last-child
+  button {
+  color: var(--cb-black);
+  border-radius: 0;
+}
 [data-theme='yellow']
   #storybook-docs
   .docblock-argstable
@@ -420,10 +433,28 @@ body,
   #storybook-docs
   .docblock-argstable
   .docblock-argstable-head
+  th:last-child
+  button:is(:hover, :focus-visible) {
+  background: var(--cb-turquoise-transparent);
+  color: var(--cb-turquoise);
+  outline: none;
+}
+[data-theme='yellow']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-head
   th {
   color: var(--cb-turquoise);
   background-color: var(--cb-black);
   border-bottom: 1px solid var(--cb-turquoise-dark);
+}
+[data-theme='dark']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-head
+  th {
+  color: var(--cb-black);
+  background-color: var(--cb-yellow-alt);
 }
 [data-theme='yellow']
   #storybook-docs
@@ -466,6 +497,14 @@ body,
   td:first-child {
   color: var(--cb-turquoise);
 }
+[data-theme='dark']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-body
+  tr
+  td:first-child {
+  color: var(--cb-yellow-alt);
+}
 [data-theme='yellow']
   #storybook-docs
   .docblock-argstable
@@ -473,6 +512,14 @@ body,
   td {
   color: var(--cb-white);
   background-color: var(--cb-black);
+}
+[data-theme='dark']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-body
+  td {
+  color: var(--cb-white);
+  background-color: transparent;
 }
 
 #storybook-docs :is(code, .rejt-tree) {
@@ -500,6 +547,16 @@ body,
   div:last-child
   span {
   color: var(--cb-turquoise);
+}
+[data-theme='dark'] #storybook-docs code,
+[data-theme='dark']
+  #storybook-docs
+  .docblock-argstable
+  .docblock-argstable-body
+  td:nth-child(2)
+  div:last-child
+  span {
+  color: var(--cb-yellow-alt);
 }
 
 #storybook-docs .docblock-argstable td > button[id^='set-'] {
@@ -571,28 +628,28 @@ body,
     1px 1px
   );
 }
-[data-theme='yellow']
+:is([data-theme='yellow'], [data-theme='dark'])
   #storybook-docs
   .docblock-argstable
   td
   > button[id^='set-'] {
   color: var(--cb-turquoise-dark);
 }
-[data-theme='yellow']
+:is([data-theme='yellow'], [data-theme='dark'])
   #storybook-docs
   .docblock-argstable
   td
   > button[id^='set-']::after {
   background-color: var(--cb-turquoise-dark);
 }
-[data-theme='yellow']
+:is([data-theme='yellow'], [data-theme='dark'])
   #storybook-docs
   .docblock-argstable
   td
   > button[id^='set-']:is(:hover, :focus-visible) {
   color: var(--cb-turquoise);
 }
-[data-theme='yellow']
+:is([data-theme='yellow'], [data-theme='dark'])
   #storybook-docs
   .docblock-argstable
   td
