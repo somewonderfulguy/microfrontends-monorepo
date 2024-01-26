@@ -12,9 +12,10 @@ import {
 } from '@reach/tabs'
 
 import classNames from 'utils/classNames'
+import usePrevious from 'hooks/usePrevious'
+import useResizeObserver from 'hooks/useResizeObserver'
 
 import styles from './Tabs.module.css'
-import usePrevious from 'hooks/usePrevious'
 
 // horizontal 1, hexagon line
 //   + drop down variant (later)
@@ -58,15 +59,14 @@ const TabList = forwardRef<
 
   const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
 
-  const refWrapper = useRef<HTMLDivElement>(null)
+  const [refWrapper, { width: containerWidth }] =
+    useResizeObserver<HTMLDivElement>()
 
   useEffect(() => {
     if (!refWrapper.current) return
     const tabs = refWrapper.current.querySelectorAll('[data-reach-tab]')
     setTabs(Array.from(tabs) as HTMLButtonElement[])
-  }, [])
-
-  // useResizeObserver
+  }, [refWrapper])
 
   // underline move logic
   useEffect(() => {
@@ -91,7 +91,7 @@ const TabList = forwardRef<
 
       containerElement.style.setProperty(
         '--_width',
-        `${transitionWidth / containerElement.offsetWidth}`
+        `${transitionWidth / containerWidth}`
       )
       containerElement.style.setProperty('--_left', `${offsetLeft}px`)
 
@@ -109,8 +109,9 @@ const TabList = forwardRef<
         containerElement.style.setProperty('--_width', `${width}`)
       }, 150)
     }
+    // omitting `prevSelectedIndex` check as it causes multiple useEffect calls and this causes jiggle animation
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIndex, tabs])
+  }, [selectedIndex, tabs, containerWidth])
 
   return (
     <div ref={refWrapper} style={{ width: 'fit-content' }}>
@@ -144,14 +145,12 @@ const TabComponent = () => {
         <Tab>Wallpapers</Tab>
         <Tab>Screenshots</Tab>
         <Tab>Concept arts</Tab>
-        <Tab>Music</Tab>
       </TabList>
       <TabPanels style={{ marginTop: 30 }}>
         <TabPanel>Cyberpunk 2077 tab content</TabPanel>
         <TabPanel>Phantom liberty tab content</TabPanel>
         <TabPanel>Edgerunners tab content</TabPanel>
         <TabPanel>Night city wire tab content</TabPanel>
-        <TabPanel>Music tab content</TabPanel>
       </TabPanels>
     </Tabs>
   )
