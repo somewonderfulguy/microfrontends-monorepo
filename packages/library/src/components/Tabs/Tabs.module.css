@@ -1,0 +1,84 @@
+.tabs {
+  /* add colors */
+  font-family: 'Blender Pro Book', sans-serif;
+}
+.tabs [data-reach-tab] {
+  font-family: 'Blender Pro Book', sans-serif;
+  cursor: pointer;
+  position: relative;
+}
+.tabs [data-reach-tab-clone] {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.underline {
+  composes: tabs;
+}
+
+.underline [data-reach-tab-list] {
+  display: flex;
+  position: relative;
+  width: fit-content;
+  gap: 25px;
+}
+.underline [data-reach-tab-list]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: hsl(0, 0%, 0%);
+  height: 2px;
+
+  transition: all 0.2s ease-in-out;
+
+  scale: var(--_width, 15%) 1;
+  translate: var(--_left, 0);
+  transform-origin: left;
+}
+.underline [data-reach-tab-list]::after {
+  content: '';
+  left: 0;
+  bottom: 0;
+  background-color: hsla(0, 0%, 0%, 0.35);
+  height: 2px;
+  position: absolute;
+  width: 100%;
+}
+.underline [data-reach-tab] {
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  background: transparent;
+  border: 0;
+  padding: 0;
+  line-height: 110%;
+  text-transform: uppercase;
+  font-size: 22px;
+  white-space: nowrap;
+  height: 48px;
+
+  color: var(--cb-black);
+}
+.underline [data-reach-tab] [data-reach-tab-clone] {
+  font-family: 'Blender Pro Bold', sans-serif;
+}
+.underline
+  [data-reach-tab]
+  :is([data-reach-tab-content], [data-reach-tab-clone]) {
+  transition: opacity 0.09s ease-in-out;
+}
+.underline
+  [data-reach-tab]:is([data-selected], :hover)
+  [data-reach-tab-content] {
+  opacity: 0;
+}
+.underline [data-reach-tab]:is([data-selected], :hover) [data-reach-tab-clone] {
+  opacity: 1;
+}

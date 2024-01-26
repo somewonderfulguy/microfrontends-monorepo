@@ -50,6 +50,7 @@ type FederatedComponentProps<TProps> = {
 
 const errorMessage = 'Lazy component failed!'
 
+// TODO: separate into 2 HOCs - withErrorBoundary & withSuspense
 export const withLazyLoad =
   <TProps extends object, TRef extends object = Record<string, unknown>>({
     delayedElement,
