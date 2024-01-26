@@ -1,4 +1,4 @@
-import { forwardRef, HTMLAttributes, useEffect, useRef, useState } from 'react'
+import { forwardRef, HTMLAttributes, useEffect, useState } from 'react'
 import {
   Tabs as ReachTabs,
   TabsProps as ReachTabsProps,
@@ -7,13 +7,14 @@ import {
   Tab as ReachTab,
   TabProps,
   TabPanels,
-  TabPanel,
-  useTabsContext
+  TabPanel
 } from '@reach/tabs'
 
 import classNames from 'utils/classNames'
-import usePrevious from 'hooks/usePrevious'
 import useResizeObserver from 'hooks/useResizeObserver'
+
+import { TabsInternalProvider } from './contexts'
+import { underlineAnimation } from './hooks'
 
 import styles from './Tabs.module.css'
 
@@ -32,19 +33,29 @@ import styles from './Tabs.module.css'
 // disabled tab
 // dnd tab (reorder; horizontal/vertical)
 
+export type TabsStyle =
+  | 'underline'
+  | 'hexagon'
+  | 'folder'
+  | 'shaped'
+  | 'vertical'
+
 type TabsProps = ReachTabsProps &
   HTMLAttributes<HTMLDivElement> & {
-    type?: 'underline'
+    /** Tabs visual style */
+    type?: TabsStyle
   }
 
 const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({ type = 'underline', className, ...props }, ref) => {
     return (
-      <ReachTabs
-        {...props}
-        className={classNames(className, styles[type])}
-        ref={ref}
-      />
+      <TabsInternalProvider type={type}>
+        <ReachTabs
+          {...props}
+          className={classNames(className, styles[type])}
+          ref={ref}
+        />
+      </TabsInternalProvider>
     )
   }
 )
@@ -54,9 +65,6 @@ const TabList = forwardRef<
   HTMLDivElement,
   ReactTabListProps & HTMLAttributes<HTMLDivElement>
 >(({ children, className, ...props }, ref) => {
-  const { selectedIndex } = useTabsContext() // focusedIndex
-  const prevSelectedIndex = usePrevious(selectedIndex) || 0
-
   const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
 
   const [refWrapper, { width: containerWidth }] =
@@ -68,50 +76,7 @@ const TabList = forwardRef<
     setTabs(Array.from(tabs) as HTMLButtonElement[])
   }, [refWrapper])
 
-  // underline move logic
-  useEffect(() => {
-    if (!tabs.length || !refWrapper.current) return
-
-    const selectedTab = tabs[selectedIndex]
-    const prevSelectedTab = tabs[prevSelectedIndex]
-
-    const isGoingLeft = prevSelectedIndex > selectedIndex
-
-    const { offsetLeft, offsetWidth } = selectedTab
-    const { offsetLeft: prevOffsetLeft, offsetWidth: prevOffsetWidth } =
-      prevSelectedTab
-    const containerWidth = refWrapper.current.offsetWidth
-
-    const width = offsetWidth / containerWidth
-
-    const containerElement = refWrapper.current
-
-    if (isGoingLeft) {
-      const transitionWidth = prevOffsetLeft + prevOffsetWidth - offsetLeft
-
-      containerElement.style.setProperty(
-        '--_width',
-        `${transitionWidth / containerWidth}`
-      )
-      containerElement.style.setProperty('--_left', `${offsetLeft}px`)
-
-      setTimeout(() => {
-        containerElement.style.setProperty('--_width', `${width}`)
-      }, 150)
-    } else {
-      const transitionWidth = offsetLeft + offsetWidth - prevOffsetLeft
-      const stretchWidth = transitionWidth / containerWidth
-
-      containerElement.style.setProperty('--_width', `${stretchWidth}`)
-
-      setTimeout(() => {
-        containerElement.style.setProperty('--_left', `${offsetLeft}px`)
-        containerElement.style.setProperty('--_width', `${width}`)
-      }, 150)
-    }
-    // omitting `prevSelectedIndex` check as it causes multiple useEffect calls and this causes jiggle animation
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIndex, tabs, containerWidth])
+  underlineAnimation(tabs, refWrapper, containerWidth)
 
   return (
     <div ref={refWrapper} style={{ width: 'fit-content' }}>
@@ -136,43 +101,30 @@ const Tab = forwardRef<
 })
 Tab.displayName = 'Tab'
 
-/** Accessible tabs */
-const TabComponent = () => {
-  return (
-    <Tabs>
-      <TabList>
-        <Tab>Videos</Tab>
-        <Tab>Wallpapers</Tab>
-        <Tab>Screenshots</Tab>
-        <Tab>Concept arts</Tab>
-      </TabList>
-      <TabPanels style={{ marginTop: 30 }}>
-        <TabPanel>Cyberpunk 2077 tab content</TabPanel>
-        <TabPanel>Phantom liberty tab content</TabPanel>
-        <TabPanel>Edgerunners tab content</TabPanel>
-        <TabPanel>Night city wire tab content</TabPanel>
-      </TabPanels>
-    </Tabs>
-  )
-}
-
-export default TabComponent
-
-type AddedComponents = {
+/** Tabs components. Based on headless Reach UI tabs.
+ *
+ * You can expect the same API as Reach UI tabs. With few additions: `Tabs` component has new `type` prop which allows to change tabs style.
+ * You can also use default import and get all sub components from this component using dot notation, e.g. `<Tabs.TabList />`, `<Tabs.Tab />`, etc.
+ *
+ * Please note that argument table does not contain all props. For full list of props please check Reach UI API.
+ *
+ * Reach UI API: https://reach.tech/tabs
+ *
+ * Reach UI NPM: https://www.npmjs.com/package/@reach/tabs
+ * */
+const TypedTabs = Tabs as typeof Tabs & {
   TabList: typeof TabList
   Tab: typeof Tab
   TabPanels: typeof TabPanels
   TabPanel: typeof TabPanel
 }
-/** Extending type of component, so sub components could be assigned and used this way: `<Tabs.TabList>...</Tabs.TabList>` */
-const TypedTabs = Tabs as typeof Tabs & AddedComponents
 
 TypedTabs.TabList = TabList
 TypedTabs.Tab = Tab
 TypedTabs.TabPanels = TabPanels
 TypedTabs.TabPanel = TabPanel
 
-// export default TypedTabs
+export default TypedTabs
 export * from '@reach/tabs'
 export type { TabsProps, TabProps }
-export { TypedTabs as Tabs, Tab }
+export { TypedTabs as Tabs, TabList, Tab }
