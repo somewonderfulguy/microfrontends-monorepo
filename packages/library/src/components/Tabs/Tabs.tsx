@@ -54,8 +54,7 @@ const TabList = forwardRef<
   ReactTabListProps & HTMLAttributes<HTMLDivElement>
 >(({ children, className, ...props }, ref) => {
   const { selectedIndex } = useTabsContext() // focusedIndex
-  const prevSelectedIndex = usePrevious(selectedIndex)
-  const isGoingLeft = (prevSelectedIndex || 0) > selectedIndex
+  const prevSelectedIndex = usePrevious(selectedIndex) || 0
 
   const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
 
@@ -74,16 +73,44 @@ const TabList = forwardRef<
     if (!tabs.length || !refWrapper.current) return
 
     const selectedTab = tabs[selectedIndex]
-    const isOutermostTab =
-      selectedIndex === 0 || selectedIndex === tabs.length - 1
+    const prevSelectedTab = tabs[prevSelectedIndex]
+
+    const isGoingLeft = prevSelectedIndex > selectedIndex
+
     const { offsetLeft, offsetWidth } = selectedTab
+    const { offsetLeft: prevOffsetLeft, offsetWidth: prevOffsetWidth } =
+      prevSelectedTab
     const containerWidth = refWrapper.current.offsetWidth
 
-    const scale = offsetWidth / containerWidth + (isOutermostTab ? 0 : 0.01)
-    const left = offsetLeft - (isOutermostTab ? 0 : 4)
-    refWrapper.current.style.setProperty('--_left', `${left}px`)
-    refWrapper.current.style.setProperty('--_width', `${scale}`)
-  }, [selectedIndex, tabs, isGoingLeft])
+    const width = offsetWidth / containerWidth
+
+    const containerElement = refWrapper.current
+
+    if (isGoingLeft) {
+      const transitionWidth = prevOffsetLeft + prevOffsetWidth - offsetLeft
+
+      containerElement.style.setProperty(
+        '--_width',
+        `${transitionWidth / containerElement.offsetWidth}`
+      )
+      containerElement.style.setProperty('--_left', `${offsetLeft}px`)
+
+      setTimeout(() => {
+        containerElement.style.setProperty('--_width', `${width}`)
+      }, 150)
+    } else {
+      const transitionWidth = offsetLeft + offsetWidth - prevOffsetLeft
+      const stretchWidth = transitionWidth / containerWidth
+
+      containerElement.style.setProperty('--_width', `${stretchWidth}`)
+
+      setTimeout(() => {
+        containerElement.style.setProperty('--_left', `${offsetLeft}px`)
+        containerElement.style.setProperty('--_width', `${width}`)
+      }, 150)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIndex, tabs])
 
   return (
     <div ref={refWrapper} style={{ width: 'fit-content' }}>
