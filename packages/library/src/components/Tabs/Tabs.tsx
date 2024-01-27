@@ -104,7 +104,7 @@ Tab.displayName = 'Tab'
 /** Tabs components. Based on headless Reach UI tabs.
  *
  * You can expect the same API as Reach UI tabs. With few additions: `Tabs` component has new `type` prop which allows to change tabs style.
- * You can also use default import and get all sub components from this component using dot notation, e.g. `<Tabs.TabList />`, `<Tabs.Tab />`, etc.
+ * You can also use default import and get all sub components using dot notation, e.g. `<Tabs.TabList />`, `<Tabs.Tab />`, etc.
  *
  * Please note that argument table does not contain all props. For full list of props please check Reach UI API.
  *
