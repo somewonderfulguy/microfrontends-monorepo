@@ -1,1 +1,1 @@
-export * from './underlineAnimation'
+export * from './useUnderlineAnimation'

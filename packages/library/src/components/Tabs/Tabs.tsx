@@ -14,7 +14,7 @@ import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
 
 import { TabsInternalProvider } from './contexts'
-import { underlineAnimation } from './hooks'
+import { useUnderlineAnimation } from './hooks'
 
 import styles from './Tabs.module.css'
 
@@ -76,7 +76,7 @@ const TabList = forwardRef<
     setTabs(Array.from(tabs) as HTMLButtonElement[])
   }, [refWrapper])
 
-  underlineAnimation(tabs, refWrapper, containerWidth)
+  useUnderlineAnimation(tabs, refWrapper, containerWidth)
 
   return (
     <div ref={refWrapper} style={{ width: 'fit-content' }}>

@@ -5,7 +5,7 @@ import usePrevious from 'hooks/usePrevious'
 
 import { useTabsInternalContext } from '../contexts'
 
-export const underlineAnimation = (
+export const useUnderlineAnimation = (
   tabs: HTMLButtonElement[],
   refWrapper: MutableRefObject<HTMLDivElement>,
   containerWidth: number
@@ -45,7 +45,7 @@ export const underlineAnimation = (
 
       setTimeout(() => {
         containerElement.style.setProperty('--_width', `${width}`)
-      }, 150)
+      }, 100)
     } else {
       const transitionWidth = offsetLeft + offsetWidth - prevOffsetLeft
       const stretchWidth = transitionWidth / containerWidth
@@ -55,7 +55,7 @@ export const underlineAnimation = (
       setTimeout(() => {
         containerElement.style.setProperty('--_left', `${offsetLeft}px`)
         containerElement.style.setProperty('--_width', `${width}`)
-      }, 150)
+      }, 100)
     }
     // omitting `prevSelectedIndex` check as it causes multiple useEffect calls and this causes jiggle animation
     // eslint-disable-next-line react-hooks/exhaustive-deps
