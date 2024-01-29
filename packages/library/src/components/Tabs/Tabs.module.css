@@ -7,6 +7,10 @@
   cursor: pointer;
   position: relative;
 }
+.tabs [data-reach-tab][disabled] {
+  cursor: default;
+  opacity: 0.5;
+}
 .tabs [data-reach-tab-clone] {
   position: absolute;
   top: 50%;
@@ -39,6 +43,9 @@
   scale: var(--_width, 0) 1;
   translate: var(--_left, 0);
   transform-origin: left;
+}
+.underline [data-reach-tab-list]:has([data-selected][disabled])::before {
+  opacity: 0.3;
 }
 .underline [data-reach-tab-list]::after {
   content: '';
@@ -76,10 +83,12 @@
   transition: opacity 0.09s ease-in-out;
 }
 .underline
-  [data-reach-tab]:is([data-selected], :hover)
+  [data-reach-tab]:is([data-selected], :not([disabled]):hover)
   [data-reach-tab-content] {
   opacity: 1;
 }
-.underline [data-reach-tab]:is([data-selected], :hover) [data-reach-tab-clone] {
+.underline
+  [data-reach-tab]:is([data-selected], :not([disabled]):hover)
+  [data-reach-tab-clone] {
   opacity: 0;
 }
