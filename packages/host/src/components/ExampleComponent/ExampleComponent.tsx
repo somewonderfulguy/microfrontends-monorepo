@@ -1,5 +1,4 @@
 import {
-  DivRefType,
   WithLazyHooks,
   usePreviousHook,
   useResizeObserverHook
@@ -14,12 +13,12 @@ type HooksType = {
 }
 
 const ExampleComponent = ({ usePrevious, useResizeObserver }: HooksType) => {
-  const [bindResizeObserver, { width }] = useResizeObserver()
+  const [bindResizeObserver, { width }] = useResizeObserver<HTMLDivElement>()
   const prevWidth = usePrevious(width)
 
   return (
     <>
-      <div ref={bindResizeObserver as DivRefType} />
+      <div ref={bindResizeObserver} />
       <div>Current width: {width}</div>
       <div>Previous width: {prevWidth}</div>
     </>

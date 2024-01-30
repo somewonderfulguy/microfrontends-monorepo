@@ -1,7 +1,7 @@
 import { useRef, useEffect, MutableRefObject } from 'react'
 
-const usePrevious = <T>(value: T): T | null => {
-  const ref: MutableRefObject<T | null> = useRef(null)
+const usePrevious = <TValue>(value: TValue): TValue | null => {
+  const ref: MutableRefObject<TValue | null> = useRef(null)
 
   useEffect(() => {
     ref.current = value

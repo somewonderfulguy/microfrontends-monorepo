@@ -4,10 +4,10 @@ interface Config extends RequestInit {
   headers?: HeadersInit & { Authorization?: string }
 }
 
-const request = <T>(
+const request = <TReturnValue>(
   endpoint: string,
   { body, ...customConfig }: Config = {}
-): Promise<T> => {
+): Promise<TReturnValue> => {
   const isFormData = body instanceof FormData
 
   const config: RequestInit = {

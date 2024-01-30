@@ -26,11 +26,11 @@ import styles from './Tabs.module.css'
 // vertical
 
 // resize screen test
-// rtl test
+// rtl test (and dynamic change)
 // keyboard navigation test
+// disabled tab
 
 // animation content (fade in/out; height change)
-// disabled tab
 // dnd tab (reorder; horizontal/vertical)
 
 export type TabsStyle =

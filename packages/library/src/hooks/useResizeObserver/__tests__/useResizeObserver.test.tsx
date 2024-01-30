@@ -15,7 +15,7 @@ test('useResizeObserver renders successfully', () => {
   assertZeroes()
 })
 
-test('useResizeObserver with inital bounds renders successfully', () => {
+test('useResizeObserver with initial bounds renders successfully', () => {
   render(
     <TestComponent
       initialBounds={{ width: 50, height: 100, left: 150, top: 200 }}

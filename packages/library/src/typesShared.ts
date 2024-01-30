@@ -1,5 +1,3 @@
-import { MutableRefObject } from 'react'
-
 import usePrevious from './hooks/usePrevious'
 import useResizeObserver from './hooks/useResizeObserver'
 import { withLazyLoad } from './hoc/withLazyLoad'
@@ -13,5 +11,3 @@ export type WithLazyLoad = typeof withLazyLoad
 
 export type usePreviousHook = typeof usePrevious
 export type useResizeObserverHook = typeof useResizeObserver
-
-export type DivRefType = MutableRefObject<HTMLDivElement>

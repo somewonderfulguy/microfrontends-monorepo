@@ -1,13 +1,16 @@
-import { useEffect, MutableRefObject } from 'react'
+import { RefObject, useEffect } from 'react'
 import { useTabsContext } from '@reach/tabs'
 
 import usePrevious from 'hooks/usePrevious'
 
 import { useTabsInternalContext } from '../contexts'
 
+const getDirection = (element: Element) =>
+  window.getComputedStyle(element).getPropertyValue('direction')
+
 export const useUnderlineAnimation = (
   tabs: HTMLButtonElement[],
-  refWrapper: MutableRefObject<HTMLDivElement>,
+  refWrapper: RefObject<HTMLDivElement>,
   containerWidth: number
 ) => {
   const { selectedIndex } = useTabsContext()
@@ -16,7 +19,11 @@ export const useUnderlineAnimation = (
   const tabsStyle = useTabsInternalContext()
   const isUnderline = tabsStyle === 'underline'
 
-  // underline move logic
+  const isRtl = refWrapper.current
+    ? getDirection(refWrapper.current) === 'rtl'
+    : false
+
+  // underline animation & position logic
   useEffect(() => {
     if (!isUnderline || !tabs.length || !refWrapper.current) return
 
@@ -31,7 +38,9 @@ export const useUnderlineAnimation = (
     const selectedTab = tabs[selectedIndex]
     const prevSelectedTab = tabs[prevSelectedIndex]
 
-    const isGoingLeft = prevSelectedIndex > selectedIndex
+    const isGoingLeft = isRtl
+      ? selectedIndex > prevSelectedIndex
+      : selectedIndex < prevSelectedIndex
 
     const { offsetLeft, offsetWidth } = selectedTab
     const { offsetLeft: prevOffsetLeft, offsetWidth: prevOffsetWidth } =
@@ -67,5 +76,5 @@ export const useUnderlineAnimation = (
     }
     // omitting `prevSelectedIndex` check as it causes multiple useEffect calls and this causes jiggle animation
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIndex, tabs, containerWidth, isUnderline])
+  }, [selectedIndex, tabs, containerWidth, isUnderline, isRtl])
 }
