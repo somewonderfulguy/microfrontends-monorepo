@@ -97,11 +97,13 @@
       font-family: 'Blender Pro Bold', sans-serif;
     }
 
-    :is([data-reach-tab-content], [data-reach-tab-clone]) {
+    [data-reach-tab-content],
+    [data-reach-tab-clone] {
       transition: opacity 0.09s ease-in-out;
     }
 
-    &:is([data-selected], :not([disabled]):hover) {
+    &[data-selected],
+    &:not([disabled]):hover {
       [data-reach-tab-content] {
         opacity: 1;
       }
