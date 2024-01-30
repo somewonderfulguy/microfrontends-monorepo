@@ -20,6 +20,14 @@ export const useUnderlineAnimation = (
   useEffect(() => {
     if (!isUnderline || !tabs.length || !refWrapper.current) return
 
+    const tabListElement = refWrapper.current.querySelector(
+      '[data-reach-tab-list]'
+    ) as HTMLDivElement
+
+    if (!tabListElement) {
+      return console.warn('tabListElement not found')
+    }
+
     const selectedTab = tabs[selectedIndex]
     const prevSelectedTab = tabs[prevSelectedIndex]
 
@@ -28,7 +36,7 @@ export const useUnderlineAnimation = (
     const { offsetLeft, offsetWidth } = selectedTab
     const { offsetLeft: prevOffsetLeft, offsetWidth: prevOffsetWidth } =
       prevSelectedTab
-    const containerWidth = refWrapper.current.offsetWidth
+    const containerWidth = tabListElement.offsetWidth
 
     const width = offsetWidth / containerWidth
 
