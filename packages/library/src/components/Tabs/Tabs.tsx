@@ -18,9 +18,9 @@ import { useUnderlineAnimation } from './hooks'
 
 import styles from './Tabs.module.css'
 
-// horizontal 1, hexagon line
+// horizontal 1, underline
+// horizontal 2, hexagon line
 //   + drop down variant (later)
-// horizontal 2, underline
 // horizontal 3, folder tabs
 // horizontal 4, very shaped
 // vertical
@@ -79,7 +79,7 @@ const TabList = forwardRef<
   useUnderlineAnimation(tabs, refWrapper, containerWidth)
 
   return (
-    <div ref={refWrapper} style={{ width: 'fit-content' }}>
+    <div ref={refWrapper} className={styles.tabListContainer}>
       <ReactTabList {...props} className={classNames(className)} ref={ref}>
         {children}
       </ReactTabList>

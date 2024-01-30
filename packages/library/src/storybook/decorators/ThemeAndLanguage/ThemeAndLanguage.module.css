@@ -10,8 +10,14 @@
 
 .gridElement {
   flex: 1 1 auto;
-  /* TODO: media query */
   padding: 3rem;
+  max-width: calc(100% - 6rem);
+}
+@media (max-width: 768px) {
+  .gridElement {
+    padding: 1rem;
+    max-width: calc(100% - 2rem);
+  }
 }
 
 .gridElementYellow {

@@ -56,6 +56,18 @@
   position: absolute;
   width: 100%;
 }
+.tabListContainer {
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.tabListContainer::-webkit-scrollbar {
+  height: 2px;
+}
+.tabListContainer::-webkit-scrollbar-thumb {
+  background-color: hsla(0, 0%, 0%, 0.5);
+}
+
 .underline [data-reach-tab] {
   display: flex;
   align-items: center;
