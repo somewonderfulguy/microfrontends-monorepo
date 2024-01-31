@@ -38,6 +38,8 @@
 .underline {
   composes: tabs;
 
+  color: var(--cb-primary-text-color);
+
   [data-reach-tab-list] {
     display: flex;
     position: relative;
@@ -50,7 +52,6 @@
       left: 0;
       bottom: 0;
       right: 0;
-      background-color: hsl(0, 0%, 0%);
       height: 2px;
 
       transition: all 0.2s ease-in-out;
@@ -58,6 +59,8 @@
       scale: var(--_width, 0) 1;
       translate: var(--_left, 0);
       transform-origin: left;
+
+      background-color: var(--cb-primary-text-color);
     }
 
     &:has([data-selected][disabled])::before {
@@ -68,10 +71,12 @@
       content: '';
       left: 0;
       bottom: 0;
-      background-color: hsla(0, 0%, 0%, 0.2);
       height: 2px;
       position: absolute;
       width: 100%;
+
+      background-color: var(--cb-primary-text-color);
+      opacity: 0.2;
     }
   }
 
@@ -90,7 +95,7 @@
     white-space: nowrap;
     height: 48px;
 
-    color: var(--cb-black);
+    color: var(--cb-primary-text-color);
 
     [data-reach-tab-content] {
       opacity: 0;
@@ -111,5 +116,17 @@
         opacity: 0;
       }
     }
+
+    &:focus-visible {
+      outline: none;
+      [data-reach-tab-content] {
+        text-shadow: 0 0 3px var(--cb-turquoise), 0 0 7px #fff,
+          0 0 12px var(--cb-turquoise);
+      }
+    }
+  }
+
+  [data-reach-tab-panel]:focus-visible {
+    outline: 1px solid var(--cb-turquoise);
   }
 }

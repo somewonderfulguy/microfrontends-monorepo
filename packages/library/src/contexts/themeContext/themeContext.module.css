@@ -26,8 +26,8 @@
 .theme:global(.cyberpunk-ui-theme-yellow) {
   --cb-background-color: var(--cb-yellow-main);
   --cb-secondary-background-color: var(--cb-darkest-gray-transparent);
-  --cb-primary-text-color: var(--cb-white);
-  --cb-secondary-text-color: var(--cb-black);
+  --cb-primary-text-color: var(--cb-black);
+  --cb-secondary-text-color: var(--cb-white);
   --cb-primary-color: var(--cb-turquoise);
   --cb-accent-color: var(--cb-turquoise);
   --cb-secondary-color: #000;

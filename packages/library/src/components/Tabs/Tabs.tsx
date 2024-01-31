@@ -47,17 +47,15 @@ type TabsProps = ReachTabsProps &
   }
 
 const Tabs = forwardRef<HTMLDivElement, TabsProps>(
-  ({ type = 'underline', className, ...props }, ref) => {
-    return (
-      <TabsInternalProvider type={type}>
-        <ReachTabs
-          {...props}
-          className={classNames(className, styles[type])}
-          ref={ref}
-        />
-      </TabsInternalProvider>
-    )
-  }
+  ({ type = 'underline', className, ...props }, ref) => (
+    <TabsInternalProvider type={type}>
+      <ReachTabs
+        {...props}
+        className={classNames(className, styles[type])}
+        ref={ref}
+      />
+    </TabsInternalProvider>
+  )
 )
 Tabs.displayName = 'Tabs'
 
@@ -91,26 +89,28 @@ TabList.displayName = 'TabList'
 const Tab = forwardRef<
   HTMLButtonElement,
   TabProps & HTMLAttributes<HTMLButtonElement>
->(({ children, ...props }, ref) => {
-  return (
-    <ReachTab {...props} ref={ref}>
-      <div data-reach-tab-clone>{children}</div>
-      <div data-reach-tab-content>{children}</div>
-    </ReachTab>
-  )
-})
+>(({ children, ...props }, ref) => (
+  <ReachTab {...props} ref={ref}>
+    <div data-reach-tab-clone>{children}</div>
+    <div data-reach-tab-content>{children}</div>
+  </ReachTab>
+))
 Tab.displayName = 'Tab'
 
-/** Tabs components. Based on headless Reach UI tabs.
+/** Tabs components. Based on headless Reach UI tabs (see links below).
  *
- * You can expect the same API as Reach UI tabs. With few additions: `Tabs` component has new `type` prop which allows to change tabs style.
+ * You can expect the same API as Reach UI tabs. With few additions: `<Tabs />` component has new `type` prop which allows to change tabs style.
  * You can also use default import and get all sub components using dot notation, e.g. `<Tabs.TabList />`, `<Tabs.Tab />`, etc.
  *
  * Please note that argument table does not contain all props. For full list of props please check Reach UI API.
  *
- * Reach UI API: https://reach.tech/tabs
+ * Supported features:
+ * - Mobile view. If tabs are too wide to fit on screen, they will be scrollable.
+ * - RTL - animations and styles are mirrored.
  *
- * Reach UI NPM: https://www.npmjs.com/package/@reach/tabs
+ * Links:
+ * - Reach UI API: https://reach.tech/tabs
+ * - Reach UI NPM: https://www.npmjs.com/package/@reach/tabs
  * */
 const TypedTabs = Tabs as typeof Tabs & {
   TabList: typeof TabList
