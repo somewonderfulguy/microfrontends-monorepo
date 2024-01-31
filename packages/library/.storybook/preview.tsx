@@ -199,6 +199,11 @@ const multiselect: Addon = {
             title: 'Dark',
             value: 'dark',
             left: '⚫'
+          },
+          {
+            title: 'White on black',
+            value: 'whiteOnBlack',
+            left: '⚪'
           }
         ]
       },

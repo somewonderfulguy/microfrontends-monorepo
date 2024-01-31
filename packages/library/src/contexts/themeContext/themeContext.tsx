@@ -45,6 +45,7 @@ const ThemeProvider = ({
             theme === 'yellow' && 'cyberpunk-ui-theme-yellow',
             theme === 'darkRed' && 'cyberpunk-ui-theme-dark-red',
             theme === 'dark' && 'cyberpunk-ui-theme-dark',
+            theme === 'whiteOnBlack' && 'cyberpunk-ui-theme-white-on-black',
             className
           )}
           style={style}

@@ -28,7 +28,8 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
           className={classNames(
             _theme === 'yellow' && styles.gridElementYellow,
             _theme === 'darkRed' && styles.gridElementDarkRed,
-            _theme === 'dark' && styles.gridElementDark
+            _theme === 'dark' && styles.gridElementDark,
+            _theme === 'whiteOnBlack' && styles.gridElementWhiteOnBlack
           )}
           initialTheme={_theme}
           key={_theme}

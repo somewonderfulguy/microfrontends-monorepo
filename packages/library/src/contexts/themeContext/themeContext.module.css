@@ -58,3 +58,15 @@
   --cb-tertiary-color: #000;
   --cb-quaternary-color: #000;
 }
+
+.theme:global(.cyberpunk-ui-theme-white-on-black) {
+  --cb-primary-background-color: var(--cb-darkest-gray);
+  /* --cb-secondary-background-color: var(--cb-yellow-transparent); */
+  --cb-primary-text-color: var(--cb-white);
+  /* --cb-secondary-text-color: var(--cb-yellow-alt); */
+  /* --cb-primary-color: var(--cb-yellow-alt); */
+  /* --cb-accent-color: var(--cb-turquoise); */
+  /* --cb-secondary-color: #000; */
+  /* --cb-tertiary-color: #000; */
+  /* --cb-quaternary-color: #000; */
+}

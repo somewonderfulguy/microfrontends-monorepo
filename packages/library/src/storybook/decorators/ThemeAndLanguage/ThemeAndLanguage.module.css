@@ -12,9 +12,8 @@
   flex: 1 1 auto;
   padding: 3rem;
   max-width: calc(100% - 6rem);
-}
-@media (max-width: 768px) {
-  .gridElement {
+
+  @media (max-width: 768px) {
     padding: 1rem;
     max-width: calc(100% - 2rem);
   }
@@ -38,4 +37,10 @@
 .gridElementDark {
   composes: gridElement;
   background-color: var(--cb-darkest-gray);
+}
+
+.gridElementWhiteOnBlack {
+  composes: gridElement;
+  background-color: var(--cb-black);
+  color: var(--cb-white);
 }
