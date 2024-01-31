@@ -146,10 +146,18 @@
 
   [data-reach-tab-panels] {
     position: relative;
+
+    /* this is for vertical height animation */
+    --panel-height: 1fr;
+    display: grid;
+    grid-template-rows: var(--panel-height, 1fr);
+    transition: grid-template-rows 200ms;
   }
 
   [data-reach-tab-panel] {
     --animation-time: 0.2s;
+    /* this is for vertical height animation */
+    overflow: hidden;
 
     &[hidden] {
       position: absolute;

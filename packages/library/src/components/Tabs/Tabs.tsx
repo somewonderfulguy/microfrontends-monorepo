@@ -6,9 +6,10 @@ import {
   TabListProps as ReactTabListProps,
   Tab as ReachTab,
   TabProps,
-  TabPanels,
+  TabPanels as ReachTabPanels,
+  TabPanelsProps,
   TabPanel as ReachTabPanel,
-  TabPanelProps as ReachTabPanelProps,
+  TabPanelProps,
   useTabsContext
 } from '@reach/tabs'
 
@@ -21,7 +22,6 @@ import { useUnderlineAnimation } from './hooks'
 
 import styles from './Tabs.module.css'
 
-// horizontal 1, underline
 // horizontal 2, hexagon line
 //   + drop down variant (later)
 // horizontal 3, folder tabs
@@ -65,7 +65,7 @@ Tabs.displayName = 'TabsWrapper'
 const TabList = forwardRef<
   HTMLDivElement,
   ReactTabListProps & HTMLAttributes<HTMLDivElement>
->(({ children, className, ...props }, ref) => {
+>((props, ref) => {
   const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
 
   const [refWrapper, { width: containerWidth }] =
@@ -81,9 +81,7 @@ const TabList = forwardRef<
 
   return (
     <div ref={refWrapper} className={styles.tabListContainer}>
-      <ReactTabList {...props} className={classNames(className)} ref={ref}>
-        {children}
-      </ReactTabList>
+      <ReactTabList {...props} ref={ref} />
     </div>
   )
 })
@@ -100,9 +98,39 @@ const Tab = forwardRef<
 ))
 Tab.displayName = 'TabWrapper'
 
+const TabPanels = forwardRef<
+  HTMLDivElement,
+  TabPanelsProps & HTMLAttributes<HTMLDivElement>
+>((props, ref) => {
+  const { selectedIndex } = useTabsContext()
+  const wrapperRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!wrapperRef.current) return
+    const panelsElement = wrapperRef.current.querySelector(
+      '[data-reach-tab-panels]'
+    ) as HTMLDivElement
+    const selectedPanel = wrapperRef.current.querySelector(
+      '[data-reach-tab-panel]:not([hidden]) > div'
+    ) as HTMLDivElement
+    if (!selectedPanel) return console.warn('Selected panel not found')
+    if (!panelsElement) return console.warn('Panels element not found')
+
+    const panelHeight = selectedPanel.offsetHeight
+    panelsElement.style.setProperty('--panel-height', `${panelHeight}px`)
+  }, [selectedIndex])
+
+  return (
+    <div ref={wrapperRef}>
+      <ReachTabPanels {...props} ref={ref} />
+    </div>
+  )
+})
+TabPanels.displayName = 'TabPanelsWrapper'
+
 const TabPanel = forwardRef<
   HTMLDivElement,
-  ReachTabPanelProps & HTMLAttributes<HTMLDivElement>
+  TabPanelProps & HTMLAttributes<HTMLDivElement>
 >(({ children, ...props }, ref) => {
   const divElem = useRef<HTMLDivElement>(null)
 
@@ -166,21 +194,6 @@ const TabPanel = forwardRef<
 })
 TabPanel.displayName = 'TabPanelWrapper'
 
-/** Tabs components. Based on headless Reach UI tabs (see links below).
- *
- * You can expect the same API as Reach UI tabs. With few additions: `<Tabs />` component has new `type` prop which allows to change tabs style.
- * You can also use default import and get all sub components using dot notation, e.g. `<Tabs.TabList />`, `<Tabs.Tab />`, etc.
- *
- * Please note that argument table does not contain all props. For full list of props please check Reach UI API.
- *
- * Supported features:
- * - Mobile view. If tabs are too wide to fit on screen, they will be scrollable.
- * - RTL - animations and styles are mirrored.
- *
- * Links:
- * - Reach UI API: https://reach.tech/tabs
- * - Reach UI NPM: https://www.npmjs.com/package/@reach/tabs
- * */
 const TypedTabs = Tabs as typeof Tabs & {
   TabList: typeof TabList
   Tab: typeof Tab
@@ -196,4 +209,4 @@ TypedTabs.TabPanel = TabPanel
 export default TypedTabs
 export * from '@reach/tabs'
 export type { TabsProps, TabProps }
-export { TypedTabs as Tabs, TabList, Tab, TabPanel }
+export { TypedTabs as Tabs, TabList, Tab, TabPanel, TabPanels }
