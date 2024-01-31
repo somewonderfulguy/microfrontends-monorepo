@@ -23,10 +23,14 @@ export const Default: Story = {
           <Tab>Concept arts</Tab>
         </TabList>
         <TabPanels style={{ marginTop: 30 }}>
-          <TabPanel>Cyberpunk 2077 tab content</TabPanel>
-          <TabPanel>Phantom liberty tab content</TabPanel>
-          <TabPanel>Edgerunners tab content</TabPanel>
-          <TabPanel>Night city wire tab content</TabPanel>
+          <TabPanel>Videos tab content</TabPanel>
+          <TabPanel>
+            Wallpapers tab content
+            <br />
+            <div style={{ cursor: 'pointer' }}>New Line</div>
+          </TabPanel>
+          <TabPanel>Screenshots tab content</TabPanel>
+          <TabPanel>Concept arts tab content</TabPanel>
         </TabPanels>
       </>
     )

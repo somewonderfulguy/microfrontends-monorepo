@@ -3,12 +3,26 @@ import type { Decorator } from '@storybook/react'
 
 import classNames from 'utils/classNames'
 import { ThemeProvider } from 'contexts/themeContext'
-import { Theme } from 'types/index'
+import { Theme, ThemeStorybook } from 'types/index'
 
 import styles from './ThemeAndLanguage.module.css'
 
+const getClassNames = (theme: Theme | ThemeStorybook) => {
+  switch (theme) {
+    case 'yellow':
+      return styles.gridElementYellow
+    case 'darkRed':
+      return styles.gridElementDarkRed
+    case 'dark':
+      return styles.gridElementDark
+    default:
+      return ''
+  }
+}
+
 const ThemeAndLanguage: Decorator = (Story, context) => {
-  const { globals, parameters } = context
+  const { globals, parameters, viewMode } = context
+  const isDocs = viewMode === 'docs'
   const multiselect: { [key: string]: string | string[] } = globals.multiselect
   const gridElementCss = parameters.gridElementCss as CSSProperties | undefined
 
@@ -16,6 +30,7 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
   // const lang = multiselect.lang as Array<'en' | 'pl' | 'ua'>
   const orientation = multiselect.orientation as 'horizontal' | 'vertical'
   // const priority = globals.priority as 'theme' | 'lang'
+  const themeStorybook = multiselect.themeStorybook as ThemeStorybook
 
   return (
     <div
@@ -23,21 +38,29 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
         orientation === 'horizontal' ? styles.grid : styles.gridVertical
       }
     >
-      {theme.map((_theme) => (
+      {isDocs ? (
         <ThemeProvider
-          className={classNames(
-            _theme === 'yellow' && styles.gridElementYellow,
-            _theme === 'darkRed' && styles.gridElementDarkRed,
-            _theme === 'dark' && styles.gridElementDark,
-            _theme === 'whiteOnBlack' && styles.gridElementWhiteOnBlack
-          )}
-          initialTheme={_theme}
-          key={_theme}
+          className={classNames(getClassNames(themeStorybook))}
+          initialTheme={themeStorybook}
           style={gridElementCss}
         >
           <Story />
         </ThemeProvider>
-      ))}
+      ) : (
+        theme.map((_theme) => (
+          <ThemeProvider
+            className={classNames(
+              getClassNames(_theme),
+              _theme === 'whiteOnBlack' && styles.gridElementWhiteOnBlack
+            )}
+            initialTheme={_theme}
+            key={_theme}
+            style={gridElementCss}
+          >
+            <Story />
+          </ThemeProvider>
+        ))
+      )}
     </div>
   )
 }
