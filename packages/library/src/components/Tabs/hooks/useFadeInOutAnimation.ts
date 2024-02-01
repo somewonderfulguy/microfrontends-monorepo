@@ -50,6 +50,7 @@ export const useFadeInOutAnimation = (divElem: RefObject<HTMLDivElement>) => {
         'animationend',
         () => {
           panelElem.removeAttribute('opening')
+          panelElem.removeAttribute('closed')
         },
         { once: true }
       )
