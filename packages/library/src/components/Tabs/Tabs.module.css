@@ -147,17 +147,19 @@
   [data-reach-tab-panels] {
     position: relative;
 
+    --panels-animation-time: 0.2s;
+
     /* this is for vertical height animation */
+    transition: height var(--panels-animation-time);
     --panel-height: auto;
     height: var(--panel-height, auto);
-    transition: height 200ms;
+
+    [height-changing] {
+      overflow: hidden;
+    }
   }
 
   [data-reach-tab-panel] {
-    --animation-time: 0.2s;
-    /* this is for vertical height animation */
-    overflow: hidden;
-
     &[hidden] {
       position: absolute;
       top: 0;
@@ -167,7 +169,7 @@
 
     &[closing] {
       display: block;
-      animation: fade-out var(--animation-time) forwards;
+      animation: fade-out var(--panels-animation-time) forwards;
     }
 
     &[closed] {
@@ -175,7 +177,7 @@
     }
 
     &[opening] {
-      animation: fade-in var(--animation-time) forwards;
+      animation: fade-in var(--panels-animation-time) forwards;
     }
 
     &:focus-visible {
