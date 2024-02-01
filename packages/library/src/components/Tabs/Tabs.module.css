@@ -148,10 +148,9 @@
     position: relative;
 
     /* this is for vertical height animation */
-    --panel-height: 1fr;
-    display: grid;
-    grid-template-rows: var(--panel-height, 1fr);
-    transition: grid-template-rows 200ms;
+    --panel-height: auto;
+    height: var(--panel-height, auto);
+    transition: height 200ms;
   }
 
   [data-reach-tab-panel] {

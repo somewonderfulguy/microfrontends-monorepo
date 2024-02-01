@@ -40,9 +40,20 @@ export const Default: Story = {
         <TabPanels style={{ marginTop: 30 }}>
           <TabPanel>Videos tab content</TabPanel>
           <TabPanel>
-            Wallpapers tab content
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
             <br />
-            <div style={{ cursor: 'pointer' }}>New Line</div>
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
           </TabPanel>
           <TabPanel>Screenshots tab content</TabPanel>
           <TabPanel>Concept arts tab content</TabPanel>

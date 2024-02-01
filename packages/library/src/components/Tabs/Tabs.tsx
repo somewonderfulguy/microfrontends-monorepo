@@ -15,10 +15,13 @@ import {
 
 import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
-import usePrevious from 'hooks/usePrevious'
 
 import { TabsInternalProvider } from './contexts'
-import { useUnderlineAnimation } from './hooks'
+import {
+  useContentHeightAnimation,
+  useFadeInOutAnimation,
+  useUnderlineAnimation
+} from './hooks'
 
 import styles from './Tabs.module.css'
 
@@ -102,23 +105,9 @@ const TabPanels = forwardRef<
   HTMLDivElement,
   TabPanelsProps & HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
-  const { selectedIndex } = useTabsContext()
   const wrapperRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    if (!wrapperRef.current) return
-    const panelsElement = wrapperRef.current.querySelector(
-      '[data-reach-tab-panels]'
-    ) as HTMLDivElement
-    const selectedPanel = wrapperRef.current.querySelector(
-      '[data-reach-tab-panel]:not([hidden]) > div'
-    ) as HTMLDivElement
-    if (!selectedPanel) return console.warn('Selected panel not found')
-    if (!panelsElement) return console.warn('Panels element not found')
-
-    const panelHeight = selectedPanel.offsetHeight
-    panelsElement.style.setProperty('--panel-height', `${panelHeight}px`)
-  }, [selectedIndex])
+  useContentHeightAnimation(wrapperRef)
 
   return (
     <div ref={wrapperRef}>
@@ -134,57 +123,7 @@ const TabPanel = forwardRef<
 >(({ children, ...props }, ref) => {
   const divElem = useRef<HTMLDivElement>(null)
 
-  const { selectedIndex } = useTabsContext()
-  const prevSelectedIndex = usePrevious(selectedIndex) || 0
-
-  const [index, setIndex] = useState<number | null>(null)
-
-  // find index of tab panel
-  useEffect(() => {
-    if (!divElem.current) return
-
-    const parent = divElem.current.parentElement?.parentElement
-
-    if (!parent) return
-
-    const childElements = Array.from(parent.children)
-
-    const index = childElements.findIndex((child) => {
-      const subChild = child.querySelector('&> div')
-      return subChild === divElem.current
-    })
-
-    setIndex(index)
-  }, [])
-
-  // fade in/out animation js logic
-  useEffect(() => {
-    const panelElem = divElem.current?.parentElement
-    if (!panelElem || prevSelectedIndex === selectedIndex) return
-
-    if (index === prevSelectedIndex) {
-      panelElem.removeAttribute('opening')
-      panelElem.setAttribute('closing', '')
-      panelElem.addEventListener(
-        'animationend',
-        () => {
-          panelElem.removeAttribute('closing')
-          panelElem.setAttribute('closed', '')
-        },
-        { once: true }
-      )
-    } else if (index === selectedIndex) {
-      panelElem.setAttribute('opening', '')
-      panelElem.removeAttribute('closed')
-      panelElem.addEventListener(
-        'animationend',
-        () => {
-          panelElem.removeAttribute('opening')
-        },
-        { once: true }
-      )
-    }
-  }, [selectedIndex, prevSelectedIndex, index])
+  useFadeInOutAnimation(divElem)
 
   return (
     <ReachTabPanel {...props} ref={ref}>
