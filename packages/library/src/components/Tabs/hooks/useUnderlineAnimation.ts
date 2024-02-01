@@ -58,10 +58,16 @@ export const useUnderlineAnimation = (
         '--_width',
         `${transitionWidth / containerWidth}`
       )
-      containerElement.style.setProperty('--_left', `${offsetLeft}px`)
+
+      const setLeft = () =>
+        containerElement.style.setProperty('--_left', `${offsetLeft}px`)
+      setLeft()
 
       setTimeout(() => {
         containerElement.style.setProperty('--_width', `${width}`)
+
+        // need to duplicate this, it fixes wrong position if navigate super fast using keyboard
+        setLeft()
       }, 100)
     } else {
       const transitionWidth = offsetLeft + offsetWidth - prevOffsetLeft
@@ -76,5 +82,5 @@ export const useUnderlineAnimation = (
     }
     // omitting `prevSelectedIndex` check as it causes multiple useEffect calls and this causes jiggle animation
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedIndex, tabs, containerWidth, isUnderline, isRtl])
+  }, [selectedIndex, tabs, containerWidth, isUnderline, isRtl, refWrapper])
 }
