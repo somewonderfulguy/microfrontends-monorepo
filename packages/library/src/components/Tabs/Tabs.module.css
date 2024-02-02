@@ -115,12 +115,13 @@
 
     [data-reach-tab-content] {
       opacity: 0;
+      letter-spacing: -0.5px;
       font-family: 'Blender Pro Bold', sans-serif;
     }
 
     [data-reach-tab-content],
     [data-reach-tab-clone] {
-      transition: opacity 0.09s ease-in-out;
+      transition: opacity 0.2s ease-in-out;
     }
 
     &[data-selected],
@@ -145,7 +146,7 @@
   [data-reach-tab-panels] {
     position: relative;
 
-    --panels-animation-time: 0.2s;
+    --panels-animation-time: 200ms;
 
     /* this is for vertical height animation */
     transition: height var(--panels-animation-time);

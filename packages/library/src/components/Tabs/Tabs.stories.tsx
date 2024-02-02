@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import type { Meta, StoryObj } from '@storybook/react'
 
 import Tabs, { TabList, Tab, TabPanels, TabPanel } from './Tabs'
@@ -26,6 +28,31 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
+const VideosTabContent = () => {
+  const [count, setCount] = useState(1)
+  const arrayFromCount = Array.from({ length: count })
+
+  return (
+    <>
+      <p>
+        <i>
+          The buttons will be restyled as soon as <code>Button</code> component
+          implemented.
+        </i>
+      </p>
+      <button onClick={() => setCount((c) => c + 1)}>Add line</button>
+      <button onClick={() => setCount((c) => c - 1)} disabled={count === 1}>
+        Remove line
+      </button>
+      <br />
+      <br />
+      {arrayFromCount.map((_, i) => (
+        <div key={i}>Videos tab content</div>
+      ))}
+    </>
+  )
+}
+
 /** By default `type` is `underline` */
 export const Default: Story = {
   args: {
@@ -38,7 +65,9 @@ export const Default: Story = {
           <Tab>Concept arts</Tab>
         </TabList>
         <TabPanels style={{ marginTop: 30 }}>
-          <TabPanel>Videos tab content</TabPanel>
+          <TabPanel>
+            <VideosTabContent />
+          </TabPanel>
           <TabPanel>
             Wallpapers tab content. Wallpapers tab content. Wallpapers tab
             content. Wallpapers tab content. Wallpapers tab content.
