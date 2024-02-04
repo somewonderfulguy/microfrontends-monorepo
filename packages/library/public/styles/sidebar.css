@@ -224,54 +224,39 @@ button.sidebar-item,
 .sidebar-item > a {
   font-size: var(--cb-font-size);
 }
-.sidebar-item[data-selected='true'],
-.sidebar-item[data-selected='true'] * {
-  font-family: var(--cb-font-family-bold);
-}
-body.dark .sidebar-item[data-selected='true'] {
-  background-color: hsla(73, 100%, 68%, 0.12);
-}
-/* item icon */
-body.yellow a[id$='--docs'] svg {
-  color: var(--cb-yellow-main);
-}
-body.darkRed a[id$='--docs'] svg {
-  color: var(--cb-green);
-}
-body.dark a[id$='--docs'] svg {
-  color: var(--cb-yellow-alt);
-}
-body.dark button[data-nodetype='group'] svg,
-body.dark button[data-nodetype='component'] svg {
-  color: var(--cb-turquoise);
-}
-:is(body.yellow, body.darkRed) .sidebar-item[data-selected='true'],
-:is(body.yellow, body.darkRed) .sidebar-item[data-selected='true'] svg {
-  color: var(--cb-black);
-}
-body.dark .sidebar-item[data-selected='true'] {
-  color: var(--cb-yellow-alt);
-}
-body.dark .sidebar-item[data-selected='true'] svg {
-  color: var(--cb-turquoise);
-}
-body.dark .sidebar-item[data-selected='true'] a[id$='--docs'] svg {
-  color: var(--cb-yellow-alt);
-}
-.sidebar-item[data-selected='true'] a:first-child svg {
-  margin-left: -2px;
-}
-.sidebar-item[data-selected='true'] svg {
-  width: 15px;
-  height: 15px;
-}
-/* expand button */
-.sidebar-item span {
-  border-top-width: 4px;
-  border-bottom-width: 4px;
-  border-left-width: 4px;
-}
+.sidebar-item[data-selected='true'] {
+  &,
+  * {
+    font-family: var(--cb-font-family-bold);
+  }
 
+  :is(body.dark) & {
+    background-color: hsla(73, 100%, 68%, 0.12);
+  }
+
+  :is(body.yellow, body.darkRed) &,
+  :is(body.yellow, body.darkRed) & svg {
+    color: var(--cb-black);
+  }
+  :is(body.dark) & {
+    color: var(--cb-yellow-alt);
+  }
+  :is(body.dark) & svg {
+    color: var(--cb-turquoise);
+  }
+  :is(body.dark) & a[id$='--docs'] svg {
+    color: var(--cb-yellow-alt);
+  }
+
+  & a:first-child svg {
+    margin-left: -2px;
+  }
+
+  & svg {
+    width: 15px;
+    height: 15px;
+  }
+}
 /* skip to canvas in menu items */
 .sidebar-item[data-selected='true'] a + a {
   border-radius: 0;
@@ -298,6 +283,28 @@ body.darkRed .sidebar-item[data-selected='true'] a + a {
 body.dark .sidebar-item[data-selected='true'] a + a {
   background-color: var(--cb-yellow-alt);
   color: var(--cb-black);
+}
+/* expand button */
+.sidebar-item span {
+  border-top-width: 4px;
+  border-bottom-width: 4px;
+  border-left-width: 4px;
+}
+/* item icon */
+a[id$='--docs'] {
+  :is(body.yellow) & svg {
+    color: var(--cb-yellow-main);
+  }
+  :is(body.darkRed) & svg {
+    color: var(--cb-green);
+  }
+  :is(body.dark) & svg {
+    color: var(--cb-yellow-alt);
+  }
+}
+body.dark button[data-nodetype='group'] svg,
+body.dark button[data-nodetype='component'] svg {
+  color: var(--cb-turquoise);
 }
 
 /* recently opened */
