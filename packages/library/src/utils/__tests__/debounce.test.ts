@@ -1,46 +1,33 @@
 import debounce from '../debounce'
 
-test('debounce works', async () => {
-  // fake data to test
-  let counterOne = 0
-  let counterTwo = 0
+test('debounce single call without delay parameter works', async () => {
+  let counter = 0
+  const fnToDebounce = jest.fn(() => counter++)
 
-  const spyObject = {
-    fnToDebounceOne: () => {
-      counterOne++
-      return counterOne
-    },
-    fnToDebounceTwo: () => {
-      counterTwo++
-      return counterTwo
-    }
-  }
-  jest.spyOn(spyObject, 'fnToDebounceOne')
-  jest.spyOn(spyObject, 'fnToDebounceTwo')
-
-  // single call, without delay parameter
-  expect(counterOne).toBe(0)
-  expect(spyObject.fnToDebounceOne).toHaveBeenCalledTimes(0)
-  const debouncedFnOne = debounce(spyObject.fnToDebounceOne)
-  debouncedFnOne()
+  const debouncedFn = debounce(fnToDebounce)
+  debouncedFn()
   await new Promise((r) => setTimeout(r))
-  expect(counterOne).toBe(1)
-  expect(spyObject.fnToDebounceOne).toHaveBeenCalledTimes(1)
+  expect(counter).toBe(1)
+  expect(fnToDebounce).toHaveBeenCalledTimes(1)
+})
 
-  // multiple calls with delay executes function only once
-  const debouncedFnTwo = debounce(spyObject.fnToDebounceTwo, 50)
-  expect(counterTwo).toBe(0)
-  debouncedFnTwo()
-  debouncedFnTwo()
-  debouncedFnTwo()
-  debouncedFnTwo()
-  expect(counterTwo).toBe(0)
-  expect(spyObject.fnToDebounceTwo).toHaveBeenCalledTimes(0)
+test('debounce multiple calls with delay parameter works', async () => {
+  let counter = 0
+  const fnToDebounce = jest.fn(() => counter++)
+
+  const debouncedFn = debounce(fnToDebounce, 50)
+  debouncedFn()
+  debouncedFn()
+  debouncedFn()
+  debouncedFn()
+  expect(counter).toBe(0)
+  expect(fnToDebounce).toHaveBeenCalledTimes(0)
   await new Promise((r) => setTimeout(r, 50))
-  expect(counterTwo).toBe(1)
-  expect(spyObject.fnToDebounceTwo).toHaveBeenCalledTimes(1)
+  expect(counter).toBe(1)
+  expect(fnToDebounce).toHaveBeenCalledTimes(1)
+})
 
-  // `this` context test using .bind
+test('debounce `this` context test using .bind', async () => {
   class Counter {
     count = 0
 
@@ -56,6 +43,29 @@ test('debounce works', async () => {
   expect(counter.count).toBe(0)
   await new Promise((r) => setTimeout(r, 20))
   expect(counter.count).toBe(1)
+})
 
-  // TODO: test for calling with parameters (make sure that parameters are working correctly)
+test('debounce with parameters', async () => {
+  const fnToDebounce = jest.fn((a: number, b: number) => {
+    //
+  })
+
+  const debouncedFn = debounce(fnToDebounce, 50)
+  debouncedFn(1, 5)
+  expect(fnToDebounce).toHaveBeenCalledTimes(0)
+  await new Promise((r) => setTimeout(r, 150))
+  expect(fnToDebounce).toHaveBeenCalledTimes(1)
+  expect(fnToDebounce).toHaveBeenCalledWith([1, 5])
+})
+
+test('should quit execution on `.cancel()` call', async () => {
+  let counter = 0
+  const fnToDebounce = jest.fn(() => counter++)
+
+  const debouncedFn = debounce(fnToDebounce, 50)
+  debouncedFn()
+  debouncedFn.cancel()
+  await new Promise((r) => setTimeout(r, 50))
+  expect(counter).toBe(0)
+  expect(fnToDebounce).toHaveBeenCalledTimes(0)
 })
