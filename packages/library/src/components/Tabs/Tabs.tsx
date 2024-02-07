@@ -95,7 +95,10 @@ const Tab = forwardRef<
   TabProps & HTMLAttributes<HTMLButtonElement>
 >(({ children, ...props }, ref) => (
   <ReachTab {...props} ref={ref}>
-    <div data-reach-tab-clone>{children}</div>
+    {/* clone is the same text but bold used for changing font-weight with transition animation */}
+    <div data-reach-tab-clone aria-hidden>
+      {children}
+    </div>
     <div data-reach-tab-content>{children}</div>
   </ReachTab>
 ))
