@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { RefObject, useLayoutEffect, useRef } from 'react'
 import { useTabsContext } from '@reach/tabs'
 
 import usePrevious from 'hooks/usePrevious'
@@ -53,6 +53,7 @@ export const useUnderlineAnimation = (
 
   // underline animation & position logic (mouse hover)
   const isInit = useRef(true)
+  const hoverIndex = useRef(-1)
   const prevContainerWidth = usePrevious(containerWidth)
   useLayoutEffect(() => {
     if (!isUnderline || !tabs.length || !refWrapper.current || !containerWidth)
@@ -86,19 +87,7 @@ export const useUnderlineAnimation = (
       isVeryRight: selectedIndex + 1 === tabs.length
     }
 
-    // It is basically "from" tab
     const selectedTab = tabs[selectedIndex]
-    const { offsetLeft, offsetWidth } = selectedTab
-    const selectedTabOffsetLeft =
-      // -1px to fix horizontal scroll in Chrome/Edge
-      offsetLeft + (selectedIndex === 0 ? 0 : sidePadding) - 1
-
-    const selectedTabWidth =
-      (offsetWidth -
-        (selectedIndex === 0 || selectedIndex + 1 === tabs.length
-          ? sidePadding
-          : sidePadding * 2)) /
-      containerWidth
 
     const containerElement = refWrapper.current
     const setLeft = (left: number) =>
@@ -119,83 +108,85 @@ export const useUnderlineAnimation = (
       setScale(tabScale)
     }
 
-    // active tab (selectedIndex) change logic
-    if (selectedIndex !== prevSelectedIndex) {
-      // eslint-disable-next-line no-console
-      console.log('time to change', selectedIndex, prevSelectedIndex)
-    }
+    const performTransition = (prevIndex: number, nextIndex: number) => {
+      const isGoingLeft = isRtl ? prevIndex < nextIndex : prevIndex > nextIndex
 
-    // mouse hover logic
-    let prevHoverIndex = selectedIndex
-    const mouseEnterCallbacks = tabs.map((hoverTab, hoverIndex) => () => {
-      // this works fine
-      if (prevHoverIndex === hoverIndex) return
+      const prevTab = tabs[prevIndex]
+      const nextTab = tabs[nextIndex]
 
-      // this works fine
-      const isGoingLeft = isRtl
-        ? prevHoverIndex < hoverIndex
-        : prevHoverIndex > hoverIndex
-
-      const previousTab = tabs[prevHoverIndex]
-      const { offsetLeft, offsetWidth: hoverOffsetWidth } = hoverTab
-      const hoverTabOffsetLeft =
-        // -1px to fix horizontal scroll in Chrome/Edge
-        offsetLeft + (hoverIndex === 0 ? 0 : sidePadding) - 1
       const { offsetLeft: prevOffsetLeft, offsetWidth: prevOffsetWidth } =
-        previousTab
+        prevTab
+      const { offsetLeft, offsetWidth: nextOffsetWidth } = nextTab
+      const nextOffsetLeft =
+        // -1px to fix horizontal scroll in Chrome/Edge
+        offsetLeft + (nextIndex === 0 ? 0 : sidePadding) - 1
 
-      const isExtremeElement =
-        hoverIndex === 0 || hoverIndex + 1 === tabs.length
+      const isExtremeElement = nextIndex === 0 || nextIndex + 1 === tabs.length
       const reduceWidth = isExtremeElement ? sidePadding : sidePadding * 2
-      const hoverScale = (hoverOffsetWidth - reduceWidth) / containerWidth
+      const nextTabScale = (nextOffsetWidth - reduceWidth) / containerWidth
 
       if (isGoingLeft) {
         const transitionWidth =
           prevOffsetLeft +
           prevOffsetWidth -
-          hoverTabOffsetLeft -
-          (prevHoverIndex === tabs.length - 1 ? 0 : sidePadding) -
+          nextOffsetLeft -
+          (prevIndex === tabs.length - 1 ? 0 : sidePadding) -
           1
         const stretchScale = transitionWidth / containerWidth
         setScale(stretchScale)
 
-        setLeft(hoverTabOffsetLeft)
+        setLeft(nextOffsetLeft)
         setTimeout(() => {
-          setScale(hoverScale)
-          // need to duplicate this, it fixes wrong position if navigate super fast using keyboard
-          // setLeft()
+          setScale(nextTabScale)
+          // need to duplicate this, it fixes wrong position if navigate super fast
+          setLeft(nextOffsetLeft)
         }, 100)
       } else {
         const transitionWidth =
-          (prevHoverIndex === 0 ? hoverTabOffsetLeft : offsetLeft) +
-          (hoverOffsetWidth - reduceWidth) -
+          (prevIndex === 0 ? nextOffsetLeft : offsetLeft) +
+          (nextOffsetWidth - reduceWidth) -
           prevOffsetLeft
         const stretchScale = transitionWidth / containerWidth
 
         setScale(stretchScale)
 
         setTimeout(() => {
-          setLeft(hoverTabOffsetLeft)
-          setScale(hoverScale)
+          setLeft(nextOffsetLeft)
+          setScale(nextTabScale)
         }, 100)
       }
+    }
 
-      // this works fine
-      prevHoverIndex = hoverIndex
+    // active tab (selectedIndex) change logic - via keyboard / click / external
+    if (selectedIndex !== prevSelectedIndex) {
+      // if hover & selected index are the same, no need to perform transition
+      if (hoverIndex.current !== selectedIndex) {
+        performTransition(prevSelectedIndex, selectedIndex)
+      }
+    }
+
+    // mouse hover logic
+    let prevHoverIndex = selectedIndex
+    const mouseEnterCallbacks = tabs.map((hoverTab, _hoverIndex) => () => {
+      hoverIndex.current = _hoverIndex
+      if (prevHoverIndex === _hoverIndex) return
+      performTransition(prevHoverIndex, _hoverIndex)
+      prevHoverIndex = _hoverIndex
     })
     const mouseLeaveCallbacks = tabs.map(
       (leaveTab, leaveIndex) => (event: MouseEvent) => {
-        if (selectedIndex === leaveIndex) return
-
         const toElement = event.relatedTarget as HTMLElement
 
-        if (leaveTab === toElement) return
-
+        // check is leaving towards another tab
         const isSomeTab = tabs.some((tab) => tab.contains(toElement))
 
+        // if leaving all the tabs, reset to active tab
         if (!isSomeTab) {
-          // if leaving the tab list, reset the underline to the selected tab
-          prevHoverIndex = selectedIndex
+          if (leaveIndex !== selectedIndex && leaveTab !== toElement) {
+            performTransition(leaveIndex, selectedIndex)
+            prevHoverIndex = selectedIndex
+          }
+          hoverIndex.current = -1
         }
       }
     )
@@ -221,78 +212,4 @@ export const useUnderlineAnimation = (
     prevContainerWidth,
     prevSelectedIndex
   ])
-
-  // underline animation & position logic (click & keyboard)
-  // useEffect(() => {
-  //   if (!isUnderline || !tabs.length || !refWrapper.current || !containerWidth)
-  //     return
-
-  //   const tabListElement = refWrapper.current.querySelector(
-  //     '[data-reach-tab-list]'
-  //   ) as HTMLDivElement
-
-  //   if (!tabListElement) {
-  //     throw new Error('tabListElement not found')
-  //   }
-
-  //   const selectedTab = tabs[selectedIndex]
-  //   const prevSelectedTab = tabs[prevSelectedIndex]
-
-  //   const isGoingLeft = isRtl
-  //     ? selectedIndex > prevSelectedIndex
-  //     : selectedIndex < prevSelectedIndex
-
-  //   const { offsetLeft, offsetWidth } = selectedTab
-  //   const { offsetLeft: prevOffsetLeft, offsetWidth: prevOffsetWidth } =
-  //     prevSelectedTab
-  //   // const containerWidth = tabListElement.offsetWidth
-
-  //   const width = offsetWidth / containerWidth
-
-  //   const containerElement = refWrapper.current
-
-  //   if (isInit.current || containerWidth !== prevContainerWidth) {
-  //     isInit.current = false
-  //   }
-
-  //   if (isGoingLeft) {
-  //     const transitionWidth = prevOffsetLeft + prevOffsetWidth - offsetLeft
-
-  //     containerElement.style.setProperty(
-  //       '--_width',
-  //       `${transitionWidth / containerWidth}`
-  //     )
-
-  //     const setLeft = () =>
-  //       containerElement.style.setProperty('--_left', `${offsetLeft}px`)
-  //     setLeft()
-
-  //     setTimeout(() => {
-  //       containerElement.style.setProperty('--_width', `${width}`)
-
-  //       // need to duplicate this, it fixes wrong position if navigate super fast using keyboard
-  //       setLeft()
-  //     }, 100)
-  //   } else {
-  //     const transitionWidth = offsetLeft + offsetWidth - prevOffsetLeft
-  //     const stretchWidth = transitionWidth / containerWidth
-
-  //     containerElement.style.setProperty('--_width', `${stretchWidth}`)
-
-  //     setTimeout(() => {
-  //       containerElement.style.setProperty('--_left', `${offsetLeft}px`)
-  //       containerElement.style.setProperty('--_width', `${width}`)
-  //     }, 100)
-  //   }
-  //   // omitting `prevSelectedIndex` check as it causes multiple useEffect calls and this causes jiggle animation
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [
-  //   selectedIndex,
-  //   tabs,
-  //   containerWidth,
-  //   isUnderline,
-  //   isRtl,
-  //   refWrapper,
-  //   prevContainerWidth
-  // ])
 }
