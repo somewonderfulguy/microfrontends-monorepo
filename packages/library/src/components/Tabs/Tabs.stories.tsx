@@ -56,12 +56,14 @@ const VideosTabContent = () => {
 /** By default `type` is `underline` */
 export const Default: Story = {
   args: {
+    defaultIndex: 0,
     children: (
       <>
         <TabList>
           <Tab>Videos</Tab>
-          <Tab>Wallpapers</Tab>
+          <Tab>Wallpapers long tab name</Tab>
           <Tab>Screenshots</Tab>
+          <Tab>V</Tab>
           <Tab>Concept arts</Tab>
         </TabList>
         <TabPanels style={{ marginTop: 30 }}>
@@ -85,6 +87,7 @@ export const Default: Story = {
             content. Wallpapers tab content. Wallpapers tab content.
           </TabPanel>
           <TabPanel>Screenshots tab content</TabPanel>
+          <TabPanel>Vi</TabPanel>
           <TabPanel>Concept arts tab content</TabPanel>
         </TabPanels>
       </>
