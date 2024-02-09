@@ -36,6 +36,8 @@ const getTabData = (
   return { offsetLeft, tabScale }
 }
 
+// FIXME: hover on active tab - start navigation using keyboard, see the bug (not getting back to active tab)
+
 export const useUnderlineAnimation = (
   tabs: HTMLButtonElement[],
   refWrapper: RefObject<HTMLDivElement>,
@@ -140,7 +142,7 @@ export const useUnderlineAnimation = (
           setScale(nextTabScale)
           // need to duplicate this, it fixes wrong position if navigate super fast
           setLeft(nextOffsetLeft)
-        }, 100)
+        }, 150)
       } else {
         const transitionWidth =
           (prevIndex === 0 ? nextOffsetLeft : offsetLeft) +
@@ -151,8 +153,8 @@ export const useUnderlineAnimation = (
         setScale(stretchScale)
 
         // this weird timeout difference needed to fix Chrome/Edge jiggle on moving right
-        setTimeout(() => setLeft(nextOffsetLeft), 90)
-        setTimeout(() => setScale(nextTabScale), 100)
+        setTimeout(() => setLeft(nextOffsetLeft), 140)
+        setTimeout(() => setScale(nextTabScale), 150)
       }
     }
 
