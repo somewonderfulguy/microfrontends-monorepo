@@ -150,10 +150,9 @@ export const useUnderlineAnimation = (
 
         setScale(stretchScale)
 
-        setTimeout(() => {
-          setLeft(nextOffsetLeft)
-          setScale(nextTabScale)
-        }, 100)
+        // this weird timeout difference needed to fix Chrome/Edge jiggle on moving right
+        setTimeout(() => setLeft(nextOffsetLeft), 90)
+        setTimeout(() => setScale(nextTabScale), 100)
       }
     }
 
