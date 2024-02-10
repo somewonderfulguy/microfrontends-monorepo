@@ -1,7 +1,12 @@
 {
-  "name": "library",
   "version": "1.0.0",
+  "name": "library",
   "description": "Library is a set of reusable modules (e.g., components, hooks, utils) that can be used in other projects of monorepo. Potentially, it can be published to npm or deployed using Module Federation.",
+  "author": "Dmitriy Yastrebov",
+  "type": "module",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "start": "storybook dev -p 3333",
     "storybook-docs": "storybook dev --docs",
@@ -16,11 +21,17 @@
     "test:upd-snapshot": "jest -u",
     "test:coverage": "jest --coverage"
   },
-  "type": "module",
-  "author": "Dmitriy Yastrebov",
-  "files": [
-    "build"
-  ],
+  "dependencies": {
+    "@reach/tabs": "^0.18.0",
+    "augmented-ui": "^2.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^3.1.4",
+    "react-query": "^3.39.2",
+    "react-spring": "^9.7.3",
+    "resize-observer-polyfill": "^1.5.1",
+    "uuid": "^9.0.0"
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
@@ -80,17 +91,6 @@
     "storybook-addon-multiselect": "1.0.2",
     "ts-jest": "^29.1.0",
     "typescript": "^5.0.4"
-  },
-  "dependencies": {
-    "@reach/tabs": "^0.18.0",
-    "augmented-ui": "^2.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-error-boundary": "^3.1.4",
-    "react-query": "^3.39.2",
-    "react-spring": "^9.7.3",
-    "resize-observer-polyfill": "^1.5.1",
-    "uuid": "^9.0.0"
   },
   "msw": {
     "workerDirectory": "msw"

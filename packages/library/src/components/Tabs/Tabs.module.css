@@ -148,9 +148,20 @@
 
     &:focus-visible {
       outline: none;
+
       [data-reach-tab-clone] {
+        text-shadow: 0 0 3px var(--cb-turquoise), 0 0 7px var(--cb-turquoise),
+          0 0 12px var(--cb-turquoise);
+      }
+
+      :is(:global(.cyberpunk-ui-theme-yellow)) & [data-reach-tab-clone] {
         text-shadow: 0 0 3px var(--cb-turquoise), 0 0 7px #fff,
           0 0 12px var(--cb-turquoise);
+      }
+
+      :is(:global(.cyberpunk-ui-theme-dark-red)) & [data-reach-tab-clone] {
+        text-shadow: 0 0 1px rgba(255, 255, 255, 0.5), 0 0 2px var(--cb-red),
+          0 0 13px var(--cb-red);
       }
     }
   }
@@ -188,6 +199,10 @@
 
     &:focus-visible {
       outline: 1px solid var(--cb-turquoise);
+    }
+
+    :global(.cyberpunk-ui-theme-dark-red) &:focus-visible {
+      outline: 1px solid var(--cb-red);
     }
   }
 }

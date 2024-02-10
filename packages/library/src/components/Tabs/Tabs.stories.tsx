@@ -87,7 +87,7 @@ export const Underline: Story = {
             content. Wallpapers tab content. Wallpapers tab content.
           </TabPanel>
           <TabPanel>Screenshots tab content</TabPanel>
-          <TabPanel>Vi is the main character.</TabPanel>
+          <TabPanel>V is the main character.</TabPanel>
           <TabPanel>Concept arts tab content</TabPanel>
         </TabPanels>
       </>

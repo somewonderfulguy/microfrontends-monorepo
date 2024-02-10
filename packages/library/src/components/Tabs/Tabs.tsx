@@ -109,13 +109,24 @@ const TabPanels = forwardRef<
 >((props, ref) => {
   const [wrapperRef, { height }] = useResizeObserver<HTMLDivElement>()
 
+  const isInitialRender = useRef(true)
   const animatedHeight = useSpring({
-    config: { duration: 200 },
+    config: {
+      duration: isInitialRender.current ? 0 : 200,
+      immediate: isInitialRender.current
+    },
     height
   })
+  useEffect(() => {
+    setTimeout(() => (isInitialRender.current = false))
+  }, [])
 
   return (
-    <animated.div style={{ ...animatedHeight }}>
+    <animated.div
+      style={{
+        height: isInitialRender.current ? 'auto' : animatedHeight.height
+      }}
+    >
       <div ref={wrapperRef}>
         <ReachTabPanels {...props} ref={ref} />
       </div>
