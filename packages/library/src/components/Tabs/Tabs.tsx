@@ -9,19 +9,15 @@ import {
   TabPanels as ReachTabPanels,
   TabPanelsProps,
   TabPanel as ReachTabPanel,
-  TabPanelProps,
-  useTabsContext
+  TabPanelProps
 } from '@reach/tabs'
+import { animated, useSpring } from 'react-spring'
 
 import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
 
 import { TabsInternalProvider } from './contexts'
-import {
-  useContentHeightAnimation,
-  useFadeInOutAnimation,
-  useUnderlineAnimation
-} from './hooks'
+import { useFadeInOutAnimation, useUnderlineAnimation } from './hooks'
 
 import styles from './Tabs.module.css'
 
@@ -38,6 +34,9 @@ import styles from './Tabs.module.css'
 
 // animation content (fade in/out; height change)
 // dnd tab (reorder; horizontal/vertical)
+
+// TODO: test render props api
+// TODO: implement moving indicator using react-spring
 
 export type TabsStyle =
   | 'underline'
@@ -108,14 +107,19 @@ const TabPanels = forwardRef<
   HTMLDivElement,
   TabPanelsProps & HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
-  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [wrapperRef, { height }] = useResizeObserver<HTMLDivElement>()
 
-  useContentHeightAnimation(wrapperRef)
+  const animatedHeight = useSpring({
+    config: { duration: 200 },
+    height
+  })
 
   return (
-    <div ref={wrapperRef}>
-      <ReachTabPanels {...props} ref={ref} />
-    </div>
+    <animated.div style={{ ...animatedHeight }}>
+      <div ref={wrapperRef}>
+        <ReachTabPanels {...props} ref={ref} />
+      </div>
+    </animated.div>
   )
 })
 TabPanels.displayName = 'TabPanelsWrapper'

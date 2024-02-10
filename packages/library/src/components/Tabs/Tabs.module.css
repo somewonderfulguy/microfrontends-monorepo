@@ -160,11 +160,6 @@
 
     --panels-animation-time: 200ms;
 
-    /* this is for vertical height animation */
-    transition: height var(--panels-animation-time);
-    --panel-height: auto;
-    height: var(--panel-height, auto);
-
     [height-changing] {
       overflow: hidden;
     }

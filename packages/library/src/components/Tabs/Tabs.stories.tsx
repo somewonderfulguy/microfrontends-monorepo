@@ -34,7 +34,7 @@ const VideosTabContent = () => {
 
   return (
     <>
-      <p>
+      <p style={{ marginTop: 0 }}>
         <i>
           The buttons will be restyled as soon as <code>Button</code> component
           implemented.
@@ -54,7 +54,7 @@ const VideosTabContent = () => {
 }
 
 /** By default `type` is `underline` */
-export const Default: Story = {
+export const Underline: Story = {
   args: {
     defaultIndex: 0,
     children: (
@@ -87,7 +87,7 @@ export const Default: Story = {
             content. Wallpapers tab content. Wallpapers tab content.
           </TabPanel>
           <TabPanel>Screenshots tab content</TabPanel>
-          <TabPanel>Vi</TabPanel>
+          <TabPanel>Vi is the main character.</TabPanel>
           <TabPanel>Concept arts tab content</TabPanel>
         </TabPanels>
       </>
