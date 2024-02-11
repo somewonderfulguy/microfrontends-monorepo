@@ -16,7 +16,7 @@ import { animated, useSpring } from 'react-spring'
 import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
 
-import { TabsInternalProvider } from './contexts'
+import { TabsInternalProvider, useTabsInternalContext } from './contexts'
 import { useFadeInOutAnimation, useUnderlineAnimation } from './hooks'
 
 import styles from './Tabs.module.css'
@@ -68,6 +68,9 @@ const TabList = forwardRef<
   HTMLDivElement,
   ReactTabListProps & HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
+  const tabsStyle = useTabsInternalContext()
+  const isHexagon = tabsStyle === 'hexagon'
+
   const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
 
   const [refWrapper, { width: containerWidth }] =
@@ -83,7 +86,11 @@ const TabList = forwardRef<
 
   return (
     <div ref={refWrapper} className={styles.tabListContainer}>
-      <ReactTabList {...props} ref={ref} />
+      <ReactTabList
+        {...props}
+        ref={ref}
+        {...(isHexagon && { 'data-augmented-ui': 'tl-clip br-clip border' })}
+      />
     </div>
   )
 })
@@ -92,15 +99,22 @@ TabList.displayName = 'TabListWrapper'
 const Tab = forwardRef<
   HTMLButtonElement,
   TabProps & HTMLAttributes<HTMLButtonElement>
->(({ children, ...props }, ref) => (
-  <ReachTab {...props} ref={ref}>
-    {/* clone is the same text but bold used for changing font-weight with transition animation */}
-    <div data-reach-tab-clone aria-hidden>
-      {children}
-    </div>
-    <div data-reach-tab-content>{children}</div>
-  </ReachTab>
-))
+>(({ children, ...props }, ref) => {
+  const tabsStyle = useTabsInternalContext()
+  const isUnderline = tabsStyle === 'underline'
+
+  return (
+    <ReachTab {...props} ref={ref}>
+      {/* clone is the same text but bold used for changing font-weight with transition animation */}
+      {isUnderline && (
+        <div data-reach-tab-clone aria-hidden>
+          {children}
+        </div>
+      )}
+      <div data-reach-tab-content>{children}</div>
+    </ReachTab>
+  )
+})
 Tab.displayName = 'TabWrapper'
 
 const TabPanels = forwardRef<

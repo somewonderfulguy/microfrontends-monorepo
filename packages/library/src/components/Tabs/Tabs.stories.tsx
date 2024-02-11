@@ -101,16 +101,18 @@ export const Hexagon: Story = {
     children: (
       <>
         <TabList>
-          <Tab>Videos</Tab>
-          <Tab>Wallpapers</Tab>
-          <Tab>Screenshots</Tab>
-          <Tab>Concept arts</Tab>
+          <Tab>Cyberpunk 2077</Tab>
+          <Tab>Phantom Liberty - new DLC</Tab>
+          <Tab>Edgerunners</Tab>
+          <Tab>V</Tab>
+          <Tab>Music</Tab>
         </TabList>
         <TabPanels style={{ marginTop: 30 }}>
           <TabPanel>Cyberpunk 2077 tab content</TabPanel>
           <TabPanel>Phantom liberty tab content</TabPanel>
           <TabPanel>Edgerunners tab content</TabPanel>
-          <TabPanel>Night city wire tab content</TabPanel>
+          <TabPanel>V is the main character.</TabPanel>
+          <TabPanel>Music tab content</TabPanel>
         </TabPanels>
       </>
     )
