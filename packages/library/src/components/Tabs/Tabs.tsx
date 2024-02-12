@@ -88,11 +88,9 @@ const TabList = forwardRef<
 
   useUnderlineAnimation(tabs, refWrapper, containerWidth)
 
-  const indicatorElem = useRef<HTMLDivElement>(null)
   const { indicatorLeft, indicatorWidth } = useIndicatorPosition(
     tabs,
     refWrapper,
-    indicatorElem,
     containerWidth
   )
 
@@ -107,7 +105,6 @@ const TabList = forwardRef<
           <animated.div
             className={styles.indicator}
             style={{ ...indicatorLeft, ...indicatorWidth }}
-            ref={indicatorElem}
           />
         )}
         {children}
@@ -148,9 +145,9 @@ const TabPanels = forwardRef<
   const isInitialRender = useRef(true)
   const animatedHeight = useSpring({
     config: {
-      duration: isInitialRender.current ? 0 : 200,
-      immediate: isInitialRender.current
+      duration: isInitialRender.current ? 0 : 200
     },
+    immediate: isInitialRender.current,
     height
   })
   useEffect(() => {

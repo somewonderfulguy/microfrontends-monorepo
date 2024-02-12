@@ -9,30 +9,9 @@ import { useTabsInternalContext } from '../contexts'
 const getDirection = (element: Element) =>
   window.getComputedStyle(element).getPropertyValue('direction')
 
-type TabGetterOptions = {
-  isVeryLeft?: boolean
-  isVeryRight?: boolean
-  sidePadding: number
-  containerWidth: number
-}
-const getTabData = (
-  tab: HTMLButtonElement,
-  {
-    isVeryLeft = false,
-    isVeryRight = false,
-    sidePadding,
-    containerWidth
-  }: TabGetterOptions
-) => {
-  const { offsetLeft, offsetWidth } = tab
-
-  return { offsetLeft, offsetWidth }
-}
-
 export const useIndicatorPosition = (
   tabs: HTMLButtonElement[],
   refWrapper: RefObject<HTMLDivElement>,
-  indicatorElement: RefObject<HTMLDivElement>,
   containerWidth: number
 ) => {
   const { selectedIndex } = useTabsContext()
@@ -51,7 +30,7 @@ export const useIndicatorPosition = (
   const hoverIndex = useRef(-1)
   const prevContainerWidth = usePrevious(containerWidth)
 
-  // TODO: useSprings
+  // TODO: play with config (mass / tension / friction or just duration; also timeout duration)
 
   const [indicatorLeft, leftApi] = useSpring(
     () => ({
@@ -68,13 +47,6 @@ export const useIndicatorPosition = (
     }),
     []
   )
-
-  // 1. copy logic from useUnderlineAnimation (empty function performTransition)
-  // 2. going right stretch
-  // 3. going right left position
-  // 4. going left shrink
-  // 5. calibrate timings
-  // 6. going left - copy all and do in reverse
 
   useLayoutEffect(() => {
     if (!isHexagon || !tabs.length || !refWrapper.current || !containerWidth)
@@ -98,28 +70,38 @@ export const useIndicatorPosition = (
       throw new Error('--tab-side-padding css variable must be in px unit')
     }
 
-    const sidePadding = Number(sidePaddingStr.replace('px', ''))
-
-    const defaultGetterOptions: TabGetterOptions = {
-      containerWidth,
-      sidePadding,
-      isVeryLeft: selectedIndex === 0,
-      isVeryRight: selectedIndex + 1 === tabs.length
-    }
-
     const selectedTab = tabs[selectedIndex]
-
-    const containerElement = refWrapper.current
 
     const performTransition = (prevIndex: number, nextIndex: number) => {
       const isGoingLeft = isRtl ? prevIndex < nextIndex : prevIndex > nextIndex
-      console.log('performTransition', prevIndex, nextIndex)
 
       const nextTab = tabs[nextIndex]
-      const { offsetLeft, offsetWidth } = nextTab
+      const prevTab = tabs[prevIndex]
 
-      leftApi.start({ left: offsetLeft })
-      widthApi.start({ width: offsetWidth })
+      const { offsetLeft: newOffsetLeft, offsetWidth: newOffsetWidth } = nextTab
+      const { offsetLeft: prevOffsetLeft, offsetWidth: prevOffsetWidth } =
+        prevTab
+
+      if (isGoingLeft) {
+        leftApi.start({ left: newOffsetLeft })
+        widthApi.start({
+          width: prevOffsetLeft + prevOffsetWidth - newOffsetLeft
+        })
+        setTimeout(() => {
+          widthApi.start({ width: newOffsetWidth })
+
+          // duplication required to fix frozen 'left' value
+          leftApi.start({ left: newOffsetLeft })
+        }, 200)
+      } else {
+        widthApi.start({
+          width: newOffsetLeft - prevOffsetLeft + newOffsetWidth
+        })
+        setTimeout(() => {
+          widthApi.start({ width: newOffsetWidth })
+          leftApi.start({ left: newOffsetLeft })
+        }, 200)
+      }
     }
 
     // initialization; need to compare with previous containerWidth due to Chrome/Edge wrong offset on initial render
@@ -137,8 +119,6 @@ export const useIndicatorPosition = (
       // if hover & selected index are the same, no need to perform transition
       if (hoverIndex.current !== selectedIndex) {
         performTransition(prevSelectedIndex, selectedIndex)
-        // animate left
-        // animate width
       }
     }
 
