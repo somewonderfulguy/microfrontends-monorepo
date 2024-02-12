@@ -5,6 +5,13 @@
     display: flex;
     position: relative;
     width: fit-content;
+
+    .indicator {
+      position: absolute;
+      height: 48px;
+      width: 210px;
+      background-color: var(--cb-primary-text-color);
+    }
   }
 
   [data-reach-tab] {
@@ -216,6 +223,7 @@
 
 .hexagon {
   composes: tabs;
+  --tab-side-padding: 25px;
 
   [data-reach-tab-list] {
     --aug-border-all: 1px;
@@ -225,15 +233,15 @@
   [data-reach-tab] {
     height: 48px;
     font-weight: 700;
-    padding: 0 25px;
+    padding: 0 var(--tab-side-padding, 25px);
 
-    &[data-selected] {
+    &[data-selected],
+    &:hover {
       :is(:global(.cyberpunk-ui-theme-yellow)) & {
         color: var(--cb-background-color);
       }
 
       color: var(--cb-primary-background-color);
-      background-color: var(--cb-primary-text-color);
     }
   }
 }

@@ -17,7 +17,11 @@ import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
 
 import { TabsInternalProvider, useTabsInternalContext } from './contexts'
-import { useFadeInOutAnimation, useUnderlineAnimation } from './hooks'
+import {
+  useFadeInOutAnimation,
+  useIndicatorPosition,
+  useUnderlineAnimation
+} from './hooks'
 
 import styles from './Tabs.module.css'
 
@@ -67,7 +71,7 @@ Tabs.displayName = 'TabsWrapper'
 const TabList = forwardRef<
   HTMLDivElement,
   ReactTabListProps & HTMLAttributes<HTMLDivElement>
->((props, ref) => {
+>(({ children, ...props }, ref) => {
   const tabsStyle = useTabsInternalContext()
   const isHexagon = tabsStyle === 'hexagon'
 
@@ -84,13 +88,30 @@ const TabList = forwardRef<
 
   useUnderlineAnimation(tabs, refWrapper, containerWidth)
 
+  const indicatorElem = useRef<HTMLDivElement>(null)
+  const { indicatorLeft, indicatorWidth } = useIndicatorPosition(
+    tabs,
+    refWrapper,
+    indicatorElem,
+    containerWidth
+  )
+
   return (
     <div ref={refWrapper} className={styles.tabListContainer}>
       <ReactTabList
         {...props}
         ref={ref}
         {...(isHexagon && { 'data-augmented-ui': 'tl-clip br-clip border' })}
-      />
+      >
+        {isHexagon && (
+          <animated.div
+            className={styles.indicator}
+            style={{ ...indicatorLeft, ...indicatorWidth }}
+            ref={indicatorElem}
+          />
+        )}
+        {children}
+      </ReactTabList>
     </div>
   )
 })
@@ -105,6 +126,7 @@ const Tab = forwardRef<
 
   return (
     <ReachTab {...props} ref={ref}>
+      {/* TODO: use :before or :after - content: attr(data-whatever) */}
       {/* clone is the same text but bold used for changing font-weight with transition animation */}
       {isUnderline && (
         <div data-reach-tab-clone aria-hidden>
