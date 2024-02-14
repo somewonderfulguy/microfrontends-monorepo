@@ -236,13 +236,19 @@
     font-weight: 700;
     padding: 0 var(--tab-side-padding, 25px);
 
-    &[data-selected],
-    &:hover {
+    /* &[data-selected] {
       :is(:global(.cyberpunk-ui-theme-yellow)) & {
         color: var(--cb-background-color);
       }
 
       color: var(--cb-primary-background-color);
+    } */
+  }
+
+  [data-reach-tab-clone] {
+    :is(:global(.cyberpunk-ui-theme-yellow)) & {
+      color: var(--cb-background-color);
     }
+    color: var(--cb-primary-background-color);
   }
 }

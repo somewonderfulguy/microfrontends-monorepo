@@ -16,7 +16,12 @@ import { animated, useSpring } from 'react-spring'
 import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
 
-import { TabsInternalProvider, useTabsInternalContext } from './contexts'
+import {
+  IndicatorPositionProvider,
+  TabsInternalProvider,
+  useIndicatorPositionContext,
+  useTabsInternalContext
+} from './contexts'
 import {
   useFadeInOutAnimation,
   useIndicatorPosition,
@@ -24,6 +29,7 @@ import {
 } from './hooks'
 
 import styles from './Tabs.module.css'
+import useMutationObserver from 'hooks/useMutationObserver'
 
 // horizontal 2, hexagon line
 //   + drop down variant (later)
@@ -94,6 +100,35 @@ const TabList = forwardRef<
     containerWidth
   )
 
+  const animatedRef = useRef<HTMLDivElement>(null)
+  const [coordinates, setCoordinates] = useState({ left: 0, width: 0 })
+  useMutationObserver(
+    animatedRef,
+    (mutations) => {
+      mutations.forEach(function (mutation) {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName === 'style'
+        ) {
+          const newValue = (mutation.target as HTMLDivElement).getAttribute(
+            'style'
+          )
+          const leftMatch = newValue?.match(/left:\s*([^;]+)/)
+          const widthMatch = newValue?.match(/width:\s*([^;]+)/)
+
+          setCoordinates({
+            left: leftMatch ? parseFloat(leftMatch[1]) : 0,
+            width: widthMatch ? parseFloat(widthMatch[1]) : 0
+          })
+        }
+      })
+    },
+    {
+      attributes: true,
+      attributeFilter: ['style']
+    }
+  )
+
   return (
     <div ref={refWrapper} className={styles.tabListContainer}>
       <ReactTabList
@@ -101,13 +136,16 @@ const TabList = forwardRef<
         ref={ref}
         {...(isHexagon && { 'data-augmented-ui': 'tl-clip br-clip border' })}
       >
-        {isHexagon && (
-          <animated.div
-            className={styles.indicator}
-            style={{ ...indicatorLeft, ...indicatorWidth }}
-          />
-        )}
-        {children}
+        <IndicatorPositionProvider value={coordinates}>
+          {isHexagon && (
+            <animated.div
+              className={styles.indicator}
+              style={{ ...indicatorLeft, ...indicatorWidth }}
+              ref={animatedRef}
+            />
+          )}
+          {children}
+        </IndicatorPositionProvider>
       </ReactTabList>
     </div>
   )
@@ -120,17 +158,53 @@ const Tab = forwardRef<
 >(({ children, ...props }, ref) => {
   const tabsStyle = useTabsInternalContext()
   const isUnderline = tabsStyle === 'underline'
+  const isHexagon = tabsStyle === 'hexagon'
+
+  const { left: indicatorLeft, width: indicatorWidth } =
+    useIndicatorPositionContext()
+
+  const contentRef = useRef<HTMLDivElement>(null)
+  const offsetWidth = contentRef.current?.parentElement?.offsetWidth || 0
+  const offsetLeft = contentRef.current?.parentElement?.offsetLeft || 0
+
+  const [{ leftClip, rightClip }, setClipValues] = useState({
+    leftClip: indicatorLeft - offsetLeft,
+    rightClip: indicatorWidth + indicatorLeft - offsetLeft
+  })
+  useEffect(() => {
+    setTimeout(() => {
+      setClipValues({
+        leftClip: indicatorLeft - offsetLeft,
+        rightClip: indicatorWidth + indicatorLeft - offsetLeft
+      })
+    }, 0)
+  }, [indicatorLeft, indicatorWidth, offsetLeft])
+
+  // console.log(offsetLeft, indicatorLeft - offsetLeft)
 
   return (
     <ReachTab {...props} ref={ref}>
-      {/* TODO: use :before or :after - content: attr(data-whatever) */}
       {/* clone is the same text but bold used for changing font-weight with transition animation */}
-      {isUnderline && (
-        <div data-reach-tab-clone aria-hidden>
+      {(isUnderline || isHexagon) && (
+        // now, implement clip-path for hexagon
+        <div
+          data-reach-tab-clone
+          aria-hidden
+          style={{
+            clipPath: isHexagon
+              ? // top-left, top-right, bottom-right, bottom-left
+                `polygon(${leftClip}px 0, ${rightClip - 15}px 0, ${
+                  rightClip - 15
+                }px 100%, ${leftClip}px 100%)`
+              : undefined
+          }}
+        >
           {children}
         </div>
       )}
-      <div data-reach-tab-content>{children}</div>
+      <div data-reach-tab-content ref={contentRef}>
+        {children}
+      </div>
     </ReachTab>
   )
 })
