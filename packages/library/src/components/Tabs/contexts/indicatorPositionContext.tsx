@@ -1,9 +1,7 @@
 import { createContext, ReactNode, useContext } from 'react'
 
-type Context = { left: number; width: number }
-const IndicatorPositionContext = createContext<
-  { left: number; width: number } | undefined
->(undefined)
+type Context = { left: number; width: number; isGoingLeft: boolean }
+const IndicatorPositionContext = createContext<Context | undefined>(undefined)
 IndicatorPositionContext.displayName = 'IndicatorPositionContext'
 
 const IndicatorPositionProvider = ({

@@ -48,6 +48,8 @@ export const useIndicatorPosition = (
     []
   )
 
+  const isGoingLeftGlobal = useRef(false)
+
   useLayoutEffect(() => {
     if (!isHexagon || !tabs.length || !refWrapper.current || !containerWidth)
       return
@@ -74,6 +76,7 @@ export const useIndicatorPosition = (
 
     const performTransition = (prevIndex: number, nextIndex: number) => {
       const isGoingLeft = isRtl ? prevIndex < nextIndex : prevIndex > nextIndex
+      isGoingLeftGlobal.current = isGoingLeft
 
       const nextTab = tabs[nextIndex]
       const prevTab = tabs[prevIndex]
@@ -175,6 +178,7 @@ export const useIndicatorPosition = (
 
   return {
     indicatorLeft,
-    indicatorWidth
+    indicatorWidth,
+    isGoingLeft: isGoingLeftGlobal.current
   }
 }

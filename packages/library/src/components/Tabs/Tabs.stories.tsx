@@ -109,10 +109,25 @@ export const Hexagon: Story = {
         </TabList>
         <TabPanels style={{ marginTop: 30 }}>
           <TabPanel>Cyberpunk 2077 tab content</TabPanel>
-          <TabPanel>Phantom liberty tab content</TabPanel>
-          <TabPanel>Edgerunners tab content</TabPanel>
-          <TabPanel>V is the main character.</TabPanel>
-          <TabPanel>Music tab content</TabPanel>
+          <TabPanel>
+            Phantom liberty tab content <br /> Phantom liberty tab content
+          </TabPanel>
+          <TabPanel>
+            Edgerunners tab content <br /> Edgerunners tab content <br />
+            Edgerunners tab content
+          </TabPanel>
+          <TabPanel>
+            V is the main character. <br /> V is the main character. <br />V is
+            the main character. <br /> V is the main character. <br /> V is the
+            main character. <br /> V is the main character.
+          </TabPanel>
+          <TabPanel>
+            Music tab content <br /> Music tab content
+            <br /> Music tab content <br /> Music tab content
+            <br /> Music tab content <br /> Music tab content
+            <br /> Music tab content <br /> Music tab content
+            <br /> Music tab content <br /> Music tab content
+          </TabPanel>
         </TabPanels>
       </>
     )

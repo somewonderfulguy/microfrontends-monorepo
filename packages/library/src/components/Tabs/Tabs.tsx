@@ -47,6 +47,7 @@ import useMutationObserver from 'hooks/useMutationObserver'
 
 // TODO: test render props api
 // TODO: implement moving indicator using react-spring
+// TODO: hexagon replace with with scale ? (performance)
 
 export type TabsStyle =
   | 'underline'
@@ -94,7 +95,7 @@ const TabList = forwardRef<
 
   useUnderlineAnimation(tabs, refWrapper, containerWidth)
 
-  const { indicatorLeft, indicatorWidth } = useIndicatorPosition(
+  const { indicatorLeft, indicatorWidth, isGoingLeft } = useIndicatorPosition(
     tabs,
     refWrapper,
     containerWidth
@@ -136,7 +137,7 @@ const TabList = forwardRef<
         ref={ref}
         {...(isHexagon && { 'data-augmented-ui': 'tl-clip br-clip border' })}
       >
-        <IndicatorPositionProvider value={coordinates}>
+        <IndicatorPositionProvider value={{ ...coordinates, isGoingLeft }}>
           {isHexagon && (
             <animated.div
               className={styles.indicator}
@@ -160,11 +161,13 @@ const Tab = forwardRef<
   const isUnderline = tabsStyle === 'underline'
   const isHexagon = tabsStyle === 'hexagon'
 
-  const { left: indicatorLeft, width: indicatorWidth } =
-    useIndicatorPositionContext()
+  const {
+    left: indicatorLeft,
+    width: indicatorWidth,
+    isGoingLeft
+  } = useIndicatorPositionContext()
 
   const contentRef = useRef<HTMLDivElement>(null)
-  const offsetWidth = contentRef.current?.parentElement?.offsetWidth || 0
   const offsetLeft = contentRef.current?.parentElement?.offsetLeft || 0
 
   const [{ leftClip, rightClip }, setClipValues] = useState({
@@ -180,22 +183,30 @@ const Tab = forwardRef<
     }, 0)
   }, [indicatorLeft, indicatorWidth, offsetLeft])
 
-  // console.log(offsetLeft, indicatorLeft - offsetLeft)
+  // TODO: fix hardcoded values
+  const thresholdRight = 24
+  const thresholdLeft = 27
+  const threshold = isGoingLeft ? thresholdLeft : thresholdRight
 
   return (
     <ReachTab {...props} ref={ref}>
-      {/* clone is the same text but bold used for changing font-weight with transition animation */}
+      {/*
+        data-reach-tab-clone is the same text but:
+        - type `underline`: bold used for changing font-weight with transition animation
+        - type `hexagon`: used to animate text when background is moving
+      */}
       {(isUnderline || isHexagon) && (
-        // now, implement clip-path for hexagon
         <div
           data-reach-tab-clone
           aria-hidden
           style={{
+            // clip path is to animate text when background is moving
             clipPath: isHexagon
-              ? // top-left, top-right, bottom-right, bottom-left
-                `polygon(${leftClip}px 0, ${rightClip - 15}px 0, ${
-                  rightClip - 15
-                }px 100%, ${leftClip}px 100%)`
+              ? `polygon(${leftClip - threshold}px 0, ${
+                  rightClip - threshold
+                }px 0, ${rightClip - threshold}px 100%, ${
+                  leftClip - threshold
+                }px 100%)`
               : undefined
           }}
         >
@@ -225,6 +236,7 @@ const TabPanels = forwardRef<
     height
   })
   useEffect(() => {
+    // TODO: verify is it really needed
     setTimeout(() => (isInitialRender.current = false))
   }, [])
 
