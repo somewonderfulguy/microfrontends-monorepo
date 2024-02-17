@@ -1,0 +1,104 @@
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.tabs {
+  font-family: 'Blender Pro Book', sans-serif;
+
+  [data-reach-tab-list] {
+    display: flex;
+    position: relative;
+    width: fit-content;
+    overflow: hidden;
+
+    .indicator {
+      position: absolute;
+      height: 48px;
+      width: 210px;
+      background-color: var(--cb-primary-text-color);
+    }
+  }
+
+  [data-reach-tab] {
+    font-family: 'Blender Pro Book', sans-serif;
+    cursor: pointer;
+    position: relative;
+    background-color: transparent;
+    border: 0;
+    color: var(--cb-primary-text-color);
+    line-height: 110%;
+    text-transform: uppercase;
+    font-size: 22px;
+    white-space: nowrap;
+  }
+
+  [data-reach-tab][disabled] {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  [data-reach-tab-clone] {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  [data-reach-tab-panels] {
+    position: relative;
+
+    --panels-animation-time: 200ms;
+
+    [height-changing] {
+      overflow: hidden;
+    }
+  }
+
+  [data-reach-tab-panel] {
+    &[hidden] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+
+    &[closing] {
+      display: block;
+      animation: fade-out var(--panels-animation-time) forwards;
+    }
+
+    &[closed] {
+      display: none;
+    }
+
+    &[opening] {
+      animation: fade-in var(--panels-animation-time) forwards;
+    }
+  }
+}
+
+.tabListContainer {
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar {
+    height: 2px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: hsla(0, 0%, 0%, 0.5);
+  }
+}

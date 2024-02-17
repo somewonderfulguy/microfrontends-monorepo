@@ -15,6 +15,7 @@ import { animated, useSpring } from 'react-spring'
 
 import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
+import useMutationObserver from 'hooks/useMutationObserver'
 
 import {
   IndicatorPositionProvider,
@@ -28,8 +29,9 @@ import {
   useUnderlineAnimation
 } from './hooks'
 
-import styles from './Tabs.module.css'
-import useMutationObserver from 'hooks/useMutationObserver'
+import styles from './styles/Tabs.module.css'
+import stylesHexagon from './styles/TabsHexagon.module.css'
+import stylesUnderline from './styles/TabsUnderline.module.css'
 
 // horizontal 2, hexagon line
 //   + drop down variant (later)
@@ -67,7 +69,11 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
     <TabsInternalProvider type={type}>
       <ReachTabs
         {...props}
-        className={classNames(className, styles[type])}
+        className={classNames(
+          className,
+          type === 'underline' && stylesUnderline.underline,
+          type === 'hexagon' && stylesHexagon.hexagon
+        )}
         ref={ref}
       />
     </TabsInternalProvider>

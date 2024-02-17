@@ -1,0 +1,21 @@
+@value tabs from "./Tabs.module.css";
+
+.hexagon {
+  composes: tabs;
+  --tab-side-padding: 25px;
+
+  [data-reach-tab-list] {
+    --aug-border-all: 1px;
+    --aug-border-bg: var(--cb-primary-text-color);
+  }
+
+  [data-reach-tab] {
+    height: 48px;
+    font-weight: 700;
+    padding: 0 var(--tab-side-padding, 25px);
+  }
+
+  [data-reach-tab-clone] {
+    color: var(--cb-primary-text-color-inverted);
+  }
+}

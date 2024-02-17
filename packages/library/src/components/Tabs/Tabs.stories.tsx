@@ -18,6 +18,11 @@ import Tabs, { TabList, Tab, TabPanels, TabPanel } from './Tabs'
  * Links:
  * - Reach UI API: https://reach.tech/tabs
  * - Reach UI NPM: https://www.npmjs.com/package/@reach/tabs
+ *
+ * Q: Why not use Radix or other headless UI library as Reach UI seems to be abandoned?<br/>
+ * A: Reach UI has wider API and more features than other libraries.
+ * Most of libraries do not expose internal data via context - Reach UI does it through `useTabsContext`.
+ * None of the libraries, except Reach UI, has `<TabPanels />` wrapper component that allows to perform animated height change.
  * */
 const meta: Meta<typeof Tabs> = {
   component: Tabs,
@@ -54,7 +59,7 @@ const VideosTabContent = () => {
 }
 
 /** By default `type` is `underline` */
-export const Underline: Story = {
+export const UnderlineTabs: Story = {
   args: {
     defaultIndex: 0,
     children: (
@@ -95,7 +100,7 @@ export const Underline: Story = {
   }
 }
 
-export const Hexagon: Story = {
+export const HexagonTabs: Story = {
   args: {
     type: 'hexagon',
     children: (
@@ -128,6 +133,123 @@ export const Hexagon: Story = {
             <br /> Music tab content <br /> Music tab content
             <br /> Music tab content <br /> Music tab content
           </TabPanel>
+        </TabPanels>
+      </>
+    )
+  }
+}
+
+export const FolderTabs: Story = {
+  args: {
+    type: 'folder',
+    children: (
+      <>
+        <TabList>
+          <Tab>Videos</Tab>
+          <Tab>Wallpapers long tab name</Tab>
+          <Tab>Screenshots</Tab>
+          <Tab>V</Tab>
+          <Tab>Concept arts</Tab>
+        </TabList>
+        <TabPanels style={{ marginTop: 30 }}>
+          <TabPanel>Tab content</TabPanel>
+          <TabPanel>
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+          </TabPanel>
+          <TabPanel>Screenshots tab content</TabPanel>
+          <TabPanel>V is the main character.</TabPanel>
+          <TabPanel>Concept arts tab content</TabPanel>
+        </TabPanels>
+      </>
+    )
+  }
+}
+
+export const ShapedTabs: Story = {
+  args: {
+    type: 'folder',
+    children: (
+      <>
+        <TabList>
+          <Tab>Videos</Tab>
+          <Tab>Wallpapers long tab name</Tab>
+          <Tab>Screenshots</Tab>
+          <Tab>V</Tab>
+          <Tab>Concept arts</Tab>
+        </TabList>
+        <TabPanels style={{ marginTop: 30 }}>
+          <TabPanel>Tab content</TabPanel>
+          <TabPanel>
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+          </TabPanel>
+          <TabPanel>Screenshots tab content</TabPanel>
+          <TabPanel>V is the main character.</TabPanel>
+          <TabPanel>Concept arts tab content</TabPanel>
+        </TabPanels>
+      </>
+    )
+  }
+}
+
+export const VerticalTabs: Story = {
+  args: {
+    type: 'folder',
+    children: (
+      <>
+        <TabList>
+          <Tab>Videos</Tab>
+          <Tab>Wallpapers long tab name</Tab>
+          <Tab>Screenshots</Tab>
+          <Tab>V</Tab>
+          <Tab>Concept arts</Tab>
+        </TabList>
+        <TabPanels style={{ marginTop: 30 }}>
+          <TabPanel>Tab content</TabPanel>
+          <TabPanel>
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+            <br />
+            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
+            content. Wallpapers tab content. Wallpapers tab content.
+          </TabPanel>
+          <TabPanel>Screenshots tab content</TabPanel>
+          <TabPanel>V is the main character.</TabPanel>
+          <TabPanel>Concept arts tab content</TabPanel>
         </TabPanels>
       </>
     )
