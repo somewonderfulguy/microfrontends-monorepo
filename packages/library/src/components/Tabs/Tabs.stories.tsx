@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import type { Meta, StoryObj } from '@storybook/react'
 
 import Tabs, { TabList, Tab, TabPanels, TabPanel } from './Tabs'
@@ -12,7 +10,7 @@ import Tabs, { TabList, Tab, TabPanels, TabPanel } from './Tabs'
  * Please note that argument table does not contain all props. For full list of props please check Reach UI API.
  *
  * Supported features:
- * - Mobile view. If tabs are too wide to fit on screen, they will be scrollable.
+ * - Mobile view. If tabs are too wide to fit on screen (or container), they will be horizontally scrollable.
  * - RTL - animations and styles are mirrored.
  *
  * Links:
@@ -33,34 +31,10 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-const VideosTabContent = () => {
-  const [count, setCount] = useState(1)
-  const arrayFromCount = Array.from({ length: count })
-
-  return (
-    <>
-      <p style={{ marginTop: 0 }}>
-        <i>
-          The buttons will be restyled as soon as <code>Button</code> component
-          implemented.
-        </i>
-      </p>
-      <button onClick={() => setCount((c) => c + 1)}>Add line</button>
-      <button onClick={() => setCount((c) => c - 1)} disabled={count === 1}>
-        Remove line
-      </button>
-      <br />
-      <br />
-      {arrayFromCount.map((_, i) => (
-        <div key={i}>Videos tab content</div>
-      ))}
-    </>
-  )
-}
-
 /** By default `type` is `underline` */
 export const UnderlineTabs: Story = {
   args: {
+    type: 'underline',
     defaultIndex: 0,
     children: (
       <>
@@ -72,9 +46,7 @@ export const UnderlineTabs: Story = {
           <Tab>Concept arts</Tab>
         </TabList>
         <TabPanels style={{ marginTop: 30 }}>
-          <TabPanel>
-            <VideosTabContent />
-          </TabPanel>
+          <TabPanel>Videos tab content.</TabPanel>
           <TabPanel>
             Wallpapers tab content. Wallpapers tab content. Wallpapers tab
             content. Wallpapers tab content. Wallpapers tab content.

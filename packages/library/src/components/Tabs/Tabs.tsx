@@ -50,6 +50,8 @@ import stylesUnderline from './styles/TabsUnderline.module.css'
 // TODO: test render props api
 // TODO: implement moving indicator using react-spring
 // TODO: hexagon replace with with scale ? (performance)
+// FIXME: hexagon - text color of active tab on initialization
+// TODO: hexagon - focus-visible
 
 export type TabsStyle =
   | 'underline'

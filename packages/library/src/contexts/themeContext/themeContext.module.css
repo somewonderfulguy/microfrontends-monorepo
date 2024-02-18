@@ -20,7 +20,7 @@
   --cb-light-gray-transparent: hsla(0, 0%, 100%, 0.2);
   --cb-black: hsl(0, 0%, 0%);
   --cb-black-transparent: hsla(0, 0%, 0%, 0.5);
-  --cb-mindight-navy: hsl(240, 50%, 6%);
+  --cb-midnight-navy: hsl(240, 50%, 6%);
 }
 
 .theme:global(.cyberpunk-ui-theme-yellow) {
