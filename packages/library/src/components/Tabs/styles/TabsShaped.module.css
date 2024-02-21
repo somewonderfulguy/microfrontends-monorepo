@@ -1,0 +1,5 @@
+@value tabs from "./Tabs.module.css";
+
+.shaped {
+  composes: tabs;
+}

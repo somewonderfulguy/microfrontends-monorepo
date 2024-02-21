@@ -29,7 +29,7 @@
       position: absolute;
       height: 48px;
       width: 210px;
-      background-color: var(--cb-primary-text-color);
+      background-color: var(--cb-secondary-color);
     }
   }
 
@@ -39,7 +39,7 @@
     position: relative;
     background-color: transparent;
     border: 0;
-    color: var(--cb-primary-text-color);
+    color: var(--cb-text-color);
     line-height: 110%;
     text-transform: uppercase;
     font-size: 22px;

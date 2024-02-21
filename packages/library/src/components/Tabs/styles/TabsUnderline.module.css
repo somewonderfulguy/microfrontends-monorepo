@@ -23,7 +23,7 @@
       translate: var(--_left, 0);
       transform-origin: left;
 
-      background-color: var(--cb-primary-text-color);
+      background-color: var(--cb-secondary-color);
     }
 
     &:has([data-selected][disabled])::before {
@@ -38,7 +38,7 @@
       position: absolute;
       width: 100%;
 
-      background-color: var(--cb-primary-text-color);
+      background-color: var(--cb-secondary-color);
       opacity: 0.2;
     }
   }
@@ -54,7 +54,7 @@
 
     height: 48px;
 
-    color: var(--cb-primary-text-color);
+    color: var(--cb-secondary-color);
 
     padding: 0 var(--_tab-side-padding, 16px);
     &:first-child {
@@ -88,35 +88,42 @@
     &:focus-visible {
       outline: none;
 
-      [data-reach-tab-clone] {
-        text-shadow: 0 0 3px var(--cb-turquoise), 0 0 7px var(--cb-turquoise),
-          0 0 12px var(--cb-turquoise);
+      :is(:global(.cyberpunk-ui-theme-white-on-black))
+        &
+        [data-reach-tab-clone] {
+        text-shadow: 0 0 3px var(--cb-accent-color-alt),
+          0 0 7px var(--cb-accent-color-alt),
+          0 0 12px var(--cb-accent-color-alt);
       }
 
       :is(:global(.cyberpunk-ui-theme-yellow)) & [data-reach-tab-clone] {
-        text-shadow: 0 0 3px var(--cb-turquoise), 0 0 7px #fff,
-          0 0 12px var(--cb-turquoise);
+        text-shadow: 0 0 3px var(--cb-accent-color), 0 0 7px var(--cb-white),
+          0 0 12px var(--cb-accent-color);
       }
 
       :is(:global(.cyberpunk-ui-theme-dark-red)) & [data-reach-tab-clone] {
-        text-shadow: 0 0 1px rgba(255, 255, 255, 0.5), 0 0 2px var(--cb-red),
-          0 0 13px var(--cb-red);
+        text-shadow: 0 0 1px hsla(var(--cb-white-base), 0.5),
+          0 0 2px var(--cb-secondary-color), 0 0 13px var(--cb-secondary-color);
       }
 
       :is(:global(.cyberpunk-ui-theme-dark)) & [data-reach-tab-clone] {
-        text-shadow: 0 0 1px var(--cb-turquoise), 0 0 5px var(--cb-turquoise),
-          0 0 12px var(--cb-turquoise);
+        text-shadow: 0 0 1px var(--cb-accent-color),
+          0 0 5px var(--cb-accent-color), 0 0 12px var(--cb-accent-color);
       }
     }
   }
 
   [data-reach-tab-panel] {
     &:focus-visible {
-      outline: 1px solid var(--cb-turquoise);
+      outline: 1px solid var(--cb-accent-color);
     }
 
-    :global(.cyberpunk-ui-theme-dark-red) &:focus-visible {
-      outline: 1px solid var(--cb-red);
+    :is(:global(.cyberpunk-ui-theme-dark-red)) &:focus-visible {
+      outline: 1px solid var(--cb-secondary-color);
+    }
+
+    :is(:global(.cyberpunk-ui-theme-white-on-black)) &:focus-visible {
+      outline: 1px solid var(--cb-accent-color-alt);
     }
   }
 }

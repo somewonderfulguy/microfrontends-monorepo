@@ -30,8 +30,11 @@ import {
 } from './hooks'
 
 import styles from './styles/Tabs.module.css'
+import stylesFolder from './styles/TabsFolder.module.css'
 import stylesHexagon from './styles/TabsHexagon.module.css'
+import stylesShaped from './styles/TabsShaped.module.css'
 import stylesUnderline from './styles/TabsUnderline.module.css'
+import stylesVertical from './styles/TabsVertical.module.css'
 
 // horizontal 2, hexagon line
 //   + drop down variant (later)
@@ -50,14 +53,19 @@ import stylesUnderline from './styles/TabsUnderline.module.css'
 // TODO: test render props api
 // TODO: implement moving indicator using react-spring
 // TODO: hexagon replace with with scale ? (performance)
+// TODO: implement animation flag - on hover or on click/keyboard/external change
 // FIXME: hexagon - text color of active tab on initialization
 // TODO: hexagon - focus-visible
+// TODO: hexagon & underline - optional animation on hover
+// TODO: reduce file size - move logic to separate hooks
+// TODO: go through each css file and make sure variables are user correctly
+// TODO: add .cyberpunk-ui-theme-white-on-black on Tabs root component and prop to change it
 
 export type TabsStyle =
-  | 'underline'
-  | 'hexagon'
   | 'folder'
+  | 'hexagon'
   | 'shaped'
+  | 'underline'
   | 'vertical'
 
 type TabsProps = ReachTabsProps &
@@ -70,11 +78,15 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({ type = 'underline', className, ...props }, ref) => (
     <TabsInternalProvider type={type}>
       <ReachTabs
+        {...(type === 'vertical' && { orientation: 'vertical' })}
         {...props}
         className={classNames(
           className,
+          type === 'folder' && stylesFolder.folder,
+          type === 'hexagon' && stylesHexagon.hexagon,
+          type === 'shaped' && stylesShaped.shaped,
           type === 'underline' && stylesUnderline.underline,
-          type === 'hexagon' && stylesHexagon.hexagon
+          type === 'vertical' && stylesVertical.vertical
         )}
         ref={ref}
       />

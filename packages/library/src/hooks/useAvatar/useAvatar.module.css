@@ -1,13 +1,22 @@
 .avatar {
-  --border-color: var(--cb-primary-color);
+  --_border-color: var(--cb-secondary-color);
+
+  :is(
+      :global(.cyberpunk-ui-theme-yellow),
+      :global(.cyberpunk-ui-theme-white-on-black)
+    )
+    & {
+    --_border-color: var(--cb-accent-color);
+  }
 
   width: 100px;
   height: 100px;
   overflow: hidden;
 
-  --aug-border-bg: var(--border-color);
+  --aug-border-bg: var(--_border-color);
   --aug-border-all: 1px;
 
+  /* TODO: generic shadow variable on root level */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 2px 16px rgba(0, 0, 0, 0.25);
 }
 

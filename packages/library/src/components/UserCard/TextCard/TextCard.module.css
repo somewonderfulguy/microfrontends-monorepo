@@ -1,11 +1,19 @@
 .infoContainer {
-  --border-color: var(--cb-primary-color);
+  --_border-color: var(--cb-secondary-color);
+
+  :global(.cyberpunk-ui-theme-yellow) & {
+    --_border-color: var(--cb-accent-color);
+  }
+
+  :global(.cyberpunk-ui-theme-white-on-black) & {
+    --_border-color: var(--cb-accent-color);
+  }
 
   /* all the border */
-  --aug-border-bg: var(--border-color);
+  --aug-border-bg: var(--_border-color);
   --aug-border-all: 1.5px;
   --aug-border-bottom: 0px;
-  border-bottom: 1.5px solid var(--border-color);
+  border-bottom: 1.5px solid var(--_border-color);
 
   /* right top corner */
   --aug-tr1-width: 10px;
@@ -22,12 +30,12 @@
 .info {
   height: 100%;
 
-  color: var(--cb-primary-text-color);
+  color: var(--cb-text-color);
 
   /* TODO: Works bad in FF, perhaps should be fixed on FF side */
   /* backdrop-filter: blur(8px); */
   background-color: var(--cb-secondary-background-color);
-  border-left: 8px solid var(--border-color);
+  border-left: 8px solid var(--_border-color);
 
   overflow: hidden;
 }
@@ -53,7 +61,7 @@
   width: 10px;
   height: calc(100% - 30px);
   min-height: 145px;
-  background-color: var(--border-color);
+  background-color: var(--_border-color);
 }
 
 .outerShapeContainer {

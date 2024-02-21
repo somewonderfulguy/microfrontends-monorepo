@@ -13,34 +13,28 @@
   padding: 3rem;
   max-width: calc(100% - 6rem);
 
+  font-family: 'Blender Pro Book', sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--cb-text-color);
+
   @media (max-width: 768px) {
     padding: 1rem;
     max-width: calc(100% - 2rem);
   }
 }
 
-.gridElementYellow {
+.gridElementYellow,
+.gridElementDark,
+.gridElementWhiteOnBlack {
   composes: gridElement;
-  background-color: var(--cb-yellow-main);
+  background-color: var(--cb-background-color);
 }
 
 .gridElementDarkRed {
   composes: gridElement;
-  background: linear-gradient(
-    355deg,
-    rgba(5, 9, 14, 1) 0%,
-    rgba(71, 21, 25, 1) 100%
-  );
+  background: var(--cb-background-image);
   background-attachment: fixed;
-}
-
-.gridElementDark {
-  composes: gridElement;
-  background-color: var(--cb-darkest-gray);
-}
-
-.gridElementWhiteOnBlack {
-  composes: gridElement;
-  background-color: var(--cb-black);
-  color: var(--cb-white);
 }

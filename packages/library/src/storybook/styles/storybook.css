@@ -13,11 +13,7 @@ body,
   }
   [data-theme='darkRed'] & {
     background-color: transparent;
-    background: linear-gradient(
-      355deg,
-      rgba(5, 9, 14, 1) 0%,
-      rgba(71, 21, 25, 1) 100%
-    );
+    background: var(--cb-darkRed-background-gradient);
     background-attachment: fixed;
   }
   [data-theme='dark'] & {

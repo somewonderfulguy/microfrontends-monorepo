@@ -6,7 +6,7 @@
 
   [data-reach-tab-list] {
     --aug-border-all: 1px;
-    --aug-border-bg: var(--cb-primary-text-color);
+    --aug-border-bg: var(--cb-secondary-color);
   }
 
   [data-reach-tab] {
@@ -16,6 +16,6 @@
   }
 
   [data-reach-tab-clone] {
-    color: var(--cb-primary-text-color-inverted);
+    color: var(--cb-primary-color);
   }
 }

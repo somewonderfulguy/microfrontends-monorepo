@@ -152,7 +152,7 @@ export const FolderTabs: Story = {
 
 export const ShapedTabs: Story = {
   args: {
-    type: 'folder',
+    type: 'shaped',
     children: (
       <>
         <TabList>
@@ -191,37 +191,45 @@ export const ShapedTabs: Story = {
 
 export const VerticalTabs: Story = {
   args: {
-    type: 'folder',
+    type: 'vertical',
     children: (
       <>
         <TabList>
-          <Tab>Videos</Tab>
-          <Tab>Wallpapers long tab name</Tab>
-          <Tab>Screenshots</Tab>
-          <Tab>V</Tab>
-          <Tab>Concept arts</Tab>
+          <Tab>Objective</Tab>
+          <Tab>Target location</Tab>
+          <Tab>Abilities and gear</Tab>
         </TabList>
-        <TabPanels style={{ marginTop: 30 }}>
-          <TabPanel>Tab content</TabPanel>
+        <TabPanels style={{ marginLeft: 30, maxWidth: 600 }}>
           <TabPanel>
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
+            Enter the shadowy world of spycraft and become a government secret
+            agent — infiltrate high-security buildings, take out enemies, and go
+            toe-to-toe against seasoned professionals. Espionage is a high-risk
+            game, and failure isn&#8217;t an option. Choose your allies with
+            care as you unravel the secrets at the heart of this expansion.
           </TabPanel>
-          <TabPanel>Screenshots tab content</TabPanel>
-          <TabPanel>V is the main character.</TabPanel>
-          <TabPanel>Concept arts tab content</TabPanel>
+          <TabPanel>
+            Watch your back in Dogtown, a dilapidated urban labyrinth nestled
+            within the sprawling metropolis of Night City, now under the iron
+            grip of a trigger-happy militia. This city-within-a-city, with its
+            decaying facades and anarchic streets, presents a stark contrast to
+            the neon-drenched skyline of Night City. Every corner and shadowed
+            alleyway of Dogtown teems with danger and decay, yet for the brave
+            or the desperate, it is a treasure trove of secrets waiting to be
+            unearthed. Its crumbling structures and deserted avenues hold untold
+            stories and opportunities that beckon to those daring enough to
+            navigate its perils. Within its walls, adrenaline-fueled gigs and
+            high-stakes quests await, offering rewards that could tip the
+            balance in the power-hungry world of Cyberpunk 2077. Engage in
+            heart-stopping encounters and navigate treacherous alliances, all
+            while trying to carve out a slice of power in the chaos that is
+            Dogtown.
+          </TabPanel>
+          <TabPanel>
+            Power up with a new skill tree and craft a unique playstyle — use
+            every new weapon and piece of cyberware at your disposal to survive
+            in a fractured world of desperate hustlers, cunning netrunners, and
+            ruthless mercenaries bent on profit and power.
+          </TabPanel>
         </TabPanels>
       </>
     )
