@@ -1,8 +1,21 @@
-import { createContext, ReactNode, useContext } from 'react'
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useState
+} from 'react'
 
 import type { TabsStyle } from '../Tabs'
 
-const TabsInternalContext = createContext<TabsStyle | undefined>(undefined)
+type Context = {
+  type: TabsStyle
+  tabsQty: number
+  registerTab: () => void
+  unregisterTab: () => void
+}
+
+const TabsInternalContext = createContext<Context | undefined>(undefined)
 TabsInternalContext.displayName = 'TabsInternalContext'
 
 const TabsInternalProvider = ({
@@ -12,8 +25,13 @@ const TabsInternalProvider = ({
   type: TabsStyle
   children: ReactNode
 }) => {
+  const [tabsQty, setTabsQty] = useState(0)
+  const registerTab = useCallback(() => setTabsQty((prev) => prev + 1), [])
+  const unregisterTab = useCallback(() => setTabsQty((prev) => prev - 1), [])
   return (
-    <TabsInternalContext.Provider value={type}>
+    <TabsInternalContext.Provider
+      value={{ type, tabsQty, registerTab, unregisterTab }}
+    >
       {children}
     </TabsInternalContext.Provider>
   )

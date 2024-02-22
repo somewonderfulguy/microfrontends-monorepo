@@ -46,7 +46,7 @@ export const useUnderlineAnimation = (
   const { selectedIndex } = useTabsContext()
   const prevSelectedIndex = usePrevious(selectedIndex) || 0
 
-  const tabsStyle = useTabsInternalContext()
+  const { type: tabsStyle } = useTabsInternalContext()
   const isUnderline = tabsStyle === 'underline'
 
   const isRtl = refWrapper.current

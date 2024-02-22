@@ -9,13 +9,13 @@ import {
   TabPanels as ReachTabPanels,
   TabPanelsProps,
   TabPanel as ReachTabPanel,
-  TabPanelProps
+  TabPanelProps,
+  useTabsContext
 } from '@reach/tabs'
 import { animated, useSpring } from 'react-spring'
 
 import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
-import useMutationObserver from 'hooks/useMutationObserver'
 
 import {
   IndicatorPositionProvider,
@@ -26,6 +26,7 @@ import {
 import {
   useFadeInOutAnimation,
   useIndicatorPosition,
+  useTrackIndicatorPosition,
   useUnderlineAnimation
 } from './hooks'
 
@@ -52,7 +53,6 @@ import stylesVertical from './styles/TabsVertical.module.css'
 
 // TODO: test render props api
 // TODO: implement moving indicator using react-spring
-// TODO: hexagon replace with with scale ? (performance)
 // TODO: implement animation flag - on hover or on click/keyboard/external change
 // FIXME: hexagon - text color of active tab on initialization
 // TODO: hexagon - focus-visible
@@ -60,6 +60,10 @@ import stylesVertical from './styles/TabsVertical.module.css'
 // TODO: reduce file size - move logic to separate hooks
 // TODO: go through each css file and make sure variables are user correctly
 // TODO: add .cyberpunk-ui-theme-white-on-black on Tabs root component and prop to change it
+// TODO: create story with dynamic tabs (add/remove/rename) to test that animation logic does not break
+// TODO: create story with drag and drop tabs to test that animation logic does not break
+
+// TODO: render empty space for scrollbar (Chrome, Vertical tabs story in docs view)
 
 export type TabsStyle =
   | 'folder'
@@ -99,7 +103,7 @@ const TabList = forwardRef<
   HTMLDivElement,
   ReactTabListProps & HTMLAttributes<HTMLDivElement>
 >(({ children, ...props }, ref) => {
-  const tabsStyle = useTabsInternalContext()
+  const { type: tabsStyle, tabsQty } = useTabsInternalContext()
   const isHexagon = tabsStyle === 'hexagon'
 
   const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
@@ -111,7 +115,7 @@ const TabList = forwardRef<
     if (!refWrapper.current) return
     const tabs = refWrapper.current.querySelectorAll('[data-reach-tab]')
     setTabs(Array.from(tabs) as HTMLButtonElement[])
-  }, [refWrapper])
+  }, [refWrapper, tabsQty])
 
   useUnderlineAnimation(tabs, refWrapper, containerWidth)
 
@@ -121,34 +125,7 @@ const TabList = forwardRef<
     containerWidth
   )
 
-  const animatedRef = useRef<HTMLDivElement>(null)
-  const [coordinates, setCoordinates] = useState({ left: 0, width: 0 })
-  useMutationObserver(
-    animatedRef,
-    (mutations) => {
-      mutations.forEach(function (mutation) {
-        if (
-          mutation.type === 'attributes' &&
-          mutation.attributeName === 'style'
-        ) {
-          const newValue = (mutation.target as HTMLDivElement).getAttribute(
-            'style'
-          )
-          const leftMatch = newValue?.match(/left:\s*([^;]+)/)
-          const widthMatch = newValue?.match(/width:\s*([^;]+)/)
-
-          setCoordinates({
-            left: leftMatch ? parseFloat(leftMatch[1]) : 0,
-            width: widthMatch ? parseFloat(widthMatch[1]) : 0
-          })
-        }
-      })
-    },
-    {
-      attributes: true,
-      attributeFilter: ['style']
-    }
-  )
+  const { animatedRef, coordinates } = useTrackIndicatorPosition()
 
   return (
     <div ref={refWrapper} className={styles.tabListContainer}>
@@ -177,10 +154,22 @@ const Tab = forwardRef<
   HTMLButtonElement,
   TabProps & HTMLAttributes<HTMLButtonElement>
 >(({ children, ...props }, ref) => {
-  const tabsStyle = useTabsInternalContext()
+  const {
+    type: tabsStyle,
+    tabsQty,
+    registerTab,
+    unregisterTab
+  } = useTabsInternalContext()
+  const { selectedIndex } = useTabsContext()
   const isUnderline = tabsStyle === 'underline'
   const isHexagon = tabsStyle === 'hexagon'
 
+  useEffect(() => {
+    registerTab()
+    return () => unregisterTab()
+  }, [registerTab, unregisterTab])
+
+  // TODO: move to external hook
   const {
     left: indicatorLeft,
     width: indicatorWidth,
@@ -236,6 +225,16 @@ const Tab = forwardRef<
       <div data-reach-tab-content ref={contentRef}>
         {children}
       </div>
+
+      {isHexagon && (
+        <div
+          data-hexagon-focus
+          aria-hidden
+          data-augmented-ui={`${selectedIndex === 0 ? 'tl-clip' : ''} ${
+            selectedIndex === tabsQty - 1 ? 'br-clip' : ''
+          } border`}
+        />
+      )}
     </ReachTab>
   )
 })

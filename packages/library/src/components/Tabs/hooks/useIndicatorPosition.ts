@@ -17,7 +17,7 @@ export const useIndicatorPosition = (
   const { selectedIndex } = useTabsContext()
   const prevSelectedIndex = usePrevious(selectedIndex) || 0
 
-  const tabsStyle = useTabsInternalContext()
+  const { type: tabsStyle } = useTabsInternalContext()
   const isUnderline = tabsStyle === 'underline'
   const isHexagon = tabsStyle === 'hexagon'
 
@@ -25,7 +25,6 @@ export const useIndicatorPosition = (
     ? getDirection(refWrapper.current) === 'rtl'
     : false
 
-  // underline animation & position logic (mouse hover)
   const isInit = useRef(true)
   const hoverIndex = useRef(-1)
   const prevContainerWidth = usePrevious(containerWidth)
