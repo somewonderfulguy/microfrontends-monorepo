@@ -50,7 +50,12 @@ export const useIndicatorPosition = (
   const isGoingLeftGlobal = useRef(false)
 
   useLayoutEffect(() => {
-    if (!isHexagon || !tabs.length || !refWrapper.current || !containerWidth)
+    if (
+      !(isHexagon || isUnderline) ||
+      !tabs.length ||
+      !refWrapper.current ||
+      !containerWidth
+    )
       return
 
     const tabListElement = refWrapper.current.querySelector(
@@ -59,16 +64,6 @@ export const useIndicatorPosition = (
 
     if (!tabListElement) {
       throw new Error('tabListElement not found')
-    }
-
-    const sidePaddingStr =
-      getComputedStyle(tabListElement).getPropertyValue('--tab-side-padding')
-
-    if (!sidePaddingStr) {
-      throw new Error('--tab-side-padding css variable not found')
-    }
-    if (!sidePaddingStr.includes('px')) {
-      throw new Error('--tab-side-padding css variable must be in px unit')
     }
 
     const selectedTab = tabs[selectedIndex]
@@ -80,27 +75,51 @@ export const useIndicatorPosition = (
       const nextTab = tabs[nextIndex]
       const prevTab = tabs[prevIndex]
 
-      const { offsetLeft: newOffsetLeft, offsetWidth: newOffsetWidth } = nextTab
-      const { offsetLeft: prevOffsetLeft, offsetWidth: prevOffsetWidth } =
+      const { offsetLeft: _newOffsetLeft, offsetWidth: newOffsetWidth } =
+        nextTab
+      const { offsetLeft: _prevOffsetLeft, offsetWidth: prevOffsetWidth } =
         prevTab
+
+      const newPaddingLeft = parseFloat(getComputedStyle(nextTab).paddingLeft)
+      const newPaddingRight = parseFloat(getComputedStyle(nextTab).paddingRight)
+      const prevPaddingLeft = parseFloat(getComputedStyle(prevTab).paddingLeft)
+      const prevPaddingRight = parseFloat(
+        getComputedStyle(prevTab).paddingRight
+      )
+
+      const newWidth = isUnderline
+        ? newOffsetWidth - newPaddingLeft - newPaddingRight
+        : newOffsetWidth
+
+      const newOffsetLeft = isUnderline
+        ? _newOffsetLeft + newPaddingLeft
+        : _newOffsetLeft
+
+      const prevWidth = isUnderline
+        ? prevOffsetWidth - prevPaddingLeft - prevPaddingRight
+        : prevOffsetWidth
+
+      const prevOffsetLeft = isUnderline
+        ? _prevOffsetLeft + prevPaddingLeft
+        : _prevOffsetLeft
 
       if (isGoingLeft) {
         leftApi.start({ left: newOffsetLeft })
         widthApi.start({
-          width: prevOffsetLeft + prevOffsetWidth - newOffsetLeft
+          width: prevOffsetLeft + prevWidth - newOffsetLeft
         })
         setTimeout(() => {
-          widthApi.start({ width: newOffsetWidth })
+          widthApi.start({ width: newWidth })
 
           // duplication required to fix frozen 'left' value
           leftApi.start({ left: newOffsetLeft })
         }, 200)
       } else {
         widthApi.start({
-          width: newOffsetLeft - prevOffsetLeft + newOffsetWidth
+          width: newOffsetLeft - prevOffsetLeft + newWidth
         })
         setTimeout(() => {
-          widthApi.start({ width: newOffsetWidth })
+          widthApi.start({ width: newWidth })
           leftApi.start({ left: newOffsetLeft })
         }, 200)
       }
@@ -112,8 +131,19 @@ export const useIndicatorPosition = (
 
       const { offsetLeft, offsetWidth } = selectedTab
 
-      leftApi.start({ immediate: true, left: offsetLeft })
-      widthApi.start({ immediate: true, width: offsetWidth })
+      const paddingLeft = parseFloat(getComputedStyle(selectedTab).paddingLeft)
+      const paddingRight = parseFloat(
+        getComputedStyle(selectedTab).paddingRight
+      )
+
+      leftApi.start({
+        immediate: true,
+        left: offsetLeft + (isHexagon ? 0 : paddingLeft)
+      })
+      widthApi.start({
+        immediate: true,
+        width: offsetWidth - (isHexagon ? 0 : paddingLeft + paddingRight)
+      })
     }
 
     // active tab (selectedIndex) change logic - via keyboard / click / external

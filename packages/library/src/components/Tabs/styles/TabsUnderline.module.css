@@ -4,8 +4,6 @@
   composes: tabs;
 
   [data-reach-tab-list] {
-    --_tab-side-padding: 16px;
-
     /* gap will break hover animation logic - use paddings only (not margins). tabs must 'touch' each other */
     gap: 0 !important;
 
@@ -56,11 +54,11 @@
 
     color: var(--cb-secondary-color);
 
-    padding: 0 var(--_tab-side-padding, 16px);
-    &:first-child {
+    padding: 0 16px;
+    &:first-of-type {
       padding-left: 0;
     }
-    &:last-child {
+    &:last-of-type {
       padding-right: 0;
     }
 
@@ -88,25 +86,23 @@
     &:focus-visible {
       outline: none;
 
-      :is(:global(.cyberpunk-ui-theme-white-on-black))
-        &
-        [data-reach-tab-clone] {
+      :global(.cyberpunk-ui-theme-white-on-black) & [data-reach-tab-clone] {
         text-shadow: 0 0 3px var(--cb-accent-color-alt),
           0 0 7px var(--cb-accent-color-alt),
           0 0 12px var(--cb-accent-color-alt);
       }
 
-      :is(:global(.cyberpunk-ui-theme-yellow)) & [data-reach-tab-clone] {
+      :global(.cyberpunk-ui-theme-yellow) & [data-reach-tab-clone] {
         text-shadow: 0 0 3px var(--cb-accent-color), 0 0 7px var(--cb-white),
           0 0 12px var(--cb-accent-color);
       }
 
-      :is(:global(.cyberpunk-ui-theme-dark-red)) & [data-reach-tab-clone] {
+      :global(.cyberpunk-ui-theme-dark-red) & [data-reach-tab-clone] {
         text-shadow: 0 0 1px hsla(var(--cb-white-base), 0.5),
           0 0 2px var(--cb-secondary-color), 0 0 13px var(--cb-secondary-color);
       }
 
-      :is(:global(.cyberpunk-ui-theme-dark)) & [data-reach-tab-clone] {
+      :global(.cyberpunk-ui-theme-dark) & [data-reach-tab-clone] {
         text-shadow: 0 0 1px var(--cb-accent-color),
           0 0 5px var(--cb-accent-color), 0 0 12px var(--cb-accent-color);
       }

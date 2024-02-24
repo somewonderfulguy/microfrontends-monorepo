@@ -26,8 +26,7 @@ import {
 import {
   useFadeInOutAnimation,
   useIndicatorPosition,
-  useTrackIndicatorPosition,
-  useUnderlineAnimation
+  useTrackIndicatorPosition
 } from './hooks'
 
 import styles from './styles/Tabs.module.css'
@@ -62,8 +61,8 @@ import stylesVertical from './styles/TabsVertical.module.css'
 // TODO: add .cyberpunk-ui-theme-white-on-black on Tabs root component and prop to change it
 // TODO: create story with dynamic tabs (add/remove/rename) to test that animation logic does not break
 // TODO: create story with drag and drop tabs to test that animation logic does not break
-
 // TODO: render empty space for scrollbar (Chrome, Vertical tabs story in docs view)
+// TODO: split this file into multiple files ?
 
 export type TabsStyle =
   | 'folder'
@@ -105,6 +104,7 @@ const TabList = forwardRef<
 >(({ children, ...props }, ref) => {
   const { type: tabsStyle, tabsQty } = useTabsInternalContext()
   const isHexagon = tabsStyle === 'hexagon'
+  const isUnderline = tabsStyle === 'underline'
 
   const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
 
@@ -117,7 +117,7 @@ const TabList = forwardRef<
     setTabs(Array.from(tabs) as HTMLButtonElement[])
   }, [refWrapper, tabsQty])
 
-  useUnderlineAnimation(tabs, refWrapper, containerWidth)
+  // useUnderlineAnimation(tabs, refWrapper, containerWidth)
 
   const { indicatorLeft, indicatorWidth, isGoingLeft } = useIndicatorPosition(
     tabs,
@@ -135,10 +135,14 @@ const TabList = forwardRef<
         {...(isHexagon && { 'data-augmented-ui': 'tl-clip br-clip border' })}
       >
         <IndicatorPositionProvider value={{ ...coordinates, isGoingLeft }}>
-          {isHexagon && (
+          {(isHexagon || isUnderline) && (
             <animated.div
               className={styles.indicator}
-              style={{ ...indicatorLeft, ...indicatorWidth }}
+              style={{
+                ...indicatorLeft,
+                ...indicatorWidth,
+                ...(isUnderline && { bottom: 0, height: 2 })
+              }}
               ref={animatedRef}
             />
           )}
