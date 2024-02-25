@@ -55,10 +55,16 @@
     color: var(--cb-secondary-color);
 
     padding: 0 16px;
-    &:first-of-type {
+    &:dir(rtl):first-of-type {
+      padding-right: 0;
+    }
+    &:dir(ltr):first-of-type {
       padding-left: 0;
     }
-    &:last-of-type {
+    &:dir(rtl):last-of-type {
+      padding-left: 0;
+    }
+    &:dir(ltr):last-of-type {
       padding-right: 0;
     }
 

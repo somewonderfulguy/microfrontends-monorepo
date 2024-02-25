@@ -1,6 +1,8 @@
 import {
   createContext,
+  Dispatch,
   ReactNode,
+  SetStateAction,
   useCallback,
   useContext,
   useState
@@ -13,6 +15,8 @@ type Context = {
   tabsQty: number
   registerTab: () => void
   unregisterTab: () => void
+  isRtl: boolean
+  setIsRtl: Dispatch<SetStateAction<boolean>>
 }
 
 const TabsInternalContext = createContext<Context | undefined>(undefined)
@@ -28,9 +32,10 @@ const TabsInternalProvider = ({
   const [tabsQty, setTabsQty] = useState(0)
   const registerTab = useCallback(() => setTabsQty((prev) => prev + 1), [])
   const unregisterTab = useCallback(() => setTabsQty((prev) => prev - 1), [])
+  const [isRtl, setIsRtl] = useState(false)
   return (
     <TabsInternalContext.Provider
-      value={{ type, tabsQty, registerTab, unregisterTab }}
+      value={{ type, tabsQty, registerTab, unregisterTab, isRtl, setIsRtl }}
     >
       {children}
     </TabsInternalContext.Provider>

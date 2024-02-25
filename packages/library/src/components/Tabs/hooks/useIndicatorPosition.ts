@@ -6,9 +6,6 @@ import usePrevious from 'hooks/usePrevious'
 
 import { useTabsInternalContext } from '../contexts'
 
-const getDirection = (element: Element) =>
-  window.getComputedStyle(element).getPropertyValue('direction')
-
 export const useIndicatorPosition = (
   tabs: HTMLButtonElement[],
   refWrapper: RefObject<HTMLDivElement>,
@@ -17,13 +14,9 @@ export const useIndicatorPosition = (
   const { selectedIndex } = useTabsContext()
   const prevSelectedIndex = usePrevious(selectedIndex) || 0
 
-  const { type: tabsStyle } = useTabsInternalContext()
+  const { type: tabsStyle, isRtl } = useTabsInternalContext()
   const isUnderline = tabsStyle === 'underline'
   const isHexagon = tabsStyle === 'hexagon'
-
-  const isRtl = refWrapper.current
-    ? getDirection(refWrapper.current) === 'rtl'
-    : false
 
   const isInit = useRef(true)
   const hoverIndex = useRef(-1)

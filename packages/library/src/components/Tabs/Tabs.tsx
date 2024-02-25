@@ -77,25 +77,55 @@ type TabsProps = ReachTabsProps &
     type?: TabsStyle
   }
 
-const Tabs = forwardRef<HTMLDivElement, TabsProps>(
-  ({ type = 'underline', className, ...props }, ref) => (
+const getDirection = (element: Element) =>
+  window.getComputedStyle(element).getPropertyValue('direction')
+
+const DirectionDetector = () => {
+  const { setIsRtl } = useTabsInternalContext()
+  const ref = useRef<HTMLDivElement>(null)
+
+  const direction = ref.current && getDirection(ref.current as Element)
+  useEffect(() => {
+    setIsRtl(direction === 'rtl')
+  }, [direction, setIsRtl])
+
+  return <div ref={ref} aria-hidden />
+}
+
+const TabsWrapper = forwardRef<HTMLDivElement, TabsProps>(
+  ({ type = 'underline', ...props }, ref) => (
     <TabsInternalProvider type={type}>
-      <ReachTabs
-        {...(type === 'vertical' && { orientation: 'vertical' })}
-        {...props}
-        className={classNames(
-          className,
-          type === 'folder' && stylesFolder.folder,
-          type === 'hexagon' && stylesHexagon.hexagon,
-          type === 'shaped' && stylesShaped.shaped,
-          type === 'underline' && stylesUnderline.underline,
-          type === 'vertical' && stylesVertical.vertical
-        )}
-        ref={ref}
-      />
+      <Tabs {...props} ref={ref} />
     </TabsInternalProvider>
   )
 )
+TabsWrapper.displayName = 'TabsContextWrapper'
+
+const Tabs = forwardRef<
+  HTMLDivElement,
+  ReachTabsProps & HTMLAttributes<HTMLDivElement>
+>(({ className, children, ...props }, ref) => {
+  const { type, isRtl } = useTabsInternalContext()
+  return (
+    <ReachTabs
+      {...(isRtl && { dir: 'rtl' })}
+      {...(type === 'vertical' && { orientation: 'vertical' })}
+      {...props}
+      className={classNames(
+        className,
+        type === 'folder' && stylesFolder.folder,
+        type === 'hexagon' && stylesHexagon.hexagon,
+        type === 'shaped' && stylesShaped.shaped,
+        type === 'underline' && stylesUnderline.underline,
+        type === 'vertical' && stylesVertical.vertical
+      )}
+      ref={ref}
+    >
+      {children}
+      <DirectionDetector />
+    </ReachTabs>
+  )
+})
 Tabs.displayName = 'TabsWrapper'
 
 const TabList = forwardRef<
@@ -293,7 +323,7 @@ const TabPanel = forwardRef<
 })
 TabPanel.displayName = 'TabPanelWrapper'
 
-const TypedTabs = Tabs as typeof Tabs & {
+const TypedTabs = TabsWrapper as typeof TabsWrapper & {
   TabList: typeof TabList
   Tab: typeof Tab
   TabPanels: typeof TabPanels
