@@ -1,78 +1,42 @@
-#root {
-  --top-bar-height: 43px;
-}
-
 #root div[role='main'] > div {
   /* remove border */
   box-shadow: none;
-}
 
-/* topbar height */
-#root div[role='main'] > div > div > div:first-child > div:first-child,
-#root div[role='main'] > div > div > div:first-child > div:first-child > div {
-  height: var(--top-bar-height);
-  box-shadow: none;
-}
-#root div[role='main'] > div > div > div:first-child > div:first-child + div {
-  height: calc(100% - var(--top-bar-height));
-  top: var(--top-bar-height);
-}
+  --top-bar-height: 43px;
+  & > div > div:first-child > div:first-child {
+    /* top-bar height */
+    &,
+    & > div {
+      height: var(--top-bar-height);
+      box-shadow: none;
+    }
+    & + div {
+      height: calc(100% - var(--top-bar-height));
+      top: var(--top-bar-height);
+    }
 
-/* sidebar border */
-body.dark
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child::after,
-body.dark
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:first-child:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: var(--cb-yellow-alt);
-}
-body.dark
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:first-child {
-  position: relative;
-}
-body.dark
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:first-child:after {
-  right: -7px;
-}
-body.dark
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child::after {
-  right: var(--corner--width);
+    /* top-bar border (dark theme) */
+    :is(body.dark) &::after,
+    :is(body.dark) & > div > div:first-child:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--cb-yellow-alt);
+    }
+    :is(body.dark) & > div > div:first-child {
+      position: relative;
+
+      &::after {
+        right: -7px;
+      }
+    }
+    :is(body.dark) &::after {
+      right: var(--corner--width);
+    }
+  }
 }
 
 /* font */
