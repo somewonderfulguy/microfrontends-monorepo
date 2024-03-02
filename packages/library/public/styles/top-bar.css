@@ -36,32 +36,15 @@
     :is(body.dark) &::after {
       right: var(--corner--width);
     }
-  }
-}
 
-/* font */
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  button
-  :is(span, div svg) {
-  font-size: var(--cb-font-size);
-}
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  button
-  div:has(> svg + span)
-  span {
-  margin-top: 0;
+    /* font */
+    > div button :is(span, div svg) {
+      font-size: var(--cb-font-size);
+    }
+    > div button div:has(> svg + span) span {
+      margin-top: 0;
+    }
+  }
 }
 
 /* icons */
