@@ -44,63 +44,25 @@
     > div button div:has(> svg + span) span {
       margin-top: 0;
     }
-  }
-}
 
-/* icons */
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  button
-  svg {
-  width: 16px;
-  height: 16px;
-}
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  :is(button:hover, a:hover) {
-  color: var(--cb-turquoise);
-}
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  :is(button, a) {
-  margin-top: 7px;
-  border-radius: 1px;
-}
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  :is(button:focus-visible, a:focus-visible) {
-  outline: none;
-}
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  :is(button:focus-visible, a:focus-visible) {
-  border: 1px solid var(--cb-turquoise);
-  color: var(--cb-turquoise);
+    /* icons */
+    > div button svg {
+      width: 16px;
+      height: 16px;
+    }
+    > div :is(button:hover, a:hover) {
+      color: var(--cb-turquoise);
+    }
+    > div :is(button, a) {
+      margin-top: 7px;
+      border-radius: 1px;
+    }
+    > div :is(button:focus-visible, a:focus-visible) {
+      outline: none;
+      border: 1px solid var(--cb-turquoise);
+      color: var(--cb-turquoise);
+    }
+  }
 }
 
 /* right side controls & angled border */
