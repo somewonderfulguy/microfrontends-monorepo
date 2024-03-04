@@ -62,83 +62,51 @@
       border: 1px solid var(--cb-turquoise);
       color: var(--cb-turquoise);
     }
-  }
-}
 
-/* right side controls & angled border */
-#root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:last-child {
-  margin-right: 0;
-  padding-right: 3px;
-  padding-left: 90px;
-  margin-left: 0;
-  clip-path: polygon(100% 100%, 100% 0, 90px 0, 65px 22px, 31px 22px, 3px 100%);
-}
-body.yellow
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:last-child:not(:has(a[title='Open canvas in new tab'])) {
-  background-color: var(--cb-yellow-main);
-  color: var(--cb-black);
-}
-body.topRightYellow
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:last-child:has(a[title='Open canvas in new tab']) {
-  background-color: var(--cb-yellow-main);
-  color: var(--cb-black);
-}
-body.topRightDark
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:last-child:has(a[title='Open canvas in new tab']) {
-  background-color: var(--cb-darkest-gray);
-  color: var(--cb-white);
-}
-body.dark
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:last-child:not(:has(a[title='Open canvas in new tab'])) {
-  background-color: var(--cb-yellow-alt);
-  color: var(--cb-black);
-}
-:is(body.dark.topRightDarkRed, body.dark.topRightDark)
-  #root
-  div[role='main']
-  > div
-  > div
-  > div:first-child
-  > div:first-child
-  > div
-  > div:last-child:has(a[title='Open canvas in new tab']) {
-  background-color: var(--cb-yellow-alt);
-  color: var(--cb-black);
+    /* right side controls & angled border */
+    & > div > div:last-child {
+      margin-right: 0;
+      padding-right: 3px;
+      padding-left: 90px;
+      margin-left: 0;
+      clip-path: polygon(
+        100% 100%,
+        100% 0,
+        90px 0,
+        65px 22px,
+        31px 22px,
+        3px 100%
+      );
+
+      :is(body.yellow) &:not(:has(a[title='Open canvas in new tab'])) {
+        background-color: var(--cb-yellow-main);
+        color: var(--cb-black);
+      }
+
+      :is(body.topRightYellow) &:has(a[title='Open canvas in new tab']) {
+        background-color: var(--cb-yellow-main);
+        color: var(--cb-black);
+      }
+
+      :is(body.topRightDark) &:has(a[title='Open canvas in new tab']) {
+        background-color: var(--cb-darkest-gray);
+        color: var(--cb-white);
+      }
+
+      :is(body.dark) &:not(:has(a[title='Open canvas in new tab'])) {
+        background-color: var(--cb-yellow-alt);
+        color: var(--cb-black);
+      }
+
+      :is(body.dark.topRightDarkRed, body.dark.topRightDark)
+        &:has(a[title='Open canvas in new tab']) {
+        background-color: var(--cb-yellow-alt);
+        color: var(--cb-black);
+      }
+
+      /* TODO: handle white on black top corner */
+    }
+  }
 }
 
 /* left side angled border */
