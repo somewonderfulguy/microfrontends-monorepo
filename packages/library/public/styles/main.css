@@ -13,7 +13,7 @@
   --cb-darkest-gray: hsl(300, 18%, 8%);
   --cb-red: hsl(3, 100%, 67%);
   --cb-green: hsl(149, 85%, 52%);
-  --cb-mindight-navy: hsl(240, 50%, 6%);
+  --cb-midnight-navy: hsl(240, 50%, 6%);
 
   /* other */
   --cb-font-family-bold: 'Blender Pro Bold', sans-serif;
@@ -55,14 +55,4 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* TODO: */
-body.darkRed {
-  display: initial;
-}
-
-/* TODO */
-body.dark {
-  display: initial;
 }

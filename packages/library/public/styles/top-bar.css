@@ -135,7 +135,7 @@
   }
   :is(body.darkRed) &:before {
     transform: translate(-1px, -1px);
-    background-color: var(--cb-mindight-navy);
+    background-color: var(--cb-midnight-navy);
     z-index: 10;
   }
 }
