@@ -17,7 +17,7 @@
     outline: none;
   }
 
-  &::has(span + div) {
+  &:has(span + div) {
     padding-right: 12px;
   }
 
@@ -28,14 +28,15 @@
   :is(body.yellow) &.tabbutton-active {
     background-color: var(--cb-turquoise);
     color: var(--cb-black);
+
+    &:focus-visible {
+      border-color: var(--cb-red);
+      color: var(--cb-black);
+    }
   }
-  /* TODO: better outline, though */
   :is(body.yellow) &:focus-visible {
+    /* TODO: better change to outline - it won't mage layout shifts */
     border: 2px solid var(--cb-turquoise);
-  }
-  :is(body.yellow) &.tabbutton-active:focus-visible {
-    border-color: var(--cb-red);
-    color: var(--cb-black);
   }
 }
 
