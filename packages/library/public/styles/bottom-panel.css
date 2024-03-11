@@ -41,41 +41,31 @@
 }
 
 /* Addons tab (right side panel) */
-body.yellow
-  #storybook-panel-root
-  *[role='tablist']
-  > div
-  :is(.tabbutton, span) {
-  color: var(--cb-white);
+#storybook-panel-root *[role='tablist'] > div {
+  & > .tabbutton span {
+    margin-left: 10px;
+    margin-top: 2px;
+    border-width: 5px;
+  }
+
+  :is(body.yellow) & :is(.tabbutton, span) {
+    color: var(--cb-white);
+  }
+
+  :is(body.yellow) & > .tabbutton:focus-visible > span {
+    border-top-color: var(--cb-turquoise);
+  }
 }
-#storybook-panel-root *[role='tablist'] > div > .tabbutton span {
-  margin-left: 10px;
-  margin-top: 2px;
-  border-width: 5px;
-}
-body.yellow
-  #storybook-panel-root
-  *[role='tablist']
-  > div
-  > .tabbutton:focus-visible
-  span {
-  border-top-color: var(--cb-turquoise);
-}
-body.yellow
-  #storybook-panel-root
-  *[role='tablist']:not(:has(.tabbutton-active))
-  > div
+
+#storybook-panel-root *[role='tablist']:not(:has(.tabbutton-active)) > div {
   > .tabbutton {
-  background-color: var(--cb-turquoise);
-  color: var(--cb-black);
-}
-body.yellow
-  #storybook-panel-root
-  *[role='tablist']:not(:has(.tabbutton-active))
-  > div
-  > .tabbutton
-  span {
-  border-top-color: var(--cb-black);
+    background-color: var(--cb-turquoise);
+    color: var(--cb-black);
+
+    & span {
+      border-top-color: var(--cb-black);
+    }
+  }
 }
 
 /* number badge */
