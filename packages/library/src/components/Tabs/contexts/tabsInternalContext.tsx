@@ -12,6 +12,7 @@ import type { TabsStyle } from '../Tabs'
 
 type Context = {
   type: TabsStyle
+  animateOnHover: boolean
   tabsQty: number
   registerTab: () => void
   unregisterTab: () => void
@@ -24,9 +25,11 @@ TabsInternalContext.displayName = 'TabsInternalContext'
 
 const TabsInternalProvider = ({
   type,
+  animateOnHover,
   children
 }: {
   type: TabsStyle
+  animateOnHover: boolean
   children: ReactNode
 }) => {
   const [tabsQty, setTabsQty] = useState(0)
@@ -35,7 +38,15 @@ const TabsInternalProvider = ({
   const [isRtl, setIsRtl] = useState(false)
   return (
     <TabsInternalContext.Provider
-      value={{ type, tabsQty, registerTab, unregisterTab, isRtl, setIsRtl }}
+      value={{
+        type,
+        animateOnHover,
+        tabsQty,
+        registerTab,
+        unregisterTab,
+        isRtl,
+        setIsRtl
+      }}
     >
       {children}
     </TabsInternalContext.Provider>

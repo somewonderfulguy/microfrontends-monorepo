@@ -31,162 +31,120 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
+const childrenSampleOne = (
+  <>
+    <TabList>
+      <Tab>Videos</Tab>
+      <Tab>Wallpapers long tab name</Tab>
+      <Tab>Screenshots</Tab>
+      <Tab>V</Tab>
+      <Tab>Concept arts</Tab>
+    </TabList>
+    <TabPanels style={{ marginTop: 30 }}>
+      <TabPanel>Videos tab content.</TabPanel>
+      <TabPanel>
+        Wallpapers tab content. Wallpapers tab content. Wallpapers tab content.
+        Wallpapers tab content. Wallpapers tab content.
+        <br />
+        Wallpapers tab content. Wallpapers tab content. Wallpapers tab content.
+        Wallpapers tab content. Wallpapers tab content.
+        <br />
+        Wallpapers tab content. Wallpapers tab content. Wallpapers tab content.
+        Wallpapers tab content. Wallpapers tab content.
+        <br />
+        Wallpapers tab content. Wallpapers tab content. Wallpapers tab content.
+        Wallpapers tab content. Wallpapers tab content.
+        <br />
+        Wallpapers tab content. Wallpapers tab content. Wallpapers tab content.
+        Wallpapers tab content. Wallpapers tab content.
+      </TabPanel>
+      <TabPanel>Screenshots tab content</TabPanel>
+      <TabPanel>V is the main character.</TabPanel>
+      <TabPanel>Concept arts tab content</TabPanel>
+    </TabPanels>
+  </>
+)
+
+const childrenSampleTwo = (
+  <>
+    <TabList>
+      <Tab>Cyberpunk 2077</Tab>
+      <Tab>Phantom Liberty - new DLC</Tab>
+      <Tab>Edgerunners</Tab>
+      <Tab>V</Tab>
+      <Tab>Music</Tab>
+    </TabList>
+    <TabPanels style={{ marginTop: 30 }}>
+      <TabPanel>Cyberpunk 2077 tab content</TabPanel>
+      <TabPanel>
+        Phantom liberty tab content <br /> Phantom liberty tab content
+      </TabPanel>
+      <TabPanel>
+        Edgerunners tab content <br /> Edgerunners tab content <br />
+        Edgerunners tab content
+      </TabPanel>
+      <TabPanel>
+        V is the main character. <br /> V is the main character. <br />V is the
+        main character. <br /> V is the main character. <br /> V is the main
+        character. <br /> V is the main character.
+      </TabPanel>
+      <TabPanel>
+        Music tab content <br /> Music tab content
+        <br /> Music tab content <br /> Music tab content
+        <br /> Music tab content <br /> Music tab content
+        <br /> Music tab content <br /> Music tab content
+        <br /> Music tab content <br /> Music tab content
+      </TabPanel>
+    </TabPanels>
+  </>
+)
+
 /** By default `type` is `underline` */
 export const UnderlineTabs: Story = {
   args: {
     type: 'underline',
     defaultIndex: 0,
-    children: (
-      <>
-        <TabList>
-          <Tab>Videos</Tab>
-          <Tab>Wallpapers long tab name</Tab>
-          <Tab>Screenshots</Tab>
-          <Tab>V</Tab>
-          <Tab>Concept arts</Tab>
-        </TabList>
-        <TabPanels style={{ marginTop: 30 }}>
-          <TabPanel>Videos tab content.</TabPanel>
-          <TabPanel>
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-          </TabPanel>
-          <TabPanel>Screenshots tab content</TabPanel>
-          <TabPanel>V is the main character.</TabPanel>
-          <TabPanel>Concept arts tab content</TabPanel>
-        </TabPanels>
-      </>
-    )
-  }
+    children: childrenSampleOne
+    // leaving it like this, after adding complex conditional types, TS error appeared that I don't know how to fix
+  } as never
+}
+
+export const UnderlineTabsHoverAnimation: Story = {
+  args: {
+    type: 'underline',
+    animateOnHover: true,
+    defaultIndex: 0,
+    children: childrenSampleOne
+  } as never
 }
 
 export const HexagonTabs: Story = {
   args: {
     type: 'hexagon',
-    children: (
-      <>
-        <TabList>
-          <Tab>Cyberpunk 2077</Tab>
-          <Tab>Phantom Liberty - new DLC</Tab>
-          <Tab>Edgerunners</Tab>
-          <Tab>V</Tab>
-          <Tab>Music</Tab>
-        </TabList>
-        <TabPanels style={{ marginTop: 30 }}>
-          <TabPanel>Cyberpunk 2077 tab content</TabPanel>
-          <TabPanel>
-            Phantom liberty tab content <br /> Phantom liberty tab content
-          </TabPanel>
-          <TabPanel>
-            Edgerunners tab content <br /> Edgerunners tab content <br />
-            Edgerunners tab content
-          </TabPanel>
-          <TabPanel>
-            V is the main character. <br /> V is the main character. <br />V is
-            the main character. <br /> V is the main character. <br /> V is the
-            main character. <br /> V is the main character.
-          </TabPanel>
-          <TabPanel>
-            Music tab content <br /> Music tab content
-            <br /> Music tab content <br /> Music tab content
-            <br /> Music tab content <br /> Music tab content
-            <br /> Music tab content <br /> Music tab content
-            <br /> Music tab content <br /> Music tab content
-          </TabPanel>
-        </TabPanels>
-      </>
-    )
-  }
+    children: childrenSampleTwo
+  } as never
+}
+
+export const HexagonTabsHoverAnimation: Story = {
+  args: {
+    type: 'hexagon',
+    animateOnHover: true,
+    children: childrenSampleTwo
+  } as never
 }
 
 export const FolderTabs: Story = {
   args: {
     type: 'folder',
-    children: (
-      <>
-        <TabList>
-          <Tab>Videos</Tab>
-          <Tab>Wallpapers long tab name</Tab>
-          <Tab>Screenshots</Tab>
-          <Tab>V</Tab>
-          <Tab>Concept arts</Tab>
-        </TabList>
-        <TabPanels style={{ marginTop: 30 }}>
-          <TabPanel>Tab content</TabPanel>
-          <TabPanel>
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-          </TabPanel>
-          <TabPanel>Screenshots tab content</TabPanel>
-          <TabPanel>V is the main character.</TabPanel>
-          <TabPanel>Concept arts tab content</TabPanel>
-        </TabPanels>
-      </>
-    )
-  }
+    children: childrenSampleOne
+  } as never
 }
 
 export const ShapedTabs: Story = {
   args: {
     type: 'shaped',
-    children: (
-      <>
-        <TabList>
-          <Tab>Videos</Tab>
-          <Tab>Wallpapers long tab name</Tab>
-          <Tab>Screenshots</Tab>
-          <Tab>V</Tab>
-          <Tab>Concept arts</Tab>
-        </TabList>
-        <TabPanels style={{ marginTop: 30 }}>
-          <TabPanel>Tab content</TabPanel>
-          <TabPanel>
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-            <br />
-            Wallpapers tab content. Wallpapers tab content. Wallpapers tab
-            content. Wallpapers tab content. Wallpapers tab content.
-          </TabPanel>
-          <TabPanel>Screenshots tab content</TabPanel>
-          <TabPanel>V is the main character.</TabPanel>
-          <TabPanel>Concept arts tab content</TabPanel>
-        </TabPanels>
-      </>
-    )
-  }
+    children: childrenSampleOne
+  } as never
 }
 
 export const VerticalTabs: Story = {
@@ -233,5 +191,5 @@ export const VerticalTabs: Story = {
         </TabPanels>
       </>
     )
-  }
+  } as never
 }

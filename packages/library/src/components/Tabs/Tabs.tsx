@@ -54,7 +54,6 @@ import stylesVertical from './styles/TabsVertical.module.css'
 // TODO: implement moving indicator using react-spring
 // TODO: implement animation flag - on hover or on click/keyboard/external change
 // FIXME: hexagon - text color of active tab on initialization
-// TODO: hexagon - focus-visible
 // TODO: hexagon & underline - optional animation on hover
 // TODO: reduce file size - move logic to separate hooks
 // TODO: go through each css file and make sure variables are user correctly
@@ -63,6 +62,7 @@ import stylesVertical from './styles/TabsVertical.module.css'
 // TODO: create story with drag and drop tabs to test that animation logic does not break
 // TODO: render empty space for scrollbar (Chrome, Vertical tabs story in docs view)
 // TODO: split this file into multiple files ?
+// TODO: replace react context with either zustand or jotai
 
 export type TabsStyle =
   | 'folder'
@@ -71,11 +71,22 @@ export type TabsStyle =
   | 'underline'
   | 'vertical'
 
+// Here we directly extend ReachTabsProps and HTMLAttributes<HTMLDivElement>
+// with a conditional prop structure.
 type TabsProps = ReachTabsProps &
-  HTMLAttributes<HTMLDivElement> & {
-    /** Tabs visual style */
-    type?: TabsStyle
-  }
+  HTMLAttributes<HTMLDivElement> &
+  (
+    | {
+        /** Tabs visual style */
+        type: 'underline' | 'hexagon'
+        /** Animation type: click or hover */
+        animateOnHover?: boolean
+      }
+    | {
+        /** Tabs visual style */
+        type?: Exclude<TabsStyle, 'underline' | 'hexagon'>
+      }
+  )
 
 const getDirection = (element: Element) =>
   window.getComputedStyle(element).getPropertyValue('direction')
@@ -92,12 +103,27 @@ const DirectionDetector = () => {
   return <div ref={ref} aria-hidden />
 }
 
-const TabsWrapper = forwardRef<HTMLDivElement, TabsProps>(
-  ({ type = 'underline', ...props }, ref) => (
-    <TabsInternalProvider type={type}>
-      <Tabs {...props} ref={ref} />
-    </TabsInternalProvider>
+function isWithAnimateOnHoverTabsProps(
+  props: TabsProps
+): props is TabsProps & { animateOnHover?: boolean } {
+  return (
+    props.type === undefined ||
+    props.type === 'underline' ||
+    props.type === 'hexagon'
   )
+}
+
+const TabsWrapper = forwardRef<HTMLDivElement, TabsProps>(
+  ({ type = 'underline', ...props }, ref) => {
+    const animateOnHover = isWithAnimateOnHoverTabsProps(props)
+      ? props.animateOnHover ?? false
+      : false
+    return (
+      <TabsInternalProvider type={type} animateOnHover={animateOnHover}>
+        <Tabs {...props} ref={ref} />
+      </TabsInternalProvider>
+    )
+  }
 )
 TabsWrapper.displayName = 'TabsContextWrapper'
 
@@ -146,8 +172,6 @@ const TabList = forwardRef<
     const tabs = refWrapper.current.querySelectorAll('[data-reach-tab]')
     setTabs(Array.from(tabs) as HTMLButtonElement[])
   }, [refWrapper, tabsQty])
-
-  // useUnderlineAnimation(tabs, refWrapper, containerWidth)
 
   const { indicatorLeft, indicatorWidth, isGoingLeft } = useIndicatorPosition(
     tabs,

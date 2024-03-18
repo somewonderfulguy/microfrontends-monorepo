@@ -111,12 +111,12 @@
   --cb-base: var(--cb-black-base);
   --cb-base-secondary: var(--cb-white-base);
   --cb-base-accent: var(--cb-yellow-base);
-  --cb-base-accent-alt: var(--cb-turquoise-base);
+  --cb-base-accent-alt: var(--cb-red-base-vivid);
 
   --cb-primary-color: var(--cb-black);
   --cb-secondary-color: var(--cb-white);
   --cb-accent-color: var(--cb-yellow-main);
-  --cb-accent-color-alt: var(--cb-turquoise);
+  --cb-accent-color-alt: var(--cb-red-vivid);
 
   --cb-background-color: var(--cb-black);
 

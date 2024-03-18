@@ -14,7 +14,7 @@ export const useIndicatorPosition = (
   const { selectedIndex } = useTabsContext()
   const prevSelectedIndex = usePrevious(selectedIndex) || 0
 
-  const { type: tabsStyle, isRtl } = useTabsInternalContext()
+  const { type: tabsStyle, isRtl, animateOnHover } = useTabsInternalContext()
   const isUnderline = tabsStyle === 'underline'
   const isHexagon = tabsStyle === 'hexagon'
 
