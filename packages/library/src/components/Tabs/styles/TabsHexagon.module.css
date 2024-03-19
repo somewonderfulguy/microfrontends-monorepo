@@ -42,3 +42,14 @@
     outline: 1px solid var(--cb-accent-color);
   }
 }
+
+.hexagonStatic {
+  composes: hexagon;
+
+  [data-reach-tab] {
+    &:hover {
+      color: var(--cb-primary-color);
+      background-color: var(--cb-secondary-color);
+    }
+  }
+}

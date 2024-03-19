@@ -147,6 +147,8 @@ export const useIndicatorPosition = (
       }
     }
 
+    if (!animateOnHover) return
+
     // mouse hover logic
     let prevHoverIndex = selectedIndex
     const mouseEnterCallbacks = tabs.map((hoverTab, _hoverIndex) => () => {
@@ -195,7 +197,8 @@ export const useIndicatorPosition = (
     prevSelectedIndex,
     isHexagon,
     leftApi,
-    widthApi
+    widthApi,
+    animateOnHover
   ])
 
   return {

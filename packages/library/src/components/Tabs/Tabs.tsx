@@ -131,7 +131,7 @@ const Tabs = forwardRef<
   HTMLDivElement,
   ReachTabsProps & HTMLAttributes<HTMLDivElement>
 >(({ className, children, ...props }, ref) => {
-  const { type, isRtl } = useTabsInternalContext()
+  const { type, isRtl, animateOnHover } = useTabsInternalContext()
   return (
     <ReachTabs
       {...(isRtl && { dir: 'rtl' })}
@@ -140,7 +140,9 @@ const Tabs = forwardRef<
       className={classNames(
         className,
         type === 'folder' && stylesFolder.folder,
-        type === 'hexagon' && stylesHexagon.hexagon,
+        type === 'hexagon' && animateOnHover
+          ? stylesHexagon.hexagon
+          : stylesHexagon.hexagonStatic,
         type === 'shaped' && stylesShaped.shaped,
         type === 'underline' && stylesUnderline.underline,
         type === 'vertical' && stylesVertical.vertical
