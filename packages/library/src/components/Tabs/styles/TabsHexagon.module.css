@@ -4,8 +4,8 @@
   composes: tabs;
 
   [data-reach-tab-list] {
-    --aug-border-all: 1px;
-    --aug-border-bg: var(--cb-secondary-color);
+    --aug-border-all: 0px;
+    border: 1px solid var(--cb-secondary-color);
   }
 
   [data-reach-tab] {
@@ -28,7 +28,8 @@
       left: 50%;
       transform: translate(-50%, -50%);
 
-      :global(.cyberpunk-ui-theme-white-on-black) & {
+      :global(.cyberpunk-ui-theme-white-on-black) &,
+      :global(.cyberpunk-ui-theme-dark) & {
         --aug-border-bg: var(--cb-accent-color-alt);
       }
     }
@@ -47,7 +48,8 @@
   composes: hexagon;
 
   [data-reach-tab] {
-    &:hover {
+    &:hover,
+    &[data-selected] {
       color: var(--cb-primary-color);
       background-color: var(--cb-secondary-color);
     }

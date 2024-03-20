@@ -62,7 +62,7 @@ import stylesVertical from './styles/TabsVertical.module.css'
 // TODO: create story with drag and drop tabs to test that animation logic does not break
 // TODO: render empty space for scrollbar (Chrome, Vertical tabs story in docs view)
 // TODO: split this file into multiple files ?
-// TODO: replace react context with either zustand or jotai
+// TODO: better state management - either improved fast context or zustand or jotai
 
 export type TabsStyle =
   | 'folder'
@@ -140,9 +140,10 @@ const Tabs = forwardRef<
       className={classNames(
         className,
         type === 'folder' && stylesFolder.folder,
-        type === 'hexagon' && animateOnHover
-          ? stylesHexagon.hexagon
-          : stylesHexagon.hexagonStatic,
+        type === 'hexagon' &&
+          (animateOnHover
+            ? stylesHexagon.hexagon
+            : stylesHexagon.hexagonStatic),
         type === 'shaped' && stylesShaped.shaped,
         type === 'underline' && stylesUnderline.underline,
         type === 'vertical' && stylesVertical.vertical

@@ -15,6 +15,7 @@
   --cb-yellow-alt-base: 73, 100%, 68%;
   --cb-turquoise-base: 184, 100%, 50%;
   --cb-red-vivid-base: 349, 99%, 50%;
+  --cb-red-mid-base: 2, 71%, 56%;
   --cb-red-base: 3, 100%, 67%;
   --cb-white-base: 0, 0%, 100%;
   --cb-black-base: 0, 0%, 0%;
@@ -24,6 +25,7 @@
   --cb-yellow-main: hsl(var(--cb-yellow-base));
   --cb-yellow-alt: hsl(var(--cb-yellow-alt-base));
   --cb-red: hsl(var(--cb-red-base));
+  --cb-red-mid: hsl(var(--cb-red-mid-base));
   --cb-red-vivid: hsl(var(--cb-red-vivid-base));
   --cb-turquoise: hsl(var(--cb-turquoise-base));
   --cb-black: hsl(var(--cb-black-base));
@@ -101,6 +103,7 @@
   --cb-primary-color: var(--cb-darkest-gray);
   --cb-secondary-color: var(--cb-yellow-alt);
   --cb-accent-color: var(--cb-turquoise);
+  --cb-accent-color-alt: var(--cb-red-mid);
 
   --cb-background-color: var(--cb-darkest-gray);
 
