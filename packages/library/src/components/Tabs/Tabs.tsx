@@ -2,8 +2,6 @@ import { forwardRef, HTMLAttributes, useEffect, useRef, useState } from 'react'
 import {
   Tabs as ReachTabs,
   TabsProps as ReachTabsProps,
-  TabList as ReactTabList,
-  TabListProps as ReactTabListProps,
   Tab as ReachTab,
   TabProps,
   TabPanels as ReachTabPanels,
@@ -18,18 +16,13 @@ import classNames from 'utils/classNames'
 import useResizeObserver from 'hooks/useResizeObserver'
 
 import {
-  IndicatorPositionProvider,
   TabsInternalProvider,
   useIndicatorPositionContext,
   useTabsInternalContext
 } from './contexts'
-import {
-  useFadeInOutAnimation,
-  useIndicatorPosition,
-  useTrackIndicatorPosition
-} from './hooks'
+import { useFadeInOutAnimation } from './hooks'
+import TabList from './TabList'
 
-import styles from './styles/Tabs.module.css'
 import stylesFolder from './styles/TabsFolder.module.css'
 import stylesHexagon from './styles/TabsHexagon.module.css'
 import stylesShaped from './styles/TabsShaped.module.css'
@@ -50,19 +43,17 @@ import stylesVertical from './styles/TabsVertical.module.css'
 // animation content (fade in/out; height change)
 // dnd tab (reorder; horizontal/vertical)
 
-// TODO: test render props api
-// TODO: implement moving indicator using react-spring
-// TODO: implement animation flag - on hover or on click/keyboard/external change
 // FIXME: hexagon - text color of active tab on initialization
-// TODO: hexagon & underline - optional animation on hover
-// TODO: reduce file size - move logic to separate hooks
+// FIXME: hexagon - non-hover animation on active tab (text visual bug)
+// TODO: test render props api
 // TODO: go through each css file and make sure variables are user correctly
 // TODO: add .cyberpunk-ui-theme-white-on-black on Tabs root component and prop to change it
 // TODO: create story with dynamic tabs (add/remove/rename) to test that animation logic does not break
 // TODO: create story with drag and drop tabs to test that animation logic does not break
 // TODO: render empty space for scrollbar (Chrome, Vertical tabs story in docs view)
-// TODO: split this file into multiple files ?
 // TODO: better state management - either improved fast context or zustand or jotai
+// TODO: reduce file size - move logic to separate hooks
+// TODO: split this file into multiple files
 
 export type TabsStyle =
   | 'folder'
@@ -156,60 +147,6 @@ const Tabs = forwardRef<
   )
 })
 Tabs.displayName = 'TabsWrapper'
-
-const TabList = forwardRef<
-  HTMLDivElement,
-  ReactTabListProps & HTMLAttributes<HTMLDivElement>
->(({ children, ...props }, ref) => {
-  const { type: tabsStyle, tabsQty } = useTabsInternalContext()
-  const isHexagon = tabsStyle === 'hexagon'
-  const isUnderline = tabsStyle === 'underline'
-
-  const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
-
-  const [refWrapper, { width: containerWidth }] =
-    useResizeObserver<HTMLDivElement>()
-
-  useEffect(() => {
-    if (!refWrapper.current) return
-    const tabs = refWrapper.current.querySelectorAll('[data-reach-tab]')
-    setTabs(Array.from(tabs) as HTMLButtonElement[])
-  }, [refWrapper, tabsQty])
-
-  const { indicatorLeft, indicatorWidth, isGoingLeft } = useIndicatorPosition(
-    tabs,
-    refWrapper,
-    containerWidth
-  )
-
-  const { animatedRef, coordinates } = useTrackIndicatorPosition()
-
-  return (
-    <div ref={refWrapper} className={styles.tabListContainer}>
-      <ReactTabList
-        {...props}
-        ref={ref}
-        {...(isHexagon && { 'data-augmented-ui': 'tl-clip br-clip border' })}
-      >
-        <IndicatorPositionProvider value={{ ...coordinates, isGoingLeft }}>
-          {(isHexagon || isUnderline) && (
-            <animated.div
-              className={styles.indicator}
-              style={{
-                ...indicatorLeft,
-                ...indicatorWidth,
-                ...(isUnderline && { bottom: 0, height: 2 })
-              }}
-              ref={animatedRef}
-            />
-          )}
-          {children}
-        </IndicatorPositionProvider>
-      </ReactTabList>
-    </div>
-  )
-})
-TabList.displayName = 'TabListWrapper'
 
 const Tab = forwardRef<
   HTMLButtonElement,
