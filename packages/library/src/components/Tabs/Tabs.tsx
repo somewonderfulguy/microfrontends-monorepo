@@ -3,20 +3,17 @@ import {
   Tabs as ReachTabs,
   TabsProps as ReachTabsProps,
   TabProps,
-  TabPanels as ReachTabPanels,
-  TabPanelsProps,
   TabPanel as ReachTabPanel,
   TabPanelProps
 } from '@reach/tabs'
-import { animated, useSpring } from 'react-spring'
 
 import classNames from 'utils/classNames'
-import useResizeObserver from 'hooks/useResizeObserver'
 
 import { TabsInternalProvider, useTabsInternalContext } from './contexts'
 import { useFadeInOutAnimation } from './hooks'
 import TabList from './TabList'
 import Tab from './Tab'
+import TabPanels from './TabPanels'
 
 import stylesFolder from './styles/TabsFolder.module.css'
 import stylesHexagon from './styles/TabsHexagon.module.css'
@@ -143,39 +140,6 @@ const Tabs = forwardRef<
   )
 })
 Tabs.displayName = 'TabsWrapper'
-
-const TabPanels = forwardRef<
-  HTMLDivElement,
-  TabPanelsProps & HTMLAttributes<HTMLDivElement>
->((props, ref) => {
-  const [wrapperRef, { height }] = useResizeObserver<HTMLDivElement>()
-
-  const isInitialRender = useRef(true)
-  const animatedHeight = useSpring({
-    config: {
-      duration: isInitialRender.current ? 0 : 200
-    },
-    immediate: isInitialRender.current,
-    height
-  })
-  useEffect(() => {
-    // TODO: verify is it really needed
-    setTimeout(() => (isInitialRender.current = false))
-  }, [])
-
-  return (
-    <animated.div
-      style={{
-        height: isInitialRender.current ? 'auto' : animatedHeight.height
-      }}
-    >
-      <div ref={wrapperRef}>
-        <ReachTabPanels {...props} ref={ref} />
-      </div>
-    </animated.div>
-  )
-})
-TabPanels.displayName = 'TabPanelsWrapper'
 
 const TabPanel = forwardRef<
   HTMLDivElement,
