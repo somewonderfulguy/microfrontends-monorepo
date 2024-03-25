@@ -2,18 +2,16 @@ import { forwardRef, HTMLAttributes, useEffect, useRef } from 'react'
 import {
   Tabs as ReachTabs,
   TabsProps as ReachTabsProps,
-  TabProps,
-  TabPanel as ReachTabPanel,
-  TabPanelProps
+  TabProps
 } from '@reach/tabs'
 
 import classNames from 'utils/classNames'
 
 import { TabsInternalProvider, useTabsInternalContext } from './contexts'
-import { useFadeInOutAnimation } from './hooks'
 import TabList from './TabList'
 import Tab from './Tab'
 import TabPanels from './TabPanels'
+import TabPanel from './TabPanel'
 
 import stylesFolder from './styles/TabsFolder.module.css'
 import stylesHexagon from './styles/TabsHexagon.module.css'
@@ -140,22 +138,6 @@ const Tabs = forwardRef<
   )
 })
 Tabs.displayName = 'TabsWrapper'
-
-const TabPanel = forwardRef<
-  HTMLDivElement,
-  TabPanelProps & HTMLAttributes<HTMLDivElement>
->(({ children, ...props }, ref) => {
-  const divElem = useRef<HTMLDivElement>(null)
-
-  useFadeInOutAnimation(divElem)
-
-  return (
-    <ReachTabPanel {...props} ref={ref}>
-      <div ref={divElem}>{children}</div>
-    </ReachTabPanel>
-  )
-})
-TabPanel.displayName = 'TabPanelWrapper'
 
 const TypedTabs = TabsWrapper as typeof TabsWrapper & {
   TabList: typeof TabList
