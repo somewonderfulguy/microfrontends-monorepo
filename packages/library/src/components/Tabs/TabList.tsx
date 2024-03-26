@@ -50,6 +50,7 @@ const TabList = forwardRef<
           {(isHexagon || isUnderline) && (
             <animated.div
               className={styles.indicator}
+              aria-hidden
               style={{
                 ...indicatorLeft,
                 ...indicatorWidth,
