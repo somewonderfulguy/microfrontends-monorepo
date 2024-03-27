@@ -7,12 +7,26 @@ import { animated } from 'react-spring'
 
 import useResizeObserver from 'hooks/useResizeObserver'
 
-import { IndicatorPositionProvider, useTabsInternalContext } from './contexts'
+import { useTabsInternalContext, IndicatorPositionProvider } from './contexts'
 import { useIndicatorPosition, useTrackIndicatorPosition } from './hooks'
 
 import styles from './styles/Tabs.module.css'
 
 const TabList = forwardRef<
+  HTMLDivElement,
+  ReactTabListProps & HTMLAttributes<HTMLDivElement>
+>(({ children, ...props }, ref) => {
+  return (
+    <IndicatorPositionProvider>
+      <TabListImpl {...props} ref={ref}>
+        {children}
+      </TabListImpl>
+    </IndicatorPositionProvider>
+  )
+})
+TabList.displayName = 'TabListWrapper'
+
+const TabListImpl = forwardRef<
   HTMLDivElement,
   ReactTabListProps & HTMLAttributes<HTMLDivElement>
 >(({ children, ...props }, ref) => {
@@ -31,13 +45,13 @@ const TabList = forwardRef<
     setTabs(Array.from(tabs) as HTMLButtonElement[])
   }, [refWrapper, tabsQty])
 
-  const { indicatorLeft, indicatorWidth, isGoingLeft } = useIndicatorPosition(
+  const { indicatorLeft, indicatorWidth } = useIndicatorPosition(
     tabs,
     refWrapper,
     containerWidth
   )
 
-  const { animatedRef, coordinates } = useTrackIndicatorPosition()
+  const animatedRef = useTrackIndicatorPosition()
 
   return (
     <div ref={refWrapper} className={styles.tabListContainer}>
@@ -46,25 +60,23 @@ const TabList = forwardRef<
         ref={ref}
         {...(isHexagon && { 'data-augmented-ui': 'tl-clip br-clip border' })}
       >
-        <IndicatorPositionProvider value={{ ...coordinates, isGoingLeft }}>
-          {(isHexagon || isUnderline) && (
-            <animated.div
-              className={styles.indicator}
-              aria-hidden
-              style={{
-                ...indicatorLeft,
-                ...indicatorWidth,
-                ...(isUnderline && { bottom: 0, height: 2 })
-              }}
-              ref={animatedRef}
-            />
-          )}
-          {children}
-        </IndicatorPositionProvider>
+        {(isHexagon || isUnderline) && (
+          <animated.div
+            className={styles.indicator}
+            aria-hidden
+            style={{
+              ...indicatorLeft,
+              ...indicatorWidth,
+              ...(isUnderline && { bottom: 0, height: 2 })
+            }}
+            ref={animatedRef}
+          />
+        )}
+        {children}
       </ReactTabList>
     </div>
   )
 })
-TabList.displayName = 'TabListWrapper'
+TabListImpl.displayName = 'TabListImpl'
 
 export default TabList

@@ -7,7 +7,7 @@ import {
   ReactNode
 } from 'react'
 
-const generateContext = <Store,>(initialState: Store) => {
+const generateContext = <Store,>(initialState: Store, displayName?: string) => {
   const useStoreData = (): {
     get: () => Store
     set: (value: Partial<Store>) => void
@@ -55,6 +55,7 @@ const generateContext = <Store,>(initialState: Store) => {
       </StoreDispatchContext.Provider>
     )
   }
+  if (displayName) Provider.displayName = displayName
 
   const useStoreValue = <SelectorOutput,>(
     selector: (store: Store) => SelectorOutput

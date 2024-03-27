@@ -8,7 +8,7 @@ import {
   useState
 } from 'react'
 
-import { useIndicatorPositionContext, useTabsInternalContext } from './contexts'
+import { useTabsInternalContext, useIndicatorPositionValue } from './contexts'
 
 type Props = {
   children: ReactNode
@@ -24,7 +24,7 @@ const HexagonAnimationBlock = ({ contentRef, children, isHover }: Props) => {
     left: indicatorLeft,
     width: indicatorWidth,
     isGoingLeft
-  } = useIndicatorPositionContext()
+  } = useIndicatorPositionValue((state) => state)
 
   const offsetLeft = contentRef.current?.parentElement?.offsetLeft || 0
   const width = contentRef.current?.offsetWidth || 0

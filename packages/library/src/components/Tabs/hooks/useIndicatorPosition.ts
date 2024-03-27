@@ -4,7 +4,10 @@ import { useSpring } from 'react-spring'
 
 import usePrevious from 'hooks/usePrevious'
 
-import { useTabsInternalContext } from '../contexts'
+import {
+  useTabsInternalContext,
+  useIndicatorPositionDispatch
+} from '../contexts'
 
 export const useIndicatorPosition = (
   tabs: HTMLButtonElement[],
@@ -13,6 +16,7 @@ export const useIndicatorPosition = (
 ) => {
   const { selectedIndex } = useTabsContext()
   const prevSelectedIndex = usePrevious(selectedIndex) || 0
+  const dispatchIndicatorPosition = useIndicatorPositionDispatch()
 
   const { type: tabsStyle, isRtl, animateOnHover } = useTabsInternalContext()
   const isUnderline = tabsStyle === 'underline'
@@ -40,8 +44,6 @@ export const useIndicatorPosition = (
     []
   )
 
-  const isGoingLeftGlobal = useRef(false)
-
   useLayoutEffect(() => {
     if (
       !(isHexagon || isUnderline) ||
@@ -63,7 +65,7 @@ export const useIndicatorPosition = (
 
     const performTransition = (prevIndex: number, nextIndex: number) => {
       const isGoingLeft = isRtl ? prevIndex < nextIndex : prevIndex > nextIndex
-      isGoingLeftGlobal.current = isGoingLeft
+      dispatchIndicatorPosition({ isGoingLeft })
 
       const nextTab = tabs[nextIndex]
       const prevTab = tabs[prevIndex]
@@ -198,12 +200,12 @@ export const useIndicatorPosition = (
     isHexagon,
     leftApi,
     widthApi,
-    animateOnHover
+    animateOnHover,
+    dispatchIndicatorPosition
   ])
 
   return {
     indicatorLeft,
-    indicatorWidth,
-    isGoingLeft: isGoingLeftGlobal.current
+    indicatorWidth
   }
 }

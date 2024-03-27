@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 
 import useMutationObserver from 'hooks/useMutationObserver'
+import { useIndicatorPositionDispatch } from '../contexts'
 
 export const useTrackIndicatorPosition = () => {
   const animatedRef = useRef<HTMLDivElement>(null)
-  const [coordinates, setCoordinates] = useState({ left: 0, width: 0 })
+  const dispatchIndicatorPosition = useIndicatorPositionDispatch()
   useMutationObserver(
     animatedRef,
     (mutations) => {
@@ -19,7 +20,7 @@ export const useTrackIndicatorPosition = () => {
           const leftMatch = newValue?.match(/left:\s*([^;]+)/)
           const widthMatch = newValue?.match(/width:\s*([^;]+)/)
 
-          setCoordinates({
+          dispatchIndicatorPosition({
             left: leftMatch ? parseFloat(leftMatch[1]) : 0,
             width: widthMatch ? parseFloat(widthMatch[1]) : 0
           })
@@ -32,8 +33,5 @@ export const useTrackIndicatorPosition = () => {
     }
   )
 
-  return {
-    animatedRef,
-    coordinates
-  }
+  return animatedRef
 }
