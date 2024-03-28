@@ -7,7 +7,11 @@ import {
 
 import classNames from 'utils/classNames'
 
-import { TabsInternalProvider, useTabsInternalContext } from './contexts'
+import {
+  TabsInternalProvider,
+  useTabsInternalValue,
+  useTabsInternalDispatch
+} from './contexts'
 import TabList from './TabList'
 import Tab from './Tab'
 import TabPanels from './TabPanels'
@@ -23,7 +27,6 @@ import stylesVertical from './styles/TabsVertical.module.css'
 //   + drop down variant (later)
 // horizontal 3, folder tabs
 // horizontal 4, very shaped
-// vertical
 
 // resize screen test
 // rtl test (and dynamic change)
@@ -34,16 +37,13 @@ import stylesVertical from './styles/TabsVertical.module.css'
 // dnd tab (reorder; horizontal/vertical)
 
 // FIXME: hexagon - text color of active tab on initialization
-// FIXME: hexagon - non-hover animation on active tab (text visual bug)
 // TODO: test render props api
 // TODO: go through each css file and make sure variables are user correctly
 // TODO: add .cyberpunk-ui-theme-white-on-black on Tabs root component and prop to change it
 // TODO: create story with dynamic tabs (add/remove/rename) to test that animation logic does not break
 // TODO: create story with drag and drop tabs to test that animation logic does not break
 // TODO: render empty space for scrollbar (Chrome, Vertical tabs story in docs view)
-// TODO: better state management - either improved fast context or zustand or jotai
 // TODO: reduce file size - move logic to separate hooks
-// TODO: split this file into multiple files
 
 export type TabsStyle =
   | 'folder'
@@ -52,8 +52,7 @@ export type TabsStyle =
   | 'underline'
   | 'vertical'
 
-// Here we directly extend ReachTabsProps and HTMLAttributes<HTMLDivElement>
-// with a conditional prop structure.
+// Directly extend ReachTabsProps and HTMLAttributes<HTMLDivElement> with a conditional prop structure.
 type TabsProps = ReachTabsProps &
   HTMLAttributes<HTMLDivElement> &
   (
@@ -73,13 +72,13 @@ const getDirection = (element: Element) =>
   window.getComputedStyle(element).getPropertyValue('direction')
 
 const DirectionDetector = () => {
-  const { setIsRtl } = useTabsInternalContext()
+  const dispatch = useTabsInternalDispatch()
   const ref = useRef<HTMLDivElement>(null)
 
   const direction = ref.current && getDirection(ref.current as Element)
   useEffect(() => {
-    setIsRtl(direction === 'rtl')
-  }, [direction, setIsRtl])
+    dispatch({ isRtl: direction === 'rtl' })
+  }, [direction, dispatch])
 
   return <div ref={ref} aria-hidden />
 }
@@ -94,25 +93,27 @@ function isWithAnimateOnHoverTabsProps(
   )
 }
 
-const TabsWrapper = forwardRef<HTMLDivElement, TabsProps>(
-  ({ type = 'underline', ...props }, ref) => {
-    const animateOnHover = isWithAnimateOnHoverTabsProps(props)
-      ? props.animateOnHover ?? false
-      : false
-    return (
-      <TabsInternalProvider type={type} animateOnHover={animateOnHover}>
-        <Tabs {...props} ref={ref} />
-      </TabsInternalProvider>
-    )
-  }
-)
+const TabsWrapper = forwardRef<HTMLDivElement, TabsProps>((props, ref) => (
+  <TabsInternalProvider>
+    <Tabs {...props} ref={ref} />
+  </TabsInternalProvider>
+))
 TabsWrapper.displayName = 'TabsContextWrapper'
 
-const Tabs = forwardRef<
-  HTMLDivElement,
-  ReachTabsProps & HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => {
-  const { type, isRtl, animateOnHover } = useTabsInternalContext()
+const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
+  const animateOnHover = isWithAnimateOnHoverTabsProps(props)
+    ? props.animateOnHover ?? false
+    : false
+
+  const dispatch = useTabsInternalDispatch()
+
+  const { type, children, className } = props
+
+  useEffect(() => dispatch({ type }), [dispatch, type])
+  useEffect(() => dispatch({ animateOnHover }), [dispatch, animateOnHover])
+
+  const isRtl = useTabsInternalValue((state) => state.isRtl)
+
   return (
     <ReachTabs
       {...(isRtl && { dir: 'rtl' })}
@@ -132,7 +133,6 @@ const Tabs = forwardRef<
       ref={ref}
     >
       {children}
-      {/* TODO: move to TabList? */}
       <DirectionDetector />
     </ReachTabs>
   )

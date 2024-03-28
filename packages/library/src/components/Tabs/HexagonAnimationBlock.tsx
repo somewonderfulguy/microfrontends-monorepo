@@ -8,7 +8,7 @@ import {
   useState
 } from 'react'
 
-import { useTabsInternalContext, useIndicatorPositionValue } from './contexts'
+import { useIndicatorPositionValue, useTabsInternalValue } from './contexts'
 
 type Props = {
   children: ReactNode
@@ -18,7 +18,7 @@ type Props = {
 
 const HexagonAnimationBlock = ({ contentRef, children, isHover }: Props) => {
   const { selectedIndex } = useTabsContext()
-  const { animateOnHover } = useTabsInternalContext()
+  const animateOnHover = useTabsInternalValue((state) => state.animateOnHover)
 
   const {
     left: indicatorLeft,

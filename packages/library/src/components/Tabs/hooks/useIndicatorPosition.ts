@@ -4,10 +4,8 @@ import { useSpring } from 'react-spring'
 
 import usePrevious from 'hooks/usePrevious'
 
-import {
-  useTabsInternalContext,
-  useIndicatorPositionDispatch
-} from '../contexts'
+import { useTabsInternalValue } from '../contexts/tabsInternalContext'
+import { useIndicatorPositionDispatch } from '../contexts'
 
 export const useIndicatorPosition = (
   tabs: HTMLButtonElement[],
@@ -18,7 +16,9 @@ export const useIndicatorPosition = (
   const prevSelectedIndex = usePrevious(selectedIndex) || 0
   const dispatchIndicatorPosition = useIndicatorPositionDispatch()
 
-  const { type: tabsStyle, isRtl, animateOnHover } = useTabsInternalContext()
+  const animateOnHover = useTabsInternalValue((state) => state.animateOnHover)
+  const isRtl = useTabsInternalValue((state) => state.isRtl)
+  const tabsStyle = useTabsInternalValue((state) => state.type)
   const isUnderline = tabsStyle === 'underline'
   const isHexagon = tabsStyle === 'hexagon'
 

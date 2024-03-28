@@ -7,7 +7,7 @@ import { animated } from 'react-spring'
 
 import useResizeObserver from 'hooks/useResizeObserver'
 
-import { useTabsInternalContext, IndicatorPositionProvider } from './contexts'
+import { IndicatorPositionProvider, useTabsInternalValue } from './contexts'
 import { useIndicatorPosition, useTrackIndicatorPosition } from './hooks'
 
 import styles from './styles/Tabs.module.css'
@@ -24,13 +24,14 @@ const TabList = forwardRef<
     </IndicatorPositionProvider>
   )
 })
-TabList.displayName = 'TabListWrapper'
+TabList.displayName = 'TabListContextWrapper'
 
 const TabListImpl = forwardRef<
   HTMLDivElement,
   ReactTabListProps & HTMLAttributes<HTMLDivElement>
 >(({ children, ...props }, ref) => {
-  const { type: tabsStyle, tabsQty } = useTabsInternalContext()
+  const tabsStyle = useTabsInternalValue((state) => state.type)
+  const tabsQty = useTabsInternalValue((state) => state.tabsQty)
   const isHexagon = tabsStyle === 'hexagon'
   const isUnderline = tabsStyle === 'underline'
 
@@ -77,6 +78,6 @@ const TabListImpl = forwardRef<
     </div>
   )
 })
-TabListImpl.displayName = 'TabListImpl'
+TabListImpl.displayName = 'TabListWrapper'
 
 export default TabList

@@ -1,27 +1,24 @@
 import { HTMLAttributes, forwardRef, useEffect, useRef } from 'react'
 import { Tab as ReachTab, TabProps, useTabsContext } from '@reach/tabs'
 
-import { useTabsInternalContext } from './contexts'
+import { useTabsInternalValue, useTabsRegistration } from './contexts'
 import HexagonAnimationBlock from './HexagonAnimationBlock'
 
 const Tab = forwardRef<
   HTMLButtonElement,
   TabProps & HTMLAttributes<HTMLButtonElement>
 >(({ children, ...props }, ref) => {
-  const {
-    type: tabsStyle,
-    tabsQty,
-    registerTab,
-    unregisterTab
-  } = useTabsInternalContext()
+  const tabsStyle = useTabsInternalValue((state) => state.type)
+  const tabsQty = useTabsInternalValue((state) => state.tabsQty)
   const { selectedIndex } = useTabsContext()
   const isUnderline = tabsStyle === 'underline'
   const isHexagon = tabsStyle === 'hexagon'
 
+  const tabsRegistration = useTabsRegistration()
   useEffect(() => {
-    registerTab()
-    return () => unregisterTab()
-  }, [registerTab, unregisterTab])
+    tabsRegistration.registerTab()
+    return () => tabsRegistration.unregisterTab()
+  }, [tabsRegistration])
 
   const contentRef = useRef<HTMLDivElement>(null)
   const isHover = useRef(false)

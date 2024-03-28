@@ -8,9 +8,10 @@ import {
 } from 'react'
 
 const generateContext = <Store,>(initialState: Store, displayName?: string) => {
+  type PrevStateFnUpdate = (prevValue: Store) => Store
   const useStoreData = (): {
     get: () => Store
-    set: (value: Partial<Store>) => void
+    set: (value: Partial<Store> | PrevStateFnUpdate) => void
     subscribe: (callback: () => void) => () => void
   } => {
     const store = useRef(initialState)
@@ -19,8 +20,12 @@ const generateContext = <Store,>(initialState: Store, displayName?: string) => {
 
     const subscribers = useRef(new Set<() => void>())
 
-    const set = useCallback((value: Partial<Store>) => {
-      store.current = { ...store.current, ...value }
+    const set = useCallback((value: Partial<Store> | PrevStateFnUpdate) => {
+      if (typeof value === 'function') {
+        store.current = value(store.current)
+      } else {
+        store.current = { ...store.current, ...value }
+      }
       subscribers.current.forEach((callback) => callback())
     }, [])
 
