@@ -12,6 +12,7 @@ const useAvatar = <TElement extends HTMLElement>() => {
     getAvatarProps: ({ className = '', ...rest } = {}): HTMLProps<TElement> & {
       'data-augmented-ui': string
     } => ({
+      // TODO: classNames
       className: `${styles.avatar} ${className}`.trim(),
       'data-augmented-ui': 'bl-clip border',
       ...rest

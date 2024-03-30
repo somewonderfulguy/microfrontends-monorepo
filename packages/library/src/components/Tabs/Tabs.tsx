@@ -83,15 +83,12 @@ const DirectionDetector = () => {
   return <div ref={ref} aria-hidden />
 }
 
-function isWithAnimateOnHoverTabsProps(
+const isWithAnimateOnHoverTabsProps = (
   props: TabsProps
-): props is TabsProps & { animateOnHover?: boolean } {
-  return (
-    props.type === undefined ||
-    props.type === 'underline' ||
-    props.type === 'hexagon'
-  )
-}
+): props is TabsProps & { animateOnHover?: boolean } =>
+  props.type === undefined ||
+  props.type === 'underline' ||
+  props.type === 'hexagon'
 
 const TabsWrapper = forwardRef<HTMLDivElement, TabsProps>((props, ref) => (
   <TabsInternalProvider>
@@ -107,7 +104,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
 
   const dispatch = useTabsInternalDispatch()
 
-  const { type, children, className } = props
+  const { type, children, className, ...restProps } = props
 
   useEffect(() => dispatch({ type }), [dispatch, type])
   useEffect(() => dispatch({ animateOnHover }), [dispatch, animateOnHover])
@@ -118,7 +115,7 @@ const Tabs = forwardRef<HTMLDivElement, TabsProps>((props, ref) => {
     <ReachTabs
       {...(isRtl && { dir: 'rtl' })}
       {...(type === 'vertical' && { orientation: 'vertical' })}
-      {...props}
+      {...restProps}
       className={classNames(
         className,
         type === 'folder' && stylesFolder.folder,
