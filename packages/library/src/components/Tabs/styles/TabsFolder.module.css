@@ -1,5 +1,53 @@
 @value tabs from "./Tabs.module.css";
+@value tabListContainer from "./Tabs.module.css";
 
 .folder {
   composes: tabs;
+
+  width: 630px;
+
+  .tabListContainer,
+  [data-reach-tab-list] {
+    width: 100%;
+    gap: 3px;
+  }
+
+  [data-reach-tab][data-selected],
+  [data-reach-tab-panel] {
+    /* backdrop-filter: blur(8px); */
+    background-color: hsla(184, 100%, 24%, 0.5);
+    /* background-color: hsla(var(--cb-base-accent), 0.5); */
+  }
+
+  [data-reach-tab] {
+    height: 48px;
+    flex-grow: 1;
+    width: 100%;
+    text-align: left;
+    padding: 0 12px;
+
+    background-color: hsla(var(--cb-base-accent-alt), 0.1);
+    border: 1px solid var(--cb-accent-color-alt);
+    border-bottom: none;
+
+    :global(.cyberpunk-ui-theme-dark-red) &:not([data-selected]) {
+      background-color: hsla(var(--cb-base-secondary), 0.1);
+      border: 1px solid var(--cb-secondary-color);
+      border-bottom: none;
+    }
+
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+
+    &[data-selected] {
+      border: 1px solid var(--cb-accent-color);
+      border-bottom: none;
+      color: var(--cb-accent-color);
+    }
+  }
+
+  [data-reach-tab-panel] {
+    border: 1px solid var(--cb-accent-color);
+    border-top: none;
+    padding: 13px 20px;
+  }
 }

@@ -136,7 +136,21 @@ export const HexagonTabsHoverAnimation: Story = {
 export const FolderTabs: Story = {
   args: {
     type: 'folder',
-    children: childrenSampleOne
+    defaultIndex: 1,
+    children: (
+      <>
+        <TabList>
+          <Tab>Data</Tab>
+          <Tab>Hacking</Tab>
+          <Tab>Extra</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>Data tab content.</TabPanel>
+          <TabPanel>Hacking tab content.</TabPanel>
+          <TabPanel>Extra tab content.</TabPanel>
+        </TabPanels>
+      </>
+    )
   } as never
 }
 
@@ -191,5 +205,13 @@ export const VerticalTabs: Story = {
         </TabPanels>
       </>
     )
+  } as never
+}
+
+/** Everything's dynamic with drag & droppable tabs (for reordering). */
+export const KitchenSink: Story = {
+  args: {
+    type: 'underline',
+    children: childrenSampleOne
   } as never
 }
