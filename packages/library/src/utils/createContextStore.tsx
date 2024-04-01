@@ -7,11 +7,32 @@ import {
   ReactNode
 } from 'react'
 
-const generateContext = <Store,>(initialState: Store, displayName?: string) => {
-  type PrevStateFnUpdate = (prevValue: Store) => Store
+// TODO: Add SSR support
+
+/**
+ * @typedef {Object} ReturnValue
+ * @property {React.FC} Provider - React component that wraps the children and provides the store (has internally two context providers; one for the store value and one for the store dispatch)
+ * @property {function} useStoreValue - hook that returns the store value
+ * @property {function} useStoreDispatch - hook that returns the store dispatch function
+ */
+
+/**
+ * Function that creates store and shares via React context. Optimized for re-rendering only those components that depend on the specific part of the store (using selectors).
+ * Uses two contexts internally - one for the store value and one for the store dispatch.
+ * For avoiding unnecessary re-renders, it uses `useSyncExternalStore` + `useRef`.
+ * @param {TStore} initialState - initial state of the store
+ * @param {string|undefined} displayName - optional display name for the Provider component (will be displayed in React DevTools)
+ *
+ * @returns {ReturnValue} object with Provider, useStoreValue and useStoreDispatch
+ * */
+const createContextStore = <TStore,>(
+  initialState: TStore,
+  displayName?: string
+) => {
+  type PrevStateFnUpdate = (prevValue: TStore) => TStore
   const useStoreData = (): {
-    get: () => Store
-    set: (value: Partial<Store> | PrevStateFnUpdate) => void
+    get: () => TStore
+    set: (value: Partial<TStore> | PrevStateFnUpdate) => void
     subscribe: (callback: () => void) => () => void
   } => {
     const store = useRef(initialState)
@@ -20,9 +41,11 @@ const generateContext = <Store,>(initialState: Store, displayName?: string) => {
 
     const subscribers = useRef(new Set<() => void>())
 
-    const set = useCallback((value: Partial<Store> | PrevStateFnUpdate) => {
+    const set = useCallback((value: Partial<TStore> | PrevStateFnUpdate) => {
       if (typeof value === 'function') {
         store.current = value(store.current)
+      } else if (typeof value !== 'object') {
+        store.current = value as TStore
       } else {
         store.current = { ...store.current, ...value }
       }
@@ -62,8 +85,12 @@ const generateContext = <Store,>(initialState: Store, displayName?: string) => {
   }
   if (displayName) Provider.displayName = displayName
 
+  /**
+   * @param {function} selector - function that selects the part of the store, e.g. `(store) => store.someValue`
+   * @returns {*} selected part of the store
+   */
   const useStoreValue = <SelectorOutput,>(
-    selector: (store: Store) => SelectorOutput
+    selector: (store: TStore) => SelectorOutput
   ): SelectorOutput => {
     const store = useContext(StoreValueContext)
     if (store === undefined) {
@@ -79,6 +106,9 @@ const generateContext = <Store,>(initialState: Store, displayName?: string) => {
     )
   }
 
+  /**
+   * @returns {function} function that updates the store function accepts either partial store (e.g. `{ someValue: 'new value' }`) or function that accepts previous store value and returns new store value (e.g. `(prevStore) => ({ ...prevStore, someValue: 'new value' }`)
+   */
   const useStoreDispatch = () => {
     const set = useContext(StoreDispatchContext)
     if (set === undefined) {
@@ -96,4 +126,4 @@ const generateContext = <Store,>(initialState: Store, displayName?: string) => {
   }
 }
 
-export default generateContext
+export default createContextStore

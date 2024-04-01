@@ -1,10 +1,10 @@
-import generateContext from '../../../utils/generateContext'
+import createContextStore from '../../../utils/createContextStore'
 
 const {
   Provider: IndicatorPositionProvider,
   useStoreValue: useIndicatorPositionValue,
   useStoreDispatch: useIndicatorPositionDispatch
-} = generateContext(
+} = createContextStore(
   { left: 0, width: 0, isGoingLeft: false },
   'IndicatorPositionProvider'
 )

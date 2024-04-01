@@ -1,4 +1,4 @@
-import generateContext from 'utils/generateContext'
+import createContextStore from 'utils/createContextStore'
 
 import type { TabsStyle } from '../Tabs'
 import { useMemo } from 'react'
@@ -14,7 +14,7 @@ const {
   Provider: TabsInternalProvider,
   useStoreValue: useTabsInternalValue,
   useStoreDispatch: useTabsInternalDispatch
-} = generateContext(initState, 'TabsInternalProvider')
+} = createContextStore(initState, 'TabsInternalProvider')
 
 const useTabsRegistration = () => {
   const dispatch = useTabsInternalDispatch()
