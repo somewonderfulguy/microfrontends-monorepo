@@ -1,4 +1,4 @@
-import { HTMLAttributes, forwardRef, useEffect, useState } from 'react'
+import { HTMLAttributes, forwardRef, useEffect, useRef, useState } from 'react'
 import {
   TabList as ReactTabList,
   TabListProps as ReactTabListProps
@@ -37,8 +37,11 @@ const TabListImpl = forwardRef<
 
   const [tabs, setTabs] = useState<HTMLButtonElement[]>([])
 
-  const [refWrapper, { width: containerWidth }] =
-    useResizeObserver<HTMLDivElement>()
+  const [containerWidth, setContainerWidth] = useState(0)
+  const refWrapper = useResizeObserver(
+    (bounds) => setContainerWidth(bounds.width),
+    100
+  )
 
   useEffect(() => {
     if (!refWrapper.current) return

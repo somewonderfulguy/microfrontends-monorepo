@@ -2,21 +2,21 @@ import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 
 import throttle from 'utils/throttle'
 
-// TODO: refactor - elementRef must come as a parameter (so the ref can be used for other purposes)
-const useResizeObserver = <TElement extends HTMLElement>(
-  delay = 0,
-  initialBounds = { left: 0, top: 0, width: 0, height: 0 }
+type Bounds = { left: number; top: number; width: number; height: number }
+
+const useResizeObserver = <TElement extends HTMLElement = HTMLDivElement>(
+  callback: (bounds: Bounds) => void,
+  throttleDelay = 0,
+  initialBounds?: Bounds
 ) => {
   const elemRef = useRef<TElement>(null)
-  const [bounds, setBounds] = useState(initialBounds)
 
-  const observer = throttle(
-    /* istanbul ignore next */ ([entry]) =>
-      setBounds(
-        Array.isArray(entry) ? entry[0].contentRect : entry.contentRect
-      ),
-    delay
-  )
+  const observer = throttle(([entry]) => {
+    const newBounds = Array.isArray(entry)
+      ? entry[0].contentRect
+      : entry.contentRect
+    callback(newBounds)
+  }, throttleDelay)
   const [resizeObserver] = useState(() => new ResizeObserver(observer))
   const disconnect = useCallback(
     () => resizeObserver.disconnect(),
@@ -28,9 +28,9 @@ const useResizeObserver = <TElement extends HTMLElement>(
       resizeObserver.observe(elemRef.current)
     }
     return disconnect
-  }, [resizeObserver, disconnect])
+  }, [resizeObserver, disconnect, elemRef])
 
-  return [elemRef, bounds] as const
+  return elemRef
 }
 
 export default useResizeObserver

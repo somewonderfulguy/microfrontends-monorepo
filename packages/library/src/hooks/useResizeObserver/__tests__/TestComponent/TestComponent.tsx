@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import useResizeObserver from '../../useResizeObserver'
 
@@ -9,8 +9,19 @@ type PropType = {
 }
 
 const TestComponent = ({ delay, initialBounds, doNotBind }: PropType) => {
-  const [bindResizeObserver, { width, height, left, top }] =
-    useResizeObserver<HTMLDivElement>(delay, initialBounds)
+  const [{ width, height, left, top }, setBounds] = useState(
+    initialBounds ?? {
+      width: 0,
+      height: 0,
+      left: 0,
+      top: 0
+    }
+  )
+  const bindResizeObserver = useResizeObserver<HTMLDivElement>(
+    setBounds,
+    delay,
+    initialBounds
+  )
 
   useEffect(() => {
     const div = bindResizeObserver.current

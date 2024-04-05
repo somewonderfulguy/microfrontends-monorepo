@@ -1,4 +1,4 @@
-import { forwardRef, HTMLAttributes, useEffect, useRef } from 'react'
+import { forwardRef, HTMLAttributes, useEffect, useRef, useState } from 'react'
 import { TabPanels as ReachTabPanels, TabPanelsProps } from '@reach/tabs'
 import { animated, useSpring } from 'react-spring'
 
@@ -8,7 +8,11 @@ const TabPanels = forwardRef<
   HTMLDivElement,
   TabPanelsProps & HTMLAttributes<HTMLDivElement>
 >((props, ref) => {
-  const [wrapperRef, { height }] = useResizeObserver<HTMLDivElement>()
+  const [height, setHeight] = useState(0)
+  const wrapperRef = useResizeObserver(
+    (bounds) => setHeight(bounds.height),
+    100
+  )
 
   const isInitialRender = useRef(true)
   const animatedHeight = useSpring({
