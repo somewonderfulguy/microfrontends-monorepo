@@ -6,8 +6,7 @@ type Bounds = { left: number; top: number; width: number; height: number }
 
 const useResizeObserver = <TElement extends HTMLElement = HTMLDivElement>(
   callback: (bounds: Bounds) => void,
-  throttleDelay = 0,
-  initialBounds?: Bounds
+  throttleDelay = 0
 ) => {
   const elemRef = useRef<TElement>(null)
 

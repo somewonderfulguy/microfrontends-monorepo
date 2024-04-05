@@ -17,11 +17,7 @@ const TestComponent = ({ delay, initialBounds, doNotBind }: PropType) => {
       top: 0
     }
   )
-  const bindResizeObserver = useResizeObserver<HTMLDivElement>(
-    setBounds,
-    delay,
-    initialBounds
-  )
+  const bindResizeObserver = useResizeObserver<HTMLDivElement>(setBounds, delay)
 
   useEffect(() => {
     const div = bindResizeObserver.current
