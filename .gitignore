@@ -1,7 +1,17 @@
-node_modules
-build
-build-npm
-coverage
+# code editor
 .vscode
 .idea
+
+# dependencies
+node_modules
+
+# build files
+dist
+build
 storybook-static
+
+# cache & generated files
+.turbo
+
+# testing
+coverage

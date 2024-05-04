@@ -1,0 +1,39 @@
+.grid {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+}
+.gridVertical {
+  composes: grid;
+  flex-direction: column;
+}
+
+.gridElement {
+  flex: 1 1 auto;
+  padding: 3rem;
+
+  font-family: 'Blender Pro Book', sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%;
+  color: var(--cb-text-color);
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    max-width: calc(100% - 2rem);
+  }
+}
+
+.gridElementYellow,
+.gridElementDark,
+.gridElementWhiteOnBlack {
+  composes: gridElement;
+  background-color: var(--cb-background-color);
+}
+
+.gridElementDarkRed {
+  composes: gridElement;
+  background: var(--cb-background-image);
+  background-attachment: fixed;
+}

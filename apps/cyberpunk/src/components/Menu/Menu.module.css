@@ -1,0 +1,42 @@
+.menu {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: var(--menu-height, 48px);
+  font-family: 'Blender Pro Book', sans-serif;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0;
+  backdrop-filter: blur(8px);
+
+  /* TODO: theme */
+  color: #fff;
+
+  & li {
+    list-style-type: none;
+    padding: 0 25px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}
+
+.menuDropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    /* TODO: theme */
+    border-top: 6px solid #fff;
+    content: '';
+    display: block;
+    height: 6px;
+    margin-left: 4px;
+    position: relative;
+    width: 8px;
+  }
+}

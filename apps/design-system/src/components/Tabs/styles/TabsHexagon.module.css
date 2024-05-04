@@ -1,0 +1,59 @@
+@value tabs from "./Tabs.module.css";
+
+.hexagon {
+  composes: tabs;
+
+  [data-reach-tab-list] {
+    --aug-border-all: 0px;
+    border: 1px solid var(--cb-secondary-color);
+  }
+
+  [data-reach-tab] {
+    height: 48px;
+    font-weight: 700;
+    padding: 0 25px;
+    position: relative;
+  }
+
+  [data-reach-tab]:focus-visible {
+    outline: none;
+
+    [data-hexagon-focus] {
+      position: absolute;
+      width: calc(100% - 2px);
+      height: calc(100% - 2px);
+      --aug-border-all: 2px;
+      --aug-border-bg: var(--cb-accent-color);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      :global(.cyberpunk-ui-theme-white-on-black) & {
+        --aug-border-bg: var(--cb-accent-color-aggressive);
+      }
+      :global(.cyberpunk-ui-theme-dark) & {
+        --aug-border-bg: var(--cb-accent-color-alt);
+      }
+    }
+  }
+
+  [data-reach-tab-clone] {
+    color: var(--cb-primary-color);
+  }
+
+  [data-reach-tab-panel]:focus-visible {
+    outline: 1px solid var(--cb-accent-color);
+  }
+}
+
+.hexagonStatic {
+  composes: hexagon;
+
+  [data-reach-tab] {
+    &:hover,
+    &[data-selected] {
+      color: var(--cb-primary-color);
+      background-color: var(--cb-secondary-color);
+    }
+  }
+}

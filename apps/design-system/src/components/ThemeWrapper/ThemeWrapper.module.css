@@ -1,0 +1,119 @@
+/**
+  * Cyberpunk UI theme variables
+  * 
+  * primary - background (e.g. yellow)
+  * secondary - text (e.g. black)
+  * accent - something active (e.g. turquoise)
+  * accent-alt - something active (e.g. red); alt might better readable on some backgrounds
+  *
+  */
+
+:root {
+  --cb-yellow-base: 58, 100%, 48%;
+  --cb-yellow-alt-base: 73, 100%, 68%;
+  --cb-turquoise-base: 184, 100%, 50%;
+  --cb-turquoise-lighter-base: 180, 100%, 50%;
+  --cb-turquoise-light-white-base: 180, 100%, 84.52%;
+  --cb-turquoise-darker-base: 184, 51%, 24%;
+  --cb-red-vivid-base: 349, 99%, 50%;
+  --cb-red-mid-base: 2, 71%, 56%;
+  --cb-red-base: 3, 100%, 67%;
+  --cb-white-base: 0, 0%, 100%;
+  --cb-black-base: 0, 0%, 0%;
+  --cb-midnight-navy-base: 240, 50%, 6%;
+  --cb-darkest-gray-base: 300, 18%, 8%;
+
+  --cb-yellow-main: hsl(var(--cb-yellow-base));
+  --cb-yellow-alt: hsl(var(--cb-yellow-alt-base));
+  --cb-red: hsl(var(--cb-red-base));
+  --cb-red-mid: hsl(var(--cb-red-mid-base));
+  --cb-red-vivid: hsl(var(--cb-red-vivid-base));
+  --cb-turquoise: hsl(var(--cb-turquoise-base));
+  --cb-turquoise-lighter: hsl(var(--cb-turquoise-lighter-base));
+  --cb-turquoise-light-white: hsl(var(--cb-turquoise-light-white-base));
+  --cb-turquoise-darker: hsl(var(--cb-turquoise-darker-base));
+  --cb-black: hsl(var(--cb-black-base));
+  --cb-white: hsl(var(--cb-white-base));
+  --cb-midnight-navy: hsl(var(--cb-midnight-navy-base));
+  --cb-darkest-gray: hsl(var(--cb-darkest-gray-base));
+
+  /* darkRed gradient bg */
+  --cb-darkRed-background-gradient-start: 355, 54%, 18%;
+  --cb-darkRed-background-gradient-end: 213, 47%, 4%;
+  --cb-darkRed-background-gradient: linear-gradient(
+    355deg,
+    hsl(var(--cb-darkRed-background-gradient-end)) 0%,
+    hsl(var(--cb-darkRed-background-gradient-start)) 100%
+  );
+}
+
+.theme:global(.cyberpunk-ui-theme-yellow) {
+  --cb-base: var(--cb-yellow-base);
+  --cb-base-secondary: var(--cb-black-base);
+  --cb-base-accent: var(--cb-turquoise-base);
+  --cb-base-accent-alt: var(--cb-red-vivid-base);
+
+  --cb-primary-color: var(--cb-yellow-main);
+  --cb-secondary-color: var(--cb-black);
+  --cb-accent-color: var(--cb-turquoise);
+  --cb-accent-color-hover: var(--cb-turquoise-lighter);
+  --cb-accent-color-active: var(--cb-red-vivid);
+  --cb-accent-color-alt: var(--cb-red-vivid);
+
+  --cb-background-color: var(--cb-yellow-main);
+  --cb-text-color: var(--cb-black);
+  --cb-text-color-inverted: var(--cb-white);
+}
+
+.theme:global(.cyberpunk-ui-theme-dark-red) {
+  --cb-base: var(--cb-midnight-navy-base);
+  --cb-base-start: var(--cb-darkRed-background-gradient-start);
+  --cb-base-end: var(--cb-darkRed-background-gradient-end);
+  --cb-base-secondary: var(--cb-red-base);
+  --cb-base-accent: var(--cb-turquoise-light-white-base);
+
+  --cb-primary-color: var(--cb-midnight-navy);
+  --cb-secondary-color: var(--cb-red);
+  --cb-accent-color: var(--cb-turquoise);
+  --cb-accent-color-alt: var(--cb-turquoise-darker);
+
+  --cb-background-image: var(--cb-darkRed-background-gradient);
+  --cb-background-color: var(--cb-midnight-navy);
+
+  --cb-text-color: var(--cb-red);
+}
+
+.theme:global(.cyberpunk-ui-theme-dark) {
+  --cb-base: var(--cb-darkest-gray-base);
+  --cb-base-secondary: var(--cb-yellow-alt-base);
+  --cb-base-accent: var(--cb-turquoise-base);
+
+  --cb-primary-color: var(--cb-darkest-gray);
+  --cb-secondary-color: var(--cb-yellow-alt);
+  --cb-accent-color: var(--cb-turquoise);
+  --cb-accent-color-alt: var(--cb-red-mid);
+
+  --cb-background-color: var(--cb-darkest-gray);
+
+  --cb-text-color: var(--cb-yellow-alt);
+}
+
+.theme:global(.cyberpunk-ui-theme-white-on-black) {
+  --cb-base: var(--cb-black-base);
+  --cb-base-secondary: var(--cb-white-base);
+  --cb-base-accent: var(--cb-turquoise-base);
+  --cb-base-accent-hover: var(--cb-turquoise-lighter-base);
+  --cb-base-accent-alt: var(--cb-yellow-base);
+
+  --cb-primary-color: var(--cb-black);
+  --cb-secondary-color: var(--cb-white);
+  --cb-accent-color: var(--cb-turquoise);
+  --cb-accent-color-hover: var(--cb-turquoise-light-white);
+  --cb-accent-color-active: var(--cb-turquoise);
+  --cb-accent-color-alt: var(--cb-yellow-main);
+
+  --cb-background-color: var(--cb-black);
+
+  --cb-text-color: var(--cb-white);
+  --cb-text-color-inverted: var(--cb-black);
+}

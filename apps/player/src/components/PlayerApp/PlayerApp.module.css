@@ -1,0 +1,52 @@
+.playerApp {
+  width: 100%;
+  height: 100%;
+  max-width: 2560px;
+
+  /* this is for disabling horizontal scroll of graffiti on control bar */
+  overflow-x: hidden;
+
+  background-color: var(--cb-primary-color);
+
+  --player-app-control-bar-height: 150px;
+}
+
+.mainContainer {
+  width: 100%;
+  height: calc(100% - var(--player-app-control-bar-height));
+
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(450px, 1fr);
+  gap: 1rem;
+}
+
+.viewContainer,
+.sidebarContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewContainer {
+  max-width: 1521px;
+  justify-self: center;
+}
+
+.sidebarContainer {
+  height: 100%;
+  max-width: 700px;
+  justify-self: center;
+
+  & > * {
+    height: 100%;
+  }
+}
+
+.controlBarContainer {
+  width: 100%;
+  max-width: 2397px;
+  margin: 0 auto;
+  height: var(--player-app-control-bar-height);
+}

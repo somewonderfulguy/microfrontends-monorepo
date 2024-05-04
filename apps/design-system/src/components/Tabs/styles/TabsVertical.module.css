@@ -1,0 +1,112 @@
+@value tabs from "./Tabs.module.css";
+@value tabListContainer from "./Tabs.module.css";
+
+.vertical {
+  composes: tabs;
+
+  display: flex;
+
+  .tabListContainer {
+    overflow: auto;
+  }
+
+  [data-reach-tab-list] {
+    flex-direction: column;
+    gap: 23px;
+    padding: 0;
+    width: 100%;
+    overflow: auto;
+
+    [data-reach-tab] {
+      font-family: 'Blender Pro Bold', sans-serif;
+      text-align: left;
+      font-size: 32px;
+      font-weight: 700;
+      height: 59px;
+      position: relative;
+
+      transition: color 0.2s;
+
+      &[data-selected],
+      &:hover {
+        color: var(--cb-accent-color);
+
+        :global(.cyberpunk-ui-theme-white-on-black) &,
+        :global(.cyberpunk-ui-theme-yellow) & {
+          color: var(--cb-accent-color-alt);
+        }
+      }
+
+      &::after,
+      &::before {
+        bottom: 0;
+        content: '';
+        display: block;
+        height: 2px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+        transition: opacity 0.2s;
+      }
+      &::after {
+        background-image: linear-gradient(
+          90deg,
+          var(--cb-secondary-color) 48px,
+          hsla(var(--cb-base-secondary), 0.1) 0
+        );
+      }
+      &::before {
+        z-index: 1;
+        opacity: 0;
+      }
+      &[data-selected]::before,
+      &:hover::before {
+        opacity: 1;
+
+        background-image: linear-gradient(
+          90deg,
+          var(--cb-accent-color) 48px,
+          hsla(var(--cb-base-accent), 0.1) 0
+        );
+      }
+
+      :is(
+          :global(.cyberpunk-ui-theme-yellow),
+          :global(.cyberpunk-ui-theme-white-on-black)
+        )
+        &[data-selected]::before,
+      :is(
+          :global(.cyberpunk-ui-theme-yellow),
+          :global(.cyberpunk-ui-theme-white-on-black)
+        )
+        &:hover::before {
+        background-image: linear-gradient(
+          90deg,
+          var(--cb-accent-color-alt) 48px,
+          hsla(var(--cb-base-accent-alt), 0.1) 0
+        );
+      }
+
+      &:focus-visible {
+        outline-offset: -3.5px;
+        z-index: 5;
+        outline: 1px solid var(--cb-accent-color);
+
+        :global(.cyberpunk-ui-theme-white-on-black) & {
+          outline-color: var(--cb-accent-color-alt);
+        }
+      }
+    }
+  }
+  [data-reach-tab-panel] {
+    color: var(--cb-text-color);
+
+    &:focus-visible {
+      outline-offset: 2px;
+      outline: 1px solid var(--cb-accent-color);
+      :global(.cyberpunk-ui-theme-white-on-black) & {
+        outline-color: var(--cb-accent-color-alt);
+      }
+    }
+  }
+}

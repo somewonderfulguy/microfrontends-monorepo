@@ -1,22 +1,17 @@
 {
-  "name": "module-federation",
+  "name": "cyberpunk-root",
   "version": "1.0.0",
-  "description": "module federation scaffolding",
-  "main": "index.js",
-  "private": true,
+  "description": "",
   "scripts": {
-    "start": "concurrently \"wsrun --parallel start\"",
-    "initialize": "cd ./packages/library && yarn build && cd ../sub-application && yarn build:rollup",
-    "build": "yarn initialize && cd ./packages/host && yarn build",
-    "serve": "concurrently \"wsrun --parallel serve\"",
-    "wipe": "rimraf --glob node_modules packages/**/node_modules"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "concurrently": "^7.2.2",
-    "rimraf": "^3.0.2",
-    "wsrun": "^5.2.4"
+    "turbo": "^1.13.3"
   }
 }

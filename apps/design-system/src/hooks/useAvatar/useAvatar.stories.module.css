@@ -1,0 +1,25 @@
+.avatar {
+  display: none;
+}
+.avatarYellow {
+  composes: avatar;
+  :is(
+      :global(.cyberpunk-ui-theme-yellow),
+      :global(.cyberpunk-ui-theme-white-on-black)
+    )
+    & {
+    display: block;
+  }
+}
+.avatarRed {
+  composes: avatar;
+  :global(.cyberpunk-ui-theme-dark-red) & {
+    display: block;
+  }
+}
+.avatarGreen {
+  composes: avatar;
+  :global(.cyberpunk-ui-theme-dark) & {
+    display: block;
+  }
+}

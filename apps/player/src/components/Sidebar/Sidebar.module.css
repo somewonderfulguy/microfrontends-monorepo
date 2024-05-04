@@ -1,0 +1,17 @@
+.sidebar.sidebar {
+  --_vertical-margin: 1rem;
+  margin: var(--_vertical-margin) 1rem;
+  height: calc(100% - var(--_vertical-margin) * 2);
+  width: 100%;
+}
+
+.tabs {
+  height: 100%;
+  width: 100%;
+}
+.tabPanels {
+  height: calc(100% - var(--_tab-list-height, 0));
+}
+.tabPanel {
+  height: 100%;
+}

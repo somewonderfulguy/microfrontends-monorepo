@@ -1,0 +1,22 @@
+:root {
+  --menu-height: 48px;
+  --_padding-top: 36px;
+  --header-height: calc(var(--menu-height) + var(--_padding-top));
+}
+
+.header {
+  height: var(--header-height);
+  padding-top: var(--_padding-top);
+  padding-right: 40px;
+
+  background-color: var(--cb-primary-color);
+}
+
+.menuContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.player {
+  height: calc(100% - var(--header-height));
+}

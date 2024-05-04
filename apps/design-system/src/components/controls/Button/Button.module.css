@@ -1,0 +1,78 @@
+.buttonWrapper {
+  width: fit-content;
+
+  --aug-bl: 18px;
+  --aug-br: 18px;
+  --aug-tl: 18px;
+  --aug-tr: 18px;
+}
+
+.button {
+  all: unset;
+  cursor: pointer;
+
+  height: 48px;
+  width: 232px;
+
+  text-align: center;
+  text-transform: uppercase;
+
+  font-family: 'Blender Pro Bold', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+
+  color: var(--cb-text-color);
+  background-color: var(--cb-accent-color);
+
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+
+  &:hover {
+    background-color: var(--cb-accent-color-hover);
+  }
+  &:active {
+    color: var(--cb-text-color-inverted);
+    background-color: var(--cb-accent-color-active);
+  }
+
+  :global(.cyberpunk-ui-theme-dark-red) & {
+    color: var(--cb-accent-color);
+    /* TODO: fix border */
+    border: 1px solid var(--cb-accent-color);
+    background-color: var(--cb-accent-color-alt);
+
+    /* TODO: animate */
+    &:hover {
+      text-shadow: 0 0 21px var(--cb-accent-color),
+        0 0 42px var(--cb-accent-color), 0 0 82px var(--cb-accent-color),
+        0 0 92px var(--cb-accent-color), 0 0 102px var(--cb-accent-color),
+        0 0 151px var(--cb-accent-color);
+    }
+
+    &:active {
+      background-color: var(--cb-accent-color);
+      color: var(--cb-primary-color);
+    }
+  }
+
+  :global(.cyberpunk-ui-theme-white-on-black) & {
+    color: var(--cb-text-color-inverted);
+    background-color: var(--cb-secondary-color);
+
+    &:hover {
+      background-color: var(--cb-accent-color-hover);
+    }
+    &:active {
+      background-color: var(--cb-accent-color-active);
+    }
+  }
+
+  > * {
+    display: block;
+    margin: 0 auto;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.25;
+  }
+}
