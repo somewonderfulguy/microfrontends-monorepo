@@ -9,55 +9,30 @@ import federation from '@originjs/vite-plugin-federation'
 
 import { copyPublicDirDeps } from './vite/copyPublicDirDeps'
 
-// for future: vite build --config vite.lib.config.js
+// TODO: for future: vite build --config vite.lib.config.js
 
 const entriesData: Record<string, { code: string; css?: string }> = {
-  Button: {
-    code: 'src/components/Button/Button.tsx',
-    css: 'components/Button/Button.css'
-  },
-  App: {
-    code: 'src/App.tsx',
-    css: 'App.css'
-  },
-  reset: {
-    code: 'src/styles/reset.css',
-    css: 'styles/reset.css'
-  },
-  log: {
-    code: 'src/utils/log.ts'
+  PlayerApp: {
+    code: 'src/components/PlayerApp/PlayerApp.tsx'
   }
 }
 
 const entry = Object.values(entriesData).map(({ code }) => code)
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     copyPublicDirDeps(),
     react(),
     libInjectCss(),
-    libAssetsPlugin({
-      name: '[name].[ext]',
-      outputPath(url, _resourcePath) {
-        const currentDirectorySrc = path.basename(path.resolve('.')) + '/src/'
-        const resourcePath = _resourcePath.replace(/\\/g, '/')
-        const splitPath = resourcePath.split(currentDirectorySrc)
-
-        if (splitPath.length > 1) {
-          const removeLastSegment = (path: string) =>
-            path.replace(/\/[^/]*$/, '')
-
-          return removeLastSegment(splitPath[1])
-        }
-        return 'assets'
-      }
-    }),
     dts(),
     svgr(),
     federation({
       name: '@mf/player',
       remotes: {
-        '@mf/state': 'http://localhost:7000/assets/remoteEntry.js'
+        '@mf/state':
+          mode === 'production'
+            ? 'https://cyberpunk-mf-state.vercel.app/assets/remoteEntry.js'
+            : 'http://localhost:7000/assets/remoteEntry.js'
       },
       shared: ['zustand']
     })
@@ -113,4 +88,4 @@ export default defineConfig({
       }
     }
   }
-})
+}))

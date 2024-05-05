@@ -13,19 +13,25 @@ export const alias = {
   '~utils': '/src/utils'
 };
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     svgr(),
     federation({
       name: '@mf/cyberpunk',
       remotes: {
-        '@mf/state': 'http://localhost:7000/assets/remoteEntry.js'
+        '@mf/state':
+          mode === 'production'
+            ? 'https://cyberpunk-mf-state.vercel.app/assets/remoteEntry.js'
+            : 'http://localhost:7000/assets/remoteEntry.js'
       },
       shared: ['zustand']
     })
   ],
   resolve: {
     alias
+  },
+  build: {
+    target: 'es2022'
   }
-});
+}));

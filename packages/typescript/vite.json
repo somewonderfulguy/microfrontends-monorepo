@@ -10,10 +10,7 @@
     "sourceMap": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "plugins": [
-      "typescript-plugin-css-modules"
-    ]
+    "jsx": "react-jsx"
   },
   "exclude": [
     "node_modules"

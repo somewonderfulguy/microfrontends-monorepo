@@ -14,7 +14,7 @@ const useResizeObserver = <TElement extends HTMLElement = HTMLDivElement>(
     (([entry]) => {
       const newBounds = Array.isArray(entry)
         ? entry[0].contentRect
-        : entry.contentRect
+        : entry!.contentRect
       callback(newBounds)
     }) as ResizeObserverCallback,
     throttleDelay

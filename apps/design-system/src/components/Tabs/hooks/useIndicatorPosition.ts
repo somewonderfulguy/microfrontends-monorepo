@@ -61,14 +61,14 @@ export const useIndicatorPosition = (
       throw new Error('tabListElement not found')
     }
 
-    const selectedTab = tabs[selectedIndex]
+    const selectedTab = tabs[selectedIndex] as HTMLButtonElement
 
     const performTransition = (prevIndex: number, nextIndex: number) => {
       const isGoingLeft = isRtl ? prevIndex < nextIndex : prevIndex > nextIndex
       dispatchIndicatorPosition({ isGoingLeft })
 
-      const nextTab = tabs[nextIndex]
-      const prevTab = tabs[prevIndex]
+      const nextTab = tabs[nextIndex] as HTMLButtonElement
+      const prevTab = tabs[prevIndex] as HTMLButtonElement
 
       const { offsetLeft: _newOffsetLeft, offsetWidth: newOffsetWidth } =
         nextTab
@@ -177,15 +177,29 @@ export const useIndicatorPosition = (
       }
     )
 
+    type Callback = (event: MouseEvent) => void
+
     tabs.forEach((tab, hoverIndex) => {
-      tab.addEventListener('mouseout', mouseLeaveCallbacks[hoverIndex])
-      tab.addEventListener('mouseover', mouseEnterCallbacks[hoverIndex])
+      tab.addEventListener(
+        'mouseout',
+        mouseLeaveCallbacks[hoverIndex] as Callback
+      )
+      tab.addEventListener(
+        'mouseover',
+        mouseEnterCallbacks[hoverIndex] as Callback
+      )
     })
 
     return () => {
       tabs.forEach((tab, hoverIndex) => {
-        tab.removeEventListener('mouseout', mouseLeaveCallbacks[hoverIndex])
-        tab.removeEventListener('mouseover', mouseEnterCallbacks[hoverIndex])
+        tab.removeEventListener(
+          'mouseout',
+          mouseLeaveCallbacks[hoverIndex] as Callback
+        )
+        tab.removeEventListener(
+          'mouseover',
+          mouseEnterCallbacks[hoverIndex] as Callback
+        )
       })
     }
   }, [

@@ -4,10 +4,24 @@
     "dev": {
       "cache": false
     },
+    "lint": {
+      "cache": false
+    },
+    "test": {
+      "cache": false
+    },
     "build": {
       "outputs": [
         ".next/**",
         "!.next/cache/**"
+      ],
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "build-storybook": {
+      "outputs": [
+        "storybook-static/**"
       ],
       "dependsOn": [
         "^build"

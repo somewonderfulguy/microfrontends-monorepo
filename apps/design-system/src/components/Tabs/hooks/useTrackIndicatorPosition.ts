@@ -22,8 +22,8 @@ export const useTrackIndicatorPosition = () => {
           const widthMatch = newValue?.match(/width:\s*([^;]+)/)
 
           dispatchIndicatorPosition({
-            left: leftMatch ? parseFloat(leftMatch[1]) : 0,
-            width: widthMatch ? parseFloat(widthMatch[1]) : 0
+            left: leftMatch ? parseFloat(leftMatch[1] as string) : 0,
+            width: widthMatch ? parseFloat(widthMatch[1] as string) : 0
           })
         }
       })
