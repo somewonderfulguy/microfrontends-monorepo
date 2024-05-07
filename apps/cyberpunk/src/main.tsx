@@ -31,9 +31,7 @@ createRoot(document.getElementById('root')!, {
   identifierPrefix: 'cyberpunk-'
 }).render(
   <StrictMode>
-    <ThemeWrapper style={{ width: '100%', height: '100%' }}>
-      <CyberpunkApp />
-    </ThemeWrapper>
+    <CyberpunkApp />
   </StrictMode>
 );
 // );
