@@ -1,9 +1,13 @@
 .buttonWrapper {
   width: fit-content;
 
-  /* border for dark-red theme */
-  --aug-border-bg: var(--cb-accent-color);
   --aug-border-all: 1px;
+  :global(.cyberpunk-ui-theme-dark-red) & {
+    --aug-border-bg: var(--cb-accent-color);
+  }
+  :global(.cyberpunk-ui-theme-dark) & {
+    --aug-border-bg: var(--cb-tertiary-color);
+  }
 
   --aug-bl: 18px;
   --aug-br: 18px;
@@ -28,7 +32,10 @@
   color: var(--cb-text-color);
   background-color: var(--cb-accent-color);
 
-  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s, text-shadow 0.2s;
+
+  text-shadow: 0 0 21px transparent, 0 0 42px transparent, 0 0 82px transparent,
+    0 0 92px transparent, 0 0 102px transparent, 0 0 151px transparent;
 
   &:hover {
     background-color: var(--cb-accent-color-hover);
@@ -38,12 +45,30 @@
     background-color: var(--cb-accent-color-active);
   }
 
+  :global(.cyberpunk-ui-theme-dark) & {
+    color: var(--cb-tertiary-color);
+    background-color: var(--cb-quinary-color);
+
+    &:hover,
+    &:focus-visible {
+      text-shadow: 0 0 21px var(--cb-tertiary-color),
+        0 0 42px var(--cb-tertiary-color), 0 0 82px var(--cb-tertiary-color),
+        0 0 92px var(--cb-tertiary-color), 0 0 102px var(--cb-tertiary-color),
+        0 0 151px var(--cb-tertiary-color);
+    }
+
+    &:active {
+      background-color: var(--cb-tertiary-color);
+      color: var(--cb-quaternary-color);
+    }
+  }
+
   :global(.cyberpunk-ui-theme-dark-red) & {
     color: var(--cb-accent-color);
     background-color: var(--cb-accent-color-alt);
 
-    /* TODO: animate */
-    &:hover {
+    &:hover,
+    &:focus-visible {
       text-shadow: 0 0 21px var(--cb-accent-color),
         0 0 42px var(--cb-accent-color), 0 0 82px var(--cb-accent-color),
         0 0 92px var(--cb-accent-color), 0 0 102px var(--cb-accent-color),

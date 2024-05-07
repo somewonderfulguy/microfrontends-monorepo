@@ -3,6 +3,9 @@
   * 
   * primary - background (e.g. yellow)
   * secondary - text (e.g. black)
+  * tertiary - alternative background (e.g. green)
+  * quaternary - alternative text (e.g. white)
+  * quinary - alternative color for any purposes
   * accent - something active (e.g. turquoise)
   * accent-alt - something active (e.g. red); alt might better readable on some backgrounds
   *
@@ -11,9 +14,12 @@
 :root {
   --cb-yellow-base: 58, 100%, 48%;
   --cb-yellow-alt-base: 73, 100%, 68%;
+  --cb-green-light-base: 149, 78%, 47%;
+  --cb-green-mid-base: 149, 71%, 27%;
+  --cb-green-dark-base: 146, 29%, 11%;
   --cb-turquoise-base: 184, 100%, 50%;
   --cb-turquoise-lighter-base: 180, 100%, 50%;
-  --cb-turquoise-light-white-base: 180, 100%, 84.52%;
+  --cb-turquoise-light-white-base: 180, 100%, 94.5%;
   --cb-turquoise-darker-base: 184, 51%, 24%;
   --cb-red-vivid-base: 349, 99%, 50%;
   --cb-red-mid-base: 2, 71%, 56%;
@@ -25,6 +31,9 @@
 
   --cb-yellow-main: hsl(var(--cb-yellow-base));
   --cb-yellow-alt: hsl(var(--cb-yellow-alt-base));
+  --cb-green-light: hsl(var(--cb-green-light-base));
+  --cb-green-mid: hsl(var(--cb-green-mid-base));
+  --cb-green-dark: hsl(var(--cb-green-dark-base));
   --cb-red: hsl(var(--cb-red-base));
   --cb-red-mid: hsl(var(--cb-red-mid-base));
   --cb-red-vivid: hsl(var(--cb-red-vivid-base));
@@ -87,9 +96,17 @@
   --cb-base: var(--cb-darkest-gray-base);
   --cb-base-secondary: var(--cb-yellow-alt-base);
   --cb-base-accent: var(--cb-turquoise-base);
+  --cb-base-primary: var(--cb-darkest-gray-base);
+  --cb-base-secondary: var(--cb-yellow-alt-base);
+  --cb-base-tertiary: var(--cb-green-light-base);
+  --cb-base-quaternary: var(--cb-green-dark-base);
+  --cb-base-quinary: var(--cb-green-mid-base);
 
   --cb-primary-color: var(--cb-darkest-gray);
   --cb-secondary-color: var(--cb-yellow-alt);
+  --cb-tertiary-color: var(--cb-green-light);
+  --cb-quaternary-color: var(--cb-green-dark);
+  --cb-quinary-color: var(--cb-green-mid);
   --cb-accent-color: var(--cb-turquoise);
   --cb-accent-color-alt: var(--cb-red-mid);
 

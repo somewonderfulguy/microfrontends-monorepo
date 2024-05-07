@@ -50,7 +50,7 @@ const Button = ({
           'br-clip',
         cutTopLeftCorner && 'tl-clip',
         cutTopRightCorner && 'tr-clip',
-        theme === 'darkRed' && 'border'
+        (theme === 'darkRed' || theme === 'dark') && 'border'
       )}
       ref={wrapperRef}
       style={
