@@ -1,4 +1,4 @@
-import React from 'react'
+import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import 'augmented-ui/augmented-ui.min.css'
 
@@ -13,9 +13,9 @@ import './styles/devMode.css'
 ReactDOM.createRoot(document.getElementById('root')!, {
   identifierPrefix: 'player-app-'
 }).render(
-  <React.StrictMode>
-    <ThemeWrapper style={{ width: '100%', height: '100%' }} theme="yellow">
+  <StrictMode>
+    <ThemeWrapper style={{ width: '100%', height: '100%' }}>
       <PlayerApp />
     </ThemeWrapper>
-  </React.StrictMode>
+  </StrictMode>
 )

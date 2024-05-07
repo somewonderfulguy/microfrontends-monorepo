@@ -5,6 +5,7 @@ import path from 'path'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import libAssetsPlugin from '@laynezh/vite-plugin-lib-assets'
 import svgr from 'vite-plugin-svgr'
+import federation from '@originjs/vite-plugin-federation'
 
 // import { copyPublicDirDeps } from './vite/copyPublicDirDeps'
 
@@ -18,7 +19,7 @@ const entriesData: Record<string, { code: string; css?: string }> = {
 
 const entry = Object.values(entriesData).map(({ code }) => code)
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     // copyPublicDirDeps(),
     react(),
@@ -40,7 +41,16 @@ export default defineConfig({
       }
     }) as Plugin,
     dts(),
-    svgr()
+    svgr(),
+    federation({
+      remotes: {
+        '@mf/state':
+          mode === 'production'
+            ? 'https://cyberpunk-mf-state.vercel.app/assets/remoteEntry.js'
+            : 'http://localhost:7000/assets/remoteEntry.js'
+      },
+      shared: ['react', 'react-dom']
+    })
   ],
   build: {
     target: 'esnext',
@@ -93,4 +103,4 @@ export default defineConfig({
       }
     }
   }
-})
+}))

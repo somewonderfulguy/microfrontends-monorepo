@@ -32,9 +32,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      zustand:
-        specifier: ^4.5.2
-        version: 4.5.2(@types/react@18.2.74)(react@18.2.0)
     devDependencies:
       '@originjs/vite-plugin-federation':
         specifier: ^1.3.5
@@ -151,6 +148,9 @@ importers:
       '@laynezh/vite-plugin-lib-assets':
         specifier: ^0.5.21
         version: 0.5.21
+      '@originjs/vite-plugin-federation':
+        specifier: ^1.3.5
+        version: 1.3.5
       '@repo/state':
         specifier: workspace:*
         version: link:../../packages/state
@@ -265,9 +265,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      zustand:
-        specifier: ^4.5.2
-        version: 4.5.2(@types/react@18.2.74)(react@18.2.0)
     devDependencies:
       '@laynezh/vite-plugin-lib-assets':
         specifier: ^0.5.21
@@ -381,15 +378,15 @@ importers:
 
   packages/state:
     dependencies:
+      '@repo/shared':
+        specifier: workspace:*
+        version: link:../shared
       react:
         specifier: ^18.2.0
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      zustand:
-        specifier: ^4.5.2
-        version: 4.5.2(@types/react@18.2.74)(react@18.2.0)
     devDependencies:
       '@originjs/vite-plugin-federation':
         specifier: ^1.3.5
@@ -6732,11 +6729,6 @@ packages:
       '@types/react':
         optional: true
 
-  use-sync-external-store@1.2.0:
-    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -7065,21 +7057,6 @@ packages:
     peerDependencies:
       react: '>=16.8'
     peerDependenciesMeta:
-      react:
-        optional: true
-
-  zustand@4.5.2:
-    resolution: {integrity: sha512-2cN1tPkDVkwCy5ickKrI7vijSjPksFRfqS6237NzT0vqSsztTNnQdHw9mmN7uBdk3gceVXU0a+21jFzFzAc9+g==}
-    engines: {node: '>=12.7.0'}
-    peerDependencies:
-      '@types/react': '>=16.8'
-      immer: '>=9.0.6'
-      react: '>=16.8'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      immer:
-        optional: true
       react:
         optional: true
 
@@ -15229,10 +15206,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.2.74
 
-  use-sync-external-store@1.2.0(react@18.2.0):
-    dependencies:
-      react: 18.2.0
-
   util-deprecate@1.0.2: {}
 
   util@0.12.5:
@@ -15577,13 +15550,6 @@ snapshots:
 
   zustand@3.7.2(react@18.2.0):
     optionalDependencies:
-      react: 18.2.0
-
-  zustand@4.5.2(@types/react@18.2.74)(react@18.2.0):
-    dependencies:
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    optionalDependencies:
-      '@types/react': 18.2.74
       react: 18.2.0
 
   zwitch@2.0.4: {}

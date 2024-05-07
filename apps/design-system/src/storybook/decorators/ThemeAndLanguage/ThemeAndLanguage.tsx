@@ -41,7 +41,7 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
     >
       {isDocs ? (
         <ThemeWrapper
-          theme={themeStorybook}
+          overrideTheme={themeStorybook}
           className={classNames(getClassNames(themeStorybook))}
           style={gridElementCss}
         >
@@ -50,7 +50,7 @@ const ThemeAndLanguage: Decorator = (Story, context) => {
       ) : (
         theme.map((_theme) => (
           <ThemeWrapper
-            theme={_theme}
+            overrideTheme={_theme}
             key={_theme}
             className={classNames(
               getClassNames(_theme),

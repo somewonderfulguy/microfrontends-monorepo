@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react'
 
-import useThemeStore from '@mf/state/themeStore'
+import { useThemeStore } from '@mf/state/themeStore'
 
 import ControlBar from '../ControlBar'
 import Sidebar from '../Sidebar'
@@ -9,7 +9,7 @@ import styles from './PlayerApp.module.css'
 
 const PlayerApp = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const theme = useThemeStore((s) => s.theme)
+  const theme = useThemeStore((s) => s)
 
   return (
     <div className={`${styles.playerApp} ${className}`} {...props}>

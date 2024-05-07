@@ -1,6 +1,10 @@
 .buttonWrapper {
   width: fit-content;
 
+  /* border for dark-red theme */
+  --aug-border-bg: var(--cb-accent-color);
+  --aug-border-all: 1px;
+
   --aug-bl: 18px;
   --aug-br: 18px;
   --aug-tl: 18px;
@@ -36,8 +40,6 @@
 
   :global(.cyberpunk-ui-theme-dark-red) & {
     color: var(--cb-accent-color);
-    /* TODO: fix border */
-    border: 1px solid var(--cb-accent-color);
     background-color: var(--cb-accent-color-alt);
 
     /* TODO: animate */

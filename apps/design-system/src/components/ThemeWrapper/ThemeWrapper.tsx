@@ -1,15 +1,38 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, useLayoutEffect } from 'react'
 
 import classNames from '@repo/shared/utils/classNames'
+import {
+  ThemeStoreProvider,
+  useThemeStore,
+  useThemeDispatch
+} from '@mf/state/themeStore'
 import { Theme } from '@repo/state/types'
 
 import styles from './ThemeWrapper.module.css'
 
 type Props = HTMLAttributes<HTMLDivElement> & {
-  theme: Theme
+  /** Use to override global theme - might be useful when needed blackOnWhite theme under yellow theme (hybrid), for debugging, or for storybook. */
+  overrideTheme?: Theme
 }
 
-const ThemeWrapper = ({ className, theme, ...props }: Props) => {
+const ThemeWrapper = (props: Props) => {
+  return (
+    <ThemeStoreProvider>
+      <ThemeWrapperImpl {...props} />
+    </ThemeStoreProvider>
+  )
+}
+
+const ThemeWrapperImpl = ({ className, overrideTheme, ...props }: Props) => {
+  const themeFromStore = useThemeStore((s) => s)
+  const theme = overrideTheme ?? themeFromStore
+  const updateTheme = useThemeDispatch()
+
+  useLayoutEffect(
+    () => void (overrideTheme && updateTheme(overrideTheme)),
+    [overrideTheme, updateTheme]
+  )
+
   return (
     <div
       className={classNames(

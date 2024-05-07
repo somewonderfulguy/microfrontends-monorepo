@@ -2,6 +2,7 @@ import { CSSProperties, HTMLProps, useState } from 'react'
 
 import useResizeObserver from '@repo/shared/hooks/useResizeObserver'
 import classNames from '@repo/shared/utils/classNames'
+import { useThemeStore } from '@mf/state/themeStore'
 
 import styles from './Button.module.css'
 
@@ -33,6 +34,8 @@ const Button = ({
     }
   })
 
+  const theme = useThemeStore((s) => s)
+
   return (
     <div
       className={styles.buttonWrapper}
@@ -46,7 +49,8 @@ const Button = ({
             !cutTopRightCorner)) &&
           'br-clip',
         cutTopLeftCorner && 'tl-clip',
-        cutTopRightCorner && 'tr-clip'
+        cutTopRightCorner && 'tr-clip',
+        theme === 'darkRed' && 'border'
       )}
       ref={wrapperRef}
       style={

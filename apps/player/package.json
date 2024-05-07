@@ -17,8 +17,7 @@
     "@repo/shared": "workspace:*",
     "augmented-ui": "^2.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "zustand": "^4.5.2"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@laynezh/vite-plugin-lib-assets": "^0.5.21",

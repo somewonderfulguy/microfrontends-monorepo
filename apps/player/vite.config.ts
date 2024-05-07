@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 import path from 'path'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
-import libAssetsPlugin from '@laynezh/vite-plugin-lib-assets'
 import svgr from 'vite-plugin-svgr'
 import federation from '@originjs/vite-plugin-federation'
 
@@ -27,14 +26,13 @@ export default defineConfig(({ mode }) => ({
     dts(),
     svgr(),
     federation({
-      name: '@mf/player',
       remotes: {
         '@mf/state':
           mode === 'production'
             ? 'https://cyberpunk-mf-state.vercel.app/assets/remoteEntry.js'
             : 'http://localhost:7000/assets/remoteEntry.js'
       },
-      shared: ['zustand']
+      shared: ['react', 'react-dom']
     })
   ],
   build: {

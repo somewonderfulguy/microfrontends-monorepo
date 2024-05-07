@@ -18,14 +18,13 @@ export default defineConfig(({ mode }) => ({
     react(),
     svgr(),
     federation({
-      name: '@mf/cyberpunk',
       remotes: {
         '@mf/state':
           mode === 'production'
             ? 'https://cyberpunk-mf-state.vercel.app/assets/remoteEntry.js'
             : 'http://localhost:7000/assets/remoteEntry.js'
       },
-      shared: ['zustand']
+      shared: ['react', 'react-dom']
     })
   ],
   resolve: {

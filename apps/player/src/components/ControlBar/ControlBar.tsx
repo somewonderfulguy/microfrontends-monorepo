@@ -9,7 +9,7 @@ import sprayBottomLeak from './assets/sprayBottomLeak2.png'
 
 const ControlBar = () => {
   return (
-    <ThemeWrapper theme="whiteOnBlack">
+    <ThemeWrapper overrideTheme="whiteOnBlack">
       <div className={styles.controlBarWrapper}>
         <div className={styles.controlBarContainer}>
           <div

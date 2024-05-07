@@ -12,7 +12,7 @@ export default defineConfig({
       exposes: {
         './themeStore': './stores/themeStore.ts'
       },
-      shared: ['zustand']
+      shared: ['react', 'react-dom']
     })
   ],
   build: {

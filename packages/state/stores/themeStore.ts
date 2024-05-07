@@ -1,17 +1,16 @@
-import { create } from 'zustand'
+import createContextStore from '@repo/shared/utils/createContextStore'
 
 export type Theme = 'yellow' | 'darkRed' | 'dark' | 'whiteOnBlack'
 
-export type ThemeStore = {
-  theme: Theme
-  setTheme: (theme: Theme) => void
-}
+const result = createContextStore<Theme>('yellow', 'ThemeStoreProvider')
+const {
+  Provider: ThemeStoreProvider,
+  useStoreValue: useThemeStore,
+  useStoreDispatch: useThemeDispatch
+} = result
 
-const useThemeStore = create<ThemeStore>()((set) => ({
-  theme: 'yellow',
-  setTheme: (theme) => set({ theme })
-}))
+export type ThemeStoreProviderType = typeof ThemeStoreProvider
+export type useThemeStoreType = typeof useThemeStore
+export type useThemeDispatchType = typeof useThemeDispatch
 
-export type UseThemeStore = typeof useThemeStore
-
-export default useThemeStore
+export { ThemeStoreProvider, useThemeStore, useThemeDispatch }
