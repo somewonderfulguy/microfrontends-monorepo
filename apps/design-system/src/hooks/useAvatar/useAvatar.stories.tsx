@@ -1,19 +1,28 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { useThemeStore } from '@mf/state/themeStore'
+
 import useAvatar from './useAvatar'
 
-import styles from './useAvatar.stories.module.css'
 import avatar from './assets/silverhand300.jpg'
 import avatarRed from './assets/silverhand300_red.jpg'
 import avatarGreen from './assets/silverhand300_green.jpg'
 
 const ExampleComponent = () => {
   const { getAvatarProps } = useAvatar<HTMLDivElement>()
+  const theme = useThemeStore((s) => s)
   return (
     <div {...getAvatarProps()}>
-      <img src={avatar} className={styles.avatarYellow} alt="avatar" />
-      <img src={avatarRed} className={styles.avatarRed} alt="avatar" />
-      <img src={avatarGreen} className={styles.avatarGreen} alt="avatar" />
+      <img
+        src={
+          theme === 'darkRed'
+            ? avatarRed
+            : theme === 'dark'
+            ? avatarGreen
+            : avatar
+        }
+        alt="avatar"
+      />
     </div>
   )
 }
