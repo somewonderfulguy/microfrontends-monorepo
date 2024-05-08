@@ -1,8 +1,9 @@
 import Button from '@repo/design-system/controls/Button'
 import ThemeWrapper from '@repo/design-system/ThemeWrapper'
-import PlayIcon from '@repo/design-system/assets/trianglePointsToRight.svg?react'
 
 import styles from './ControlBar.module.css'
+import PlayIcon from './assets/trianglePointsToRight.svg?react'
+import PrevIcon from './assets/previous.svg?react'
 import graffiti from './assets/graffiti.png'
 import sprayTopRight from './assets/sprayTopRight.png'
 import sprayBottomLeak from './assets/sprayBottomLeak2.png'
@@ -30,11 +31,23 @@ const ControlBar = () => {
           <div className={styles.controlBar}>
             <div style={{ color: '#fff' }}>Music</div>
             <div className={styles.mainButtons}>
-              <button>Pause</button>
+              <Button
+                cutBottomLeftCorner
+                className={styles.prevBtn}
+                buttonSize="small"
+              >
+                <PrevIcon />
+              </Button>
               <Button cutBottomLeftCorner className={styles.playBtn}>
                 <PlayIcon />
               </Button>
-              <button>Stop</button>
+              <Button
+                cutBottomRightCorner
+                className={styles.nextButton}
+                buttonSize="small"
+              >
+                <PrevIcon />
+              </Button>
             </div>
             <div style={{ color: '#fff' }}>More controls</div>
           </div>

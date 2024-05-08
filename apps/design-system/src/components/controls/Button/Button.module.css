@@ -9,18 +9,41 @@
     --aug-border-bg: var(--cb-tertiary-color);
   }
 
+  --aug-l1: 0px;
+  --aug-l1-width: 12px;
+  --aug-l1-height: 2px;
+  &.small {
+    --aug-l1-width: 10px;
+  }
+
+  --aug-r1: 0px;
+  --aug-r1-width: 12px;
+  --aug-r1-height: 2px;
+
   --aug-bl: 18px;
   --aug-br: 18px;
   --aug-tl: 18px;
   --aug-tr: 18px;
+  &.small {
+    --aug-bl: 15px;
+    --aug-br: 15px;
+    --aug-tl: 15px;
+    --aug-tr: 15px;
+  }
 }
 
 .button {
   all: unset;
   cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
 
   height: 48px;
   width: 232px;
+  .small & {
+    height: 40px;
+    width: 193px;
+  }
 
   text-align: center;
   text-transform: uppercase;
@@ -28,6 +51,9 @@
   font-family: 'Blender Pro Bold', sans-serif;
   font-weight: 700;
   font-size: 22px;
+  .small & {
+    font-size: 18px;
+  }
 
   color: var(--cb-text-color);
   background-color: var(--cb-accent-color);
@@ -85,9 +111,6 @@
     color: var(--cb-text-color-inverted);
     background-color: var(--cb-secondary-color);
 
-    &:hover {
-      background-color: var(--cb-accent-color-hover);
-    }
     &:active {
       background-color: var(--cb-accent-color-active);
     }

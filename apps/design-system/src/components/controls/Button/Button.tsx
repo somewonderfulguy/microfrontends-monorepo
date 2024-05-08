@@ -6,21 +6,52 @@ import { useThemeStore } from '@mf/state/themeStore'
 
 import styles from './Button.module.css'
 
-export type Props = HTMLProps<HTMLButtonElement> & {
+// Base properties for all buttons
+type PropsBase = HTMLProps<HTMLButtonElement> & {
+  /** Standard HTML Button `type` attribute, `button` is default */
   type?: 'button' | 'submit' | 'reset'
-  buttonStyle?: 'filled' | 'outlined'
+  /** `standard` (default) - 232px width and 48px height; `small` - 193px and 40px height */
+  buttonSize?: 'small' | 'standard'
+  /** Cut top left corner */
   cutTopLeftCorner?: boolean
-  cutTopRightCorner?: boolean
+  /** Cut bottom left corner */
   cutBottomLeftCorner?: boolean
+  /** Cut top right corner */
+  cutTopRightCorner?: boolean
+  /** Cut bottom right corner - it is a default one (if no other cut selected) */
   cutBottomRightCorner?: boolean
+  /** Rectangular cut on the left side - cannot be used with cuts of left corners */
+  cutLeft?: boolean
+  /** Rectangular cut on the right side - cannot be used with cuts of right corners */
+  cutRight?: boolean
 }
+
+// Conditionally apply exclusivity based on whether cutLeft or cutRight is true
+type Props = PropsBase &
+  (
+    | (PropsBase & {
+        cutLeft: true
+        cutTopLeftCorner?: never
+        cutBottomLeftCorner?: never
+      })
+    | (PropsBase & {
+        cutRight: true
+        cutTopRightCorner?: never
+        cutBottomRightCorner?: never
+      })
+    | (PropsBase & { cutLeft?: false; cutRight?: false })
+  )
 
 const Button = ({
   type = 'button',
+  // buttonStyle,
+  buttonSize = 'standard',
   cutTopLeftCorner,
   cutTopRightCorner,
   cutBottomLeftCorner,
   cutBottomRightCorner,
+  cutRight,
+  cutLeft,
   children,
   className = '',
   ...props
@@ -38,8 +69,20 @@ const Button = ({
 
   return (
     <div
-      className={styles.buttonWrapper}
+      className={classNames(
+        styles.buttonWrapper,
+        buttonSize === 'small' && styles.small,
+        className
+      )}
       data-augmented-ui={classNames(
+        // borders
+        (theme === 'darkRed' || theme === 'dark') && 'border',
+
+        // size corner cuts
+        cutLeft && 'l-rect-x',
+        cutRight && 'r-rect-x',
+
+        // corners cuts
         cutBottomLeftCorner && 'bl-clip',
         // if no corners are cut, use br-clip (cut bottom right corner)
         (cutBottomRightCorner ||
@@ -49,12 +92,12 @@ const Button = ({
             !cutTopRightCorner)) &&
           'br-clip',
         cutTopLeftCorner && 'tl-clip',
-        cutTopRightCorner && 'tr-clip',
-        (theme === 'darkRed' || theme === 'dark') && 'border'
+        cutTopRightCorner && 'tr-clip'
       )}
       ref={wrapperRef}
       style={
         {
+          // TODO: move to CSS
           ...(widthStr === 'narrow' && {
             '--aug-bl': '9px',
             '--aug-br': '9px',
@@ -64,11 +107,7 @@ const Button = ({
         } as CSSProperties
       }
     >
-      <button
-        type={type}
-        {...props}
-        className={`${styles.button} ${className}`}
-      >
+      <button type={type} {...props} className={styles.button}>
         {/* nbsp keeps layout in shape for augmented-ui */}
         {children || <>&nbsp;</>}
       </button>

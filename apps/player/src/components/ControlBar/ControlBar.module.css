@@ -71,12 +71,31 @@
 
 .mainButtons {
   composes: centralizedFlex;
+  gap: 5px;
 }
 
-.playBtn {
+.playBtn button {
   width: 74px;
 
   & > svg {
     translate: 3px -1px;
+  }
+}
+
+.prevBtn.prevBtn button {
+  width: 52px;
+  height: 32px;
+
+  & > svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.nextButton {
+  composes: prevBtn;
+
+  & button > svg {
+    transform: rotate(180deg);
   }
 }
