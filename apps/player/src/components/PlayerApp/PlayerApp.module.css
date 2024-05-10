@@ -3,6 +3,8 @@
   height: 100%;
   max-width: 2560px;
 
+  font-family: 'Blender Pro Book', sans-serif;
+
   /* this is for disabling horizontal scroll of graffiti on control bar */
   overflow-x: hidden;
 

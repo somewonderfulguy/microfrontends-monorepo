@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  gap: 15px;
+  color: #fff;
+  translate: 0 -9px;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+}
+
+.image {
+  --aug-tl: 12px;
+  width: 55px;
+  height: 55px;
+}
+
+.name {
+  font-family: 'Blender Pro Bold', sans-serif;
+  line-height: normal;
+}

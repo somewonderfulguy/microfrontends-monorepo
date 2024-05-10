@@ -60,13 +60,22 @@
 }
 
 .controlBar {
-  composes: centralizedFlex;
   composes: fullWidthHeight;
+
+  --aug-tl: 15px;
+  --aug-tr: 15px;
+  --aug-bl: 15px;
+  --aug-bl-inset2: 200px;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 15px;
 
   position: relative;
   justify-content: space-between;
   background-color: #000;
-  padding: 0 1rem;
+  padding: 0 18px;
 }
 
 .mainButtons {
@@ -97,5 +106,33 @@
 
   & button > svg {
     transform: rotate(180deg);
+  }
+}
+
+.shuffleRepeatButtons {
+  all: unset;
+  color: #fff;
+  cursor: pointer;
+
+  margin-top: -5px;
+
+  & > svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.shuffleButton {
+  composes: shuffleRepeatButtons;
+  margin-right: 8px;
+}
+
+.repeatButton {
+  composes: shuffleRepeatButtons;
+  margin-left: 6px;
+
+  & > svg {
+    width: 19px;
+    height: 19px;
   }
 }
