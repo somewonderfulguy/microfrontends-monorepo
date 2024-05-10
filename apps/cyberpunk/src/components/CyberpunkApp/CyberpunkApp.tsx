@@ -8,12 +8,16 @@ import styles from './CyberpunkApp.module.css';
 const CyberpunkApp = () => {
   return (
     <ThemeWrapper className={styles.themeWrapper}>
-      <header className={styles.header}>
-        <div className={styles.menuContainer}>
-          <Menu />
+      <div className={styles.appContainer}>
+        <div className={styles.app}>
+          <header className={styles.header}>
+            <div className={styles.menuContainer}>
+              <Menu />
+            </div>
+          </header>
+          <Player className={styles.player} />
         </div>
-      </header>
-      <Player className={styles.player} />
+      </div>
     </ThemeWrapper>
   );
 };

@@ -33,6 +33,9 @@ const ControlBar = () => {
             className={styles.sprayBottomLeak}
             style={{ backgroundImage: `url('${sprayBottomLeak}')` }}
           />
+          <div className={styles.time}>
+            1:33 <span className={styles.timeSeparator}>/</span> 3:14
+          </div>
           <div
             className={styles.controlBar}
             data-augmented-ui="bl-clip-x tr-clip tl-clip"
