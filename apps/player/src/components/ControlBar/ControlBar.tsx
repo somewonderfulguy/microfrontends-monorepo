@@ -2,6 +2,7 @@ import Button from '@repo/design-system/controls/Button'
 import ThemeWrapper from '@repo/design-system/ThemeWrapper'
 
 import SongInfo from './SongInfo'
+import TimeSlider from './TimeSlider'
 
 import styles from './ControlBar.module.css'
 import PlayIcon from './assets/trianglePointsToRight.svg?react'
@@ -33,6 +34,9 @@ const ControlBar = () => {
             className={styles.sprayBottomLeak}
             style={{ backgroundImage: `url('${sprayBottomLeak}')` }}
           />
+          <div className={styles.sliderContainer}>
+            <TimeSlider />
+          </div>
           <div className={styles.time}>
             1:33 <span className={styles.timeSeparator}>/</span> 3:14
           </div>
