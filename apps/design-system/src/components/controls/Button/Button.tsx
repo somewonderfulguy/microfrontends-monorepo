@@ -1,4 +1,4 @@
-import { CSSProperties, HTMLProps, useState } from 'react'
+import { CSSProperties, HTMLAttributes, useState } from 'react'
 
 import useResizeObserver from '@repo/shared/hooks/useResizeObserver'
 import classNames from '@repo/shared/utils/classNames'
@@ -6,12 +6,19 @@ import { useThemeStore } from '@mf/state/themeStore'
 
 import styles from './Button.module.css'
 
+// TODO: active state for filled buttons
+// TODO: focus state for filled buttons
+
 // Base properties for all buttons
-type PropsBase = HTMLProps<HTMLButtonElement> & {
+type PropsBase = HTMLAttributes<HTMLDivElement> & {
   /** Standard HTML Button `type` attribute, `button` is default */
   type?: 'button' | 'submit' | 'reset'
+  /** `filled` (default) - filled button; `svg` - button with SVG icon */
+  buttonStyle?: 'filled' | 'svg'
   /** `standard` (default) - 232px width and 48px height; `small` - 193px and 40px height */
   buttonSize?: 'small' | 'standard'
+  /** Active state - for toggle buttons */
+  active?: boolean
   /** Cut top left corner */
   cutTopLeftCorner?: boolean
   /** Cut bottom left corner */
@@ -24,6 +31,8 @@ type PropsBase = HTMLProps<HTMLButtonElement> & {
   cutLeft?: boolean
   /** Rectangular cut on the right side - cannot be used with cuts of right corners */
   cutRight?: boolean
+  /** Attributes for button */
+  buttonProps?: HTMLAttributes<HTMLButtonElement>
 }
 
 // Conditionally apply exclusivity based on whether cutLeft or cutRight is true
@@ -44,8 +53,9 @@ type Props = PropsBase &
 
 const Button = ({
   type = 'button',
-  // buttonStyle,
+  buttonStyle = 'filled',
   buttonSize = 'standard',
+  active = false,
   cutTopLeftCorner,
   cutTopRightCorner,
   cutBottomLeftCorner,
@@ -54,6 +64,7 @@ const Button = ({
   cutLeft,
   children,
   className = '',
+  buttonProps,
   ...props
 }: Props) => {
   const [widthStr, setWidthStr] = useState<'wide' | 'narrow'>('wide')
@@ -67,33 +78,42 @@ const Button = ({
 
   const theme = useThemeStore((s) => s)
 
+  const isSvg = buttonStyle === 'svg'
+
   return (
     <div
+      {...props}
       className={classNames(
         styles.buttonWrapper,
         buttonSize === 'small' && styles.small,
+        buttonStyle === 'filled' && styles.buttonFilled,
+        isSvg && styles.buttonSvg,
         className
       )}
-      data-augmented-ui={classNames(
-        // borders
-        (theme === 'darkRed' || theme === 'dark') && 'border',
+      data-augmented-ui={
+        isSvg
+          ? ''
+          : classNames(
+              // borders
+              (theme === 'darkRed' || theme === 'dark') && 'border',
 
-        // size corner cuts
-        cutLeft && 'l-rect-x',
-        cutRight && 'r-rect-x',
+              // size corner cuts
+              cutLeft && 'l-rect-x',
+              cutRight && 'r-rect-x',
 
-        // corners cuts
-        cutBottomLeftCorner && 'bl-clip',
-        // if no corners are cut, use br-clip (cut bottom right corner)
-        (cutBottomRightCorner ||
-          (!cutBottomLeftCorner &&
-            !cutBottomRightCorner &&
-            !cutTopLeftCorner &&
-            !cutTopRightCorner)) &&
-          'br-clip',
-        cutTopLeftCorner && 'tl-clip',
-        cutTopRightCorner && 'tr-clip'
-      )}
+              // corners cuts
+              cutBottomLeftCorner && 'bl-clip',
+              // if no corners are cut, use br-clip (cut bottom right corner)
+              (cutBottomRightCorner ||
+                (!cutBottomLeftCorner &&
+                  !cutBottomRightCorner &&
+                  !cutTopLeftCorner &&
+                  !cutTopRightCorner)) &&
+                'br-clip',
+              cutTopLeftCorner && 'tl-clip',
+              cutTopRightCorner && 'tr-clip'
+            )
+      }
       ref={wrapperRef}
       style={
         {
@@ -107,9 +127,20 @@ const Button = ({
         } as CSSProperties
       }
     >
-      <button type={type} {...props} className={styles.button}>
+      <button
+        {...(active && { 'aria-pressed': 'true' })}
+        type={type}
+        className={styles.button}
+        //
+        {...buttonProps}
+      >
         {/* nbsp keeps layout in shape for augmented-ui */}
         {children || <>&nbsp;</>}
+        {isSvg && (
+          <div aria-hidden className={styles.svgGlow}>
+            {children}
+          </div>
+        )}
       </button>
     </div>
   )

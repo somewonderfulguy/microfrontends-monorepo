@@ -32,36 +32,54 @@
   }
 }
 
-.button {
-  all: unset;
-  cursor: pointer;
-  user-select: none;
-  touch-action: manipulation;
+.buttonWrapper.buttonSvg {
+  height: 20px;
 
-  height: 48px;
-  width: 232px;
-  .small & {
-    height: 40px;
-    width: 193px;
+  .button {
+    background: transparent;
+    position: relative;
+    width: 20px;
+    height: 100%;
+
+    & svg {
+      color: var(--cb-secondary-color);
+      transition: color 0.2s;
+      width: 100%;
+      height: 100%;
+    }
+    &:active svg,
+    &[aria-pressed='true'] svg {
+      color: var(--cb-accent-color);
+      :global(.cyberpunk-ui-theme-yellow) & {
+        color: var(--cb-accent-color-alt);
+      }
+
+      /* fixes nested themes (e.g. white-on-black under yellow theme) */
+      :global(.cyberpunk-ui-theme-white-on-black) & {
+        color: var(--cb-accent-color);
+      }
+    }
+
+    .svgGlow {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      transition: opacity 0.2s;
+
+      filter: drop-shadow(0px 0px 3px var(--cb-accent-color))
+        drop-shadow(0px 0px 12px var(--cb-accent-color))
+        drop-shadow(0px 0px 16px var(--cb-accent-color));
+    }
+    &:hover .svgGlow,
+    &:focus-visible .svgGlow {
+      opacity: 1;
+    }
   }
+}
 
-  text-align: center;
-  text-transform: uppercase;
-
-  font-family: 'Blender Pro Bold', sans-serif;
-  font-weight: 700;
-  font-size: 22px;
-  .small & {
-    font-size: 18px;
-  }
-
+.buttonWrapper.buttonFilled .button {
   color: var(--cb-text-color);
   background-color: var(--cb-accent-color);
-
-  transition: background-color 0.2s, color 0.2s, opacity 0.2s, text-shadow 0.2s;
-
-  text-shadow: 0 0 21px transparent, 0 0 42px transparent, 0 0 82px transparent,
-    0 0 92px transparent, 0 0 102px transparent, 0 0 151px transparent;
 
   &:hover {
     background-color: var(--cb-accent-color-hover);
@@ -111,10 +129,42 @@
     color: var(--cb-text-color-inverted);
     background-color: var(--cb-secondary-color);
 
+    &:hover {
+      background-color: var(--cb-accent-color-hover);
+    }
     &:active {
       background-color: var(--cb-accent-color-active);
     }
   }
+}
+
+.button {
+  all: unset;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+
+  height: 48px;
+  width: 232px;
+  .small & {
+    height: 40px;
+    width: 193px;
+  }
+
+  text-align: center;
+  text-transform: uppercase;
+
+  font-family: 'Blender Pro Bold', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  .small & {
+    font-size: 18px;
+  }
+
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s, text-shadow 0.2s;
+
+  text-shadow: 0 0 21px transparent, 0 0 42px transparent, 0 0 82px transparent,
+    0 0 92px transparent, 0 0 102px transparent, 0 0 151px transparent;
 
   > * {
     display: block;

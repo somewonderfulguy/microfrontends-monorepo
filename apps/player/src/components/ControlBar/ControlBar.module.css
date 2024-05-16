@@ -159,3 +159,7 @@
     height: 19px;
   }
 }
+
+.sideControls {
+  justify-self: end;
+}

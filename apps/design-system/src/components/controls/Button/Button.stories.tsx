@@ -2,6 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import Button from './Button'
 
+import ExampleIcon from './assets/exampleIcon.svg?react'
+import ExampleIconTwo from './assets/exampleIcon2.svg?react'
+
 const meta: Meta<typeof Button> = {
   component: Button,
   tags: ['autodocs']
@@ -36,11 +39,29 @@ export const DifferentShapeTwo: Story = {
   } as never
 }
 
-/** Smaller size */
+/** Smaller size. */
 export const SmallSize: Story = {
   args: {
     children: 'Small',
     buttonSize: 'small',
     cutLeft: true
+  } as never
+}
+
+/** Button as SVG icon - transparent background; cuts (corners or sides) are not available. Applies filter drop-shadow for SVG on hover/focus. */
+export const SVGIcon: Story = {
+  args: {
+    children: <ExampleIcon />,
+    buttonStyle: 'svg'
+  } as never
+}
+
+/** Active state for SVG Button. */
+export const SVGIconActive: Story = {
+  args: {
+    children: <ExampleIconTwo />,
+    buttonStyle: 'svg',
+    active: true,
+    'aria-label': 'Repeat One'
   } as never
 }

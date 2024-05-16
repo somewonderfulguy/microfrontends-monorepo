@@ -3,6 +3,7 @@ import ThemeWrapper from '@repo/design-system/ThemeWrapper'
 
 import SongInfo from './SongInfo'
 import TimeSlider from './TimeSlider'
+import SoundControl from './SoundControl'
 
 import styles from './ControlBar.module.css'
 import PlayIcon from './assets/trianglePointsToRight.svg?react'
@@ -12,7 +13,6 @@ import sprayTopRight from './assets/sprayTopRight.png'
 import sprayBottomLeak from './assets/sprayBottomLeak2.png'
 import Repeat from './assets/repeat.svg?react'
 import Shuffle from './assets/shuffle.svg?react'
-import tmp from './assets/tmp.png'
 
 const ControlBar = () => {
   return (
@@ -68,12 +68,14 @@ const ControlBar = () => {
               >
                 <PrevIcon />
               </Button>
+              {/* aria-pressed={state !== 0}
+              aria-label={'No Repeat' | 'Repeat All' | 'Repeat One'} */}
               <button type="button" className={styles.repeatButton}>
                 <Repeat />
               </button>
             </div>
-            <div style={{ color: '#fff', justifySelf: 'end' }}>
-              <img src={tmp} alt="" />
+            <div className={styles.sideControls}>
+              <SoundControl />
             </div>
           </div>
         </div>
