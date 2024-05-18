@@ -4,6 +4,7 @@ import ThemeWrapper from '@repo/design-system/ThemeWrapper'
 import SongInfo from './SongInfo'
 import TimeSlider from './TimeSlider'
 import SoundControl from './SoundControl'
+import FullscreenButton from './FullscreenButton'
 
 import styles from './ControlBar.module.css'
 import PlayIcon from './assets/trianglePointsToRight.svg?react'
@@ -76,6 +77,7 @@ const ControlBar = () => {
             </div>
             <div className={styles.sideControls}>
               <SoundControl />
+              <FullscreenButton />
             </div>
           </div>
         </div>

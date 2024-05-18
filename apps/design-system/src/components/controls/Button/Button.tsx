@@ -65,6 +65,7 @@ const Button = ({
   children,
   className = '',
   buttonProps,
+  style,
   ...props
 }: Props) => {
   const [widthStr, setWidthStr] = useState<'wide' | 'narrow'>('wide')
@@ -117,6 +118,7 @@ const Button = ({
       ref={wrapperRef}
       style={
         {
+          ...style,
           // TODO: move to CSS
           ...(widthStr === 'narrow' && {
             '--aug-bl': '9px',
@@ -130,9 +132,8 @@ const Button = ({
       <button
         {...(active && { 'aria-pressed': 'true' })}
         type={type}
-        className={styles.button}
-        //
         {...buttonProps}
+        className={classNames(styles.button, buttonProps?.className)}
       >
         {/* nbsp keeps layout in shape for augmented-ui */}
         {children || <>&nbsp;</>}

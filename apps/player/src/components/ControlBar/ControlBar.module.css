@@ -162,4 +162,7 @@
 
 .sideControls {
   justify-self: end;
+
+  display: flex;
+  gap: 10px;
 }
