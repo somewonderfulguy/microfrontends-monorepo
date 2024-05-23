@@ -5,12 +5,16 @@
   "type": "module",
   "author": "Dmitriy Yastrebov",
   "description": "Design system & component library",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     "./assets/*": "./src/assets/*",
     "./controls/Button": "./src/components/controls/Button/index.ts",
     "./Tabs": "./src/components/Tabs/Tabs.tsx",
     "./ThemeWrapper": "./src/components/ThemeWrapper/ThemeWrapper.tsx",
-    "./styles/*": "./src/styles/*"
+    "./styles/*": "./src/styles/*",
+    "./.storybook/*": "./.storybook/*"
   },
   "scripts": {
     "build": "tsc && vite build",

@@ -10,7 +10,6 @@ import {
 } from '../../src/constants'
 
 import objectObserver from './objectObserver'
-import * as themes from '../themes'
 
 type Orientation = 'horizontal' | 'vertical'
 

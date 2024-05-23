@@ -11,5 +11,5 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-/** Fullscreen button. Has two states: expand and shrink. */
+/** Fullscreen button. Has two states: expanded and shrank. */
 export const Default: Story = {}
