@@ -1,0 +1,10 @@
+.time {
+  width: 188px;
+  text-shadow: 0px 0px 5px var(--cb-accent-color);
+  color: var(--cb-primary-color);
+  font-weight: 800;
+  font-family: 'Audiowide Mono', monospace;
+  .timeSeparator {
+    font-weight: 400;
+  }
+}

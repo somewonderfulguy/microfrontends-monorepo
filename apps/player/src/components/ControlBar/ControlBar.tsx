@@ -5,6 +5,7 @@ import SongInfo from './SongInfo'
 import TimeSlider from './TimeSlider'
 import SoundControl from './SoundControl'
 import FullscreenButton from './FullscreenButton'
+import TimeCount from './TimeCount'
 
 import styles from './ControlBar.module.css'
 import PlayIcon from './assets/trianglePointsToRight.svg?react'
@@ -38,9 +39,7 @@ const ControlBar = () => {
           <div className={styles.sliderContainer}>
             <TimeSlider />
           </div>
-          <div className={styles.time}>
-            1:33 <span className={styles.timeSeparator}>/</span> 3:14
-          </div>
+          <TimeCount className={styles.time} />
           <div
             className={styles.controlBar}
             data-augmented-ui="bl-clip-x tr-clip tl-clip"

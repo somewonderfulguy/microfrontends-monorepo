@@ -8,9 +8,10 @@
     "./hooks/usePrevious": "./hooks/usePrevious/usePrevious.ts",
     "./hooks/useResizeObserver": "./hooks/useResizeObserver/useResizeObserver.ts",
     "./types": "./types/index.ts",
-    "./utils/classNames": "./utils/classNames.ts",
+    "./utils/*": "./utils/classNames.ts",
     "./utils/createContextStore": "./utils/createContextStore.tsx",
     "./utils/debounce": "./utils/debounce.ts",
+    "./utils/request": "./utils/request.ts",
     "./utils/throttle": "./utils/throttle.ts"
   },
   "scripts": {
