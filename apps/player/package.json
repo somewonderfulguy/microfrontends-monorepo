@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "concurrently \"pnpm run dev-app\" \"pnpm run storybook\"",
-    "dev-app": "vite --port 7030 && pnpm run storybook",
+    "dev-app": "vite --port 7030",
     "build": "tsc && vite build && node ./scripts/postLibBuild.cjs",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --port 7030",
