@@ -1,0 +1,40 @@
+.title {
+  font-family: 'Refinery 25', sans-serif;
+  text-transform: uppercase;
+
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%;
+
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-family: 'Refinery 25', sans-serif;
+  text-transform: uppercase;
+
+  font-size: 44px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+
+  margin-top: 16px;
+  margin-bottom: 6px;
+}
+
+.head {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.balances {
+  display: flex;
+
+  gap: 72px;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+
+  /* margin-top: 16px;
+  margin-bottom: 16px; */
+}
