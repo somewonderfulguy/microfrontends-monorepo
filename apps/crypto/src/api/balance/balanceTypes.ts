@@ -4,6 +4,7 @@ export type ToUsd = {
   // keep in alphabetical order
   bitcoin: Fiat
   ethereum: Fiat
+  mantle: Fiat
   notcoin: Fiat
   solana: Fiat
   'the-open-network': Fiat
@@ -25,4 +26,13 @@ export type BtcScan = {
   total_sent: number
   unconfirmed_balance: number
   unconfirmed_n_tx: number
+}
+
+export type SolScan = {
+  jsonrpc: string
+  result: {
+    context: { slot: number }
+    value: number
+  }
+  id: number
 }

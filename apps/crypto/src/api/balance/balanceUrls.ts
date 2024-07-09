@@ -22,11 +22,11 @@ export const getBtcBalanceUrl = (address: string) =>
 // arbitrum
 // polygon
 
-// sol
+export const solanaBaseUrl = 'https://api.mainnet-beta.solana.com'
 
 // mantle
 
 // ton
 // not
 
-export const getRatesCoingeckoUrl = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,notcoin,the-open-network&vs_currencies=usd,uah,gbp,eur,pln,jpy`
+export const getRatesCoingeckoUrl = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,notcoin,the-open-network,mantle&vs_currencies=usd,uah,gbp,eur,pln,jpy`

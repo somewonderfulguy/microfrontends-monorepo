@@ -1,6 +1,6 @@
 import request from '@repo/shared/utils/request'
 
-import { ToUsd, EthScan, BtcScan } from './balanceTypes'
+import { ToUsd, EthScan, BtcScan, SolScan } from './balanceTypes'
 import {
   getRatesCoingeckoUrl,
   getBlastBalanceUrl,
@@ -9,7 +9,8 @@ import {
   getScrollBalanceUrl,
   getOptimismBalanceUrl,
   getBaseBalanceUrl,
-  getZoraBalanceUrl
+  getZoraBalanceUrl,
+  solanaBaseUrl
 } from './balanceUrls'
 
 export const getRatesCoingecko = () => request<ToUsd>(getRatesCoingeckoUrl)
@@ -34,3 +35,13 @@ export const getZoraBalance = (address: string) =>
 
 export const getBtcBalance = (address: string) =>
   request<BtcScan>(getBtcBalanceUrl(address))
+
+export const getSolBalance = (address: string) =>
+  request<SolScan>(solanaBaseUrl, {
+    body: {
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'getBalance',
+      params: [address]
+    }
+  })
