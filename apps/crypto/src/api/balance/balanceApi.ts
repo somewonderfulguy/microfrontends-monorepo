@@ -1,9 +1,10 @@
 import request from '@repo/shared/utils/request'
 
-import { EthToUsd, Scan } from './balanceTypes'
+import { ToUsd, EthScan, BtcScan } from './balanceTypes'
 import {
-  etherToUstRateUrl,
+  getRatesCoingeckoUrl,
   getBlastBalanceUrl,
+  getBtcBalanceUrl,
   getEtherBalanceUrl,
   getScrollBalanceUrl,
   getOptimismBalanceUrl,
@@ -11,22 +12,25 @@ import {
   getZoraBalanceUrl
 } from './balanceUrls'
 
-export const getEtherUsdRate = () => request<EthToUsd>(etherToUstRateUrl)
+export const getRatesCoingecko = () => request<ToUsd>(getRatesCoingeckoUrl)
 
 export const getEtherBalance = (address: string) =>
-  request<Scan>(getEtherBalanceUrl(address))
+  request<EthScan>(getEtherBalanceUrl(address))
 
 export const getBlastBalance = (address: string) =>
-  request<Scan>(getBlastBalanceUrl(address))
+  request<EthScan>(getBlastBalanceUrl(address))
 
 export const getScrollBalance = (address: string) =>
-  request<Scan>(getScrollBalanceUrl(address))
+  request<EthScan>(getScrollBalanceUrl(address))
 
 export const getOptimismBalance = (address: string) =>
-  request<Scan>(getOptimismBalanceUrl(address))
+  request<EthScan>(getOptimismBalanceUrl(address))
 
 export const getBaseBalance = (address: string) =>
-  request<Scan>(getBaseBalanceUrl(address))
+  request<EthScan>(getBaseBalanceUrl(address))
 
 export const getZoraBalance = (address: string) =>
-  request<Scan>(getZoraBalanceUrl(address))
+  request<EthScan>(getZoraBalanceUrl(address))
+
+export const getBtcBalance = (address: string) =>
+  request<BtcScan>(getBtcBalanceUrl(address))

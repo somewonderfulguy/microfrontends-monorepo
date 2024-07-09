@@ -1,40 +1,73 @@
-.title {
+.titleCore {
   font-family: 'Refinery 25', sans-serif;
   text-transform: uppercase;
-
-  font-size: 64px;
   font-style: normal;
-  font-weight: 600;
   line-height: 100%;
-
   margin-bottom: 6px;
+  font-weight: 600;
 }
 
-.subtitle {
-  font-family: 'Refinery 25', sans-serif;
-  text-transform: uppercase;
+.h1 {
+  composes: titleCore;
+  font-size: 64px;
+}
 
+.h2 {
+  composes: titleCore;
   font-size: 44px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 100%;
+  margin-bottom: 0;
 
+  .titleNote {
+    display: inline-block;
+    font-size: 24px;
+    translate: -3px -13px;
+  }
+}
+
+.h3 {
+  composes: titleCore;
+  font-size: 31px;
+
+  .titleNote {
+    display: inline-block;
+    font-size: 18px;
+    translate: 0 -8px;
+  }
+}
+
+.headerSpace {
   margin-top: 16px;
-  margin-bottom: 6px;
 }
 
 .head {
   width: fit-content;
-  margin: 0 auto;
+  margin: 0 auto 18px auto;
+}
+
+.overallBalance {
+  margin-top: 26px;
+
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 100%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+}
+
+.cryptoCurrencyPrice {
+  margin-bottom: 6px;
+  font-size: 24px;
 }
 
 .balances {
   display: flex;
-
   gap: 72px;
-  /* justify-content: space-between; */
-  /* align-items: center; */
-
-  /* margin-top: 16px;
-  margin-bottom: 16px; */
 }

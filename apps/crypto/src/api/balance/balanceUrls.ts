@@ -16,14 +16,17 @@ export const getBaseBalanceUrl = (address: string) =>
 export const getZoraBalanceUrl = (address: string) =>
   `https://api.routescan.io/v2/network/mainnet/evm/8453/etherscan/api?module=account&action=balance&address=${address}&tag=latest`
 
+export const getBtcBalanceUrl = (address: string) =>
+  `https://api.blockcypher.com/v1/btc/main/addrs/${address}/balance`
+
 // arbitrum
 // polygon
 
 // sol
 
-// bybit (mantle)
+// mantle
 
 // ton
 // not
 
-export const etherToUstRateUrl = `https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd`
+export const getRatesCoingeckoUrl = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,notcoin,the-open-network&vs_currencies=usd,uah,gbp,eur,pln,jpy`
