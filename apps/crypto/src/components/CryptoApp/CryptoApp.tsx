@@ -100,7 +100,7 @@ const CryptoApp = () => {
   return (
     <div>
       <div className={styles.head}>
-        <h1 className={styles.h1}>Crypto Ballance</h1>
+        <h1 className={styles.h1}>Crypto Balance</h1>
         <p
           title={String(sum.ustFull + btcInUst)}
           className={styles.overallBalance}
