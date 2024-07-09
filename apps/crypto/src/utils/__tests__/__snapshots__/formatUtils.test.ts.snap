@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`formatFiat 1`] = `
+[
+  "$12,345,624.79",
+  "€12.345.624,79",
+  "₴12 345 624,79",
+  "£12,345,624.79",
+  "12 345 624,79 zł",
+  "￥12,345,625",
+]
+`;
