@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react'
 
-import { useThemeStore } from '@mf/state/themeStore'
+import { useThemeStore } from '@repo/state/themeStore'
 
 import ControlBar from '../ControlBar'
 import Sidebar from '../Sidebar'

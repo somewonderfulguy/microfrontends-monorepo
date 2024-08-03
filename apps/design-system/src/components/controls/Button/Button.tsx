@@ -2,7 +2,7 @@ import { CSSProperties, HTMLAttributes, useState } from 'react'
 
 import useResizeObserver from '@repo/shared/hooks/useResizeObserver'
 import classNames from '@repo/shared/utils/classNames'
-import { useThemeStore } from '@mf/state/themeStore'
+import { useThemeStore } from '@repo/state/themeStore'
 
 import styles from './Button.module.css'
 

@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    "./types": "./types/index.ts",
-    "./types/mf-imports": "./types/mf-imports.ts"
+    "./themeStore": "./stores/themeStore.ts"
   },
   "scripts": {
     "dev": "pnpm build && pnpm preview",
@@ -23,7 +22,6 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@originjs/vite-plugin-federation": "^1.3.5",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",

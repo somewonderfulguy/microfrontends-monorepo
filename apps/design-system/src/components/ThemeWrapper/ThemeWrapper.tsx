@@ -4,9 +4,9 @@ import classNames from '@repo/shared/utils/classNames'
 import {
   ThemeStoreProvider,
   useThemeStore,
-  useThemeDispatch
-} from '@mf/state/themeStore'
-import { Theme } from '@repo/state/types'
+  useThemeDispatch,
+  Theme
+} from '@repo/state/themeStore'
 
 import styles from './ThemeWrapper.module.css'
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { useThemeStore } from '@mf/state/themeStore'
+import { useThemeStore } from '@repo/state/themeStore'
 
 import useAvatar from './useAvatar'
 

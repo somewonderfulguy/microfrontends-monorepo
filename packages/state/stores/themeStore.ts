@@ -9,8 +9,4 @@ const {
   useStoreDispatch: useThemeDispatch
 } = result
 
-export type ThemeStoreProviderType = typeof ThemeStoreProvider
-export type useThemeStoreType = typeof useThemeStore
-export type useThemeDispatchType = typeof useThemeDispatch
-
 export { ThemeStoreProvider, useThemeStore, useThemeDispatch }

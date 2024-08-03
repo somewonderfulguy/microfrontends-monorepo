@@ -124,7 +124,9 @@ const createContextStore = <TStore,>(
      * @returns {*} selected part of the store
      */
     useStoreValue,
-    useStoreDispatch
+    useStoreDispatch,
+    StoreValueContext,
+    StoreDispatchContext,
   }
 }
 

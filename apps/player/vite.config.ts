@@ -4,7 +4,6 @@ import dts from 'vite-plugin-dts'
 import path from 'path'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import svgr from 'vite-plugin-svgr'
-import federation from '@originjs/vite-plugin-federation'
 
 import { copyPublicDirDeps } from './vite/copyPublicDirDeps'
 
@@ -18,23 +17,15 @@ const entriesData: Record<string, { code: string; css?: string }> = {
 
 const entry = Object.values(entriesData).map(({ code }) => code)
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig(() => ({
   plugins: [
     copyPublicDirDeps(),
     react(),
     libInjectCss(),
     dts(),
     svgr(),
-    federation({
-      remotes: {
-        '@mf/state':
-          mode === 'production'
-            ? 'https://cyberpunk-mf-state.vercel.app/assets/remoteEntry.js'
-            : 'http://localhost:7000/assets/remoteEntry.js'
-      },
-      shared: ['react', 'react-dom']
-    })
   ],
+  // TODO: remove old build config
   build: {
     target: 'esnext',
     lib: {
