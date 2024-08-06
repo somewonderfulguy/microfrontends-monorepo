@@ -3,22 +3,22 @@
 .hexagon {
   composes: tabs;
 
-  [data-reach-tab-list] {
+  & [data-reach-tab-list] {
     --aug-border-all: 0px;
     border: 1px solid var(--cb-secondary-color);
   }
 
-  [data-reach-tab] {
+  & [data-reach-tab] {
     height: 48px;
     font-weight: 700;
     padding: 0 25px;
     position: relative;
   }
 
-  [data-reach-tab]:focus-visible {
+  & [data-reach-tab]:focus-visible {
     outline: none;
 
-    [data-hexagon-focus] {
+    & [data-hexagon-focus] {
       position: absolute;
       width: calc(100% - 2px);
       height: calc(100% - 2px);
@@ -37,11 +37,11 @@
     }
   }
 
-  [data-reach-tab-clone] {
+  & [data-reach-tab-clone] {
     color: var(--cb-primary-color);
   }
 
-  [data-reach-tab-panel]:focus-visible {
+  & [data-reach-tab-panel]:focus-visible {
     outline: 1px solid var(--cb-accent-color);
   }
 }
@@ -49,7 +49,7 @@
 .hexagonStatic {
   composes: hexagon;
 
-  [data-reach-tab] {
+  & [data-reach-tab] {
     &:hover,
     &[data-selected] {
       color: var(--cb-primary-color);

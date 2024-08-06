@@ -16,6 +16,8 @@ import sprayBottomLeak from './assets/sprayBottomLeak2.png'
 import Repeat from './assets/repeat.svg?react'
 import Shuffle from './assets/shuffle.svg?react'
 
+const getImgUrl = (img: unknown) => typeof img === 'string' ? img : (img as { src: string })?.src
+
 const ControlBar = () => {
   return (
     <ThemeWrapper overrideTheme="whiteOnBlack">
@@ -24,17 +26,17 @@ const ControlBar = () => {
           <div
             aria-hidden="true"
             className={styles.graffitiText}
-            style={{ backgroundImage: `url('${graffiti}')` }}
+            style={{ backgroundImage: `url('${getImgUrl(graffiti)}')` }}
           />
           <div
             aria-hidden="true"
             className={styles.sprayTopRight}
-            style={{ backgroundImage: `url('${sprayTopRight}')` }}
+            style={{ backgroundImage: `url('${getImgUrl(sprayTopRight)}')` }}
           />
           <div
             aria-hidden="true"
             className={styles.sprayBottomLeak}
-            style={{ backgroundImage: `url('${sprayBottomLeak}')` }}
+            style={{ backgroundImage: `url('${getImgUrl(sprayBottomLeak)}')` }}
           />
           <div className={styles.sliderContainer}>
             <TimeSlider />

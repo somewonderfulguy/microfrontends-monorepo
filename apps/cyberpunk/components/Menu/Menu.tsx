@@ -1,6 +1,6 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react'
 
-import styles from './Menu.module.css';
+import styles from './Menu.module.css'
 
 const Menu = ({
   className = '',
@@ -19,7 +19,7 @@ const Menu = ({
         <span className={styles.menuDropdown}>Theme</span>
       </li>
     </ul>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu

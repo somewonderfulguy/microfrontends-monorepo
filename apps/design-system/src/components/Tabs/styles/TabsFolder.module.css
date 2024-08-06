@@ -6,20 +6,20 @@
 
   width: 630px;
 
-  .tabListContainer,
-  div[data-reach-tab-list] {
+  & .tabListContainer,
+  & div[data-reach-tab-list] {
     width: 100%;
     gap: 3px;
   }
 
-  [data-reach-tab][data-selected],
-  [data-reach-tab-panel] {
+  & [data-reach-tab][data-selected],
+  & [data-reach-tab-panel] {
     /* backdrop-filter: blur(8px); */
     background-color: hsla(184, 100%, 24%, 0.5);
     /* background-color: hsla(var(--cb-base-accent), 0.5); */
   }
 
-  [data-reach-tab] {
+  & [data-reach-tab] {
     height: 48px;
     flex-grow: 1;
     width: 100%;
@@ -45,7 +45,7 @@
     }
   }
 
-  [data-reach-tab-panel] {
+  & [data-reach-tab-panel] {
     border: 1px solid var(--cb-accent-color);
     border-top: none;
     padding: 13px 20px;

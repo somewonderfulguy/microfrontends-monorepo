@@ -3,7 +3,7 @@
 .underline {
   composes: tabs;
 
-  [data-reach-tab-list] {
+  & [data-reach-tab-list] {
     /* gap will break hover animation logic - use paddings only (not margins). tabs must 'touch' each other */
     gap: 0 !important;
 
@@ -41,7 +41,7 @@
     }
   }
 
-  [data-reach-tab] {
+  & [data-reach-tab] {
     display: flex;
     align-items: center;
 
@@ -68,23 +68,23 @@
       padding-right: 0;
     }
 
-    [data-reach-tab-clone] {
+    & [data-reach-tab-clone] {
       opacity: 0;
       letter-spacing: -0.5px;
       font-family: 'Blender Pro Bold', sans-serif;
     }
 
-    [data-reach-tab-content],
-    [data-reach-tab-clone] {
+    & [data-reach-tab-content],
+    & [data-reach-tab-clone] {
       transition: opacity 0.2s ease-in-out;
     }
 
     &[data-selected],
     &:not([disabled]):hover {
-      [data-reach-tab-content] {
+      & [data-reach-tab-content] {
         opacity: 0;
       }
-      [data-reach-tab-clone] {
+      & [data-reach-tab-clone] {
         opacity: 1;
       }
     }
@@ -115,7 +115,7 @@
     }
   }
 
-  [data-reach-tab-panel] {
+  & [data-reach-tab-panel] {
     &:focus-visible {
       outline: 1px solid var(--cb-accent-color);
     }

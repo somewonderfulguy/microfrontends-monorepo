@@ -8,6 +8,7 @@ import {
   Theme
 } from '@repo/state/themeStore'
 
+import './ThemeWrapper.css'
 import styles from './ThemeWrapper.module.css'
 
 type Props = HTMLAttributes<HTMLDivElement> & {

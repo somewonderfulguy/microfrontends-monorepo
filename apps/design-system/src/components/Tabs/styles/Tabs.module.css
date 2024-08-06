@@ -19,7 +19,7 @@
 .tabs {
   font-family: 'Blender Pro Book', sans-serif;
 
-  [data-reach-tab-list] {
+  & [data-reach-tab-list] {
     display: flex;
     position: relative;
     width: fit-content;
@@ -33,7 +33,7 @@
     }
   }
 
-  [data-reach-tab] {
+  & [data-reach-tab] {
     font-family: 'Blender Pro Book', sans-serif;
     cursor: pointer;
     position: relative;
@@ -46,28 +46,28 @@
     white-space: nowrap;
   }
 
-  [data-reach-tab][disabled] {
+  & [data-reach-tab][disabled] {
     cursor: default;
     opacity: 0.5;
   }
 
-  [data-reach-tab-clone] {
+  & [data-reach-tab-clone] {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
   }
 
-  [data-reach-tab-panels] {
+  & [data-reach-tab-panels] {
     position: relative;
 
     --panels-animation-time: 200ms;
 
-    [height-changing] {
+    & [height-changing] {
       overflow: hidden;
     }
   }
 
-  [data-reach-tab-panel] {
+  & [data-reach-tab-panel] {
     &[hidden] {
       position: absolute;
       top: 0;

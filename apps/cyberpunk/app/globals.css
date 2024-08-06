@@ -1,0 +1,10 @@
+:root {
+  --menu-height: 48px;
+  --_padding-top: 36px;
+  --header-height: calc(var(--menu-height) + var(--_padding-top));
+}
+
+html,
+body {
+  height: 100%;
+}

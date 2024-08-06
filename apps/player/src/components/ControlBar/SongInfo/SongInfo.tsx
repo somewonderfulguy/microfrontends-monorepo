@@ -6,7 +6,7 @@ const SongInfo = () => {
     <div className={styles.container}>
       <div className={styles.imageContainer}>
         <img
-          src={preview}
+          src={typeof preview === 'string' ? preview : (preview as { src: string })?.src}
           alt="Song preview"
           className={styles.image}
           data-augmented-ui="tl-clip"

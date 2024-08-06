@@ -1,11 +1,13 @@
-import Player from '@repo/player';
-import ThemeWrapper from '@repo/design-system/ThemeWrapper';
+'use client'
 
-import Menu from '../Menu';
+import Player from '@repo/player'
+import ThemeWrapper from '@repo/design-system/ThemeWrapper'
 
-import styles from './CyberpunkApp.module.css';
+import Menu from '@/components/Menu'
 
-const CyberpunkApp = () => {
+import styles from './page.module.css'
+
+export default function Home() {
   return (
     <ThemeWrapper className={styles.themeWrapper}>
       <div className={styles.appContainer}>
@@ -19,7 +21,5 @@ const CyberpunkApp = () => {
         </div>
       </div>
     </ThemeWrapper>
-  );
-};
-
-export default CyberpunkApp;
+  )
+}

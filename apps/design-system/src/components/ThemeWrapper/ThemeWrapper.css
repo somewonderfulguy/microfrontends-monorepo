@@ -1,0 +1,44 @@
+:root {
+  --cb-yellow-base: 58, 100%, 48%;
+  --cb-yellow-alt-base: 73, 100%, 68%;
+  --cb-green-light-base: 149, 78%, 47%;
+  --cb-green-mid-base: 149, 71%, 27%;
+  --cb-green-dark-base: 146, 29%, 11%;
+  --cb-turquoise-base: 184, 100%, 50%;
+  --cb-turquoise-lighter-base: 180, 100%, 50%;
+  --cb-turquoise-light-white-base: 180, 100%, 94.5%;
+  --cb-turquoise-darker-base: 184, 51%, 24%;
+  --cb-red-vivid-base: 349, 99%, 50%;
+  --cb-red-mid-base: 2, 71%, 56%;
+  --cb-red-base: 3, 100%, 67%;
+  --cb-white-base: 0, 0%, 100%;
+  --cb-black-base: 0, 0%, 0%;
+  --cb-midnight-navy-base: 240, 50%, 6%;
+  --cb-darkest-gray-base: 300, 18%, 8%;
+
+  --cb-yellow-main: hsl(var(--cb-yellow-base));
+  --cb-yellow-alt: hsl(var(--cb-yellow-alt-base));
+  --cb-green-light: hsl(var(--cb-green-light-base));
+  --cb-green-mid: hsl(var(--cb-green-mid-base));
+  --cb-green-dark: hsl(var(--cb-green-dark-base));
+  --cb-red: hsl(var(--cb-red-base));
+  --cb-red-mid: hsl(var(--cb-red-mid-base));
+  --cb-red-vivid: hsl(var(--cb-red-vivid-base));
+  --cb-turquoise: hsl(var(--cb-turquoise-base));
+  --cb-turquoise-lighter: hsl(var(--cb-turquoise-lighter-base));
+  --cb-turquoise-light-white: hsl(var(--cb-turquoise-light-white-base));
+  --cb-turquoise-darker: hsl(var(--cb-turquoise-darker-base));
+  --cb-black: hsl(var(--cb-black-base));
+  --cb-white: hsl(var(--cb-white-base));
+  --cb-midnight-navy: hsl(var(--cb-midnight-navy-base));
+  --cb-darkest-gray: hsl(var(--cb-darkest-gray-base));
+
+  /* darkRed gradient bg */
+  --cb-darkRed-background-gradient-start: 355, 54%, 18%;
+  --cb-darkRed-background-gradient-end: 213, 47%, 4%;
+  --cb-darkRed-background-gradient: linear-gradient(
+    355deg,
+    hsl(var(--cb-darkRed-background-gradient-end)) 0%,
+    hsl(var(--cb-darkRed-background-gradient-start)) 100%
+  );
+}

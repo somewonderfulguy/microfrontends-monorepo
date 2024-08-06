@@ -6,18 +6,18 @@
 
   display: flex;
 
-  .tabListContainer {
+  & .tabListContainer {
     overflow: auto;
   }
 
-  [data-reach-tab-list] {
+  & [data-reach-tab-list] {
     flex-direction: column;
     gap: 23px;
     padding: 0;
     width: 100%;
     overflow: auto;
 
-    [data-reach-tab] {
+    & [data-reach-tab] {
       font-family: 'Blender Pro Bold', sans-serif;
       text-align: left;
       font-size: 32px;
@@ -98,7 +98,7 @@
       }
     }
   }
-  [data-reach-tab-panel] {
+  & [data-reach-tab-panel] {
     color: var(--cb-text-color);
 
     &:focus-visible {

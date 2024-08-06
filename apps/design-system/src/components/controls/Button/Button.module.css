@@ -174,7 +174,7 @@
   text-shadow: 0 0 21px transparent, 0 0 42px transparent, 0 0 82px transparent,
     0 0 92px transparent, 0 0 102px transparent, 0 0 151px transparent;
 
-  > * {
+  & > * {
     display: block;
     margin: 0 auto;
   }
