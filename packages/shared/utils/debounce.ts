@@ -1,4 +1,4 @@
-import { AnyFunctionType } from '~types/common'
+import { AnyFunctionType } from '../types/common'
 
 const debounce = <TFunc extends AnyFunctionType>(
   func: TFunc,

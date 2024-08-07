@@ -45,10 +45,9 @@ const request = <TReturnValue>(
         const blob = await response.blob()
         const contentDisposition = response.headers.get('Content-Disposition')
 
-        if (contentDisposition && contentDisposition.includes('filename=')) {
-          const fileName = contentDisposition
-            .split('filename=')[1]
-            .split(';')[0]
+        if (contentDisposition?.includes('filename=')) {
+          const fileName =
+            contentDisposition.split('filename=')?.[1]?.split(';')[0] ?? ''
           data = new File([blob], fileName)
         } else {
           data = blob
