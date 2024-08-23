@@ -25,7 +25,7 @@
     "tonweb": "^0.0.66"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.6.1",
+    "@chromatic-com/storybook": "1.7.0",
     "@repo/design-system": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/state": "workspace:*",
@@ -33,7 +33,7 @@
     "@storybook/addon-interactions": "^8.2.9",
     "@storybook/addon-links": "^8.2.9",
     "@storybook/blocks": "^8.2.9",
-    "@storybook/nextjs": "^8.2.9",
+    "@storybook/nextjs": "^8.2.7",
     "@storybook/react": "^8.2.9",
     "@storybook/test": "^8.2.9",
     "@svgr/webpack": "^8.1.0",
