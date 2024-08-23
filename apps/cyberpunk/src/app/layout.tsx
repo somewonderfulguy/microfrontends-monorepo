@@ -8,7 +8,10 @@ import '@repo/design-system/styles/fonts.css'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Cyberpunk'
+  title: 'Cyberpunk',
+  icons: {
+    icon: '/favicon.svg'
+  }
 }
 
 type Props = {
