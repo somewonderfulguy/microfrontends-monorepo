@@ -96,16 +96,12 @@ const CryptoApp = () => {
 
   console.log(tonTokens)
 
-  const notcoin = tonTokens?.balances.find(
-    (balance) => balance.jetton.name === 'Notcoin'
-  )
+  const notcoin = tonTokens?.balances.find((balance) => balance.jetton.name === 'Notcoin')
   const notcoinRawBalance = +(notcoin?.balance ?? 0)
   const notBalance = notcoinRawBalance / 1e9
   const notInUst = notBalance * (rates?.notcoin.usd ?? 1)
 
-  const tonUsdt = tonTokens?.balances.find(
-    (balance) => balance.jetton.name === 'Tether USD'
-  )
+  const tonUsdt = tonTokens?.balances.find((balance) => balance.jetton.name === 'Tether USD')
   const tonUsdtDecimals = tonUsdt?.jetton.decimals ?? 0
   const tonUsdtBalance = +(tonUsdt?.balance ?? 0) / 10 ** tonUsdtDecimals
 
@@ -141,10 +137,7 @@ const CryptoApp = () => {
     <div className={styles.wrapper}>
       <div className={styles.head}>
         <h1 className={styles.h1}>Crypto Balance</h1>
-        <p
-          title={String(sum.ustFull + btcInUst)}
-          className={styles.overallBalance}
-        >
+        <p title={String(sum.ustFull + btcInUst)} className={styles.overallBalance}>
           {formatFiat(sum.ustFull + btcInUst + tonInUst + solInUst, 'usd')}
         </p>
       </div>
@@ -168,9 +161,7 @@ const CryptoApp = () => {
             </span>
           </p>
           <div title={String(btc)}>{btc.toFixed(4)} BTC</div>
-          <div title={formatFiat(btcInUst, 'usd')}>
-            {formatFiat(btcInUst, 'usd')}
-          </div>
+          <div title={formatFiat(btcInUst, 'usd')}>{formatFiat(btcInUst, 'usd')}</div>
 
           <h2 className={classNames(styles.h2, styles.headerSpace)}>
             Solana <span className={styles.titleNote}>SOL</span>
@@ -234,26 +225,14 @@ const CryptoApp = () => {
           <div title={String(sum.ustFull)}>{sum.ustShort}</div>
           <div className={styles.balances}>
             <div>
-              <EthEntry
-                label="Mainnet"
-                balanceWei={etherBalance?.result ?? '0'}
-              />
-              <EthEntry
-                label="Optimism"
-                balanceWei={optimismBalance?.result ?? '0'}
-              />
+              <EthEntry label="Mainnet" balanceWei={etherBalance?.result ?? '0'} />
+              <EthEntry label="Optimism" balanceWei={optimismBalance?.result ?? '0'} />
               <EthEntry label="Zora" balanceWei={zoraBalance?.result ?? '0'} />
             </div>
             <div>
-              <EthEntry
-                label="Blast"
-                balanceWei={blastBalance?.result ?? '0'}
-              />
+              <EthEntry label="Blast" balanceWei={blastBalance?.result ?? '0'} />
               <EthEntry label="Base" balanceWei={baseBalance?.result ?? '0'} />
-              <EthEntry
-                label="Scroll"
-                balanceWei={scrollBalance?.result ?? '0'}
-              />
+              <EthEntry label="Scroll" balanceWei={scrollBalance?.result ?? '0'} />
             </div>
           </div>
         </div>
@@ -275,9 +254,7 @@ const CryptoApp = () => {
               {tonWallet.slice(0, 7)}...{tonWallet.slice(-5)}
             </span>
           </p>
-          <div title={String(tonRawBalance)}>
-            {tonRawBalance.toFixed(4)} TON
-          </div>
+          <div title={String(tonRawBalance)}>{tonRawBalance.toFixed(4)} TON</div>
           <div title={String(tonInUst)}>{formatFiat(tonInUst, 'usd')}</div>
 
           <h2 className={classNames(styles.h2, styles.headerSpace)}>
@@ -296,9 +273,7 @@ const CryptoApp = () => {
               {tonWallet.slice(0, 7)}...{tonWallet.slice(-5)}
             </span>
           </p>
-          <div title={String(notcoinRawBalance)}>
-            {notBalance.toFixed(4)} NOT
-          </div>
+          <div title={String(notcoinRawBalance)}>{notBalance.toFixed(4)} NOT</div>
           <div title={String(notInUst)}>{formatFiat(notInUst, 'usd')}</div>
         </div>
       </div>
