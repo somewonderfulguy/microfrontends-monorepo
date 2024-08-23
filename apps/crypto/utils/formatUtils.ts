@@ -1,4 +1,4 @@
-import { FiatKey } from '../api/balance/balanceTypes'
+import { FiatKey } from '../apiClient/balance/balanceTypes'
 
 const fiatToLocale = new Map<FiatKey, string>([
   ['usd', 'en-US'],

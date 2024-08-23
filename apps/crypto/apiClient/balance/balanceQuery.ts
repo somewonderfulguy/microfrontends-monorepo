@@ -1,6 +1,13 @@
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 
-import { ToUsd, EthScan, BtcScan, SolScan } from './balanceTypes'
+import {
+  ToUsd,
+  EthScan,
+  BtcScan,
+  TonScan,
+  SolScan,
+  NotScan
+} from './balanceTypes'
 import {
   getBlastBalance,
   getBtcBalance,
@@ -10,6 +17,8 @@ import {
   getOptimismBalance,
   getBaseBalance,
   getZoraBalance,
+  getTonBalance,
+  getTonTokens,
   getSolBalance
 } from './balanceApi'
 
@@ -89,6 +98,26 @@ export const useGetZoraBalance = (
   useQuery<EthScan>({
     queryKey: ['zoraBalance', address],
     queryFn: () => getZoraBalance(address),
+    ...options
+  })
+
+export const useGetTonBalance = (
+  address: string,
+  options: QueryOptions<TonScan> = {}
+) =>
+  useQuery<TonScan>({
+    queryKey: ['tonBalance', address],
+    queryFn: () => getTonBalance(address),
+    ...options
+  })
+
+export const useTonTokens = (
+  address: string,
+  options: QueryOptions<NotScan> = {}
+) =>
+  useQuery<NotScan>({
+    queryKey: ['notBalance', address],
+    queryFn: () => getTonTokens(address),
     ...options
   })
 

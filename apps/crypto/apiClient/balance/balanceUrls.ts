@@ -22,11 +22,15 @@ export const getBtcBalanceUrl = (address: string) =>
 // arbitrum
 // polygon
 
-export const solanaBaseUrl = 'https://api.mainnet-beta.solana.com'
+export const getTonBalanceUrl = (address: string) =>
+  `https://toncenter.com/api/v2/getAddressBalance?address=${address}`
+
+export const getTonTokensUrl = (address: string) =>
+  `https://keeper.tonapi.io/v2/accounts/${encodeURIComponent(address)}/jettons?currencies=USD&supported_extensions=custom_payload`
+
+export const getSolanaBaseUrl = (address: string) =>
+  `/api/solana?address=${address}`
 
 // mantle
-
-// ton
-// not
 
 export const getRatesCoingeckoUrl = `https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,notcoin,the-open-network,mantle&vs_currencies=usd,uah,gbp,eur,pln,jpy`
