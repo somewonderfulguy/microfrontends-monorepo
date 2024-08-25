@@ -1,3 +1,5 @@
+'use client'
+
 import { CSSProperties, HTMLAttributes, useState } from 'react'
 
 import useResizeObserver from '@repo/shared/hooks/useResizeObserver'

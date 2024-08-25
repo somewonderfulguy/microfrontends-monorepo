@@ -15,7 +15,7 @@ importers:
   apps/crypto:
     dependencies:
       '@tanstack/react-query':
-        specifier: ^5.39.0
+        specifier: ^5.52.1
         version: 5.52.1(react@18.3.1)
       augmented-ui:
         specifier: ^2.0.0
@@ -105,6 +105,9 @@ importers:
 
   apps/cyberpunk:
     dependencies:
+      '@repo/crypto':
+        specifier: workspace:*
+        version: link:../crypto
       '@repo/design-system':
         specifier: workspace:*
         version: link:../design-system
@@ -117,6 +120,9 @@ importers:
       '@repo/state':
         specifier: workspace:*
         version: link:../../packages/state
+      '@tanstack/react-query':
+        specifier: ^5.52.1
+        version: 5.52.1(react@18.3.1)
       augmented-ui:
         specifier: ^2.0.0
         version: 2.0.0
@@ -208,7 +214,7 @@ importers:
         version: 1.7.0(react@18.3.1)
       '@laynezh/vite-plugin-lib-assets':
         specifier: ^0.5.21
-        version: 0.5.23(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 0.5.23(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       '@repo/state':
         specifier: workspace:*
         version: link:../../packages/state
@@ -241,7 +247,7 @@ importers:
         version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)
       '@storybook/react-vite':
         specifier: ^8.0.7
-        version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       '@storybook/test':
         specifier: ^8.0.7
         version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
@@ -262,7 +268,7 @@ importers:
         version: 7.18.0(eslint@8.57.0)(typescript@5.5.4)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.3.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 4.3.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       augmented-ui:
         specifier: ^2.0.0
         version: 2.0.0
@@ -298,13 +304,13 @@ importers:
         version: 5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6)
       vite-plugin-dts:
         specifier: ^3.7.3
-        version: 3.9.1(@types/node@20.16.1)(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 3.9.1(@types/node@20.16.1)(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       vite-plugin-lib-inject-css:
         specifier: ^2.0.0
-        version: 2.1.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 2.1.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       vite-plugin-svgr:
         specifier: ^4.2.0
-        version: 4.2.0(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 4.2.0(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
 
   apps/player:
     dependencies:
@@ -344,7 +350,7 @@ importers:
         version: 1.4.0(react@18.3.1)
       '@laynezh/vite-plugin-lib-assets':
         specifier: ^0.5.21
-        version: 0.5.23(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 0.5.23(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       '@repo/state':
         specifier: workspace:*
         version: link:../../packages/state
@@ -368,7 +374,7 @@ importers:
         version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)
       '@storybook/react-vite':
         specifier: ^8.1.1
-        version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       '@storybook/test':
         specifier: ^8.1.1
         version: 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
@@ -389,7 +395,7 @@ importers:
         version: 7.18.0(eslint@8.57.0)(typescript@5.5.4)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.3.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 4.3.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -422,13 +428,13 @@ importers:
         version: 5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6)
       vite-plugin-dts:
         specifier: ^3.7.3
-        version: 3.9.1(@types/node@20.16.1)(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 3.9.1(@types/node@20.16.1)(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       vite-plugin-lib-inject-css:
         specifier: ^2.0.0
-        version: 2.1.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 2.1.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       vite-plugin-svgr:
         specifier: ^4.2.0
-        version: 4.2.0(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 4.2.0(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
 
   packages/shared:
     dependencies:
@@ -441,7 +447,7 @@ importers:
     devDependencies:
       '@laynezh/vite-plugin-lib-assets':
         specifier: ^0.5.21
-        version: 0.5.23(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 0.5.23(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       '@types/react':
         specifier: ^18.2.66
         version: 18.3.4
@@ -456,7 +462,7 @@ importers:
         version: 7.18.0(eslint@8.57.0)(typescript@5.5.4)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.3.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 4.3.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -474,10 +480,10 @@ importers:
         version: 5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6)
       vite-plugin-dts:
         specifier: ^3.7.3
-        version: 3.9.1(@types/node@20.16.1)(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 3.9.1(@types/node@20.16.1)(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       vite-plugin-lib-inject-css:
         specifier: ^2.0.0
-        version: 2.1.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 2.1.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
 
   packages/state:
     dependencies:
@@ -505,7 +511,7 @@ importers:
         version: 7.18.0(eslint@8.57.0)(typescript@5.5.4)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.3.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+        version: 4.3.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -7715,6 +7721,9 @@ packages:
   tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
+  tslib@2.7.0:
+    resolution: {integrity: sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==}
+
   tsutils@3.21.0:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
@@ -9627,7 +9636,7 @@ snapshots:
       password-prompt: 1.1.3
       sudo-prompt: 8.2.5
       tmp: 0.0.33
-      tslib: 2.6.3
+      tslib: 2.7.0
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -9922,7 +9931,7 @@ snapshots:
       '@types/yargs': 17.0.33
       chalk: 4.1.2
 
-  '@joshwooding/vite-plugin-react-docgen-typescript@0.3.1(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))':
+  '@joshwooding/vite-plugin-react-docgen-typescript@0.3.1(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))':
     dependencies:
       glob: 7.2.3
       glob-promise: 4.2.2(glob@7.2.3)
@@ -9954,7 +9963,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@laynezh/vite-plugin-lib-assets@0.5.23(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))':
+  '@laynezh/vite-plugin-lib-assets@0.5.23(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))':
     dependencies:
       escape-string-regexp: 4.0.0
       loader-utils: 3.3.1
@@ -11036,7 +11045,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))':
+  '@storybook/builder-vite@8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))':
     dependencies:
       '@storybook/csf-plugin': 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))
       '@types/find-cache-dir': 3.2.1
@@ -11351,11 +11360,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2))
 
-  '@storybook/react-vite@8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))':
+  '@storybook/react-vite@8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.21.0)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))':
     dependencies:
-      '@joshwooding/vite-plugin-react-docgen-typescript': 0.3.1(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+      '@joshwooding/vite-plugin-react-docgen-typescript': 0.3.1(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
-      '@storybook/builder-vite': 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))
+      '@storybook/builder-vite': 8.2.9(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))
       '@storybook/react': 8.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.9(@babel/preset-env@7.25.4(@babel/core@7.25.2)))(typescript@5.5.4)
       find-up: 5.0.0
       magic-string: 0.30.11
@@ -12045,7 +12054,7 @@ snapshots:
       wonka: 4.0.15
     optional: true
 
-  '@vitejs/plugin-react@4.3.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6))':
+  '@vitejs/plugin-react@4.3.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.25.2)
@@ -12447,7 +12456,7 @@ snapshots:
 
   ast-types@0.15.2:
     dependencies:
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   ast-types@0.16.1:
     dependencies:
@@ -14499,7 +14508,7 @@ snapshots:
   graphql-tag@2.12.6(graphql@15.8.0):
     dependencies:
       graphql: 15.8.0
-      tslib: 2.6.3
+      tslib: 2.7.0
     optional: true
 
   graphql@15.8.0:
@@ -16812,7 +16821,7 @@ snapshots:
       ast-types: 0.15.2
       esprima: 4.0.1
       source-map: 0.6.1
-      tslib: 2.6.3
+      tslib: 2.7.0
 
   recast@0.23.9:
     dependencies:
@@ -17742,6 +17751,8 @@ snapshots:
 
   tslib@2.6.3: {}
 
+  tslib@2.7.0: {}
+
   tsutils@3.21.0(typescript@5.5.4):
     dependencies:
       tslib: 1.14.1
@@ -18017,7 +18028,7 @@ snapshots:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  vite-plugin-dts@3.9.1(@types/node@20.16.1)(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6)):
+  vite-plugin-dts@3.9.1(@types/node@20.16.1)(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6)):
     dependencies:
       '@microsoft/api-extractor': 7.43.0(@types/node@20.16.1)
       '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
@@ -18034,14 +18045,14 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-lib-inject-css@2.1.1(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6)):
+  vite-plugin-lib-inject-css@2.1.1(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6)):
     dependencies:
       '@ast-grep/napi': 0.22.6
       magic-string: 0.30.11
       picocolors: 1.0.1
       vite: 5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6)
 
-  vite-plugin-svgr@4.2.0(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(terser@5.31.6)):
+  vite-plugin-svgr@4.2.0(rollup@4.21.0)(typescript@5.5.4)(vite@5.4.2(@types/node@20.16.1)(lightningcss@1.19.0)(terser@5.31.6)):
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
       '@svgr/core': 8.1.0(typescript@5.5.4)

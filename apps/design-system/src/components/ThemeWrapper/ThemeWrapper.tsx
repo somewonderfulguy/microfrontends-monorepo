@@ -1,3 +1,5 @@
+'use client'
+
 import { HTMLAttributes, useLayoutEffect } from 'react'
 
 import classNames from '@repo/shared/utils/classNames'

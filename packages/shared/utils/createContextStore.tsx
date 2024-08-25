@@ -1,3 +1,5 @@
+'use client'
+
 import {
   useRef,
   createContext,
@@ -126,7 +128,7 @@ const createContextStore = <TStore,>(
     useStoreValue,
     useStoreDispatch,
     StoreValueContext,
-    StoreDispatchContext,
+    StoreDispatchContext
   }
 }
 

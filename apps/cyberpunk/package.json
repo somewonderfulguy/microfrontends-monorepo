@@ -14,10 +14,12 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@repo/crypto": "workspace:*",
     "@repo/design-system": "workspace:*",
     "@repo/player": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/state": "workspace:*",
+    "@tanstack/react-query": "^5.52.1",
     "augmented-ui": "^2.0.0",
     "next": "14.2.5",
     "react": "^18",

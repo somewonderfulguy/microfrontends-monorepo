@@ -19,7 +19,7 @@ import {
 } from '../apiClient/balance'
 import { formatFiat } from '../utils'
 
-import styles from './page.module.css'
+import styles from './Crypto.module.css'
 
 const btcWallet = 'bc1qq4kl5p65gl4e6x3v3chnu9tlsh4sejkldpeunk'
 const ethWallet = '0x118826f0444E3973Ce14B6C43A7899334293904f'
@@ -94,8 +94,6 @@ const CryptoApp = () => {
   const { data: tonBalance } = useGetTonBalance(tonWallet)
   const { data: tonTokens } = useTonTokens(tonRawHexAddress)
 
-  console.log(tonTokens)
-
   const notcoin = tonTokens?.balances.find((balance) => balance.jetton.name === 'Notcoin')
   const notcoinRawBalance = +(notcoin?.balance ?? 0)
   const notBalance = notcoinRawBalance / 1e9
@@ -104,8 +102,6 @@ const CryptoApp = () => {
   const tonUsdt = tonTokens?.balances.find((balance) => balance.jetton.name === 'Tether USD')
   const tonUsdtDecimals = tonUsdt?.jetton.decimals ?? 0
   const tonUsdtBalance = +(tonUsdt?.balance ?? 0) / 10 ** tonUsdtDecimals
-
-  console.log('dollars', tonUsdtBalance)
 
   const tonRawBalance = +(tonBalance?.result ?? 0) / 1_000_000_000 // 1e9
   const tonInUst = tonRawBalance * (rates?.['the-open-network'].usd ?? 1)
@@ -117,9 +113,6 @@ const CryptoApp = () => {
   const btc = (btcBalance?.final_balance ?? 0) / 1e8
   const btcRate = rates?.bitcoin.usd ?? NaN
   const btcInUst = btc * btcRate
-
-  const { ethFull } = getEth(etherBalance?.result ?? '0')
-  // const { ustFull } = getEthInUst(ethFull, rates?.ethereum.usd ?? NaN)
 
   const sum = getSumEth(
     [
@@ -138,7 +131,7 @@ const CryptoApp = () => {
       <div className={styles.head}>
         <h1 className={styles.h1}>Crypto Balance</h1>
         <p title={String(sum.ustFull + btcInUst)} className={styles.overallBalance}>
-          {formatFiat(sum.ustFull + btcInUst + tonInUst + solInUst, 'usd')}
+          {formatFiat(sum.ustFull + btcInUst + tonInUst + solInUst + tonUsdtBalance, 'usd')}
         </p>
       </div>
 
@@ -257,24 +250,18 @@ const CryptoApp = () => {
           <div title={String(tonRawBalance)}>{tonRawBalance.toFixed(4)} TON</div>
           <div title={String(tonInUst)}>{formatFiat(tonInUst, 'usd')}</div>
 
-          <h2 className={classNames(styles.h2, styles.headerSpace)}>
-            NOT <span className={styles.titleNote}>NOT</span>
-          </h2>
+          <h3 className={classNames(styles.h3, styles.headerSpace)}>NOT</h3>
           <p className={styles.cryptoCurrencyPrice}>
             Price:{' '}
             {formatFiat(rates?.notcoin.usd ?? 0, 'usd', {
               maximumSignificantDigits: 21
             })}
           </p>
-          <p style={{ marginBottom: 16 }}>
-            Wallet:{' '}
-            <span title={tonWallet}>
-              {/* TODO: add copy */}
-              {tonWallet.slice(0, 7)}...{tonWallet.slice(-5)}
-            </span>
-          </p>
           <div title={String(notcoinRawBalance)}>{notBalance.toFixed(4)} NOT</div>
           <div title={String(notInUst)}>{formatFiat(notInUst, 'usd')}</div>
+
+          <h3 className={classNames(styles.h3, styles.headerSpace)}>Tether USD</h3>
+          <div title={String(tonUsdtBalance)}>{tonUsdtBalance.toFixed(2)} USDT</div>
         </div>
       </div>
     </div>

@@ -30,15 +30,6 @@
   justify-content: end;
 }
 
-.player {
+.pageContainer {
   height: calc(100% - var(--header-height));
-}
-
-.themeWrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--cb-primary-color);
 }
