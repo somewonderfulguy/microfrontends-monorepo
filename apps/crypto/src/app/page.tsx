@@ -81,6 +81,8 @@ const EthEntry = ({ balanceWei, label }: Props) => {
   )
 }
 
+const initialData = { balance: 0, balanceShort: 0 }
+
 const CryptoApp = () => {
   const { data: rates } = useGetRatesCoingecko()
   const { data: etherBalance } = useGetEtherBalance(ethWallet)
@@ -89,7 +91,7 @@ const CryptoApp = () => {
   const { data: optimismBalance } = useGetOptimismBalance(ethWallet)
   const { data: baseBalance } = useGetBaseBalance(ethWallet)
   const { data: zoraBalance } = useGetZoraBalance(ethWallet)
-  const { data: btcBalance } = useGetBtcBalance(btcWallet)
+  const { data: { balance: btc, balanceShort: btcShort } = initialData } = useGetBtcBalance(btcWallet)
   const { data: solBalance } = useGetSolBalance(solWallet)
   const { data: tonBalance } = useGetTonBalance(tonWallet)
   const { data: tonTokens } = useTonTokens(tonRawHexAddress)
@@ -110,9 +112,8 @@ const CryptoApp = () => {
   const solInNative = solRawBalance / 1_000_000_000 // 1e9
   const solInUst = solInNative * (rates?.solana.usd ?? 1)
 
-  const btc = (btcBalance?.final_balance ?? 0) / 1e8
   const btcRate = rates?.bitcoin.usd ?? NaN
-  const btcInUst = btc * btcRate
+  const btcUst = btc * btcRate
 
   const sum = getSumEth(
     [
@@ -130,8 +131,8 @@ const CryptoApp = () => {
     <div className={styles.wrapper}>
       <div className={styles.head}>
         <h1 className={styles.h1}>Crypto Balance</h1>
-        <p title={String(sum.ustFull + btcInUst)} className={styles.overallBalance}>
-          {formatFiat(sum.ustFull + btcInUst + tonInUst + solInUst + tonUsdtBalance, 'usd')}
+        <p title={String(sum.ustFull + btcUst)} className={styles.overallBalance}>
+          {formatFiat(sum.ustFull + btcUst + tonInUst + solInUst + tonUsdtBalance, 'usd')}
         </p>
       </div>
 
@@ -153,8 +154,8 @@ const CryptoApp = () => {
               {btcWallet.slice(0, 7)}...{btcWallet.slice(-5)}
             </span>
           </p>
-          <div title={String(btc)}>{btc.toFixed(4)} BTC</div>
-          <div title={formatFiat(btcInUst, 'usd')}>{formatFiat(btcInUst, 'usd')}</div>
+          <div title={String(btc)}>{btcShort} BTC</div>
+          <div title={formatFiat(btcUst, 'usd')}>{formatFiat(btcUst, 'usd')}</div>
 
           <h2 className={classNames(styles.h2, styles.headerSpace)}>
             Solana <span className={styles.titleNote}>SOL</span>

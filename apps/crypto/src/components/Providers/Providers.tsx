@@ -11,7 +11,19 @@ type Props = {
   children: ReactNode
 }
 
-const queryClient = new QueryClient()
+// TODO: examine and adjust default options
+// refetchOnReconnect: "always",
+// refetchOnMount: false,
+// refetchOnWindowFocus: false,
+// retry: false,
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity
+    }
+  }
+})
 
 const Providers = ({ children }: Props) => {
   return (

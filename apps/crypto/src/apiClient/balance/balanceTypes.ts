@@ -1,4 +1,5 @@
 export type FiatKey = 'usd' | 'uah' | 'gbp' | 'eur' | 'pln' | 'jpy'
+// eslint-disable-next-line no-unused-vars
 type Fiat = { [key in FiatKey]: number }
 export type ToUsd = {
   // keep in alphabetical order
@@ -8,6 +9,13 @@ export type ToUsd = {
   notcoin: Fiat
   solana: Fiat
   'the-open-network': Fiat
+}
+
+export type TransformedBalance = {
+  /** Human readable value (already processed, meaning, divided by 1e8 or 1e9). Full value with all decimals. */
+  balance: number
+  /** Human readable value (already processed, meaning, divided by 1e8 or 1e9). Short value with 2 decimals. */
+  balanceShort: number
 }
 
 export type EthScan = {
@@ -33,7 +41,7 @@ export type TonScan = {
   result: string
 }
 
-export type NotScan = {
+export type TonJettonsScan = {
   balances: Array<{
     balance: string
     price: {
